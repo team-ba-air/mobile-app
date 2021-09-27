@@ -27,6 +27,7 @@ import {
 
 import Navigator from 'navigations'
 
+
 type SectionProps = {
   children: any
   title: any
