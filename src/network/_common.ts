@@ -36,8 +36,8 @@ const useGet = <TResponse, TRequest>(
     setLoading(true)
     axios.get(getApiFullEndpoint(endpoint), { params })
       .then((res: AxiosResponse<PublicAPIResponse<TResponse>>) => {
-        if(!!res.data.data) {
-          setData(res.data.data)
+        if(!!res.data.body) {
+          setData(res.data.body)
         } else {
           setError(res.data.error)
         }
@@ -80,8 +80,8 @@ const usePost = <TResponse, TRequest>(
           data: param,
         })
           .then((res: AxiosResponse<PublicAPIResponse<TResponse>>) => {
-            if(!!res.data.data) {
-              resolve(res.data.data)
+            if(!!res.data.body) {
+              resolve(res.data.body)
             } else {
               setError(res.data.error)
               resolve(undefined)
