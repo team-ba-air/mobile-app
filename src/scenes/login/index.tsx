@@ -4,7 +4,7 @@ import { Button, Text } from 'react-native';
 import {SafeAreaView} from 'react-navigation';
 import { yupResolver } from '@hookform/resolvers/yup'
 import { loginSchema } from './schema/loginSchema';
-import { UserForm } from './schema/LoginForm';
+import { LoginForm } from './schema/LoginForm';
 import { TextInput } from 'react-native-gesture-handler';
 import { useLogin } from 'network/authorization';
 
@@ -17,7 +17,7 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
     password: '',
   }
 
-  const formMethods = useForm<UserForm>({
+  const formMethods = useForm<LoginForm>({
     resolver: yupResolver(loginSchema),
     defaultValues: formInitialValues, 
     reValidateMode: 'onChange',
@@ -28,7 +28,7 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
     handleSubmit: handleFormSubmit,
   } = formMethods
 
-  const handleLogin = (data: UserForm) => {
+  const handleLogin = (data: LoginForm) => {
     doFetch(data).then((user) => {
       console.log(user)
     })
