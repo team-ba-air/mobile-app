@@ -1,10 +1,18 @@
+import Navbar from "components/Navbar"
+import React from "react"
 import { createStackNavigator } from "react-navigation-stack"
 import HomeScreen from "scenes/home"
 import LoginScreen from "scenes/login"
 
 const AppNavigatorConfig = {
-  initialRouteName: 'Login',
+  initialRouteName: 'Onboarding',
   header: null,
+}
+
+const getNavbar = () => {
+  return {
+    headerTitle: () => <Navbar />
+  }
 }
 
 const RouteConfigs = {
@@ -13,7 +21,8 @@ const RouteConfigs = {
   },
   Login: {
     screen: LoginScreen,
-  }
+    navigationOptions: getNavbar
+  },
 }
 
 const AppNavigator = createStackNavigator(RouteConfigs, AppNavigatorConfig)

@@ -17,6 +17,9 @@
       "@components/*": ["src/components/*"],
       "@navigation/*": ["src/navigations/*"],
       "@scene/*": ["src/navigations/*"],
+      "@utils/*": ["src/utils/*"],
+      "@styles/*": ["src/styles/*"],
+      "@assets/*": ["src/assets/*"],
     },
   },
   "exclude": [

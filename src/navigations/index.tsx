@@ -1,12 +1,14 @@
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import AppNavigator from "./app-navigator";
+import OnboardingNavigator from "./onboarding-navigator";
 
 const RootNavigator = createSwitchNavigator(
   {
-    App: AppNavigator,
+    Onboarding: OnboardingNavigator,
+    // App: AppNavigator,
   },
   {
-    initialRouteName: 'App',
+    initialRouteName: 'Onboarding',
   }
 )
 
