@@ -1,4 +1,4 @@
-export const text = {
+export const Text = {
   heading: {
     36: 36,
     32: 32,
