@@ -5,7 +5,7 @@ import OnboardingNavigator from "./onboarding-navigator";
 const RootNavigator = createSwitchNavigator(
   {
     Onboarding: OnboardingNavigator,
-    // App: AppNavigator,
+    App: AppNavigator,
   },
   {
     initialRouteName: 'Onboarding',
