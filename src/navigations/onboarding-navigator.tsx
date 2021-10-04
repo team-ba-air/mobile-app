@@ -4,14 +4,15 @@ import { createStackNavigator } from "react-navigation-stack"
 import EmailOnboarding from "scenes/onboarding/EmailOnboarding"
 import StartOnboarding from "scenes/onboarding/StartOnboarding"
 
-const OnboardingNavigatorConfig = {
+const OnboardingNavigatorConfig  = {
   initialRouteName: 'StartOnboarding',
   header: null,
 }
 
 const getNavbar = () => {
   return {
-    headerTitle: () => <Navbar />
+    headerTitle: () => <Navbar />,
+    headerLeft: null,
   }
 }
 

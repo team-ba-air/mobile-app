@@ -5,7 +5,7 @@ import HomeScreen from "scenes/home"
 import LoginScreen from "scenes/login"
 
 const AppNavigatorConfig = {
-  initialRouteName: 'Onboarding',
+  initialRouteName: 'Login',
   header: null,
 }
 
