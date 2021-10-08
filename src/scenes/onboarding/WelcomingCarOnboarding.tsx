@@ -2,18 +2,20 @@ import AppContainer from 'components/AppContainer';
 import CustomButton from 'components/CustomButton';
 import Dropdown from 'components/Dropdown';
 import { AuthorizationContext } from 'context/AuthorizationProvider';
+import navigations from 'navigations';
+import { SCREENS } from 'navigations/constants';
 import React, { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
 
 interface WelcomingCarOnboardingProps {
-  
+  navigation: any
 }
 
 
  
-const WelcomingCarOnboarding: React.FC<WelcomingCarOnboardingProps> = () => {
+const WelcomingCarOnboarding: React.FC<WelcomingCarOnboardingProps> = ({ navigation }) => {
   const { name } = useContext(AuthorizationContext)
 
   return ( 
@@ -24,7 +26,7 @@ const WelcomingCarOnboarding: React.FC<WelcomingCarOnboardingProps> = () => {
         <Text style={styles.body}>Ayo masukan informasi mobil Anda!</Text>
       </View>
       <View>
-        <CustomButton title={'Tambah Info Mobil'} />
+        <CustomButton onPress={() => navigation.navigate(SCREENS.onboarding.addInfoCar)} title={'Tambah Info Mobil'} />
         <CustomButton style={styles.buttonLater} type='secondary' title={'Nanti Dulu'} />
       </View>
     </AppContainer>

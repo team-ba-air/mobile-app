@@ -1,5 +1,6 @@
 import React from 'react'
 import { GestureResponderEvent, StyleSheet, StyleSheetProperties, Text, Touchable, View } from 'react-native';
+import { Button } from 'react-native-elements';
 import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
 
@@ -17,11 +18,7 @@ const CustomButton: React.FC<CustomButtonProps> = (props) => {
   const colorType = type === 'primary' ? styles.colorPrimary : styles.colorSecondary
 
   return ( 
-    <TouchableHighlight style={style} disabled={disabled} onPress={onPress} >
-      <View style={[styles.appButtonContainer, styleType, disabled && styles.disabled]}>
-        <Text style={[styles.appButtonText, colorType]}>{title}</Text>
-      </View>
-    </TouchableHighlight>
+    <Button disabled={disabled} containerStyle={style} buttonStyle={[styles.appButtonContainer, styleType]} titleStyle={[styles.appButtonText, colorType]} onPress={onPress} title={title} />
   )
 }
 

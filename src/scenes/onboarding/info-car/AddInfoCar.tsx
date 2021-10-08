@@ -1,58 +1,88 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import AppContainer from 'components/AppContainer';
+import CustomButton from 'components/CustomButton';
 import Dropdown from 'components/Dropdown';
-import React, { useState } from 'react'
+import { SCREENS } from 'navigations/constants';
+import React, { useEffect, useState } from 'react'
+import { Controller, useForm } from 'react-hook-form';
 import { FlatList, ListRenderItemInfo, StyleSheet, Text, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
+import { CarForm } from '../constants';
+import { carSchema } from '../schema/carSchema';
+import BrandCarBottomSheet from './components/BrandCarBottomSheet';
 
 interface AddInfoCarProps {
-  
+  navigation: any
 }
- 
-const defaultOptions = [
-  {
-    label: 'Toyota',
-    value: 'Toyota',
-  },
-  {
-    label: 'Daihatsu',
-    value: 'Daihatsu',
-  },
-  {
-    label: 'Nissan',
-    value: 'Nissan',
-  },
-]
 
-const AddInfoCar: React.FC<AddInfoCarProps> = () => {
+const AddInfoCar: React.FC<AddInfoCarProps> = ({ navigation }) => {
   const [selected, setSelected] = useState<string>('')
   const [modalVisible, setModalVisible] = useState<boolean>(false)
+  const [typeVisible, setTypeVisible] = useState<boolean>(false)
+  const [yearVisible, setYearVisible] = useState<boolean>(false)
+  const [platVisible, setPlatVisible] = useState<boolean>(false)
+
+  const [brand, setBrand] = useState('')
+  const [type, setType] = useState('')
+  const [year, setYear] = useState('')
+  const [plat, setPlat] = useState('')
+
+  const [disabled, setDisabled] = useState(true)
+
+  useEffect(() => {
+    if(brand === '' && type === '' && year === '' && plat === '') {
+      setDisabled(true)
+    } else {
+      setDisabled(false)
+    }
+  }, [brand, type, year, plat])
+
+  const handleForm = () => {
+    console.log({
+      brand,
+      type,
+      year,
+      plat
+    })
+
+    if(!disabled){
+      navigation.navigate(SCREENS.onboarding.carList)
+    }
+  } 
 
   return ( 
-    <AppContainer>
-      <Dropdown placeholder={'Mobil anda'} value={selected} onChangeVisible={setModalVisible} visible={modalVisible}
+    <AppContainer style={styles.container}>
+      <View>
+        <Text style={styles.title}>Tambah Info Mobil</Text>
+        <Dropdown style={styles.margin} placeholder={'Merek Mobil'} value={brand} onChangeVisible={setModalVisible} visible={modalVisible}
           modal={(
-            <View>
-              <Text style={styles.titleModal}>Pilih merek mobil Anda</Text>
-              <FlatList
-                keyExtractor={(item, index) => index.toString()}
-                data={defaultOptions}
-                renderItem={(option: ListRenderItemInfo<any>) => {
-                  return (
-                    <ListItem bottomDivider onPress={() => {
-                      console.log('On Pressed')
-                      setSelected(option.item.value)
-                      setModalVisible(false)
-                    }}>
-                      <Text style={styles.itemModal}>{option.item.label}</Text>
-                    </ListItem>
-                  )
-                }}
-              />
-            </View>
+            <BrandCarBottomSheet setVisible={setModalVisible} onSelect={setBrand} />
           )}
         />
+
+        <Dropdown style={styles.margin} placeholder={'Tipe'} value={type} onChangeVisible={setTypeVisible} visible={typeVisible}
+          modal={(
+            <BrandCarBottomSheet setVisible={setTypeVisible} onSelect={setType} />
+          )}
+        />
+
+        <Dropdown style={styles.margin} placeholder={'Tahun'} value={year} onChangeVisible={setYearVisible} visible={yearVisible}
+          modal={(
+            <BrandCarBottomSheet setVisible={setYearVisible} onSelect={setYear} />
+          )}
+        />
+
+        <Dropdown style={styles.margin} placeholder={'Plat Nomor'} value={plat} onChangeVisible={setPlatVisible} visible={platVisible}
+          modal={(
+            <BrandCarBottomSheet setVisible={setPlatVisible} onSelect={setPlat} />
+          )}
+        />
+      </View>
+      
+      <CustomButton disabled={disabled} onPress={handleForm} type='primary' title={'Simpan'}/>
+
     </AppContainer>
    );
 }
@@ -60,14 +90,15 @@ const AddInfoCar: React.FC<AddInfoCarProps> = () => {
 export default AddInfoCar;
 
 const styles = StyleSheet.create({
-  titleModal: {
-    fontSize: Sizing.text.body[16],
-    fontWeight: 'bold',
-    marginLeft: 16,
-    marginRight: 16,
+  title: {
+    fontSize: Sizing.text.heading[28],
+    fontWeight: 'bold'
   },
-  itemModal: {
-    fontSize: Sizing.text.body[14],
-    fontWeight: 'bold',
+  margin: {
+    marginTop: 16,
+  },
+  container: {
+    display: 'flex',
+    justifyContent: 'space-between',
   }
 })
