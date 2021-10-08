@@ -3,7 +3,8 @@ import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
 import { useGet } from 'network/_common';
 import React from 'react'
-import { Button, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { Button } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface StartOnboardingProps {
@@ -24,5 +25,5 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     justifyContent: 'flex-end',
-  }
+  },
 })

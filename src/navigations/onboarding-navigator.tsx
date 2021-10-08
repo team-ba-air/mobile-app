@@ -1,7 +1,9 @@
 import Navbar from "components/Navbar"
 import React from "react"
 import { createStackNavigator } from "react-navigation-stack"
+import CarList from "scenes/onboarding/car-list/CarList"
 import EmailOnboarding from "scenes/onboarding/EmailOnboarding"
+import AddInfoCar from "scenes/onboarding/info-car/AddInfoCar"
 import NameOnboarding from "scenes/onboarding/NameOnboarding"
 import PhoneOnboarding from "scenes/onboarding/PhoneOnboarding"
 import StartOnboarding from "scenes/onboarding/StartOnboarding"
@@ -39,7 +41,14 @@ const RouteConfigs = {
   WelcomingCarOnboarding: {
     screen: WelcomingCarOnboarding,
     navigationOptions: getNavbar,
-  }
+  },
+  AddInfoCar: {
+    screen: AddInfoCar,
+    navigationOptions: getNavbar,
+  },
+  CarList: {
+    screen: CarList,
+  },
 }
 
 const OnboardingNavigator = createStackNavigator(RouteConfigs, OnboardingNavigatorConfig)

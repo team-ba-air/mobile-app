@@ -6,7 +6,7 @@ import { Sizing } from 'styles/sizes';
 import BaseBottomSheet from './base/BaseBottomSheet';
 
 interface DropdownProps {
-  value: string
+  value?: string
   placeholder?: string
   size?: number
   style?: StyleProp<any>
@@ -16,7 +16,7 @@ interface DropdownProps {
 }
  
 const Dropdown: React.FC<DropdownProps> = (props) => {
-  const { value, placeholder, size = 16, style, onChangeVisible, visible, modal } = props
+  const { value = '', placeholder, size = 16, style, onChangeVisible, visible, modal } = props
   const stylePlaceholder = value === '' ? styles.placeholder : styles.value
 
   return ( 

@@ -5,5 +5,10 @@ export const SCREENS = {
     phone: 'PhoneOnboarding',
     name: 'NameOnboarding',
     welcomingCar: 'WelcomingCarOnboarding',
-  }
+    addInfoCar: 'AddInfoCar',
+    carList: 'CarList',
+  },
+  app: {
+    home: 'Home',
+  },
 }
