@@ -1,11 +1,8 @@
 import AppContainer from 'components/AppContainer';
 import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
-import { useGet } from 'network/_common';
 import React from 'react'
-import { StyleSheet, View } from 'react-native';
-import { Button } from 'react-native-elements';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { StyleSheet } from 'react-native';
 
 interface StartOnboardingProps {
   navigation: any
@@ -14,6 +11,7 @@ interface StartOnboardingProps {
 const StartOnboarding: React.FC<StartOnboardingProps> = ({ navigation }) => {
   return ( 
     <AppContainer style={styles.container}>
+      <CustomButton type='secondary' onPress={() => navigation.navigate(SCREENS.app.home)} title={'Home'} />
       <CustomButton type='primary' onPress={() => navigation.navigate(SCREENS.onboarding.email)} title={'Mulai'} />
     </AppContainer>
   )
