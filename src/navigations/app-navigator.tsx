@@ -18,6 +18,9 @@ const getNavbar = () => {
 const RouteConfigs = {
   Home: {
     screen: HomeScreen,
+    navigationOptions: {
+      header: null,
+    }
   },
   Login: {
     screen: LoginScreen,
