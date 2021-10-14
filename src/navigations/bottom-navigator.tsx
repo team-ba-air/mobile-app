@@ -1,10 +1,10 @@
 import React from 'react'
-import { Button } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { createBottomTabNavigator } from "react-navigation-tabs";
 import HomeScreen from "scenes/home";
+import ReservationNavigator from './reservation-navigator';
+import StartOnboarding from 'scenes/onboarding/StartOnboarding';
 
 const RouteConfig = {
   Home: {
@@ -18,8 +18,13 @@ const RouteConfig = {
   },
 }
 
-const BottomNavigator = createBottomTabNavigator(RouteConfig, {
-  initialRouteName: 'Home',
-})
+const BottomNavigator = createBottomTabNavigator()
 
-export default BottomNavigator
+const HomeNavigator = () => {
+  return <BottomNavigator.Navigator>
+      <BottomNavigator.Screen name='HomeTab' component={ReservationNavigator} />
+      <BottomNavigator.Screen name='History' component={StartOnboarding} />
+    </BottomNavigator.Navigator>
+}
+
+export default HomeNavigator

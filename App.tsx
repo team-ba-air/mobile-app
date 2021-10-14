@@ -12,13 +12,16 @@ import {
 } from 'react-native';
 import Navigator from 'navigations'
 import AuthorizationProvider from 'context/AuthorizationProvider';
+import { NavigationContainer } from '@react-navigation/native';
 
 type AppProps = {}
 
 const App: React.FC<AppProps> = () => {
   return (
     <AuthorizationProvider>
-      <Navigator />
+      <NavigationContainer>
+        <Navigator />
+      </NavigationContainer>
     </AuthorizationProvider>
   );
 };

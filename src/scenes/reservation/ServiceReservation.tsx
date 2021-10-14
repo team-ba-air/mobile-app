@@ -56,7 +56,7 @@ const ServiceReservation: React.FC<ServiceReservationProps> = () => {
         )}
       />
     </AppContainer>
-   );
+  );
 }
  
 export default ServiceReservation;
