@@ -1,20 +1,17 @@
 import AppContainer from 'components/AppContainer';
 import React, { useEffect } from 'react';
 import { StatusBar, StyleSheet, Text } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
 import CarServiceReservation from './components/CarServiceReservation';
 import PopularService from './components/PopularService';
 import TipsTrick from './components/TipsTrick';
 
-interface HomeScreenProps {}
+interface HomeScreenProps {
+  navigation: any
+}
 
-const HomeScreen: React.FC<HomeScreenProps> = () => {
-  // useEffect(() => {
-  //   StatusBar.setHidden(true, 'fade')
-  // }, [])
+const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   return <AppContainer style={styles.container}>
-    <CarServiceReservation />
+    <CarServiceReservation navigation={navigation} />
     <PopularService />
     <TipsTrick />
   </AppContainer>;
