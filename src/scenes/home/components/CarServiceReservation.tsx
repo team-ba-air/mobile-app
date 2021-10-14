@@ -1,15 +1,21 @@
+import { SCREENS } from 'navigations/constants'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { Card, Icon, Image } from 'react-native-elements'
+import { Button, Card, Icon, Image } from 'react-native-elements'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Color } from 'styles/colors'
 import { Sizing } from 'styles/sizes'
 import InfoLocation from './InfoLocation'
 
 interface CarServiceReservationProps {
-  
+  navigation: any
 }
  
-const CarServiceReservation: React.FC<CarServiceReservationProps> = () => {
+const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigation }) => {
+  const goToReservation = () => {
+    console.log('Go To Reservation')
+    navigation.navigate(SCREENS.reservation.serviceReservation)
+  }
   return ( 
     <View style={styles.containerCard}>
       {/* <InfoLocation /> */}
@@ -27,9 +33,10 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = () => {
           <View style={styles.detail}>
             <Text style={styles.detailText}>Lihat Detail</Text>
           </View>
-          <View style={styles.reservation}>
+          <Button onPress={goToReservation} title='Buat Reservasi' type='clear' />
+          {/* <View style={styles.reservation}>
             <Text style={styles.reservationText}>Buat Reservasi</Text>
-          </View>
+          </View> */}
         </View>
       </Card>
       <View style={{ flex: 0.6, backgroundColor: Color.blue[8] }}>

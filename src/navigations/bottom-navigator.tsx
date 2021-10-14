@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import HomeScreen from "scenes/app/home";
+import HomeScreen from "scenes/home";
 
 const RouteConfig = {
   Home: {
