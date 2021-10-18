@@ -20,11 +20,11 @@ const RouteConfig = {
 
 const BottomNavigator = createBottomTabNavigator()
 
-const HomeNavigator = () => {
+const AppNavigator = () => {
   return <BottomNavigator.Navigator>
-      <BottomNavigator.Screen name='HomeTab' component={ReservationNavigator} />
+      <BottomNavigator.Screen options={{ headerShown: false }} name='HomeTab' component={ReservationNavigator} />
       <BottomNavigator.Screen name='History' component={StartOnboarding} />
     </BottomNavigator.Navigator>
 }
 
-export default HomeNavigator
+export default AppNavigator

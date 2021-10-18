@@ -27,7 +27,7 @@ const WelcomingCarOnboarding: React.FC<WelcomingCarOnboardingProps> = ({ navigat
       </View>
       <View>
         <CustomButton onPress={() => navigation.navigate(SCREENS.onboarding.addInfoCar)} title={'Tambah Info Mobil'} />
-        <CustomButton onPress={() => navigation.navigate(SCREENS.app.home)} style={styles.buttonLater} type='secondary' title={'Nanti Dulu'} />
+        <CustomButton onPress={() => navigation.navigate(SCREENS.app.mainApp)} style={styles.buttonLater} type='secondary' title={'Nanti Dulu'} />
       </View>
     </AppContainer>
   );

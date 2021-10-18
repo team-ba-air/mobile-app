@@ -8,7 +8,7 @@ import NameOnboarding from 'scenes/onboarding/NameOnboarding';
 import WelcomingCarOnboarding from 'scenes/onboarding/WelcomingCarOnboarding';
 import AddInfoCar from 'scenes/onboarding/info-car/AddInfoCar';
 import CarList from 'scenes/onboarding/car-list/CarList';
-import HomeNavigator from './bottom-navigator';
+import HomeNavigator from './app-navigator';
 import Navbar from 'components/Navbar';
 
 const Stack = createStackNavigator();
@@ -23,7 +23,7 @@ const RootNavigator: React.FC<any> = () => {
       <Stack.Screen options={{ header: () => <Navbar />}} name='WelcomingCarOnboarding' component={WelcomingCarOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='AddInfoCar' component={AddInfoCar} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='CarList' component={CarList} />
-      <Stack.Screen options={{ headerShown: false }} name='Home' component={HomeNavigator} />
+      <Stack.Screen options={{ headerShown: false }} name='App' component={HomeNavigator} />
     </Stack.Navigator>
   )
 }
