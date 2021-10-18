@@ -9,9 +9,12 @@ export const SCREENS = {
     carList: 'CarList',
   },
   app: {
+    mainApp: 'App',
     home: 'Home',
   },
   reservation: {
     serviceReservation: 'ServiceReservation',
+    bengkelReservation: 'BengkelReservation',
+    bengkelFormReservation: 'BengkelFormReservation',
   },
 }

@@ -1,12 +1,13 @@
 import AppContainer from 'components/AppContainer';
+import { SCREENS } from 'navigations/constants';
 import React from 'react'
 import { ListRenderItemInfo, Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import { ServiceItem } from './constants';
 
 interface ServiceReservationProps {
-  
+  navigation: any
 }
 
 const serviceList: ServiceItem[] = [
@@ -37,7 +38,7 @@ const serviceList: ServiceItem[] = [
   },
 ]
 
-const ServiceReservation: React.FC<ServiceReservationProps> = () => {
+const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation }) => {
   return ( 
     <AppContainer>
       <View>
@@ -46,13 +47,16 @@ const ServiceReservation: React.FC<ServiceReservationProps> = () => {
       </View>
       <FlatList
         data={serviceList}
+        numColumns={3}
         renderItem={(item: ListRenderItemInfo<ServiceItem>) => (
-          <Card>
-            <Card.Image source={require(`@assets/servis_dasar.png`)} />
-            <View>
-              <Text>{item.item.label}</Text>
-            </View>
-          </Card>
+          <TouchableOpacity onPress={() => navigation.navigate(SCREENS.reservation.bengkelReservation, { service: item.item })}>
+            <Card>
+              <Card.Image source={require(`@assets/servis_dasar.png`)} />
+              <View>
+                <Text>{item.item.label}</Text>
+              </View>
+            </Card>
+          </TouchableOpacity>
         )}
       />
     </AppContainer>

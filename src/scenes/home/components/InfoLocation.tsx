@@ -10,7 +10,7 @@ interface InfoLocationProps {
  
 const InfoLocation: React.FC<InfoLocationProps> = () => {
   return ( 
-    <View>
+    <View style={{ backgroundColor: Color.blue[8] }}>
       <View>
         <Text style={{ fontSize: Sizing.text.subheading[18], color: Color.gray[0], fontWeight: 'bold' }}>Hi, Oto</Text>
       </View>
