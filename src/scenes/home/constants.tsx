@@ -8,3 +8,14 @@ export type TipsTrickItem = {
   title: string
   author: string
 }
+
+export type ReservationItem = {
+  bengkelName: string
+  bengkelLocation: string
+  serviceType: string
+  carType: string
+  plat: string
+  currentStep: number
+  totalStep: number
+  date: number
+}

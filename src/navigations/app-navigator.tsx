@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from "scenes/home";
 import ReservationNavigator from './reservation-navigator';
 import StartOnboarding from 'scenes/onboarding/StartOnboarding';
+import { SvgXml } from 'react-native-svg';
 
 const RouteConfig = {
   Home: {
