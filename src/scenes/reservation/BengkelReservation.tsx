@@ -1,9 +1,10 @@
 import { Route } from '@react-navigation/routers'
 import AppContainer from 'components/AppContainer'
+import { SCREENS } from 'navigations/constants'
 import React from 'react'
 import { ListRenderItemInfo, View } from 'react-native'
 import { Text } from 'react-native-elements'
-import { FlatList } from 'react-native-gesture-handler'
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import { Sizing } from 'styles/sizes'
 import BengkelListItem from './components/BengkelListItem'
 import { BengkelItem, ServiceItem } from './constants'
@@ -52,7 +53,9 @@ const BengkelReservation: React.FC<BengkelReservationProps> = ({ route, navigati
       <FlatList
         data={defaultValues}
         renderItem={(info: ListRenderItemInfo<BengkelItem>) => (
-          <BengkelListItem data={info.item} navigation={navigation} />
+          <TouchableOpacity onPress={() => navigation.navigate(SCREENS.reservation.bengkelFormReservation, { data: info.item })}>
+            <BengkelListItem data={info.item} />
+          </TouchableOpacity>
         )}
       />
     </AppContainer>

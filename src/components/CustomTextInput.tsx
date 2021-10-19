@@ -8,13 +8,15 @@ interface CustomTextInputProps {
   placeholder?: string
   size?: number
   style?: StyleProp<any>
+  multiline?: boolean
+  lines?: number
 }
  
 const CustomTextInput: React.FC<CustomTextInputProps> = (props) => {
-  const { value, onChange, placeholder, size = 16, style } = props
+  const { value, onChange, placeholder, size = 16, style, multiline = false, lines } = props
   return ( 
     <View style={{...styles.input, ...style}}>
-      <TextInput style={{ fontSize: size }} placeholder={placeholder} onChangeText={onChange} value={value} />
+      <TextInput style={{ fontSize: size }} textAlignVertical={'top'} maxLength={240} multiline={multiline} numberOfLines={lines} placeholder={placeholder} onChangeText={onChange} value={value} />
     </View>
    )
 }
