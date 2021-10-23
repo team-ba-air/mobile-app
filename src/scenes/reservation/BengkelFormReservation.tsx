@@ -1,6 +1,7 @@
 import { Route } from '@react-navigation/routers';
 import AppContainer from 'components/AppContainer';
 import CustomButton from 'components/CustomButton';
+import { SCREENS } from 'navigations/constants';
 import React from 'react'
 import { View } from 'react-native';
 import { Text } from 'react-native-elements';
@@ -13,13 +14,14 @@ import { BengkelItem } from './constants';
 
 interface BengkelFormReservationProps {
   route: Route<string, ParamBengkel>
+  navigation: any
 }
 
 interface ParamBengkel {
   data: BengkelItem
 }
  
-const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route }) => {
+const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, navigation }) => {
   const { data } = route.params
   return ( 
     <AppContainer>
@@ -28,7 +30,7 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route }
         <ScrollView>
           <ReservationForm />
         </ScrollView>
-        <CustomButton style={{ bottom: 0 }} title='Checkout' />
+        <CustomButton onPress={() => navigation.navigate(SCREENS.reservation.checkout)} style={{ bottom: 0 }} title='Checkout' />
       </View>
     </AppContainer>
   );

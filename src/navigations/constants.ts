@@ -16,5 +16,7 @@ export const SCREENS = {
     serviceReservation: 'ServiceReservation',
     bengkelReservation: 'BengkelReservation',
     bengkelFormReservation: 'BengkelFormReservation',
+    checkout: 'CheckoutScreen',
+    success: 'SuccessReservation',
   },
 }
