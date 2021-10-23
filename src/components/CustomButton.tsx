@@ -10,15 +10,16 @@ interface CustomButtonProps {
   type?: string
   disabled?: boolean
   style?: any
+  buttonStyle?: any
 }
  
 const CustomButton: React.FC<CustomButtonProps> = (props) => {
-  const { title, onPress = () => {}, type = 'primary' , disabled = false, style = {} } = props
+  const { title, onPress = () => {}, type = 'primary' , disabled = false, style = {}, buttonStyle = {} } = props
   const styleType = type === 'primary' ? styles.primary : styles.secondary
   const colorType = type === 'primary' ? styles.colorPrimary : styles.colorSecondary
 
   return ( 
-    <Button disabled={disabled} containerStyle={style} buttonStyle={[styles.appButtonContainer, styleType]} titleStyle={[styles.appButtonText, colorType]} onPress={onPress} title={title} />
+    <Button disabled={disabled} containerStyle={style} buttonStyle={[styles.appButtonContainer, styleType, buttonStyle]} titleStyle={[styles.appButtonText, colorType]} onPress={onPress} title={title} />
   )
 }
 

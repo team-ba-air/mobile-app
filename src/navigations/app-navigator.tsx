@@ -23,7 +23,10 @@ const BottomNavigator = createBottomTabNavigator()
 
 const AppNavigator = () => {
   return <BottomNavigator.Navigator>
-      <BottomNavigator.Screen options={{ headerShown: false }} name='HomeTab' component={ReservationNavigator} />
+      <BottomNavigator.Screen options={({route}) => {
+        console.log(route)
+        return ({ headerShown: false })
+        }} name='HomeTab' component={ReservationNavigator} />
       <BottomNavigator.Screen name='History' component={StartOnboarding} />
     </BottomNavigator.Navigator>
 }
