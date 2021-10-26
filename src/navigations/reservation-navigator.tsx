@@ -8,13 +8,14 @@ import NavbarApp from 'components/NavbarApp';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
 import CheckoutScreen from 'scenes/checkout/CheckoutScreen';
 import SuccessReservation from 'scenes/checkout/SuccessReservation';
+import AppNavigator from './app-navigator';
 
 const Stack = createStackNavigator()
 
 const HomeServiceNavigator: React.FC<any> = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen options={{ headerShown: false }} name='Home' component={HomeScreen} />
+      <Stack.Screen options={{ headerShown: false }} name='Home' component={AppNavigator} />
       <Stack.Screen options={{ header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Pilih Servis'}/> }} name='ServiceReservation' component={ServiceReservation} />
       <Stack.Screen name='BengkelReservation' component={BengkelReservation} />
       <Stack.Screen name='BengkelFormReservation' component={BengkelFormReservation} />

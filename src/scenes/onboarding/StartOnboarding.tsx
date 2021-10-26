@@ -9,9 +9,9 @@ interface StartOnboardingProps {
 }
 
 const StartOnboarding: React.FC<StartOnboardingProps> = ({ navigation }) => {
-  return ( 
+  return (
     <AppContainer style={styles.container}>
-      <CustomButton type='secondary' onPress={() => navigation.navigate(SCREENS.app.mainApp)} title={'Home'} />
+      <CustomButton type='secondary' onPress={() => navigation.navigate(SCREENS.app.home)} title={'Home'} />
       <CustomButton type='primary' onPress={() => navigation.navigate(SCREENS.onboarding.email)} title={'Mulai'} />
     </AppContainer>
   )

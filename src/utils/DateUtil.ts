@@ -10,6 +10,7 @@ const getFormatDate = (date: Date) => {
   ' ' +
   date.getFullYear()
 
+  console.log(formatDate)
   return formatDate
 }
 
