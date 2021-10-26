@@ -5,7 +5,7 @@
  * @format
  */
 
-//  const { getDefaultConfig } = require('metro-config');
+// const { getDefaultConfig } = require('metro-config');
 
 // module.exports = (async () => {
 //   const {
@@ -17,7 +17,7 @@
 //     },
 //     resolver: {
 //       assetExts: assetExts.filter(ext => ext !== 'svg'),
-//       sourceExts: ['jsx','js', 'ts', 'tsx', 'svg'],
+//       sourceExts: [...sourceExts, 'svg'],
 //     },
 //   };
 // })();
