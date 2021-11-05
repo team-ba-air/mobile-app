@@ -1,9 +1,10 @@
 import AppContainer from 'components/AppContainer';
 import { SCREENS } from 'navigations/constants';
 import React from 'react'
-import { ListRenderItemInfo, Text, View } from 'react-native';
+import { ListRenderItemInfo, StyleSheet, Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Sizing } from 'styles/sizes';
 import { ServiceItem } from './constants';
 
 interface ServiceReservationProps {
@@ -47,16 +48,18 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation }) =
       </View>
       <FlatList
         data={serviceList}
-        numColumns={3}
+        horizontal={false}
+        numColumns={2}
+        columnWrapperStyle={styles.container}
         renderItem={(item: ListRenderItemInfo<ServiceItem>) => (
-          <TouchableOpacity onPress={() => navigation.navigate(SCREENS.reservation.bengkelReservation, { service: item.item })}>
-            <Card>
-              <Card.Image source={require(`@assets/servis_dasar.png`)} />
-              <View>
-                <Text>{item.item.label}</Text>
+          <TouchableWithoutFeedback containerStyle={styles.cardContainer} onPress={() => navigation.navigate(SCREENS.reservation.bengkelReservation, { service: item.item })}>
+            <Card containerStyle={styles.card}>
+              <Card.Image containerStyle={styles.image} source={require(`@assets/servis_dasar.png`)} />
+              <View style={styles.label}>
+                <Text style={styles.text}>{item.item.label}</Text>
               </View>
             </Card>
-          </TouchableOpacity>
+          </TouchableWithoutFeedback>
         )}
       />
     </AppContainer>
@@ -64,3 +67,33 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation }) =
 }
  
 export default ServiceReservation;
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    justifyContent: 'space-around'
+  },
+  cardContainer: {
+    flex: 0.5,
+  },
+  card: {
+    padding: 0,
+    borderRadius: 8,
+    borderWidth: 2,
+    resizeMode: 'cover',
+  },
+  label: {
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  image: {
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+  },
+  text: {
+    fontSize: Sizing.text.body[14],
+    textAlign: 'center',
+  }
+})
