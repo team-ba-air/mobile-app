@@ -15,12 +15,14 @@ interface EmailOnboardingProps {
 const EmailOnboarding: React.FC<EmailOnboardingProps> = ({ navigation }) => {
   const [email, setEmail] = useState<string>('')
   return ( 
-    <AppContainer>
-      <Text style={styles.title}>Hai !</Text>
-      <Text style={styles.title}>Selamat datang di OTOFIX</Text>
+    <AppContainer style={styles.container}>
+      <View>
+        <Text style={styles.title}>Hai !</Text>
+        <Text style={styles.title}>Selamat datang di OTOFIX</Text>
+        <CustomTextInput size={Sizing.text.body[16]} style={styles.input} placeholder={'Email Anda'} onChange={setEmail} value={email} />
+      </View>
 
-      <CustomTextInput size={Sizing.text.body[16]} style={styles.input} placeholder={'Email Anda'} onChange={setEmail} value={email} />
-      <CustomButton style={styles.button} onPress={() => navigation.replace(SCREENS.onboarding.phone)} title={'Next'} />
+      <CustomButton style={styles.button} onPress={() => navigation.replace(SCREENS.onboarding.phone)} title={'Lanjut'} />
     </AppContainer>
   )
 }
@@ -37,5 +39,9 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 16,
-  }
+  },
+  container: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 })

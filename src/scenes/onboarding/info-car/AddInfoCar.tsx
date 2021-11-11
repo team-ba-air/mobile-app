@@ -1,35 +1,93 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import AppContainer from 'components/AppContainer';
 import CustomButton from 'components/CustomButton';
-import Dropdown from 'components/Dropdown';
+import CustomTextInput from 'components/CustomTextInput';
+import Dropdown, { OptionItem } from 'components/Dropdown';
 import { SCREENS } from 'navigations/constants';
 import React, { useEffect, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form';
-import { FlatList, ListRenderItemInfo, StyleSheet, Text, View } from 'react-native';
-import { ListItem } from 'react-native-elements';
-import { Color } from 'styles/colors';
+import { StyleSheet, Text, View } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { Sizing } from 'styles/sizes';
 import { CarForm } from '../constants';
 import { carSchema } from '../schema/carSchema';
-import BrandCarBottomSheet from './components/BrandCarBottomSheet';
+import BottomSheetVin from './components/BottomSheetVin';
 
 interface AddInfoCarProps {
   navigation: any
 }
 
-const AddInfoCar: React.FC<AddInfoCarProps> = ({ navigation }) => {
-  const [selected, setSelected] = useState<string>('')
-  const [modalVisible, setModalVisible] = useState<boolean>(false)
-  const [typeVisible, setTypeVisible] = useState<boolean>(false)
-  const [yearVisible, setYearVisible] = useState<boolean>(false)
-  const [platVisible, setPlatVisible] = useState<boolean>(false)
+const defaultOptions: OptionItem[] = [
+  {
+    data: 'Toyota',
+    value: 'Toyota',
+  },
+  {
+    data: 'Daihatsu',
+    value: 'Daihatsu',
+  },
+  {
+    data: 'Honda',
+    value: 'Honda',
+  },
+]
 
+const defaultTypeOptions: OptionItem[] = [
+  {
+    data: 'Agya',
+    value: 'Agya',
+  },
+  {
+    data: 'Alphard',
+    value: 'Alphard',
+  },
+  {
+    data: 'Avanza',
+    value: 'Avanza',
+  },
+]
+
+const defaultYearOptions: OptionItem[] = [
+  {
+    data: '2010',
+    value: '2010',
+  },
+  {
+    data: '2011',
+    value: '2011',
+  },
+  {
+    data: '2012',
+    value: '2012',
+  },
+]
+
+const defaultColorOptions: OptionItem[] = [
+  {
+    data: 'Hitam',
+    value: 'Hitam',
+  },
+  {
+    data: 'Merah',
+    value: 'Merah',
+  },
+  {
+    data: 'Putih',
+    value: 'Putih',
+  },
+]
+
+const AddInfoCar: React.FC<AddInfoCarProps> = ({ navigation }) => {
   const [brand, setBrand] = useState('')
   const [type, setType] = useState('')
   const [year, setYear] = useState('')
+  const [color, setColor] = useState('')
   const [plat, setPlat] = useState('')
+  const [vin, setVin] = useState<string>('')
+  const [expireDate, setExpireDate] = useState<string>('')
 
   const [disabled, setDisabled] = useState(true)
+
+  const [showVin, setShowVin] = useState<boolean>(false)
 
   useEffect(() => {
     if(brand === '' && type === '' && year === '' && plat === '') {
@@ -54,31 +112,61 @@ const AddInfoCar: React.FC<AddInfoCarProps> = ({ navigation }) => {
 
   return ( 
     <AppContainer style={styles.container}>
+      <BottomSheetVin visible={showVin} onChangeVisible={setShowVin} />
       <View>
         <Text style={styles.title}>Tambah Info Mobil</Text>
-        <Dropdown style={styles.margin} placeholder={'Merek Mobil'} value={brand} onChangeVisible={setModalVisible} visible={modalVisible}
-          modal={(
-            <BrandCarBottomSheet setVisible={setModalVisible} onSelect={setBrand} />
+        <Dropdown style={styles.margin} placeholder={'Merek Mobil'} value={brand} onSelect={setBrand} options={defaultOptions}
+          headerComponent={
+            <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold', marginHorizontal: 16 }}>Pilih merek mobil Anda</Text>
+          }
+          renderItem={(option) => (
+            <Text style={styles.itemModal}>{option}</Text>
+          )} 
+          renderSelected={(option) => {
+            return (
+            <Text>{option}</Text>
+          )}}
+        />
+
+        <Dropdown style={styles.margin} placeholder={'Tipe'} value={type} onSelect={setType} options={defaultTypeOptions}
+          headerComponent={
+            <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold', marginHorizontal: 16 }}>Pilih tipe mobil Anda</Text>
+          }
+          renderItem={(option) => (
+            <Text style={styles.itemModal}>{option}</Text>
+          )} 
+          renderSelected={(option) => (
+            <Text>{option}</Text>
           )}
         />
 
-        <Dropdown style={styles.margin} placeholder={'Tipe'} value={type} onChangeVisible={setTypeVisible} visible={typeVisible}
-          modal={(
-            <BrandCarBottomSheet setVisible={setTypeVisible} onSelect={setType} />
+        <Dropdown style={styles.margin} placeholder={'Tahun'} value={year} onSelect={setYear} options={defaultYearOptions}
+          renderItem={(option) => (
+            <Text style={styles.itemModal}>{option}</Text>
+          )} 
+          renderSelected={(option) => (
+            <Text>{option}</Text>
           )}
         />
 
-        <Dropdown style={styles.margin} placeholder={'Tahun'} value={year} onChangeVisible={setYearVisible} visible={yearVisible}
-          modal={(
-            <BrandCarBottomSheet setVisible={setYearVisible} onSelect={setYear} />
+        <Dropdown style={styles.margin} placeholder={'Warna'} value={color} onSelect={setColor} options={defaultColorOptions}
+          renderItem={(option) => (
+            <Text style={styles.itemModal}>{option}</Text>
+          )} 
+          renderSelected={(option) => (
+            <Text>{option}</Text>
           )}
         />
 
-        <Dropdown style={styles.margin} placeholder={'Plat Nomor'} value={plat} onChangeVisible={setPlatVisible} visible={platVisible}
-          modal={(
-            <BrandCarBottomSheet setVisible={setPlatVisible} onSelect={setPlat} />
-          )}
-        />
+        <CustomTextInput style={styles.margin} placeholder={'Plat Nomor'} onChange={setPlat} value={plat} />
+
+        <TouchableWithoutFeedback onPress={() => setShowVin(true)} style={{ marginTop: 16 }}>
+          <Text style={{ fontSize: Sizing.text.body[12], fontWeight: 'bold' }}>Nomor VIN Kendaraan</Text>
+        </TouchableWithoutFeedback>
+        <CustomTextInput style={styles.margin} placeholder={'Nomor VIN'} onChange={setVin} value={vin} />
+
+        <Text style={{ marginTop: 16, fontSize: Sizing.text.body[12], fontWeight: 'bold' }}>Masa Berlaku STNK</Text>
+        <CustomTextInput style={styles.margin} placeholder={'Masa Berlaku STNK'} onChange={setExpireDate} value={expireDate} />
       </View>
       
       <CustomButton disabled={disabled} onPress={handleForm} type='primary' title={'Simpan'}/>
@@ -93,6 +181,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: Sizing.text.heading[28],
     fontWeight: 'bold'
+  },
+  itemModal: {
+    fontSize: Sizing.text.body[14],
+    fontWeight: 'bold',
   },
   margin: {
     marginTop: 16,

@@ -20,27 +20,16 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
     <View style={styles.containerCard}>
       <Card containerStyle={styles.card}>
         <View style={styles.carInfo}>
-          <Card.Image containerStyle={styles.imageCar} source={require('@assets/placeholder_car.png')} />
           <View style={styles.carTextContainer}>
             <Text style={styles.carPlatText}>Toyota</Text>
             <Text style={styles.carTypeText}>Yaris</Text>
             <Text style={styles.carPlatText}>B 2000 S</Text>
           </View>
-          <Icon name='rowing' size={16} />
+          <Card.Image containerStyle={styles.imageCar} source={require('@assets/car_placeholder.png')} />
         </View>
         <View style={styles.action}>
-          {/* <TouchableOpacity style={styles.detail}> */}
-            {/* <View style={styles.detail}>
-              <Text style={styles.detailText}>Lihat Detail</Text>
-            </View> */}
-          {/* </TouchableOpacity> */}
-          <Button containerStyle={{ flex: 1 }} buttonStyle={styles.detail} onPress={goToReservation} title='Lihat Detail' type='solid' />
-          <Button containerStyle={{ flex: 1 }} buttonStyle={styles.reservation} onPress={goToReservation} title='Buat Reservasi' type='clear' />
-          {/* <TouchableOpacity onPress={goToReservation} style={styles.reservation}>
-            <View>
-              <Text style={styles.reservationText}>Buat Reservasi</Text>
-            </View>
-          </TouchableOpacity> */}
+          <Button buttonStyle={styles.detail} onPress={goToReservation} title='Servis' type='solid' />
+          <Button buttonStyle={styles.reservation} onPress={goToReservation} title='Lihat detail' type='clear' />
         </View>
       </Card>
       <View style={{ width: '100%', height: '100%', position: 'absolute', top: 0 }}>
@@ -75,13 +64,16 @@ const styles = StyleSheet.create({
   action: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   detail: {
-    paddingTop: 12,
-    paddingBottom: 12,
+    marginLeft: 16,
+    marginBottom: 16,
+    paddingVertical: 0,
+    paddingLeft: 32,
+    paddingRight: 32,
     backgroundColor: Color.blue[8],
-    borderBottomLeftRadius: 12,
-    borderTopRightRadius: 12,
+    borderRadius: 12,
     flex: 1,
   },
   detailText: { 
@@ -91,8 +83,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   reservation: {
+    marginRight: 16,
+    marginBottom: 12,
     paddingTop: 12,
-    paddingBottom: 12,
     flex: 1,
   },
   reservationText: {
@@ -102,13 +95,15 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   carInfo: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   imageCar: {
     height: 140,
-    width: 140,
-    marginLeft: 16,
+    width: 240,
+    marginRight: 16,
     marginBottom: 8,
     borderBottomLeftRadius: 8,
   },
@@ -120,7 +115,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   carTextContainer: {
-    marginLeft: 12,
-    marginTop: 24,
+    marginLeft: 20,
+    marginTop: 20,
   },
 })
