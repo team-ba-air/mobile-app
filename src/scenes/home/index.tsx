@@ -1,6 +1,6 @@
 import AppContainer from 'components/AppContainer';
 import React, { useEffect } from 'react';
-import { StatusBar, StyleSheet, Text } from 'react-native';
+import { SectionList, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
 import CarServiceReservation from './components/CarServiceReservation';
@@ -13,16 +13,42 @@ interface HomeScreenProps {
   navigation: any
 }
 
+const DATA = [
+  {
+    title: '',
+    data: ['popularService'],
+  }, 
+  {
+    title: '',
+    data: ['tipsAndTrick'],
+  }
+]
+
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
+  const renderBasedOnContent = (item: string) => {
+    if (item === 'tipsAndTrick') {
+      return <TipsTrick />
+    } else {
+      return <PopularService />
+    }
+      
+  }
   return <AppContainer style={styles.container}>
     <StatusBar backgroundColor={Color.blue[8]} />
-    <ScrollView>
-      <InfoLocation />
+    <SectionList 
+      sections={DATA}
+      ListHeaderComponent={
+        <>
+        <InfoLocation />
       <CarServiceReservation navigation={navigation} />
       <OngoingReservationSection />
-      <PopularService />
-      <TipsTrick />
-    </ScrollView>
+        </>
+      }
+      renderItem={({ item }) => <View>{renderBasedOnContent(item)}</View>}
+    />
+      
+      {/* <PopularService />
+      <TipsTrick /> */}
   </AppContainer>;
 };
 
