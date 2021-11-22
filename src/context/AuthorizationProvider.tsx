@@ -1,19 +1,20 @@
 import React, { useMemo, useState } from 'react'
+import { User } from 'react-native-google-signin'
 
 export type AuthorizationContextType = {
-  name: string
-  setName: (name: string) => void
+  user: string
+  setUser: (user: any) => void
 }
 
 const contextDefaultValue = {
-  name: '',
-  setName: (name: string) => {}
+  user: '',
+  setUser: (user: User) => {}
 }
 
 export const AuthorizationContext = React.createContext<AuthorizationContextType>(contextDefaultValue)
 
 const AuthorizationProvider: React.FC<any> = ({ children }) => {
-  const [name, setName] = useState<string>('')
+  const [user, setUser] = useState<any>({})
   // const encodedData = useMemo(() => {
   //   if (accessToken) {
   //     try {
@@ -26,8 +27,8 @@ const AuthorizationProvider: React.FC<any> = ({ children }) => {
   // }, [accessToken])
 
   const contextValue = {
-    name,
-    setName
+    user,
+    setUser
   }
 
   return <AuthorizationContext.Provider value={contextValue}>{children}</AuthorizationContext.Provider>
