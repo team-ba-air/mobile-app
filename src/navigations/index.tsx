@@ -42,15 +42,4 @@ const RootNavigator: React.FC<any> = () => {
   )
 }
 
-// const RootNavigator = createStackNavigator(
-//   {
-//     Onboarding: OnboardingNavigator,
-//     App: BottomNavigator,
-//     Reservation: ReservationNavigator,
-//   },
-//   {
-//     initialRouteName: 'Onboarding',
-//   }
-// )
-
 export default RootNavigator

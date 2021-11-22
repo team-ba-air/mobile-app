@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "75808358640",
+    "project_id": "team-ba-air",
+    "storage_bucket": "team-ba-air.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:75808358640:android:94697cafe1e7a9e0914235",
+        "android_client_info": {
+          "package_name": "com.carserviceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "75808358640-ndumdkam9favd6stsb9sa717e4d96gat.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.carserviceapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "75808358640-7phfh1dhh5eqtnvt84vebs41m87cp660.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4H-B4GHABJouXAPRRjW7HUq9P3t1EfaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "75808358640-7phfh1dhh5eqtnvt84vebs41m87cp660.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

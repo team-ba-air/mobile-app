@@ -124,7 +124,7 @@ const AddInfoCar: React.FC<AddInfoCarProps> = ({ navigation }) => {
           )} 
           renderSelected={(option) => {
             return (
-            <Text>{option}</Text>
+            <Text style={{fontSize: Sizing.text.body[16], fontWeight: 'bold'}}>{option}</Text>
           )}}
         />
 
@@ -136,7 +136,7 @@ const AddInfoCar: React.FC<AddInfoCarProps> = ({ navigation }) => {
             <Text style={styles.itemModal}>{option}</Text>
           )} 
           renderSelected={(option) => (
-            <Text>{option}</Text>
+            <Text style={{fontSize: Sizing.text.body[16], fontWeight: 'bold'}}>{option}</Text>
           )}
         />
 
@@ -145,16 +145,16 @@ const AddInfoCar: React.FC<AddInfoCarProps> = ({ navigation }) => {
             <Text style={styles.itemModal}>{option}</Text>
           )} 
           renderSelected={(option) => (
-            <Text>{option}</Text>
+            <Text style={{fontSize: Sizing.text.body[16], fontWeight: 'bold'}}>{option}</Text>
           )}
         />
 
         <Dropdown style={styles.margin} placeholder={'Warna'} value={color} onSelect={setColor} options={defaultColorOptions}
           renderItem={(option) => (
             <Text style={styles.itemModal}>{option}</Text>
-          )} 
+          )}
           renderSelected={(option) => (
-            <Text>{option}</Text>
+            <Text style={{fontSize: Sizing.text.body[16], fontWeight: 'bold'}}>{option}</Text>
           )}
         />
 
