@@ -29,8 +29,10 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
         <ProfileAction />
       </View>
       <View style={styles.containerBottom}>
-        <Text>Ver 1.0.0</Text>
-        <Image source={require('assets/logo_header.png')} />
+        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 16 }}>
+          <Image source={require('@assets/logo_header.png')} style={{ width: 100, height: 32, marginBottom: 8 }} resizeMode={'contain'} />
+          <Text style={{ color: Color.gray.secondary }}>Ver 1.0.0</Text>
+        </View>
         <CustomButton title='Logout' />
       </View>
     </AppContainer>
@@ -74,5 +76,7 @@ const styles = StyleSheet.create({
   containerBottom: {
     paddingHorizontal: 20,
     paddingBottom: 16,
+    display: 'flex',
+    justifyContent: 'center',
   }
 })
