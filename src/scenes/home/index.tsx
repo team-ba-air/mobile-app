@@ -7,6 +7,7 @@ import CarServiceReservation from './components/CarServiceReservation';
 import InfoLocation from './components/InfoLocation';
 import OngoingReservationSection from './components/OngoingReservationSection';
 import PopularService from './components/PopularService';
+import ServiceList from './components/ServiceList';
 import TipsTrick from './components/TipsTrick';
 
 interface HomeScreenProps {
@@ -41,6 +42,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         <>
         <InfoLocation />
       <CarServiceReservation navigation={navigation} />
+      <ServiceList />
       <OngoingReservationSection />
         </>
       }
