@@ -6,13 +6,35 @@ import HomeScreen from "scenes/home";
 import StartOnboarding from 'scenes/onboarding/StartOnboarding';
 import ProfileScreen from 'scenes/profile/ProfileScreen';
 import { Image } from 'react-native-elements';
+import VehicleScreen from 'scenes/vehicle/VehicleScreen';
 
 const BottomNavigator = createBottomTabNavigator()
 
 const AppNavigator = () => {
   return <BottomNavigator.Navigator>
-      <BottomNavigator.Screen options={{ headerShown: false, tabBarIcon: () => <Image source={require('@assets/icon/ic_home.png')} style={{ width: 20, height: 20 }} resizeMode={'contain'} />, tabBarLabel: 'Home' }} name='HomeTab' component={HomeScreen} />
-      <BottomNavigator.Screen options={{ tabBarIcon: () => <Image source={require('@assets/icon/ic_profile.png')} style={{ width: 20, height: 20 }} resizeMode={'contain'} /> }} name='Profile' component={ProfileScreen} />
+      <BottomNavigator.Screen 
+        options={{ 
+          headerShown: false, 
+          tabBarIcon: () => <Image source={require('@assets/icon/ic_home.png')} style={{ width: 20, height: 20 }} resizeMode={'contain'} />, 
+          tabBarLabel: 'Home' 
+        }} 
+        name='HomeTab' 
+        component={HomeScreen} 
+      />
+      <BottomNavigator.Screen 
+        options={{
+          headerShown: false,
+        }}
+        name='Mobil' 
+        component={VehicleScreen} 
+      />
+      <BottomNavigator.Screen 
+        options={{ 
+          tabBarIcon: () => <Image source={require('@assets/icon/ic_profile.png')} style={{ width: 20, height: 20 }} resizeMode={'contain'} /> 
+        }} 
+        name='Profile'
+        component={ProfileScreen}
+      />
     </BottomNavigator.Navigator>
 }
 

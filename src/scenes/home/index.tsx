@@ -5,6 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
 import CarServiceReservation from './components/CarServiceReservation';
 import InfoLocation from './components/InfoLocation';
+import OngoingReservationItem from './components/OngoingReservationItem';
 import OngoingReservationSection from './components/OngoingReservationSection';
 import PopularService from './components/PopularService';
 import ServiceList from './components/ServiceList';
@@ -29,21 +30,21 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const renderBasedOnContent = (item: string) => {
     if (item === 'tipsAndTrick') {
       return <TipsTrick />
-    } else {
+    } else if(item === 'popularService') {
       return <PopularService />
     }
-      
   }
+
   return <AppContainer style={styles.container}>
     <StatusBar backgroundColor={Color.blue[8]} />
     <SectionList 
       sections={DATA}
       ListHeaderComponent={
         <>
-        <InfoLocation />
-      <CarServiceReservation navigation={navigation} />
-      <ServiceList />
-      <OngoingReservationSection />
+          <InfoLocation />
+          <CarServiceReservation navigation={navigation} />
+          <ServiceList />
+          <OngoingReservationSection />
         </>
       }
       renderItem={({ item }) => <View>{renderBasedOnContent(item)}</View>}
