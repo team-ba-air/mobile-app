@@ -1,7 +1,7 @@
 import { SCREENS } from 'navigations/constants'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { Button, Card, Icon, Image } from 'react-native-elements'
+import { Card, Icon, Image, Button } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Color } from 'styles/colors'
 import { Sizing } from 'styles/sizes'
@@ -15,6 +15,7 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
     console.log('Go To Reservation')
     navigation.navigate(SCREENS.reservation.serviceReservation)
   }
+
   return ( 
     <>
     <View style={styles.containerCard}>
@@ -28,8 +29,8 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
           <Card.Image containerStyle={styles.imageCar} source={require('@assets/car_placeholder.png')} />
         </View>
         <View style={styles.action}>
-          <Button buttonStyle={styles.detail} onPress={goToReservation} title='Servis' type='solid' />
-          <Button buttonStyle={styles.reservation} onPress={goToReservation} title='Lihat detail' type='clear' />
+          <Button onPress={goToReservation} title='Servis' type='solid' />
+          {/* <Button buttonStyle={styles.reservation} onPress={goToReservation} title='Lihat detail' type='clear' /> */}
         </View>
       </Card>
       <View style={{ width: '100%', height: '100%', position: 'absolute', top: 0 }}>
@@ -67,14 +68,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   detail: {
-    marginLeft: 16,
-    marginBottom: 16,
-    paddingVertical: 0,
-    paddingLeft: 32,
-    paddingRight: 32,
-    backgroundColor: Color.blue[8],
-    borderRadius: 12,
-    flex: 1,
+    // marginLeft: 16,
+    // marginBottom: 16,
+    // paddingVertical: 0,
+    // paddingLeft: 32,
+    // paddingRight: 32,
+    // backgroundColor: Color.blue[8],
+    // borderRadius: 12,
+    // flex: 1,
   },
   detailText: { 
     color: Color.blue[1], 
