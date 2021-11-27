@@ -31,15 +31,9 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
   const [selected, setSelected] = useState<OptionItem | undefined>(undefined)
 
   useEffect(() => {
-    console.log('ini di useeffect')
     const optionSelected = options.find(option => option.value === value)
-    console.log(optionSelected)
     setSelected(optionSelected)
   }, [value])
-
-  if (selected !== undefined) {
-    // console.log(renderSelected(selected))
-  }
 
   const [visible, setVisible] = useState<boolean>(false)
 
@@ -56,8 +50,10 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
               return (
                 <ListItem bottomDivider onPress={() => {
                   console.log('On Pressed')
-                  onSelect?.(option.item.value)
-                  setSelected(option.item.data)
+                  if (option.item.value !== value) {
+                    onSelect?.(option.item.value)
+                    setSelected(option.item.data)
+                  }
                   setVisible(false)
                 }}>
                   {renderItem(option.item.data)}
