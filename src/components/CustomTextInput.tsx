@@ -3,7 +3,7 @@ import { StyleProp, StyleSheet, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 
 interface CustomTextInputProps {
-  value: string
+  value?: string
   onChange: (input: string) => void
   placeholder?: string
   size?: number

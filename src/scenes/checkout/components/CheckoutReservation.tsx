@@ -1,19 +1,20 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-elements';
+import { ReservationForm } from 'scenes/reservation/constants';
 import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
 
 interface CheckoutReservationProps {
-  
+  data?: ReservationForm
 }
  
-const CheckoutReservation: React.FC<CheckoutReservationProps> = () => {
+const CheckoutReservation: React.FC<CheckoutReservationProps> = ({ data }) => {
   return ( 
     <>
     <View>
         <Text style={styles.title}>Mobil</Text>
-        <Text style={styles.content}>Yaris B 2000 S</Text>
+        <Text style={styles.content}>{data?.car}</Text>
       </View>
       <View style={{ marginTop: 16 }}>
         <Text style={styles.title}>Bengkel</Text>
@@ -26,11 +27,11 @@ const CheckoutReservation: React.FC<CheckoutReservationProps> = () => {
       <View style={{ marginTop: 16 }}>
         <Text style={styles.title}>Waktu</Text>
         <Text style={styles.content}>Kamis, 7 Oktober 2021</Text>
-        <Text style={styles.content}>10:00 WIB</Text>
+        <Text style={styles.content}>{data?.hour} WIB</Text>
       </View>
       <View style={{ marginTop: 16 }}>
         <Text style={styles.title}>Catatan tambahan</Text>
-        <Text style={styles.content}>-</Text>
+        <Text style={styles.content}>{data?.notes !== '' ? data?.notes : '-'}</Text>
       </View>
     </>
    );

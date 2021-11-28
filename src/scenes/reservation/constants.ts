@@ -15,3 +15,15 @@ export type BengkelItem = {
   distance: number
   rating: number
 }
+
+export type AvailableHourItem = {
+  hour: string
+  available: boolean
+}
+
+export type ReservationForm = Partial<{
+  car: string
+  service: string
+  hour: string
+  notes: string
+}>
