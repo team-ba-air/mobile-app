@@ -54,7 +54,7 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation }) =
         renderItem={(item: ListRenderItemInfo<ServiceItem>) => (
           <TouchableWithoutFeedback containerStyle={styles.cardContainer} onPress={() => navigation.navigate(SCREENS.reservation.bengkelReservation, { service: item.item })}>
             <Card containerStyle={styles.card}>
-              <Card.Image containerStyle={styles.image} source={require(`@assets/servis_dasar.png`)} />
+              <Card.Image containerStyle={styles.image} source={require(`@assets/servis_dasar.png`)} resizeMode={'contain'} />
               <View style={styles.label}>
                 <Text style={styles.text}>{item.item.label}</Text>
               </View>
