@@ -26,10 +26,10 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
             <Text style={styles.carTypeText}>Yaris</Text>
             <Text style={styles.carPlatText}>B 2000 S</Text>
           </View>
-          <Card.Image containerStyle={styles.imageCar} source={require('@assets/car_placeholder.png')} />
+          <Card.Image containerStyle={styles.imageCar} source={require('@assets/car_placeholder.png')} resizeMode={'contain'} />
         </View>
         <View style={styles.action}>
-          <Button onPress={goToReservation} title='Servis' type='solid' />
+          <Button buttonStyle={styles.detail} onPress={goToReservation} title='Servis' type='solid' />
           {/* <Button buttonStyle={styles.reservation} onPress={goToReservation} title='Lihat detail' type='clear' /> */}
         </View>
       </Card>
@@ -63,19 +63,19 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   action: {
+    paddingLeft: 16,
+    paddingBottom: 8,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   detail: {
-    // marginLeft: 16,
-    // marginBottom: 16,
-    // paddingVertical: 0,
-    // paddingLeft: 32,
-    // paddingRight: 32,
-    // backgroundColor: Color.blue[8],
-    // borderRadius: 12,
-    // flex: 1,
+    paddingVertical: 0,
+    paddingLeft: 32,
+    paddingRight: 32,
+    backgroundColor: Color.blue[8],
+    borderRadius: 12,
+    flex: 1,
   },
   detailText: { 
     color: Color.blue[1], 

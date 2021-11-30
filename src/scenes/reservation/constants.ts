@@ -24,6 +24,7 @@ export type AvailableHourItem = {
 export type ReservationForm = Partial<{
   car: string
   service: string
+  date: Date
   hour: string
   notes: string
 }>

@@ -10,6 +10,7 @@ import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
 import { AvailableHourItem, ReservationForm } from '../constants';
 import HourChipsItem from './HourChipsItem';
+import FormInputDate from 'components/FormInputDate';
 
 interface ReservationFormComponentProps {
   
@@ -118,6 +119,18 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
       />
 
       <Text style={{ fontSize: Sizing.text.body[14], marginTop: 16 }}>Hari ini</Text>
+
+      <Controller 
+        name={'date'}
+        control={control}
+        render={({ field: { onChange, value }}) => (
+          <FormInputDate 
+            style={{ marginBottom: 8 }}
+            value={value}
+            onChange={onChange}
+          />
+        )}
+      />
       
       <Controller 
         name={'hour'}

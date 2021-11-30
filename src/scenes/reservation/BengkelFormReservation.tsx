@@ -30,6 +30,7 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
   const formInitialValues = {
     car: '',
     service: '',
+    date: new Date(),
     hour: '',
     notes: '',
   }
