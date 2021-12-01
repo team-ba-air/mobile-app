@@ -38,10 +38,13 @@ const PopularService: React.FC<PopularServiceProps> = () => {
       <Text style={styles.headingSection}>Servis Populer</Text>
       <FlatList
         horizontal
+        initialNumToRender={3}
+        maxToRenderPerBatch={4}
+        removeClippedSubviews={true}
         data={defaultData}
         renderItem={(item: ListRenderItemInfo<PopularServiceItem>) => (
           <Card containerStyle={styles.card}>
-            <Card.Image containerStyle={styles.image} source={require('@assets/placeholder_service.png')} />
+            <Card.Image resizeMode={'contain'} containerStyle={styles.image} source={require('@assets/placeholder_service.png')} />
             <View style={styles.containerText}>
               <Text style={styles.cardTitle}>{item.item.title}</Text>
             </View>
