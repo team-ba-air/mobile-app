@@ -16,13 +16,13 @@ interface WelcomingCarOnboardingProps {
 
  
 const WelcomingCarOnboarding: React.FC<WelcomingCarOnboardingProps> = ({ navigation }) => {
-  const { user } = useContext(AuthorizationContext)
+  const { user, username } = useContext(AuthorizationContext)
 
   return ( 
     <AppContainer backgroundImage={require('assets/bg_welcoming_car.png')} style={styles.container}>
       <View>
         <Text style={styles.title}>Halo</Text>
-        <Text style={styles.title}>{user}!</Text>
+        <Text style={styles.title}>{username}!</Text>
         <Text style={styles.body}>Ayo masukan informasi mobil Anda!</Text>
       </View>
       <View>

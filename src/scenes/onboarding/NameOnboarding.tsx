@@ -13,10 +13,10 @@ interface NameOnboardingProps {
  
 const NameOnboarding: React.FC<NameOnboardingProps> = ({ navigation }) => {
   const [name, setName] = useState<string>('')
-  const { setName: setUserName } = useContext(AuthorizationContext)
+  const { setUsername } = useContext(AuthorizationContext)
 
   const handlePress = () => {
-    setUserName(name)
+    setUsername(name)
     navigation.replace(SCREENS.onboarding.welcomingCar)
   }
 
