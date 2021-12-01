@@ -51,6 +51,9 @@ const ServiceList: React.FC<ServiceListProps> = () => {
     <Card containerStyle={styles.cardStyle}>
       <FlatList
         data={services}
+        initialNumToRender={4}
+        maxToRenderPerBatch={4}
+        removeClippedSubviews={true}
         numColumns={4}
         renderItem={(info: ListRenderItemInfo<ServiceItem>) => {
           return (

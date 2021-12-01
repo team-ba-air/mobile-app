@@ -44,10 +44,13 @@ const TipsTrick: React.FC<TipsTrickProps> = () => {
       <Text style={styles.headingSection}>{'Tips & Trik'}</Text>
       <FlatList
         horizontal
+        initialNumToRender={2}
+        maxToRenderPerBatch={3}
+        removeClippedSubviews={true}
         data={defaultData}
         renderItem={(item: ListRenderItemInfo<TipsTrickItem>) => (
           <Card containerStyle={styles.card}>
-            <Card.Image containerStyle={styles.image} source={require('@assets/placeholder_service.png')}/>
+            <Card.Image containerStyle={styles.image} resizeMode={'contain'} source={require('@assets/placeholder_service.png')}/>
             <View style={styles.containerText}>
               <Text style={styles.cardTitle}>{item.item.title}</Text>
               <Text style={styles.cardSubtitle}>{item.item.title}</Text>
