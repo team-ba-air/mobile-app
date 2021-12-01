@@ -20,7 +20,19 @@ const CustomButton: React.FC<CustomButtonProps> = (props) => {
   const colorType = type === 'primary' ? styles.colorPrimary : styles.colorSecondary
 
   return ( 
-    <Button disabled={disabled} containerStyle={style} buttonStyle={[styles.appButtonContainer, styleType, buttonStyle]} titleStyle={[styles.appButtonText, colorType, textStyle]} onPress={onPress} title={title} />
+    <Button 
+      disabled={disabled} 
+      containerStyle={style} 
+      buttonStyle={[styles.appButtonContainer, styleType, buttonStyle]} 
+      titleStyle={[styles.appButtonText, colorType, textStyle]}
+      onPress={onPress} 
+      title={title} 
+    />
+    // <View style={[style]}>
+    //   <TouchableOpacity activeOpacity={0.6} onPress={onPress} style={[styles.appButtonContainer, styleType, buttonStyle]}>
+    //     <Text style={[styles.appButtonText, colorType, textStyle]}>{title}</Text>
+    //   </TouchableOpacity>
+    // </View>
   )
 }
 

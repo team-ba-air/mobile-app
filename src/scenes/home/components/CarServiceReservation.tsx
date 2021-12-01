@@ -1,8 +1,9 @@
+import CustomButton from 'components/CustomButton'
 import { SCREENS } from 'navigations/constants'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Card, Icon, Image, Button } from 'react-native-elements'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { RawButton, TouchableOpacity } from 'react-native-gesture-handler'
 import { Color } from 'styles/colors'
 import { Sizing } from 'styles/sizes'
 
@@ -19,20 +20,20 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
   return ( 
     <>
     <View style={styles.containerCard}>
-      <Card containerStyle={styles.card}>
+      <View style={styles.card}>
         <View style={styles.carInfo}>
           <View style={styles.carTextContainer}>
             <Text style={styles.carPlatText}>Toyota</Text>
             <Text style={styles.carTypeText}>Yaris</Text>
             <Text style={styles.carPlatText}>B 2000 S</Text>
           </View>
-          <Card.Image containerStyle={styles.imageCar} source={require('@assets/car_placeholder.png')} resizeMode={'contain'} />
+          <Image style={styles.imageCar} source={require('@assets/car_placeholder.png')} resizeMode={'contain'} />
         </View>
         <View style={styles.action}>
-          <Button buttonStyle={styles.detail} onPress={goToReservation} title='Servis' type='solid' />
-          {/* <Button buttonStyle={styles.reservation} onPress={goToReservation} title='Lihat detail' type='clear' /> */}
+          <CustomButton buttonStyle={styles.detail} onPress={goToReservation} title='Servis' type='primary' />
+          <Button buttonStyle={styles.reservation} onPress={goToReservation} title='Lihat detail' type='clear' />
         </View>
-      </Card>
+      </View>
       <View style={{ width: '100%', height: '100%', position: 'absolute', top: 0 }}>
         <View style={{ flex: 0.5, backgroundColor: Color.blue[8] }}>
         </View>
@@ -53,6 +54,9 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   card: {
+    borderWidth: 1,
+    borderColor: Color.gray[2],
+    zIndex: 3,
     position: 'relative',
     backgroundColor: Color.gray[0],
     borderRadius: 12,
@@ -70,7 +74,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   detail: {
-    paddingVertical: 0,
     paddingLeft: 32,
     paddingRight: 32,
     backgroundColor: Color.blue[8],
@@ -85,8 +88,8 @@ const styles = StyleSheet.create({
   },
   reservation: {
     marginRight: 16,
-    marginBottom: 12,
-    paddingTop: 12,
+    marginBottom: 0,
+    paddingTop: 0,
     flex: 1,
   },
   reservationText: {

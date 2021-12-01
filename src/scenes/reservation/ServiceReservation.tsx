@@ -1,9 +1,11 @@
 import AppContainer from 'components/AppContainer';
+import Dropdown from 'components/Dropdown';
 import { SCREENS } from 'navigations/constants';
-import React from 'react'
+import React, { useState } from 'react'
 import { ListRenderItemInfo, StyleSheet, Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
 import { FlatList, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
 import { ServiceItem } from './constants';
 
@@ -39,12 +41,37 @@ const serviceList: ServiceItem[] = [
   },
 ]
 
+const carOptions = [
+  {
+    data: {
+      type: 'Yaris',
+      plat: 'B 2012 S',
+    },
+    value: 'Yaris|B 2012 S',
+  }
+]
+
 const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation }) => {
+  const [car, setCar] = useState<string>('Yaris|B 2012 S')
   return ( 
-    <AppContainer>
-      <View>
-        <Text>Buat mobil</Text>
-        <Text>Yaris B 2000 S</Text>
+    <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0 }}>
+      <View style={{ backgroundColor: Color.blue[8], paddingHorizontal: 20, paddingBottom: 16 }}>
+        <Dropdown 
+          value={car} 
+          options={carOptions}
+          onSelect={setCar} 
+          renderItem={(option: any) => (
+            <View>
+              <Text>{option.type} {option.plat}</Text>
+            </View>
+          )} 
+          renderSelected={(option: any) => (
+            <View>
+              <Text style={{ fontSize: Sizing.text.body[12], color: Color.gray[6] }}>Buat mobil</Text>
+              <Text style={{ fontSize: Sizing.text.body[14], fontWeight: 'bold' }}>{option.type} {option.plat}</Text>
+            </View>
+          )}          
+        />
       </View>
       <FlatList
         data={serviceList}
