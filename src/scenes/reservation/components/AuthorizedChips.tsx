@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
-import { Sizing } from 'styles/sizes';
+import { fontPixel, Sizing } from 'styles/sizes';
 
 interface AuthorizedChipsProps {
   
@@ -21,7 +21,7 @@ export default AuthorizedChips;
 const styles = StyleSheet.create({
   authorizedText: {
     color: Color.gray[0],
-    fontSize: Sizing.text.body[8],
+    fontSize: fontPixel(Sizing.text.body[8]),
     fontWeight: 'bold',
   },
   authorizedContainer: {
