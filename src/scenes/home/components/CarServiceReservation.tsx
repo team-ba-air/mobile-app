@@ -3,9 +3,8 @@ import { SCREENS } from 'navigations/constants'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Card, Icon, Image, Button } from 'react-native-elements'
-import { RawButton, TouchableOpacity } from 'react-native-gesture-handler'
 import { Color } from 'styles/colors'
-import { Sizing } from 'styles/sizes'
+import { Sizing, fontPixel } from 'styles/sizes'
 
 interface CarServiceReservationProps {
   navigation: any
@@ -112,10 +111,10 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 8,
   },
   carPlatText: {
-    fontSize: Sizing.text.body[12]
+    fontSize: fontPixel(Sizing.text.body[12]),
   },
   carTypeText: {
-    fontSize: Sizing.text.body[16],
+    fontSize: fontPixel(Sizing.text.body[16]),
     fontWeight: 'bold',
   },
   carTextContainer: {
