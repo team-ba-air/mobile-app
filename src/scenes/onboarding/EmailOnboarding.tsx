@@ -50,7 +50,7 @@ const EmailOnboarding: React.FC<EmailOnboardingProps> = ({ navigation }) => {
     } catch (error: unknown) {
       console.log(error)
       if (error.code === statusCodes.SIGN_IN_REQUIRED) {
-        signIn()
+        // signIn()
       }
     }
   }

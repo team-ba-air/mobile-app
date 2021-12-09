@@ -3,7 +3,9 @@ import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
 import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native';
+import { Image } from 'react-native-elements';
 import { GoogleSignin } from 'react-native-google-signin';
+import { heightPixel, widthPixel } from 'styles/sizes';
 
 interface StartOnboardingProps {
   navigation: any
@@ -11,20 +13,19 @@ interface StartOnboardingProps {
 
 const StartOnboarding: React.FC<StartOnboardingProps> = ({ navigation }) => {
   useEffect(() => {
-    GoogleSignin.configure({
-      scopes: [],
-      webClientId: '75808358640-7phfh1dhh5eqtnvt84vebs41m87cp660.apps.googleusercontent.com',
-      offlineAccess: true,
-      hostedDomain: '',
-      loginHint: '',
-      forceConsentPrompt: true,
-    })
+    setTimeout(() => {
+      navigation.navigate(SCREENS.onboarding.email)
+    }, 3000)
   }, [])
 
   return (
     <AppContainer style={styles.container}>
-      <CustomButton type='secondary' onPress={() => navigation.navigate(SCREENS.app.home)} title={'Home'} />
-      <CustomButton type='primary' onPress={() => navigation.navigate(SCREENS.onboarding.email)} title={'Mulai'} />
+      <Image 
+        style={{ height: heightPixel(64), width: widthPixel(244)}}
+        source={require('@assets/logo_header.png')} 
+        resizeMode={'contain'} 
+      />
+      {/* <CustomButton type='primary' onPress={() => navigation.navigate(SCREENS.onboarding.email)} title={'Mulai'} /> */}
     </AppContainer>
   )
 }
@@ -34,6 +35,7 @@ export default StartOnboarding
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })

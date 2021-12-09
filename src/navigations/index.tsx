@@ -24,7 +24,7 @@ const Stack = createStackNavigator();
 const RootNavigator: React.FC<any> = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen options={{ header: () => <Navbar />}} name='StartOnboarding' component={StartOnboarding} />
+      <Stack.Screen options={{ headerShown: false }} name='StartOnboarding' component={StartOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='EmailOnboarding' component={EmailOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='PhoneOnboarding' component={PhoneOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='NameOnboarding' component={NameOnboarding} />
