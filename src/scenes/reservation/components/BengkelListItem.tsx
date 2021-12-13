@@ -3,7 +3,7 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Image, Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
-import { Sizing } from 'styles/sizes';
+import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
 import { BengkelItem } from '../constants';
 import AuthorizedChips from './AuthorizedChips';
 
@@ -17,7 +17,7 @@ const BengkelListItem: React.FC<BengkelListItemProps> = ({ data }) => {
       <View style={{ display: 'flex', alignItems: 'center', flexDirection: 'row' }}>
         <View>
           <Image 
-            style={{ width: 80, height: 60 }}
+            style={{ width: widthPixel(80), height: heightPixel(60) }}
             source={require('@assets/placeholder_bengkel.png')}
             resizeMode={'contain'}
           />
@@ -57,11 +57,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   name: {
-    fontSize: Sizing.text.body[14],
+    fontSize: fontPixel(Sizing.text.body[14]),
     fontWeight: 'bold',
   },
   subtitle: {
-    fontSize: Sizing.text.body[10],
+    fontSize: fontPixel(Sizing.text.body[10]),
     color: Color.gray.secondary,
   },
   pickUp: {

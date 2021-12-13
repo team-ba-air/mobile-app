@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Color } from 'styles/colors'
-import { Sizing } from 'styles/sizes'
+import { fontPixel, Sizing } from 'styles/sizes'
 import { AvailableHourItem } from '../constants'
 
 interface HourChipsItemProps {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: Color.gray[0],
-    fontSize: Sizing.text.body[14],
+    fontSize: fontPixel(Sizing.text.body[14]),
     fontWeight: 'bold',
   },
 })

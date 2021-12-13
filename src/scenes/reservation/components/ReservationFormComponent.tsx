@@ -7,7 +7,7 @@ import { ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
-import { Sizing } from 'styles/sizes';
+import { fontPixel, Sizing } from 'styles/sizes';
 import { AvailableHourItem, ReservationForm } from '../constants';
 import HourChipsItem from './HourChipsItem';
 import FormInputDate from 'components/FormInputDate';
@@ -94,7 +94,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
 
   return ( 
     <View style={{ marginTop: 20 }}>
-      <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold' }}>Reservasi Servis</Text>
+      <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold' }}>Reservasi Servis</Text>
 
       <Controller 
         name={'car'}
@@ -104,21 +104,22 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
             value={value} 
             options={defaultCarOptions} 
             onSelect={onChange}
+            placeholder={'Pilih mobil Anda'}
             headerComponent={
-              <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold', marginHorizontal: 16 }}>Pilih mobil Anda</Text>
+              <Text style={styles.titleBottomSheet}>Pilih mobil Anda</Text>
             }
             renderItem={(option) => (
               <Text style={styles.itemModal}>{option}</Text>
             )} 
             renderSelected={(option) => {
               return (
-              <Text style={{fontSize: Sizing.text.body[14] }}>{option}</Text>
+              <Text style={{fontSize: fontPixel(Sizing.text.body[14]) }}>{option}</Text>
             )}}
           />
         )}
       />
 
-      <Text style={{ fontSize: Sizing.text.body[14], marginTop: 16 }}>Hari ini</Text>
+      <Text style={styles.titleSection}>Hari ini</Text>
 
       <Controller 
         name={'date'}
@@ -154,24 +155,25 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
             value={value} 
             options={defaultServiceOptions} 
             onSelect={onChange}
+            placeholder={'Pilih Servis'}
             headerComponent={
-              <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold', marginHorizontal: 16 }}>Pilih Servis</Text>
+              <Text style={styles.titleBottomSheet}>Pilih Servis</Text>
             }
             renderItem={(option) => (
               <View>
-                <Text style={{ fontSize: Sizing.text.body[14], fontWeight: 'bold' }}>{option.name}-{option.price}</Text>
-                <Text style={{ fontSize: Sizing.text.body[14], color: Color.gray[8]}}>{option.description}</Text>
+                <Text style={{ fontSize: fontPixel(Sizing.text.body[14]), fontWeight: 'bold' }}>{option.name}-{option.price}</Text>
+                <Text style={{ fontSize: fontPixel(Sizing.text.body[14]), color: Color.gray[8]}}>{option.description}</Text>
               </View>
             )} 
             renderSelected={(option) => {
               return (
-              <Text style={{fontSize: Sizing.text.body[14] }}>{option?.name}-{option?.price}</Text>
+              <Text style={{fontSize: fontPixel(Sizing.text.body[14]) }}>{option?.name}-{option?.price}</Text>
             )}}
           />
         )}
       />
 
-      <Text style={{ fontSize: Sizing.text.body[14], marginTop: 16 }}>Catatan</Text>
+      <Text style={styles.titleSection}>Catatan</Text>
 
       <Controller 
         name={'notes'}
@@ -198,7 +200,16 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   itemModal: {
-    fontSize: Sizing.text.body[14],
+    fontSize: fontPixel(Sizing.text.body[14]),
     fontWeight: 'bold',
   },
+  titleBottomSheet: {
+    fontSize: fontPixel(Sizing.text.body[16]), 
+    fontWeight: 'bold', 
+    marginHorizontal: 16,
+  },
+  titleSection: {
+    fontSize: fontPixel(Sizing.text.body[14]), 
+    marginTop: 16,
+  }
 })
