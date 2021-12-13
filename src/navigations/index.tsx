@@ -37,7 +37,7 @@ const RootNavigator: React.FC<any> = () => {
       <Stack.Screen name='BengkelReservation' component={BengkelReservation} />
       <Stack.Screen name='BengkelFormReservation' component={BengkelFormReservation} />
       <Stack.Screen name='CheckoutScreen' component={CheckoutScreen} />
-      <Stack.Screen name='SuccessReservation' component={SuccessReservation} />
+      <Stack.Screen options={{ headerShown: false }} name='SuccessReservation' component={SuccessReservation} />
     </Stack.Navigator>
   )
 }
