@@ -20,7 +20,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
     <AppContainer style={styles.container}>
       <Image 
         style={{ height: heightPixel(64), width: widthPixel(244)}}
-        source={require('@assets/logo_header.png')} 
+        source={require('@assets/icon/ic_logo_text.webp')} 
         resizeMode={'contain'} 
       />
     </AppContainer>

@@ -23,7 +23,7 @@ const RootNavigator: React.FC<any> = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen options={{ headerShown: false }} name='SplashScreen' component={SplashScreen} />
-      <Stack.Screen options={{ headerShown: false }} name='WelcomeScreen' component={WelcomeScreen} />
+      <Stack.Screen options={{ header: () => <Navbar />}} name='WelcomeScreen' component={WelcomeScreen} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='EmailOnboarding' component={EmailOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='PhoneOnboarding' component={PhoneOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='NameOnboarding' component={NameOnboarding} />

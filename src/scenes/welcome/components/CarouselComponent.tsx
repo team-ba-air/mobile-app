@@ -64,6 +64,7 @@ const CarouselComponent: React.FC<CarouselComponentProps> = () => {
   return (  
     <FlatList 
       data={data}
+      contentContainerStyle={{ justifyContent: 'center', flexGrow: 1 }}
       style={{ display: 'flex' }}
       renderItem={(info: ListRenderItemInfo<any>) => (
         <SlideItem {...info.item} />
