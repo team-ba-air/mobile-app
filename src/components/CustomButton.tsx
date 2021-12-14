@@ -1,7 +1,6 @@
 import React from 'react'
-import { GestureResponderEvent, StyleSheet, StyleSheetProperties, Text, Touchable, View } from 'react-native';
-import { Button } from 'react-native-elements';
-import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleProp, StyleSheet, StyleSheetProperties, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Icon, SocialIcon } from 'react-native-elements';
 import { Color } from 'styles/colors';
 
 interface CustomButtonProps {
@@ -9,30 +8,32 @@ interface CustomButtonProps {
   onPress?: () => void
   type?: string
   disabled?: boolean
-  style?: any
-  buttonStyle?: any
-  textStyle?: any
+  style?: StyleProp<any>
+  buttonStyle?: StyleProp<any>
+  textStyle?: StyleProp<any>
+  icon?: React.ReactNode
 }
  
 const CustomButton: React.FC<CustomButtonProps> = (props) => {
-  const { title, onPress = () => {}, type = 'primary' , disabled = false, style = {}, buttonStyle = {}, textStyle = {} } = props
+  const { title, onPress = () => {}, type = 'primary' , disabled = false, style = {}, buttonStyle = {}, textStyle = {}, icon } = props
   const styleType = type === 'primary' ? styles.primary : styles.secondary
   const colorType = type === 'primary' ? styles.colorPrimary : styles.colorSecondary
 
   return ( 
-    <Button 
-      disabled={disabled} 
-      containerStyle={style} 
-      buttonStyle={[styles.appButtonContainer, styleType, buttonStyle]} 
-      titleStyle={[styles.appButtonText, colorType, textStyle]}
-      onPress={onPress} 
-      title={title} 
-    />
-    // <View style={[style]}>
-    //   <TouchableOpacity activeOpacity={0.6} onPress={onPress} style={[styles.appButtonContainer, styleType, buttonStyle]}>
-    //     <Text style={[styles.appButtonText, colorType, textStyle]}>{title}</Text>
-    //   </TouchableOpacity>
-    // </View>
+    // <Button 
+    //   disabled={disabled} 
+    //   containerStyle={style} 
+    //   buttonStyle={[styles.appButtonContainer, styleType, buttonStyle]} 
+    //   titleStyle={[styles.appButtonText, colorType, textStyle]}
+    //   onPress={onPress} 
+    //   title={title} 
+    // />
+    <View style={[style]}>
+      <TouchableOpacity activeOpacity={0.6} onPress={onPress} style={[styles.appButtonContainer, styleType, buttonStyle]}>
+        {icon}
+        <Text style={[styles.appButtonText, colorType, textStyle]}>{title}</Text>
+      </TouchableOpacity>
+    </View>
   )
 }
 
@@ -40,11 +41,18 @@ export default CustomButton
 
 const styles = StyleSheet.create({
   appButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
     borderRadius: 4,
     paddingVertical: 10,
     paddingHorizontal: 12
   },
   appButtonText: {
+    flexGrow: 1,
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'center',
+    textAlign: 'center',
     fontSize: 18,
     color: "#ffffff",
     fontWeight: "bold",

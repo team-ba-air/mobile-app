@@ -1,6 +1,7 @@
 import React from 'react'
 import { Image, StyleSheet, Text, View } from 'react-native'
 import { Color } from 'styles/colors'
+import { heightPixel, widthPixel } from 'styles/sizes'
 
 interface NavbarProps {
   
@@ -9,7 +10,7 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = () => {
   return ( 
     <View style={styles.container}>
-      <Image source={require('assets/logo_header.png')} />
+      <Image style={{ width: widthPixel(86), height: heightPixel(26)}} source={require('@assets/icon/ic_logo_text.webp')} />
     </View>
    )
 }

@@ -30,7 +30,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
       </View>
       <View style={styles.containerBottom}>
         <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 16 }}>
-          <Image source={require('@assets/logo_header.png')} style={{ width: 100, height: 32, marginBottom: 8 }} resizeMode={'contain'} />
+          <Image source={require('@assets/icon/ic_logo_text.webp')} style={{ width: 100, height: 32, marginBottom: 8 }} resizeMode={'contain'} />
           <Text style={{ color: Color.gray.secondary }}>Ver 1.0.0</Text>
         </View>
         <CustomButton title='Logout' />
