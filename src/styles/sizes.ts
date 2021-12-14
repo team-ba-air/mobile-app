@@ -60,6 +60,8 @@ const pixelSizeHorizontal = (size: number) => {
 }
 
 export {
+  SCREEN_WIDTH,
+  SCREEN_HEIGHT,
   widthPixel,
   heightPixel,
   fontPixel,
