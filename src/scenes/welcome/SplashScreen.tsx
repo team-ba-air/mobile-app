@@ -1,20 +1,18 @@
 import AppContainer from 'components/AppContainer';
-import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
 import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native';
 import { Image } from 'react-native-elements';
-import { GoogleSignin } from 'react-native-google-signin';
 import { heightPixel, widthPixel } from 'styles/sizes';
 
-interface StartOnboardingProps {
+interface SplashScreenProps {
   navigation: any
 }
 
-const StartOnboarding: React.FC<StartOnboardingProps> = ({ navigation }) => {
+const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate(SCREENS.onboarding.email)
+      navigation.navigate(SCREENS.welcome.welcomeScreen)
     }, 3000)
   }, [])
 
@@ -25,12 +23,11 @@ const StartOnboarding: React.FC<StartOnboardingProps> = ({ navigation }) => {
         source={require('@assets/logo_header.png')} 
         resizeMode={'contain'} 
       />
-      {/* <CustomButton type='primary' onPress={() => navigation.navigate(SCREENS.onboarding.email)} title={'Mulai'} /> */}
     </AppContainer>
   )
 }
  
-export default StartOnboarding
+export default SplashScreen
 
 const styles = StyleSheet.create({
   container: {

@@ -65,7 +65,6 @@ const EmailOnboarding: React.FC<EmailOnboardingProps> = ({ navigation }) => {
       </View>
 
       <CustomButton style={styles.button} onPress={() => navigation.replace(SCREENS.onboarding.phone)} title={'Lanjut'} />
-      <GoogleSigninButton onPress={signIn} size={GoogleSigninButton.Size.Wide} color={GoogleSigninButton.Color.Dark} />
     </AppContainer>
   )
 }

@@ -1,6 +1,9 @@
 export const SCREENS = {
+  welcome: {
+    start: 'SplashScreen',
+    welcomeScreen: 'WelcomeScreen',
+  },
   onboarding: {
-    start: 'StartOnboarding',
     email: 'EmailOnboarding',
     phone: 'PhoneOnboarding',
     name: 'NameOnboarding',
