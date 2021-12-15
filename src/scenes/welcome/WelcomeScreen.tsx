@@ -7,21 +7,35 @@ import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
 import { Color } from 'styles/colors'
 import { heightPixel, widthPixel } from 'styles/sizes'
 import CarouselComponent from './components/CarouselComponent'
+import authenticateSSO from './service/authenticateSSO'
+import { useMutation } from 'react-query'
+import { SCREENS } from 'navigations/constants'
 
 interface WelcomeScreenProps {
-  
+  navigation: any
 }
  
-const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
+const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
   const signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices()
       const userInfo = await GoogleSignin.signIn()
       console.log(userInfo)
+      onAuthenticate({
+        token: userInfo.idToken ?? '',
+      }).catch(err => {
+        console.log(err)
+      })
     } catch (error: any) {
       console.log(error)
     }
   }
+
+  const { isLoading: isAuthenticating, mutateAsync: onAuthenticate } = useMutation(authenticateSSO, {
+    onSuccess: () => {
+      navigation.navigate(SCREENS.app.home)
+    },
+  })
 
   return (  
     <AppContainer style={{ paddingHorizontal: 0 }}>
@@ -38,7 +52,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = () => {
       <CustomButton 
         style={{ paddingHorizontal: 20, marginVertical: 8 }}
         icon={<Icon type='font-awesome' size={24} name={'facebook'} color='white' />} 
-        type='primary' 
+        type='primary'
         title='Lanjut dengan Facebook' 
       />
       <CustomButton 

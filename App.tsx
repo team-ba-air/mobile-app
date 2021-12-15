@@ -11,9 +11,9 @@ import {
   StyleSheet,
 } from 'react-native';
 import Navigator from 'navigations'
-import AuthorizationProvider from 'context/AuthorizationProvider';
 import { NavigationContainer } from '@react-navigation/native';
 import { GoogleSignin } from 'react-native-google-signin';
+import AppProvider from 'context/AppProvider';
 
 type AppProps = {}
 
@@ -29,11 +29,11 @@ const App: React.FC<AppProps> = () => {
     })
   }, [])
   return (
-    <AuthorizationProvider>
+    <AppProvider>
       <NavigationContainer>
         <Navigator />
       </NavigationContainer>
-    </AuthorizationProvider>
+    </AppProvider>
   );
 };
 

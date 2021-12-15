@@ -17,4 +17,4 @@ interface PublicAPIResponse<T> {
   meta?: APIResponseMeta
 }
 
-export { APIResponseError, APIResponseMeta, PublicAPIResponse }
+export type { APIResponseError, APIResponseMeta, PublicAPIResponse }

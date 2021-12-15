@@ -15,6 +15,7 @@
       "*": ["src/*"],
       "tests": ["tests/*"],
       "@components/*": ["src/components/*"],
+      "@network/*": ["src/network/*"],
       "@navigation/*": ["src/navigations/*"],
       "@scene/*": ["src/navigations/*"],
       "@utils/*": ["src/utils/*"],
