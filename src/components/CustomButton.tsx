@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
   appButtonText: {
     flexGrow: 1,
     display: 'flex',
-    width: '100%',
     justifyContent: 'center',
     textAlign: 'center',
     fontSize: 18,

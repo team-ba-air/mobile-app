@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     paddingRight: 32,
     backgroundColor: Color.blue[8],
     borderRadius: 12,
-    flex: 1,
   },
   detailText: { 
     color: Color.blue[1], 
