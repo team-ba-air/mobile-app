@@ -1,5 +1,6 @@
 import AppContainer from 'components/AppContainer';
 import CustomButton from 'components/CustomButton';
+import { SCREENS } from 'navigations/constants';
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Image, Text } from 'react-native-elements';
@@ -8,10 +9,10 @@ import { Sizing } from 'styles/sizes';
 import ProfileAction from './components/ProfileAction';
 
 interface ProfileScreenProps {
-  
+  navigation: any
 }
  
-const ProfileScreen: React.FC<ProfileScreenProps> = () => {
+const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
   return ( 
     <AppContainer style={styles.container}>
       <View>
@@ -33,7 +34,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = () => {
           <Image source={require('@assets/icon/ic_logo_text.webp')} style={{ width: 100, height: 32, marginBottom: 8 }} resizeMode={'contain'} />
           <Text style={{ color: Color.gray.secondary }}>Ver 1.0.0</Text>
         </View>
-        <CustomButton title='Logout' />
+        <CustomButton onPress={() => navigation.navigate(SCREENS.welcome.welcomeScreen)} title='Logout' />
       </View>
     </AppContainer>
    );
