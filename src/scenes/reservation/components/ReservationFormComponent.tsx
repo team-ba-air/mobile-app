@@ -119,7 +119,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
         )}
       />
 
-      <Text style={styles.titleSection}>Hari ini</Text>
+      <Text style={styles.titleSection}>Tanggal dan Waktu</Text>
 
       <Controller 
         name={'date'}

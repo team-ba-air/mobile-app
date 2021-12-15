@@ -60,7 +60,7 @@ const EmailOnboarding: React.FC<EmailOnboardingProps> = ({ navigation }) => {
     <AppContainer style={styles.container}>
       <View>
         <Text style={styles.title}>Hai !</Text>
-        <Text style={styles.title}>Selamat datang di OTOFIX</Text>
+        <Text style={styles.title}>Selamat datang di OTOKU</Text>
         <CustomTextInput size={Sizing.text.body[16]} style={styles.input} placeholder={'Email Anda'} onChange={setEmail} value={email} />
       </View>
 
