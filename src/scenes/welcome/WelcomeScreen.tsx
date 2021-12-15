@@ -61,6 +61,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
         icon={<Icon type='font-awesome' size={20} name={'envelope'} color='white' />} 
         type='primary' 
         title='Lanjut dengan email' 
+        onPress={() => navigation.navigate(SCREENS.onboarding.email)}
       />
     </AppContainer>
   )
