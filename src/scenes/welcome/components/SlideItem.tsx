@@ -4,7 +4,7 @@ import { Color } from 'styles/colors'
 import { fontPixel, heightPixel, SCREEN_WIDTH, Sizing, widthPixel } from 'styles/sizes'
 
 interface SlideItemProps {
-  image: string
+  image: any
   title: string
   subtitle: string
 }
@@ -22,7 +22,7 @@ const SlideItem: React.FC<SlideItemProps> = ({ image, title, subtitle }) => {
         alignSelf: 'center',
       }}>
         <Image
-          source={require('@assets/placeholder_service.png')}
+          source={image}
           style={{ width: SCREEN_WIDTH * 0.9, height: heightPixel(157) }}
           resizeMode='contain'
         />

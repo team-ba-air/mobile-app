@@ -5,19 +5,19 @@ const cookie = new Cookies()
 
 const authenticationService = axios.create({
   method: 'POST',
-  baseURL: 'https://sst-kegiatan-be.informatika.site/',
+  baseURL: 'http://192.168.2.10:8000/',
   headers: {
     'Content-Type': 'application/json',
   },
 })
 
 authenticationService.interceptors.request.use(async request => {
-  const token = cookie.get('accessToken')
+  // const token = cookie.get('accessToken')
   // console.log(token)
 
   request.headers = {
     ...request.headers,
-    ...(token && { Authorization: `Bearer ${token}` }),
+    // ...(token && { Authorization: `Bearer ${token}` }),
   }
 
   return request

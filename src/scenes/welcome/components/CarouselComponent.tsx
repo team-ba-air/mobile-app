@@ -9,19 +9,19 @@ interface CarouselComponentProps {
 
 const data = [
   {
-    image: '',
-    title: 'Selamat datang di OTOKU!',
-    subtitle: 'Pengalaman baru servis mobil',
+    image: require('@assets/carousel_1.webp'),
+    title: 'Selamat datang di Otoku!',
+    subtitle: 'Rasakan pengalaman baru merawat mobil dengan Otoku',
   },
   {
-    image: '',
-    title: 'Selamat datang di OTOKU!',
-    subtitle: 'Pengalaman baru servis mobil',
+    image: require('@assets/carousel_2.webp'),
+    title: 'Lihat dan pilih bengkel sesuka hati',
+    subtitle: 'Cari bengkel sesuai kebutuhan Anda dengan mudah dan praktis',
   },
   {
-    image: '',
-    title: 'Selamat datang di OTOKU!',
-    subtitle: 'Pengalaman baru servis mobil',
+    image: require('@assets/carousel_3.webp'),
+    title: 'Bebas atur jadwal servis yang cocok',
+    subtitle: 'Gaperlu pusing cocokin jadwal Anda dengan jadwal bengkel',
   },
 ]
  
@@ -64,8 +64,8 @@ const CarouselComponent: React.FC<CarouselComponentProps> = () => {
   return (  
     <FlatList 
       data={data}
-      contentContainerStyle={{ justifyContent: 'center', flexGrow: 1 }}
-      style={{ display: 'flex' }}
+      contentContainerStyle={{ justifyContent: 'center', flexGrow: 1, display: 'flex' }}
+      style={{ flexGrow: 1 }}
       renderItem={(info: ListRenderItemInfo<any>) => (
         <SlideItem {...info.item} />
       )}

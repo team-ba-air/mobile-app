@@ -15,4 +15,4 @@ interface RegisterResponse {
   username: string
 }
 
-export { LoginResponse, RegisterResponse }
+export type { LoginResponse, RegisterResponse }
