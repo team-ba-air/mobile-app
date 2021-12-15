@@ -35,24 +35,24 @@ const defaultServiceOptions: OptionItem[] = [
   {
     data: {
       name: 'Servis Dasar',
-      description: 'Servis Dasar mencakup blablabla',
-      price: 100000,
+      description: 'Servis Dasar mencakup servis rutin pada mesin mobil',
+      price: 1000000,
     },
     value: 'Servis Dasar',
   },
   {
     data: {
       name: 'Servis AC',
-      description: 'Servis AC mencakup blablabla',
-      price: 100000,
+      description: 'Servis AC mencakup perbaikan AC mobil',
+      price: 1000000,
     },
     value: 'Servis AC',
   },
   {
     data: {
       name: 'Servis Kaca',
-      description: 'Servis Kaca mencakup blablabla',
-      price: 100000,
+      description: 'Servis Kaca mencakup perbaikan Kaca pada mobil',
+      price: 1000000,
     },
     value: 'Servis Kaca',
   },
@@ -161,7 +161,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
             }
             renderItem={(option) => (
               <View>
-                <Text style={{ fontSize: fontPixel(Sizing.text.body[14]), fontWeight: 'bold' }}>{option.name}-{option.price}</Text>
+                <Text style={{ fontSize: fontPixel(Sizing.text.body[14]), fontWeight: 'bold' }}>{option.name} - Rp{option.price}</Text>
                 <Text style={{ fontSize: fontPixel(Sizing.text.body[14]), color: Color.gray[8]}}>{option.description}</Text>
               </View>
             )} 
