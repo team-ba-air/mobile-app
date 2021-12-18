@@ -85,7 +85,6 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 apply from: "../../node_modules/react-native/react.gradle"
-apply from: "../../node_modules/react-native-vector-image/strip_svgs.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -184,6 +183,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
 
     implementation 'com.google.firebase:firebase-analytics'
