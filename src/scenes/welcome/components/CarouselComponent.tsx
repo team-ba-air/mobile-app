@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react'
-import { FlatList, ListRenderItemInfo } from 'react-native'
+import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native'
+import { Color } from 'styles/colors'
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from 'styles/sizes'
 import SlideItem from './SlideItem'
 
@@ -60,22 +61,44 @@ const CarouselComponent: React.FC<CarouselComponentProps> = () => {
     ),
   };
 
+  const dotIndicator = data.map((value, idx) => {
+    const backgroundColor = idx === index ? Color.blue[7] : Color.gray[4]
+    return (
+    <View style={[styles.circle, { backgroundColor }]}></View>
+  )})
+
 
   return (  
-    <FlatList 
-      data={data}
-      contentContainerStyle={{ justifyContent: 'center', flexGrow: 1, display: 'flex' }}
-      style={{ flexGrow: 1 }}
-      renderItem={(info: ListRenderItemInfo<any>) => (
-        <SlideItem {...info.item} />
-      )}
-      pagingEnabled
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      onScroll={onScroll}
-      {...flatListOptimizationProps}
-    />
+    <View style={{ flex: 1 }}>
+      <FlatList 
+        contentContainerStyle={{ display: 'flex', justifyContent: 'flex-end' }}
+        // style={{ backgroundColor: 'blue' }}
+        data={data}
+        renderItem={(info: ListRenderItemInfo<any>) => (
+          <SlideItem {...info.item} />
+        )}
+        pagingEnabled
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        onScroll={onScroll}
+        {...flatListOptimizationProps}
+      />
+      <View style={{ flex: 1, display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+        {dotIndicator}
+      </View>
+    </View>
   )
 }
  
 export default CarouselComponent
+
+const styles = StyleSheet.create({
+  circle: {
+    marginHorizontal: 4,
+    borderRadius: 16,
+    width: 16 * 0.5,
+    height: 16 * 0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+})
