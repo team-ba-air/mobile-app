@@ -10,6 +10,7 @@ import CarouselComponent from './components/CarouselComponent'
 import authenticateSSO from './service/authenticateSSO'
 import { useMutation } from 'react-query'
 import { SCREENS } from 'navigations/constants'
+import { GraphRequest, GraphRequestManager, AccessToken, LoginButton, LoginManager } from 'react-native-fbsdk'
 
 interface WelcomeScreenProps {
   navigation: any
@@ -31,6 +32,42 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
     }
   }
 
+  const signInWithFacebook = () => {
+    LoginManager.logInWithPermissions(['public_profile'])
+      .then(result => {
+        if (result.isCancelled) {
+          console.log('login is cancelled')
+        } else {
+          AccessToken.getCurrentAccessToken().then(data => {
+            const accessToken = data?.accessToken.toString()
+            getInformationFromAccessToken(accessToken)
+          })
+        }
+      })
+  }
+
+  const getInformationFromAccessToken = (accessToken: any) => {
+    const parameters = {
+      fields: {
+        string: 'id, first_name',
+      },
+    };
+    const myProfileRequest = new GraphRequest(
+      '/me',
+      {accessToken, parameters: parameters},
+      (error, myProfileInfoResult) => {
+        if (error) {
+          console.log('login info has error: ' + error);
+        } else {
+        // this.setState({myInformation: myProfileInfoResult});
+          console.log('result:', myProfileInfoResult);
+        }
+      },
+    );
+    new GraphRequestManager().addRequest(myProfileRequest).start();
+  };
+    
+
   const { isLoading: isAuthenticating, mutateAsync: onAuthenticate } = useMutation(authenticateSSO, {
     onSuccess: () => {
       navigation.navigate(SCREENS.app.home)
@@ -51,14 +88,15 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
       />
       <CustomButton 
         style={{ paddingHorizontal: 20, marginVertical: 8 }}
-        icon={<Icon type='font-awesome' size={24} name={'facebook'} color='white' />} 
+        onPress={signInWithFacebook}
+        icon={<Icon type='font-awesome' size={24} name={'facebook'} color='white' tvParallaxProperties={undefined} />} 
         type='primary'
         title='Lanjut dengan Facebook' 
       />
       <CustomButton 
         style={{ paddingHorizontal: 20, marginVertical: 8 }}
         buttonStyle={{ backgroundColor: Color.red[6]}}
-        icon={<Icon type='font-awesome' size={20} name={'envelope'} color='white' />} 
+        icon={<Icon type='font-awesome' size={20} name={'envelope'} color='white' tvParallaxProperties={undefined} />} 
         type='primary' 
         title='Lanjut dengan email' 
         onPress={() => navigation.navigate(SCREENS.onboarding.email)}
