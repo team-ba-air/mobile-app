@@ -3,7 +3,7 @@ import { PublicAPIResponse } from 'network/types/response/common'
 import Cookies from 'universal-cookie'
 const cookie = new Cookies()
 
-const authenticationService = axios.create({
+const networkService = axios.create({
   method: 'POST',
   baseURL: 'http://192.168.2.10:8000/',
   headers: {
@@ -11,7 +11,7 @@ const authenticationService = axios.create({
   },
 })
 
-authenticationService.interceptors.request.use(async request => {
+networkService.interceptors.request.use(async request => {
   // const token = cookie.get('accessToken')
   // console.log(token)
 
@@ -23,7 +23,7 @@ authenticationService.interceptors.request.use(async request => {
   return request
 })
 
-authenticationService.interceptors.response.use(
+networkService.interceptors.response.use(
   (response): AxiosResponse<PublicAPIResponse<any>> => ({
     ...response.data,
     code: response.data?.code ?? response.status,
@@ -32,4 +32,4 @@ authenticationService.interceptors.response.use(
     data: response.data?.data ?? response?.data.result ?? response?.data,
   })
 )
-export default authenticationService
+export default networkService

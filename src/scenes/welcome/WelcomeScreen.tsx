@@ -74,7 +74,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
     },
   })
 
-  return (  
+  return (
     <AppContainer style={{ paddingHorizontal: 0 }}>
       <CarouselComponent />
       <CustomButton 
@@ -82,7 +82,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
         buttonStyle={{ backgroundColor: 'white' }}
         textStyle={{ color: 'black' }}
         icon={<Image source={require('@assets/icon/ic_google.webp')} style={{ width: widthPixel(20), height: heightPixel(20) }} />} 
-        type='primary' 
+        type='primary'
         onPress={signIn}
         title='Lanjut dengan Google' 
       />

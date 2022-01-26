@@ -1,20 +1,17 @@
+import { PublicAPIResponse } from 'network/types'
 import React from 'react'
 import { ListRenderItemInfo, StyleSheet, Text, View } from 'react-native'
 import { Image } from 'react-native-elements'
 import { FlatList } from 'react-native-gesture-handler'
+import { useQuery } from 'react-query'
 import { Color } from 'styles/colors'
 import { Sizing } from 'styles/sizes'
+import { VehicleItem } from '../constants'
+import getVehicleList from '../service/getVehicleList'
 import CarInfoCard from './CarInfoCard'
 
 interface VehicleListProps {
   
-}
-
-type VehicleItem = {
-  brand: string
-  type: string
-  year: string
-  plat: string
 }
 
 const vehicleList = [
@@ -39,6 +36,18 @@ const vehicleList = [
 ]
  
 const VehicleList: React.FC<VehicleListProps> = () => {
+  const {
+    data: vehicleListResponse,
+    isLoading: isFetchingUserList,
+  } = useQuery<PublicAPIResponse<VehicleItem[]>>(
+    ['getUserList'],
+    () => getVehicleList(),
+    {
+      refetchOnWindowFocus: false,
+      retry: true,
+    }
+  )
+  
   return (  
     <FlatList
       data={vehicleList}
