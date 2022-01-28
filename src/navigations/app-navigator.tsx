@@ -3,7 +3,6 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import HomeScreen from "scenes/home";
-import StartOnboarding from 'scenes/onboarding/StartOnboarding';
 import ProfileScreen from 'scenes/profile/ProfileScreen';
 import { Image } from 'react-native-elements';
 import VehicleScreen from 'scenes/vehicle/VehicleScreen';
