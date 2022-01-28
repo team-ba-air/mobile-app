@@ -10,6 +10,7 @@ export const SCREENS = {
     welcomingCar: 'WelcomingCarOnboarding',
     addInfoCar: 'AddInfoCar',
     carList: 'CarList',
+    otp: 'OtpScreen',
   },
   app: {
     mainApp: 'App',

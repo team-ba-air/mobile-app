@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
-import EmailOnboarding from 'scenes/authentication/EmailOnboarding';
+import EmailOnboarding from 'scenes/authentication/email/EmailOnboarding';
 import PhoneOnboarding from 'scenes/authentication/PhoneOnboarding';
 import NameOnboarding from 'scenes/authentication/NameOnboarding';
 import WelcomingCarOnboarding from 'scenes/authentication/WelcomingCarOnboarding';
@@ -16,6 +16,7 @@ import CheckoutScreen from 'scenes/checkout/CheckoutScreen';
 import SuccessReservation from 'scenes/checkout/SuccessReservation';
 import WelcomeScreen from 'scenes/welcome/WelcomeScreen';
 import SplashScreen from 'scenes/welcome/SplashScreen';
+import OtpScreen from 'scenes/authentication/otp/OtpScreen';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,7 @@ const RootNavigator: React.FC<any> = () => {
       <Stack.Screen options={{ header: () => <Navbar />}} name='EmailOnboarding' component={EmailOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='PhoneOnboarding' component={PhoneOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='NameOnboarding' component={NameOnboarding} />
+      <Stack.Screen options={{ header: () => <Navbar />}} name='OtpScreen' component={OtpScreen} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='WelcomingCarOnboarding' component={WelcomingCarOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='AddInfoCar' component={AddInfoCar} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='CarList' component={CarList} />

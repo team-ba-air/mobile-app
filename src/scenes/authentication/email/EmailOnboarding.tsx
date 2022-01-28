@@ -9,53 +9,31 @@ import AppContainer from 'components/AppContainer'
 import { SCREENS } from 'navigations/constants'
 import { GoogleSignin, GoogleSigninButton, statusCodes } from 'react-native-google-signin'
 import { useAuthorization } from 'context/hooks/authorization'
+import { useMutation } from 'react-query'
+import checkEmail from '../service/checkEmail'
+import { PublicAPIResponse } from 'network/types'
 
 interface EmailOnboardingProps {
   navigation: any
 }
 
 const EmailOnboarding: React.FC<EmailOnboardingProps> = ({ navigation }) => {
-  const { setUser } = useAuthorization()
-
-  useEffect(() => {
-    getCurrentUserInfo()
-  }, [])
-
-  const signOut = async () => {
-    try {
-      await GoogleSignin.revokeAccess()
-      await GoogleSignin.signOut()
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const signIn = async () => {
-    try {
-      await GoogleSignin.hasPlayServices()
-      const userInfo = await GoogleSignin.signIn()
-      setUser(userInfo)
-      console.log(userInfo)
-    } catch (error: any) {
-      console.log(error)
-    }
-  }
-
-  const getCurrentUserInfo = async () => {
-    try {
-      console.log('Signin silently')
-      const userInfo = await GoogleSignin.signInSilently()
-      setUser(userInfo)
-      console.log(userInfo)
-    } catch (error: unknown) {
-      console.log(error)
-      // if (error.code === statusCodes.SIGN_IN_REQUIRED) {
-      //   // signIn()
-      // }
-    }
-  }
+  const { isLoading: isAuthenticating, mutateAsync: onCheckEmail } = useMutation(checkEmail, {
+    onSuccess: (data: PublicAPIResponse<any>) => {
+      if (data.data.exist) {
+        navigation.navigate(SCREENS.onboarding.otp)
+      } else {
+        navigation.replace(SCREENS.onboarding.phone)
+      } 
+    },
+  })
 
   const [email, setEmail] = useState<string>('')
+
+  const onButtonPress = () => {
+    onCheckEmail({ email })
+  }
+
   return ( 
     <AppContainer style={styles.container}>
       <View>
@@ -64,7 +42,7 @@ const EmailOnboarding: React.FC<EmailOnboardingProps> = ({ navigation }) => {
         <CustomTextInput size={Sizing.text.body[16]} style={styles.input} placeholder={'Email Anda'} onChange={setEmail} value={email} />
       </View>
 
-      <CustomButton style={styles.button} onPress={() => navigation.replace(SCREENS.onboarding.phone)} title={'Lanjut'} />
+      <CustomButton style={styles.button} onPress={onButtonPress} title={'Lanjut'} />
     </AppContainer>
   )
 }
