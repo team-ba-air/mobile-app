@@ -7,10 +7,11 @@ import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
 import { Color } from 'styles/colors'
 import { heightPixel, widthPixel } from 'styles/sizes'
 import CarouselComponent from './components/CarouselComponent'
-import authenticateSSO from './service/authenticateSSO'
+import authenticateSSOGoogle from './service/authenticateSSOGoogle'
 import { useMutation } from 'react-query'
 import { SCREENS } from 'navigations/constants'
 import { GraphRequest, GraphRequestManager, AccessToken, LoginButton, LoginManager } from 'react-native-fbsdk'
+import authenticateSSOFacebook from './service/authenticateSSOFacebook'
 
 interface WelcomeScreenProps {
   navigation: any
@@ -40,6 +41,11 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
         } else {
           AccessToken.getCurrentAccessToken().then(data => {
             const accessToken = data?.accessToken.toString()
+            onAuthenticateFacebook({
+              token: accessToken ?? '',
+            }).catch(err => {
+              console.log(err)
+            })
             getInformationFromAccessToken(accessToken)
           })
         }
@@ -68,9 +74,17 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
   };
     
 
-  const { isLoading: isAuthenticating, mutateAsync: onAuthenticate } = useMutation(authenticateSSO, {
-    onSuccess: () => {
-      navigation.navigate(SCREENS.app.home)
+  const { isLoading: isAuthenticating, mutateAsync: onAuthenticate } = useMutation(authenticateSSOGoogle, {
+    onSuccess: (data) => {
+      console.log(data)
+      // navigation.navigate(SCREENS.app.home)
+    },
+  })
+
+  const { isLoading: isAuthenticatingFacebook, mutateAsync: onAuthenticateFacebook } = useMutation(authenticateSSOFacebook, {
+    onSuccess: (data) => {
+      console.log(data)
+      // navigation.navigate(SCREENS.app.home)
     },
   })
 
