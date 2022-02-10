@@ -20,8 +20,9 @@ interface EmailOnboardingProps {
 const EmailOnboarding: React.FC<EmailOnboardingProps> = ({ navigation }) => {
   const { isLoading: isAuthenticating, mutateAsync: onCheckEmail } = useMutation(checkEmail, {
     onSuccess: (data: PublicAPIResponse<any>) => {
+      console.log(data)
       if (data.data.exist) {
-        navigation.navigate(SCREENS.onboarding.otp)
+        navigation.navigate(SCREENS.onboarding.otpEmail)
       } else {
         navigation.replace(SCREENS.onboarding.phone)
       } 
@@ -31,7 +32,8 @@ const EmailOnboarding: React.FC<EmailOnboardingProps> = ({ navigation }) => {
   const [email, setEmail] = useState<string>('')
 
   const onButtonPress = () => {
-    onCheckEmail({ email })
+    // onCheckEmail({ email })
+    navigation.navigate(SCREENS.onboarding.otpEmail)
   }
 
   return ( 

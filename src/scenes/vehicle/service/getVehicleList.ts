@@ -11,10 +11,10 @@ export type GetVehicleListResponse = VehicleResponse[]
 export const getVehicleListEndpoint = 'vehicle'
 
 export const mapVehicleListResponse = (response: PublicAPIResponse<GetVehicleListResponse>): PublicAPIResponse<VehicleItem[]> => {
-  const vehicleList = response?.body ?? []
+  const vehicleList = response?.data ?? []
   return {
     ...response,
-    body: vehicleList.map((vehicle, idx) => ({
+    data: vehicleList.map((vehicle) => ({
       brand: vehicle.brand,
       type: vehicle.type,
       year: vehicle.color,
