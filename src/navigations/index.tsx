@@ -16,7 +16,8 @@ import CheckoutScreen from 'scenes/checkout/CheckoutScreen';
 import SuccessReservation from 'scenes/checkout/SuccessReservation';
 import WelcomeScreen from 'scenes/welcome/WelcomeScreen';
 import SplashScreen from 'scenes/welcome/SplashScreen';
-import OtpScreen from 'scenes/authentication/otp/OtpScreen';
+import OtpEmailScreen from 'scenes/authentication/otp/OtpEmailScreen';
+import OtpPhoneScreen from 'scenes/authentication/otp/OtpPhoneScreen';
 
 const Stack = createStackNavigator();
 
@@ -28,7 +29,8 @@ const RootNavigator: React.FC<any> = () => {
       <Stack.Screen options={{ header: () => <Navbar />}} name='EmailOnboarding' component={EmailOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='PhoneOnboarding' component={PhoneOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='NameOnboarding' component={NameOnboarding} />
-      <Stack.Screen options={{ header: () => <Navbar />}} name='OtpScreen' component={OtpScreen} />
+      <Stack.Screen options={{ header: () => <Navbar />}} name='OtpEmailScreen' component={OtpEmailScreen} />
+      <Stack.Screen options={{ header: () => <Navbar />}} name='OtpPhoneScreen' component={OtpPhoneScreen} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='WelcomingCarOnboarding' component={WelcomingCarOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='AddInfoCar' component={AddInfoCar} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='CarList' component={CarList} />
