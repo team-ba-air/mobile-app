@@ -1,5 +1,6 @@
 import AppContainer from 'components/AppContainer'
 import CustomButton from 'components/CustomButton'
+import { SCREENS } from 'navigations/constants'
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import { Text } from 'react-native-elements'
@@ -9,10 +10,10 @@ import otpEmail from '../service/otpEmail'
 import InputOtpComponent from './components/InputOtpComponent'
 
 interface OtpEmailScreenProps {
-  
+  navigation: any
 }
  
-const OtpEmailScreen: React.FC<OtpEmailScreenProps> = () => {
+const OtpEmailScreen: React.FC<OtpEmailScreenProps> = ({ navigation }) => {
   const email = 'oto@gmail.com'
   const [value, setValue] = useState('')
 
@@ -32,7 +33,8 @@ const OtpEmailScreen: React.FC<OtpEmailScreenProps> = () => {
   }
 
   const sendOtp = () => {
-    onSendOtp({ email })
+    // onSendOtp({ email })
+    navigation.navigate(SCREENS.app.home)
   }
 
   return ( 

@@ -5,7 +5,7 @@ const cookie = new Cookies()
 
 const networkService = axios.create({
   method: 'POST',
-  baseURL: 'http://192.168.2.10:8000/',
+  baseURL: 'http://20.213.123.172:8000/',
   headers: {
     'Content-Type': 'application/json',
   },

@@ -39,6 +39,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
         if (result.isCancelled) {
           console.log('login is cancelled')
         } else {
+          console.log(result)
           AccessToken.getCurrentAccessToken().then(data => {
             const accessToken = data?.accessToken.toString()
             onAuthenticateFacebook({
@@ -49,6 +50,9 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
             getInformationFromAccessToken(accessToken)
           })
         }
+      })
+      .catch((e) => {
+        console.log(e)
       })
   }
 
