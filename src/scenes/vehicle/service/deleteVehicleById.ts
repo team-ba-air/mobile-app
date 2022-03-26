@@ -9,7 +9,7 @@ export type DeleteVehicleByIdResponse = {}
 
 export const deleteVehicleByIdEndpoint = 'vehicle'
 
-const DeleteVehicleById = async (request?: DeleteVehicleByIdRequest) => {
+const deleteVehicleById = async (request?: DeleteVehicleByIdRequest) => {
   const response: PublicAPIResponse<DeleteVehicleByIdResponse> = await networkService.delete(
     `${deleteVehicleByIdEndpoint}/${request?.id}`
   )
@@ -17,4 +17,4 @@ const DeleteVehicleById = async (request?: DeleteVehicleByIdRequest) => {
   return response
 }
 
-export default DeleteVehicleById
+export default deleteVehicleById

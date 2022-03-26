@@ -4,11 +4,11 @@ import { VehicleResponse } from "network/types/response/vehicle"
 import { VehicleItem } from "../constants"
 
 
-export type UpdateVehicleByIdRequest = { 
+export type AddVehicleRequest = { 
   car: VehicleItem
 }
 
-export type UpdateVehicleByIdData = { 
+export type AddVehicleData = { 
   brand: string
   type: string
   year: string
@@ -18,11 +18,11 @@ export type UpdateVehicleByIdData = {
   certificate_expire_date: string
 }
 
-export type UpdateVehicleByIdResponse = VehicleResponse[]
+export type AddVehicleResponse = VehicleResponse[]
 
-export const updateVehicleByIdEndpoint = 'vehicle'
+export const addVehicleEndpoint = 'vehicle'
 
-export const mapCarToUpdateVehicleData = (data: VehicleItem): UpdateVehicleByIdData => {
+export const mapCarToAddVehicleData = (data: VehicleItem): AddVehicleData => {
   return {
     brand: data.brand,
     type: data.type,
@@ -34,14 +34,14 @@ export const mapCarToUpdateVehicleData = (data: VehicleItem): UpdateVehicleByIdD
   }
 }
 
-const updateVehicleById = async (request: UpdateVehicleByIdRequest) => {
-  const data = mapCarToUpdateVehicleData(request.car)
-  const response: PublicAPIResponse<UpdateVehicleByIdResponse> = await networkService.put(
-    `${updateVehicleByIdEndpoint}/${request.car.id}`,
+const addVehicle = async (request: AddVehicleRequest) => {
+  const data = mapCarToAddVehicleData(request.car)
+  const response: PublicAPIResponse<AddVehicleResponse> = await networkService.post(
+    addVehicleEndpoint,
     data
   )
 
   return response
 }
 
-export default updateVehicleById
+export default addVehicle

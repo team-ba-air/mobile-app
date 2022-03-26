@@ -13,6 +13,9 @@ export const SCREENS = {
     otpEmail: 'OtpEmailScreen',
     otpPhone: 'OtpPhoneScreen',
   },
+  vehicle: {
+    update: 'UpdateVehicle',
+  },
   app: {
     mainApp: 'App',
     home: 'Home',
