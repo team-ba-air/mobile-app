@@ -4,12 +4,14 @@ import { StyleSheet } from 'react-native'
 import { Color } from 'styles/colors'
 import VehicleList from './components/VehicleList'
 
-interface VehicleScreenProps {}
+interface VehicleScreenProps {
+  navigation: any
+}
  
-const VehicleScreen: React.FC<VehicleScreenProps> = () => {
+const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation }) => {
   return (
     <AppContainer style={styles.container}>
-      <VehicleList />
+      <VehicleList navigation={navigation} />
     </AppContainer>
   )
 }

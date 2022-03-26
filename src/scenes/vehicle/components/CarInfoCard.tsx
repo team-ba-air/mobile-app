@@ -1,26 +1,46 @@
 import { SCREENS } from 'navigations/constants'
 import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Button, Card, Icon, Image } from 'react-native-elements'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useMutation } from 'react-query'
 import { Color } from 'styles/colors'
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes'
 import { VehicleItem } from '../constants'
+import deleteVehicleById from '../service/deleteVehicleById'
 
 interface CarInfoCardProps {
-  car: VehicleItem
+  car?: VehicleItem,
+  navigation: any
 }
 
-const CarInfoCard: React.FC<CarInfoCardProps> = ({ car }) => {
+const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  const { isLoading: isDeleting, mutateAsync: onDelete } = useMutation(deleteVehicleById, {
+    onSuccess: (data) => {
+      console.log(data)
+    },
+  })
+
+  const deleteVehicle = () => {
+    onDelete({ id: car?.id ?? '' }).catch(() => {
+      // do nothing
+    })
+  }
+
+  const updateVehicle = () => {
+    navigation.navigate(SCREENS.vehicle.update, {
+      car
+    })
+  }
 
   return ( 
     <Card containerStyle={styles.card}>
       <View style={styles.carInfo}>
         <View style={styles.carTextContainer}>
-          <Text style={styles.carPlatText}>{car.brand}</Text>
-          <Text style={styles.carTypeText}>{car.type}</Text>
-          <Text style={styles.carPlatText}>{car.plat}</Text>
+          <Text style={styles.carPlatText}>{car?.brand}</Text>
+          <Text style={styles.carTypeText}>{car?.type}</Text>
+          <Text style={styles.carPlatText}>{car?.plat}</Text>
         </View>
         <Card.Image containerStyle={styles.imageCar} source={require('@assets/car_placeholder.png')} />
       </View>
@@ -34,44 +54,48 @@ const CarInfoCard: React.FC<CarInfoCardProps> = ({ car }) => {
 
             <View style={styles.column}>
               <Text style={styles.attributeHeader}>VIN</Text>
-              <Text>{car.vin}</Text>
+              <Text>{car?.vin}</Text>
             </View>
           </View>
 
           <View style={styles.row}>
             <View style={styles.column}>
               <Text style={styles.attributeHeader}>Tahun Produksi</Text>
-              <Text>{car.year}</Text>
+              <Text>{car?.year}</Text>
             </View>
 
             <View style={styles.column}>
               <Text style={styles.attributeHeader}>Kedaluarsa STNK</Text>
-              <Text>{car.expiredDate}</Text>
+              <Text>{car?.expiredDate}</Text>
             </View>
           </View>
 
           <View style={styles.row}>
             <View style={styles.column}>
               <Text style={styles.attributeHeader}>Terakhir Servis</Text>
-              <Text>{car.lastService}</Text>
+              <Text>{car?.lastService}</Text>
             </View>
           </View>
 
           <View style={[styles.row, { justifyContent: 'space-between' }]}>
-            <Text style={{ 
-              fontSize: fontPixel(Sizing.text.body[12]), 
-              fontWeight: 'bold',
-              color: Color.red[4],
-            }}>
-              Hapus
-            </Text>
-            <Text style={{ 
-              fontSize: fontPixel(Sizing.text.body[12]), 
-              fontWeight: 'bold',
-              color: Color.blue[7],
-            }}>
-              Edit
-            </Text>
+            <TouchableOpacity onPress={deleteVehicle}>
+              <Text style={{ 
+                fontSize: fontPixel(Sizing.text.body[12]), 
+                fontWeight: 'bold',
+                color: Color.red[4],
+              }}>
+                Hapus
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={updateVehicle}>
+              <Text style={{ 
+                fontSize: fontPixel(Sizing.text.body[12]), 
+                fontWeight: 'bold',
+                color: Color.blue[7],
+              }}>
+                Edit
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       )}
@@ -90,14 +114,12 @@ export default CarInfoCard
 
 const styles = StyleSheet.create({
   card: {
-    position: 'relative',
     backgroundColor: Color.gray[0],
     borderRadius: 12,
     padding: 0,
     margin: 0,
-    marginTop: 20,
-    marginLeft: 20,
-    marginRight: 20,
+    marginTop: heightPixel(20),
+    marginHorizontal: widthPixel(20),
   },
   action: {
     display: 'flex',
@@ -148,6 +170,7 @@ const styles = StyleSheet.create({
   row: {
     display: 'flex',
     flexDirection: 'row',
+    flex: 1,
     paddingHorizontal: widthPixel(16),
     marginBottom: heightPixel(8),
   },
