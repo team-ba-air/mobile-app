@@ -1,53 +1,94 @@
 import { SCREENS } from 'navigations/constants'
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Button, Card, Icon, Image } from 'react-native-elements'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Color } from 'styles/colors'
-import { Sizing } from 'styles/sizes'
+import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes'
+import { VehicleItem } from '../constants'
 
-interface CarInfoCardProps {}
+interface CarInfoCardProps {
+  car: VehicleItem
+}
 
-const CarInfoCard: React.FC<CarInfoCardProps> = () => {
-  const goToReservation = () => {
-    console.log('Go To Reservation')
-    // navigation.navigate(SCREENS.reservation.serviceReservation)
-  }
+const CarInfoCard: React.FC<CarInfoCardProps> = ({ car }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
   return ( 
-    <>
-    <View style={styles.containerCard}>
-      <Card containerStyle={styles.card}>
-        <View style={styles.carInfo}>
-          <View style={styles.carTextContainer}>
-            <Text style={styles.carPlatText}>Toyota</Text>
-            <Text style={styles.carTypeText}>Yaris</Text>
-            <Text style={styles.carPlatText}>B 2000 S</Text>
-          </View>
-          <Card.Image containerStyle={styles.imageCar} source={require('@assets/car_placeholder.png')} />
+    <Card containerStyle={styles.card}>
+      <View style={styles.carInfo}>
+        <View style={styles.carTextContainer}>
+          <Text style={styles.carPlatText}>{car.brand}</Text>
+          <Text style={styles.carTypeText}>{car.type}</Text>
+          <Text style={styles.carPlatText}>{car.plat}</Text>
         </View>
-        <View style={styles.action}>
-          <Button buttonStyle={styles.detail} onPress={goToReservation} title='Lihat Detail' type='solid' />
-        </View>
-      </Card>
-      <View style={{ width: '100%', height: '100%', position: 'absolute', top: 0 }}>
-        <View style={{ flex: 0.5, backgroundColor: Color.blue[8] }}>
-        </View>
-        <View style={{ flex: 0.4, backgroundColor: Color.gray[0]}}></View>
+        <Card.Image containerStyle={styles.imageCar} source={require('@assets/car_placeholder.png')} />
       </View>
-    </View>
-    </>
+      {isOpen && (
+        <View>
+          <View style={styles.row}>
+            <View style={styles.column}>
+              <Text style={styles.attributeHeader}>Tipe</Text>
+              <Text>G CVT 7 AB</Text>
+            </View>
+
+            <View style={styles.column}>
+              <Text style={styles.attributeHeader}>VIN</Text>
+              <Text>{car.vin}</Text>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.column}>
+              <Text style={styles.attributeHeader}>Tahun Produksi</Text>
+              <Text>{car.year}</Text>
+            </View>
+
+            <View style={styles.column}>
+              <Text style={styles.attributeHeader}>Kedaluarsa STNK</Text>
+              <Text>{car.expiredDate}</Text>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <View style={styles.column}>
+              <Text style={styles.attributeHeader}>Terakhir Servis</Text>
+              <Text>{car.lastService}</Text>
+            </View>
+          </View>
+
+          <View style={[styles.row, { justifyContent: 'space-between' }]}>
+            <Text style={{ 
+              fontSize: fontPixel(Sizing.text.body[12]), 
+              fontWeight: 'bold',
+              color: Color.red[4],
+            }}>
+              Hapus
+            </Text>
+            <Text style={{ 
+              fontSize: fontPixel(Sizing.text.body[12]), 
+              fontWeight: 'bold',
+              color: Color.blue[7],
+            }}>
+              Edit
+            </Text>
+          </View>
+        </View>
+      )}
+      <TouchableOpacity onPress={() => setIsOpen(!isOpen)} style={styles.action}>
+        <Image 
+          style={{ height: heightPixel(16), width: widthPixel(10)}}
+          source={require('@assets/icon/ic_arrow_down.webp')} 
+          resizeMode={'contain'} 
+        />
+      </TouchableOpacity>
+    </Card>
   )
 }
 
 export default CarInfoCard
 
 const styles = StyleSheet.create({
-  containerCard: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'center',
-    position: 'relative',
-  },
   card: {
     position: 'relative',
     backgroundColor: Color.gray[0],
@@ -60,24 +101,13 @@ const styles = StyleSheet.create({
   },
   action: {
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  detail: {
-    marginLeft: 16,
-    marginBottom: 16,
-    paddingVertical: 4,
-    paddingLeft: 16,
-    paddingRight: 16,
-    backgroundColor: Color.blue[8],
-    borderRadius: 12,
+    backgroundColor: Color.blue[1],
+    paddingVertical: heightPixel(4),
     flex: 1,
-  },
-  detailText: { 
-    color: Color.blue[1], 
-    fontSize: Sizing.text.body[14],
-    fontWeight: 'bold',
-    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
   },
   reservation: {
     marginRight: 16,
@@ -115,4 +145,17 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginTop: 20,
   },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    paddingHorizontal: widthPixel(16),
+    marginBottom: heightPixel(8),
+  },
+  column: {
+    flex: 1,
+  },
+  attributeHeader: {
+    fontSize: fontPixel(Sizing.text.body[11]),
+    color: Color.gray.secondary,
+  }
 })

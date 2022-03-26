@@ -6,6 +6,7 @@ import HomeScreen from "scenes/home";
 import ProfileScreen from 'scenes/profile/ProfileScreen';
 import { Image } from 'react-native-elements';
 import VehicleScreen from 'scenes/vehicle/VehicleScreen';
+import NavbarApp from 'components/NavbarApp';
 
 const BottomNavigator = createBottomTabNavigator()
 
@@ -22,7 +23,7 @@ const AppNavigator = () => {
       />
       <BottomNavigator.Screen 
         options={{
-          headerShown: false,
+          header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Mobil Saya'}/>,
           tabBarIcon: () => <Image source={require('@assets/icon/ic_car_nav.png')} style={{ width: 20, height: 20 }} resizeMode={'contain'} />,
           tabBarLabel: 'Mobil',
         }}

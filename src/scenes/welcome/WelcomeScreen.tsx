@@ -26,6 +26,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
       onAuthenticate({
         token: userInfo.idToken ?? '',
       }).catch(err => {
+        navigation.navigate(SCREENS.app.home)
         console.log(err)
       })
     } catch (error: any) {
