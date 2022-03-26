@@ -2,6 +2,8 @@ apply plugin: "com.android.application"
 
 apply plugin: 'com.google.gms.google-services'
 
+def useIntlJsc = false
+
 import com.android.build.OutputFile
 
 /**
@@ -182,8 +184,22 @@ android {
 }
 
 dependencies {
+     if (useIntlJsc) {
+        implementation 'org.webkit:android-jsc-intl:+'
+    } else {
+        implementation 'org.webkit:android-jsc:+'
+    }
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
+
+    // Google Maps
+    implementation(project(':react-native-maps')){
+       exclude group: 'com.google.android.gms', module: 'play-services-base'
+       exclude group: 'com.google.android.gms', module: 'play-services-maps'
+   }
+   implementation 'com.google.android.gms:play-services-base:17.2.1'
+   implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
 
