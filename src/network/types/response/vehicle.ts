@@ -6,6 +6,8 @@ interface VehicleResponse {
   year: string
   color: string
   license_plate: string
+  vin: string
+  certificate_expire_date: string
   created_at: string
 }
 

@@ -15,10 +15,15 @@ export const mapVehicleListResponse = (response: PublicAPIResponse<GetVehicleLis
   return {
     ...response,
     data: vehicleList.map((vehicle) => ({
+      id: vehicle.id,
       brand: vehicle.brand,
       type: vehicle.type,
       year: vehicle.color,
-      plat: vehicle.license_plate
+      color: vehicle.color,
+      plat: vehicle.license_plate ?? '',
+      vin: vehicle.vin ?? '',
+      expiredDate: vehicle.certificate_expire_date ?? '',
+      lastService: '-',
     })),
   }
 }

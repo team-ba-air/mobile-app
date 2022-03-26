@@ -16,22 +16,37 @@ interface VehicleListProps {
 
 const vehicleList = [
   {
+    id: '1',
     brand: 'Toyota',
     type: 'Yaris',
     year: '2015',
+    color: '',
     plat: 'B 2012 S',
+    vin: 'MHKA7GJ7JKJ130848',
+    expiredDate: '12 Oktober 2026',
+    lastService: '-',
   },
   {
+    id: '2',
     brand: 'Toyota',
     type: 'Yaris',
     year: '2015',
+    color: '',
     plat: 'B 2012 S',
+    vin: 'MHKA7GJ7JKJ130848',
+    expiredDate: '12 Oktober 2026',
+    lastService: '-',
   },
   {
+    id: '3',
     brand: 'Toyota',
     type: 'Yaris',
     year: '2015',
+    color: '',
     plat: 'B 2012 S',
+    vin: 'MHKA7GJ7JKJ130848',
+    expiredDate: '12 Oktober 2026',
+    lastService: '-',
   },
 ]
  
@@ -40,7 +55,7 @@ const VehicleList: React.FC<VehicleListProps> = () => {
     data: vehicleListResponse,
     isLoading: isFetchingUserList,
   } = useQuery<PublicAPIResponse<VehicleItem[]>>(
-    ['getUserList'],
+    ['getVehicleList'],
     () => getVehicleList(),
     {
       refetchOnWindowFocus: false,
@@ -52,7 +67,13 @@ const VehicleList: React.FC<VehicleListProps> = () => {
     <FlatList
       data={vehicleList}
       ListHeaderComponent={
-        <CarInfoCard />
+        <View style={styles.containerCard}>
+          <CarInfoCard car={vehicleList[0]} />
+          <View style={{ width: '100%', height: '100%', position: 'absolute', top: 0 }}>
+            <View style={{ flex: 0.5, backgroundColor: Color.blue[8] }}></View>
+            <View style={{ flex: 0.4, backgroundColor: Color.gray[0]}}></View>
+          </View>
+        </View>
       }
       renderItem={(info: ListRenderItemInfo<VehicleItem>) => (
         <View style={styles.container}>
@@ -82,6 +103,12 @@ const VehicleList: React.FC<VehicleListProps> = () => {
 export default VehicleList
 
 const styles = StyleSheet.create({
+  containerCard: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    position: 'relative',
+  },
   container: {
     display: 'flex',
     justifyContent: 'space-between',

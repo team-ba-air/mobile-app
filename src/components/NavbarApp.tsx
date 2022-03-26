@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
-import { Icon, Text } from 'react-native-elements';
+import { Icon, Image, Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
 
@@ -12,8 +12,15 @@ interface NavbarAppProps {
 const NavbarApp: React.FC<NavbarAppProps> = ({ title, navigation }) => {
   return ( 
     <View style={styles.container}>
-      
-      <Text style={styles.title}>{title}</Text>
+      <Image
+        style={{ width: 16, height: 16 }}
+        source={require('@assets/icon/left_arrow.png')} 
+        resizeMode={'contain'} 
+        onPress={() => navigation.goBack(null)}
+      />
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>{title}</Text>
+      </View>
     </View>
   );
 }
@@ -26,13 +33,19 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: Color.blue[8],
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     flexDirection: 'row',
+    alignItems: 'center'
   },
   title: {
     fontSize: Sizing.text.body[16],
     color: Color.gray[0],
     fontWeight: 'bold',
+  },
+  titleContainer: {
+    width: '100%',
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 })
