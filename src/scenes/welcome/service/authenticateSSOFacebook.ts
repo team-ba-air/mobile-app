@@ -6,7 +6,7 @@ export type AuthenticateSSOFacebookRequest = {
 }
 
 export type AuthenticateSSOFacebookResponse = {
-
+  access_token: string
 }
 
 export const authenticateSSOFacebookEndpoint = '/auth/facebook'

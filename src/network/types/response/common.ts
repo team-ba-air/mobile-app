@@ -12,7 +12,7 @@ interface APIResponseMeta {
 
 interface PublicAPIResponse<T> {
   message?: string
-  data?: T
+  body?: T
   error?: APIResponseError
   meta?: APIResponseMeta
 }

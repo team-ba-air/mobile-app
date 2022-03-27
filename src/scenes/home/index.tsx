@@ -41,7 +41,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       sections={DATA}
       ListHeaderComponent={
         <>
-          <InfoLocation />
+          <InfoLocation navigation={navigation}/>
           <CarServiceReservation navigation={navigation} />
           <ServiceList />
           <OngoingReservationSection />
