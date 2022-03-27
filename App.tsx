@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 import Navigator from 'navigations'
 import { NavigationContainer } from '@react-navigation/native';
-import { GoogleSignin } from 'react-native-google-signin';
 import AppProvider from 'context/AppProvider';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 type AppProps = {}
 
@@ -24,8 +24,7 @@ const App: React.FC<AppProps> = () => {
       webClientId: '75808358640-7phfh1dhh5eqtnvt84vebs41m87cp660.apps.googleusercontent.com',
       offlineAccess: true,
       hostedDomain: '',
-      loginHint: '',
-      forceConsentPrompt: true,
+      forceCodeForRefreshToken: true,
     })
   }, [])
   return (
