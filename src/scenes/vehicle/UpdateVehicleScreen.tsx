@@ -2,6 +2,7 @@ import AppContainer from "components/AppContainer"
 import CustomButton from "components/CustomButton"
 import CustomTextInput from "components/CustomTextInput"
 import Dropdown, { OptionItem } from "components/Dropdown"
+import FormInputDate from "components/FormInputDate"
 import { SCREENS } from "navigations/constants"
 import React, { useEffect, useState } from "react"
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native"
@@ -85,7 +86,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
   const [color, setColor] = useState<string>(car?.color ?? '')
   const [plat, setPlat] = useState<string>(car?.plat ?? '')
   const [vin, setVin] = useState<string>(car?.vin ?? '')
-  const [expireDate, setExpireDate] = useState<string>(car?.expiredDate ?? '')
+  const [expireDate, setExpireDate] = useState<Date>()
 
   const [disabled, setDisabled] = useState(true)
 
@@ -110,8 +111,6 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
       console.log(data)
     },
   })
-
-  console.log('enter this')
 
   const handleForm = () => {
     console.log({
@@ -139,7 +138,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
       } else {
         onAdd({
           car: {
-            id: car.id,
+            id: car?.id ?? '',
             brand,
             type,
             year,
@@ -147,11 +146,11 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
             plat,
             vin,
             expiredDate: expireDate,
-            lastService: car.lastService,
+            lastService: car?.lastService ?? '-',
           }
         })
       }
-      navigation.navigate(SCREENS.onboarding.carList)
+      navigation.goBack()
     }
   } 
 
@@ -211,7 +210,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
         <CustomTextInput style={styles.margin} placeholder={'Nomor VIN'} onChange={setVin} value={vin} />
 
         <Text style={{ marginTop: 16, fontSize: Sizing.text.body[12], fontWeight: 'bold' }}>Masa Berlaku STNK</Text>
-        <CustomTextInput style={styles.margin} placeholder={'Masa Berlaku STNK'} onChange={setExpireDate} value={expireDate} />
+        <FormInputDate style={styles.margin} placeholder={'Masa Berlaku STNK'} onChange={setExpireDate} value={expireDate} />
       </View>
       
       <CustomButton disabled={disabled} onPress={handleForm} type='primary' title={'Simpan'}/>

@@ -17,6 +17,10 @@ const getAccessToken = async (): Promise<string> => {
   return accessToken ?? ''
 }
 
+const removeAccessToken = async () => {
+  await EncryptedStorage.removeItem(ACCESS_TOKEN_KEY)
+}
+
 const saveRefreshToken = (RefreshToken: string) => {
   try {
     EncryptedStorage.setItem(REFRESH_TOKEN_KEY, RefreshToken)
@@ -31,4 +35,4 @@ const getRefreshToken = async (): Promise<string> => {
   return refreshToken ?? ''
 }
 
-export { saveAccessToken, getAccessToken, saveRefreshToken, getRefreshToken }
+export { saveAccessToken, getAccessToken, removeAccessToken, saveRefreshToken, getRefreshToken }

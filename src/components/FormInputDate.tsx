@@ -32,7 +32,10 @@ const FormInputDate: React.FC<FormInputDateProps> = (props) => {
           mode={mode}
           value={value}
           onChange={(event: any, date: Date | undefined) => {
-            onChange?.(date ?? new Date())
+            if (event.type === 'set') {
+              onChange?.(date ?? new Date())
+            }
+            console.log(date?.toISOString())
             setOpen(false)
           }}
         />
