@@ -6,6 +6,6 @@ export type VehicleItem = {
   color: string
   plat: string
   vin: string
-  expiredDate: string
+  expiredDate?: Date
   lastService: string
 }

@@ -15,7 +15,7 @@ export type UpdateVehicleByIdData = {
   color: string
   license_plate: string
   vin: string
-  certificate_expire_date: string
+  certificate_expire_date?: string
 }
 
 export type UpdateVehicleByIdResponse = VehicleResponse[]
@@ -30,7 +30,7 @@ export const mapCarToUpdateVehicleData = (data: VehicleItem): UpdateVehicleByIdD
     color: data.color,
     license_plate: data.plat,
     vin: data.vin,
-    certificate_expire_date: data.expiredDate,
+    certificate_expire_date: data.expiredDate?.toISOString(),
   }
 }
 

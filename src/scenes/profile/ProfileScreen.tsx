@@ -4,8 +4,10 @@ import { SCREENS } from 'navigations/constants';
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Image, Text } from 'react-native-elements';
+import { GoogleSignin } from 'react-native-google-signin';
 import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
+import { removeAccessToken } from 'utils/TokenUtils';
 import ProfileAction from './components/ProfileAction';
 
 interface ProfileScreenProps {
@@ -34,7 +36,11 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
           <Image source={require('@assets/icon/ic_logo_text.webp')} style={{ width: 100, height: 32, marginBottom: 8 }} resizeMode={'contain'} />
           <Text style={{ color: Color.gray.secondary }}>Ver 1.0.0</Text>
         </View>
-        <CustomButton onPress={() => navigation.navigate(SCREENS.welcome.welcomeScreen)} title='Logout' />
+        <CustomButton onPress={() => {
+          GoogleSignin.revokeAccess()
+          removeAccessToken()
+          navigation.replace(SCREENS.welcome.welcomeScreen)
+        }} title='Logout' />
       </View>
     </AppContainer>
    );
