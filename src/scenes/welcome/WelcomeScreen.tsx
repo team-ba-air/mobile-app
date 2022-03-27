@@ -3,7 +3,6 @@ import CustomButton from 'components/CustomButton'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { Icon, Image } from 'react-native-elements'
-import { GoogleSignin, GoogleSigninButton } from 'react-native-google-signin'
 import { Color } from 'styles/colors'
 import { heightPixel, widthPixel } from 'styles/sizes'
 import CarouselComponent from './components/CarouselComponent'
@@ -13,6 +12,7 @@ import { SCREENS } from 'navigations/constants'
 import { GraphRequest, GraphRequestManager, AccessToken, LoginButton, LoginManager } from 'react-native-fbsdk'
 import authenticateSSOFacebook from './service/authenticateSSOFacebook'
 import { saveAccessToken } from 'utils/TokenUtils'
+import { GoogleSignin } from '@react-native-google-signin/google-signin'
 
 interface WelcomeScreenProps {
   navigation: any

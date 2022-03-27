@@ -1,10 +1,10 @@
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import AppContainer from 'components/AppContainer';
 import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Image, Text } from 'react-native-elements';
-import { GoogleSignin } from 'react-native-google-signin';
 import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
 import { removeAccessToken } from 'utils/TokenUtils';
@@ -37,7 +37,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
           <Text style={{ color: Color.gray.secondary }}>Ver 1.0.0</Text>
         </View>
         <CustomButton onPress={() => {
-          GoogleSignin.revokeAccess()
+          GoogleSignin.signOut()
           removeAccessToken()
           navigation.replace(SCREENS.welcome.welcomeScreen)
         }} title='Logout' />
