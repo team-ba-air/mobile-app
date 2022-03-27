@@ -6,7 +6,7 @@ export type AuthenticateSSOGoogleRequest = {
 }
 
 export type AuthenticateSSOGoogleResponse = {
-
+  access_token: string
 }
 
 export const authenticateSSOGoogleEndpoint = '/auth/google'

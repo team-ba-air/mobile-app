@@ -19,6 +19,7 @@ export const SCREENS = {
   app: {
     mainApp: 'App',
     home: 'Home',
+    maps: 'Maps',
   },
   reservation: {
     serviceReservation: 'ServiceReservation',

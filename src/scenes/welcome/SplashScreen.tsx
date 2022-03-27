@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native';
 import { Image } from 'react-native-elements';
 import { heightPixel, widthPixel } from 'styles/sizes';
+import { getAccessToken } from 'utils/TokenUtils';
 
 interface SplashScreenProps {
   navigation: any
@@ -12,10 +13,20 @@ interface SplashScreenProps {
 const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
-      // navigation.navigate(SCREENS.welcome.welcomeScreen)
+      getAccessToken().then(token => {
+        console.log(token)
+        if (token) {
+          navigation.navigate(SCREENS.app.home)
+        } else {
+          navigation.navigate(SCREENS.welcome.welcomeScreen)
+        }
+      }).catch((error) => {
+        console.log(error)
+        navigation.navigate(SCREENS.welcome.welcomeScreen)
+      })
 
       // Debug purpose
-      navigation.navigate(SCREENS.app.home)
+      // navigation.navigate(SCREENS.app.home)
     }, 3000)
   }, [])
 

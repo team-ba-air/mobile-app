@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { PublicAPIResponse } from 'network/types/response/common'
 import Cookies from 'universal-cookie'
+import { getAccessToken } from 'utils/TokenUtils'
 const cookie = new Cookies()
 
 const networkService = axios.create({
@@ -12,12 +13,11 @@ const networkService = axios.create({
 })
 
 networkService.interceptors.request.use(async request => {
-  // const token = cookie.get('accessToken')
-  // console.log(token)
+  const token = await getAccessToken()
 
   request.headers = {
     ...request.headers,
-    // ...(token && { Authorization: `Bearer ${token}` }),
+    ...(token && { Authorization: `Bearer ${token}` }),
   }
 
   return request

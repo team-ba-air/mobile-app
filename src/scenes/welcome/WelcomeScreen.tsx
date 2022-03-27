@@ -12,6 +12,7 @@ import { useMutation } from 'react-query'
 import { SCREENS } from 'navigations/constants'
 import { GraphRequest, GraphRequestManager, AccessToken, LoginButton, LoginManager } from 'react-native-fbsdk'
 import authenticateSSOFacebook from './service/authenticateSSOFacebook'
+import { saveAccessToken } from 'utils/TokenUtils'
 
 interface WelcomeScreenProps {
   navigation: any
@@ -81,15 +82,15 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
 
   const { isLoading: isAuthenticating, mutateAsync: onAuthenticate } = useMutation(authenticateSSOGoogle, {
     onSuccess: (data) => {
-      console.log(data)
-      // navigation.navigate(SCREENS.app.home)
+      saveAccessToken(data.body?.access_token ?? '')
+      navigation.navigate(SCREENS.app.home)
     },
   })
 
   const { isLoading: isAuthenticatingFacebook, mutateAsync: onAuthenticateFacebook } = useMutation(authenticateSSOFacebook, {
     onSuccess: (data) => {
-      console.log(data)
-      // navigation.navigate(SCREENS.app.home)
+      saveAccessToken(data.body?.access_token ?? '')
+      navigation.navigate(SCREENS.app.home)
     },
   })
 
