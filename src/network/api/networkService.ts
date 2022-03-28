@@ -1,8 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import { PublicAPIResponse } from 'network/types/response/common'
-import Cookies from 'universal-cookie'
 import { getAccessToken } from 'utils/TokenUtils'
-const cookie = new Cookies()
 
 const networkService = axios.create({
   method: 'POST',
