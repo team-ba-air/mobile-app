@@ -5,6 +5,7 @@ import { Button, Card, Icon, Image } from 'react-native-elements'
 import { useMutation } from 'react-query'
 import { Color } from 'styles/colors'
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes'
+import { getFormatDate } from 'utils/DateUtil'
 import { VehicleItem } from '../constants'
 import deleteVehicleById from '../service/deleteVehicleById'
 
@@ -23,8 +24,9 @@ const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation }) => {
   })
 
   const deleteVehicle = () => {
-    onDelete({ id: car?.id ?? '' }).catch(() => {
+    onDelete({ id: car?.id ?? '' }).catch((e) => {
       // do nothing
+      console.log(e)
     })
   }
 
@@ -66,7 +68,7 @@ const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation }) => {
 
             <View style={styles.column}>
               <Text style={styles.attributeHeader}>Kedaluarsa STNK</Text>
-              <Text>{car?.expiredDate}</Text>
+              <Text>{car?.expiredDate ? getFormatDate(car?.expiredDate) : '-'}</Text>
             </View>
           </View>
 

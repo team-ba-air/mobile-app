@@ -16,7 +16,7 @@ const BaseBottomSheet: React.FC<BaseBottomSheetProps> = (props) => {
       isVisible={visible}
       animationIn='slideInUp'
       style={styles.view}
-      swipeDirection={['down']}
+      swipeDirection={['down', 'up']}
       onBackdropPress={() => onChangeVisible(false)}
       onBackButtonPress={() => onChangeVisible(false)}
     >

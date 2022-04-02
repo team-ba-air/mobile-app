@@ -1,11 +1,9 @@
 import AppContainer from 'components/AppContainer';
 import React, { useEffect } from 'react';
 import { SectionList, StatusBar, StyleSheet, Text, View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
 import CarServiceReservation from './components/CarServiceReservation';
 import InfoLocation from './components/InfoLocation';
-import OngoingReservationItem from './components/OngoingReservationItem';
 import OngoingReservationSection from './components/OngoingReservationSection';
 import PopularService from './components/PopularService';
 import ServiceList from './components/ServiceList';

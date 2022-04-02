@@ -1,3 +1,4 @@
+import { NavigationProp } from '@react-navigation/native'
 import CustomButton from 'components/CustomButton'
 import { SCREENS } from 'navigations/constants'
 import { PublicAPIResponse } from 'network/types'
@@ -13,33 +14,8 @@ import getVehicleList from '../service/getVehicleList'
 import CarInfoCard from './CarInfoCard'
 
 interface VehicleListProps {
-  navigation: any
+  navigation: NavigationProp<any>
 }
-
-const vehicleList: VehicleItem[] = [
-  {
-    id: '1',
-    brand: 'Toyota',
-    type: 'Yaris',
-    year: '2015',
-    color: '',
-    plat: 'B 2012 S',
-    vin: 'MHKA7GJ7JKJ130848',
-    expiredDate: '12 Oktober 2026',
-    lastService: '-',
-  },
-  {
-    id: '2',
-    brand: 'Toyota',
-    type: 'Yaris',
-    year: '2015',
-    color: '',
-    plat: 'B 2012 S',
-    vin: 'MHKA7GJ7JKJ130848',
-    expiredDate: '12 Oktober 2026',
-    lastService: '-',
-  },
-]
  
 const VehicleList: React.FC<VehicleListProps> = ({ navigation }) => {
   const {
@@ -54,9 +30,11 @@ const VehicleList: React.FC<VehicleListProps> = ({ navigation }) => {
     }
   )
 
+  console.log(vehicleListResponse)
+
   return (  
     <FlatList
-      data={vehicleList}
+      data={vehicleListResponse?.body ?? []}
       renderItem={(info: ListRenderItemInfo<VehicleItem>) => (
         <>
           {info.index === 0 ? 

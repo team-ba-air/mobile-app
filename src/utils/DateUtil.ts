@@ -4,9 +4,12 @@ const getFullFormatDate = (date: Date) => {
 }
 
 const getFormatDate = (date: Date) => {
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
   let formatDate = date.getDate() +
   ' ' +
-  date.toLocaleString('default', { month: 'long' }) +
+  monthNames[date.getMonth()] +
   ' ' +
   date.getFullYear()
 
