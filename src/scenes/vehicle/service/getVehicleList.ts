@@ -18,7 +18,7 @@ export const mapVehicleListResponse = (response: PublicAPIResponse<GetVehicleLis
       id: vehicle.id,
       brand: vehicle.brand,
       type: vehicle.type,
-      year: vehicle.color,
+      year: vehicle.year,
       color: vehicle.color,
       plat: vehicle.license_plate ?? '',
       vin: vehicle.vin ?? '',

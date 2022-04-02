@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react'
-import { ImageBackground, StyleSheet } from 'react-native';
+import { ImageBackground, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface AppContainerProps {
   children: ReactNode
-  style?: any
+  style?: StyleProp<ViewStyle>
   backgroundImage?: any
 }
  

@@ -1,8 +1,7 @@
 import { SCREENS } from 'navigations/constants';
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Icon, Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
 

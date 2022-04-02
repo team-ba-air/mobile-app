@@ -134,6 +134,8 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
             expiredDate: expireDate,
             lastService: car.lastService,
           }
+        }).catch(e => {
+          console.log(e)
         })
       } else {
         onAdd({
@@ -150,7 +152,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
           }
         })
       }
-      navigation.goBack()
+      navigation.navigate(SCREENS.vehicle.list)
     }
   } 
 

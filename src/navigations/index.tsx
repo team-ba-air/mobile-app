@@ -19,7 +19,7 @@ import SplashScreen from 'scenes/welcome/SplashScreen';
 import OtpEmailScreen from 'scenes/authentication/otp/OtpEmailScreen';
 import OtpPhoneScreen from 'scenes/authentication/otp/OtpPhoneScreen';
 import UpdateVehicleScreen from 'scenes/vehicle/UpdateVehicleScreen';
-import MapsScreen from 'scenes/home/MapsScreen';
+import MapsScreen from 'scenes/home/maps/MapsScreen';
 
 const Stack = createStackNavigator();
 
@@ -37,7 +37,7 @@ const RootNavigator: React.FC<any> = () => {
       <Stack.Screen options={{ header: () => <Navbar />}} name='AddInfoCar' component={AddInfoCar} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='CarList' component={CarList} />
       <Stack.Screen options={{ headerShown: false }} name='Home' component={AppNavigator} />
-      <Stack.Screen name='Maps' component={MapsScreen} />
+      <Stack.Screen options={{ headerShown: false }} name='Maps' component={MapsScreen} />
       <Stack.Screen options={{ header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Perbarui Mobil'}/> }} name='UpdateVehicle' component={UpdateVehicleScreen} />
       <Stack.Screen options={{ header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Pilih Servis'}/> }} name='ServiceReservation' component={ServiceReservation} />
       <Stack.Screen name='BengkelReservation' component={BengkelReservation} />
