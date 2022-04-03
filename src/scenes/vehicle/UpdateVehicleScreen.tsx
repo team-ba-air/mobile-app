@@ -138,7 +138,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
           console.log(e)
         })
       } else {
-        onAdd({
+        const carData = {
           car: {
             id: car?.id ?? '',
             brand,
@@ -150,6 +150,10 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
             expiredDate: expireDate,
             lastService: car?.lastService ?? '-',
           }
+        }
+        console.log(carData)
+        onAdd(carData).catch(e => {
+          console.log(e)
         })
       }
       navigation.navigate(SCREENS.vehicle.list)

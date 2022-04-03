@@ -137,7 +137,11 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation }) => {
         )}
       </MapView>
       
-      <BottomSheetBengkelList animatedPosition={animatedPosition} />
+      <BottomSheetBengkelList 
+        navigation={navigation} 
+        animatedPosition={animatedPosition} 
+        service={{ img: '', value: '', label: 'Servis Dasar' }} 
+      />
       <Animated.View style={animatedStyle}>
         {/* {showWarning && (
           

@@ -1,6 +1,6 @@
 import React from 'react'
-import { StyleProp, StyleSheet, View } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
+import { StyleProp, StyleSheet, TextInput, View } from 'react-native'
+import { Input } from 'react-native-elements'
 
 interface CustomTextInputProps {
   value?: string
@@ -14,6 +14,7 @@ interface CustomTextInputProps {
  
 const CustomTextInput: React.FC<CustomTextInputProps> = (props) => {
   const { value, onChange, placeholder, size = 16, style, multiline = false, lines } = props
+
   return ( 
     <View style={{...styles.input, ...style}}>
       <TextInput style={{ fontSize: size }} textAlignVertical={'top'} maxLength={240} multiline={multiline} numberOfLines={lines} placeholder={placeholder} onChangeText={onChange} value={value} />
