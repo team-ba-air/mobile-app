@@ -4,7 +4,7 @@ import BottomSheet, { TouchableOpacity } from '@gorhom/bottom-sheet';
 import Animated from 'react-native-reanimated';
 import { BengkelItem, ServiceItem } from 'scenes/home/constants';
 import { NavigationProp } from '@react-navigation/native';
-import { Sizing } from 'styles/sizes';
+import { Sizing, widthPixel } from 'styles/sizes';
 import BengkelListItem from './BengkelListItem';
 import { SCREENS } from 'navigations/constants';
 
@@ -28,7 +28,7 @@ const defaultValues: BengkelItem[] = [
   },
   {
     img: '',
-    isAuthorized: false,
+    isAuthorized: true,
     isAlmostClosed: true,
     name: 'Auto 2000',
     location: 'Jakarta Utara',
@@ -47,7 +47,7 @@ const BottomSheetBengkelList: React.FC<BottomSheetBengkelListProps> = ({ animate
   }, []);
 
   return ( 
-    <BottomSheet animatedPosition={animatedPosition} ref={bottomSheetRef} index={1} snapPoints={['40%', '80%']} onChange={handleSheetChanges}>
+    <BottomSheet style={{ paddingHorizontal: widthPixel(16) }} animatedPosition={animatedPosition} ref={bottomSheetRef} index={1} snapPoints={['40%', '80%']} onChange={handleSheetChanges}>
       <View>
         <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold' }}>Bengkel yang bisa {service.label}</Text>
       </View>
