@@ -2,7 +2,7 @@ import CustomChips from 'components/CustomChips';
 import { SCREENS } from 'navigations/constants';
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
-import { Image, Text } from 'react-native-elements';
+import { Icon, Image, Text } from 'react-native-elements';
 import { BengkelItem } from 'scenes/home/constants';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
@@ -21,6 +21,12 @@ const BengkelListItem: React.FC<BengkelListItemProps> = ({ data }) => {
             source={require('@assets/placeholder_bengkel.png')}
             resizeMode={'contain'}
           />
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+            <Icon size={14} name={'star'} color={'#f5e725'} />
+            <Text style={{ fontSize: fontPixel(11), marginLeft: widthPixel(4), fontWeight: 'bold' }}>
+              {data.rating}
+            </Text>
+          </View>
         </View>
         <View style={{ marginTop: 16 }}>
           <View style={[styles.header]}>
