@@ -102,12 +102,14 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
 
   const { isLoading: isAdding, mutateAsync: onAdd } = useMutation(addVehicle, {
     onSuccess: (data) => {
+      navigation.navigate(SCREENS.vehicle.list)
       console.log(data)
     },
   })
 
   const { isLoading: isUpdating, mutateAsync: onUpdate } = useMutation(updateVehicleById, {
     onSuccess: (data) => {
+      navigation.navigate(SCREENS.vehicle.list)
       console.log(data)
     },
   })
@@ -122,6 +124,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
 
     if(!disabled){
       if (car) {
+        console.log(car)
         onUpdate({
           car: {
             id: car.id,
@@ -156,7 +159,6 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
           console.log(e)
         })
       }
-      navigation.navigate(SCREENS.vehicle.list)
     }
   } 
 

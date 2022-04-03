@@ -1,6 +1,6 @@
 import { NavigationProp } from '@react-navigation/native'
 import AppContainer from 'components/AppContainer'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { Color } from 'styles/colors'
 import VehicleList from './components/VehicleList'
