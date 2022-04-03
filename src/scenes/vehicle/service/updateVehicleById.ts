@@ -37,7 +37,7 @@ export const mapCarToUpdateVehicleData = (data: VehicleItem): UpdateVehicleByIdD
 const updateVehicleById = async (request: UpdateVehicleByIdRequest) => {
   const data = mapCarToUpdateVehicleData(request.car)
   console.log(data)
-  const response: PublicAPIResponse<UpdateVehicleByIdResponse> = await networkService.put(
+  const response: PublicAPIResponse<UpdateVehicleByIdResponse> = await networkService.patch(
     `${updateVehicleByIdEndpoint}/${request.car.id}`,
     data
   )

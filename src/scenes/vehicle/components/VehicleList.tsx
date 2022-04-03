@@ -1,8 +1,8 @@
-import { NavigationProp } from '@react-navigation/native'
+import { NavigationProp, useFocusEffect } from '@react-navigation/native'
 import CustomButton from 'components/CustomButton'
 import { SCREENS } from 'navigations/constants'
 import { PublicAPIResponse } from 'network/types'
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { ListRenderItemInfo, StyleSheet, Text, View } from 'react-native'
 import { Image } from 'react-native-elements'
 import { FlatList } from 'react-native-gesture-handler'
@@ -20,7 +20,8 @@ interface VehicleListProps {
 const VehicleList: React.FC<VehicleListProps> = ({ navigation }) => {
   const {
     data: vehicleListResponse,
-    isLoading: isFetchingUserList,
+    isLoading: isFetchingVehicleList,
+    refetch
   } = useQuery<PublicAPIResponse<VehicleItem[]>>(
     ['getVehicleList'],
     () => getVehicleList(),
@@ -30,6 +31,11 @@ const VehicleList: React.FC<VehicleListProps> = ({ navigation }) => {
     }
   )
 
+  useFocusEffect(() => {
+    refetch() 
+  })
+
+  console.log(isFetchingVehicleList)
   console.log(vehicleListResponse)
 
   return (  
