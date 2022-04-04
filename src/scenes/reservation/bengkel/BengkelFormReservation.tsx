@@ -17,6 +17,7 @@ import { reservationFormSchema } from '../schema/reservationFormSchema';
 import TabBengkel from './components/TabBengkel';
 import { NavigationProp } from '@react-navigation/native';
 import ReviewItemComponent from './components/ReviewItemComponent';
+import ReviewComponent from './components/ReviewComponent';
 
 interface BengkelFormReservationProps {
   route: Route<string, ParamBengkel>
@@ -27,15 +28,6 @@ interface ParamBengkel {
   data: BengkelItem
 }
 
-const dummyReview: ReviewItem[] = [
-  {
-    name: 'Patrick S',
-    rating: 4,
-    date: new Date(),
-    serviceType: 'Servis Dasar',
-    review: 'Pelayanannya sangat baik dan ramah.',
-  }
-]
  
 const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, navigation }) => {
   const { data } = route.params
@@ -81,16 +73,7 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
               <CustomButton onPress={handleFormSubmit(onSubmit)} style={{ bottom: 0, marginTop: heightPixel(16), marginBottom: heightPixel(16) }} title='Checkout' />
             </ScrollView>
           ) : 
-            <View>
-              <FlatList 
-                data={dummyReview}
-                renderItem={(info: ListRenderItemInfo<ReviewItem>) => (
-                  <View>
-                    <ReviewItemComponent item={info.item} />
-                  </View>
-                )}
-              />
-            </View>
+            <ReviewComponent />
           }
         </View>
       </ScrollView>
