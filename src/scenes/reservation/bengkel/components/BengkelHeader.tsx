@@ -1,9 +1,9 @@
+import CustomChips from 'components/CustomChips';
 import React from 'react'
 import { View } from 'react-native';
 import { Image, Text } from 'react-native-elements';
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
-import { BengkelItem } from '../constants';
-import AuthorizedChips from './AuthorizedChips';
+import { BengkelItem } from '../../constants';
 
 interface BengkelHeaderProps {
   data: BengkelItem
@@ -16,7 +16,7 @@ const BengkelHeader: React.FC<BengkelHeaderProps> = ({ data }) => {
         <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold' }}>{data.name}, {data.location}</Text>
         <View style={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'row', marginTop: 8 }}>
           { data.isAuthorized && (
-            <AuthorizedChips />
+            <CustomChips text={'Authorized'} />
           )}
           <View style={{ marginLeft: 8 }}>
             <Text style={{ fontSize: fontPixel(Sizing.text.body[10]), fontWeight: 'bold' }}>{data.rating}</Text>

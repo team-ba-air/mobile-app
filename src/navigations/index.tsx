@@ -10,8 +10,7 @@ import Navbar from 'components/Navbar';
 import AppNavigator from './app-navigator';
 import NavbarApp from 'components/NavbarApp';
 import ServiceReservation from 'scenes/reservation/ServiceReservation';
-import BengkelReservation from 'scenes/reservation/BengkelReservation';
-import BengkelFormReservation from 'scenes/reservation/BengkelFormReservation';
+import BengkelFormReservation from 'scenes/reservation/bengkel/BengkelFormReservation';
 import CheckoutScreen from 'scenes/checkout/CheckoutScreen';
 import SuccessReservation from 'scenes/checkout/SuccessReservation';
 import WelcomeScreen from 'scenes/welcome/WelcomeScreen';
@@ -37,13 +36,6 @@ const RootNavigator: React.FC<any> = () => {
       <Stack.Screen options={{ header: () => <Navbar />}} name='AddInfoCar' component={AddInfoCar} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='CarList' component={CarList} />
       <Stack.Screen options={{ headerShown: false }} name='Home' component={AppNavigator} />
-      <Stack.Screen options={{ headerShown: false }} name='Maps' component={MapsScreen} />
-      <Stack.Screen options={{ header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Perbarui Mobil'}/> }} name='UpdateVehicle' component={UpdateVehicleScreen} />
-      <Stack.Screen options={{ header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Pilih Servis'}/> }} name='ServiceReservation' component={ServiceReservation} />
-      <Stack.Screen name='BengkelReservation' component={BengkelReservation} />
-      <Stack.Screen name='BengkelFormReservation' component={BengkelFormReservation} />
-      <Stack.Screen name='CheckoutScreen' component={CheckoutScreen} />
-      <Stack.Screen options={{ headerShown: false }} name='SuccessReservation' component={SuccessReservation} />
     </Stack.Navigator>
   )
 }
