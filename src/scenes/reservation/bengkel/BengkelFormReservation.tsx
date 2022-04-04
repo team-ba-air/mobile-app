@@ -5,17 +5,18 @@ import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
 import React, { useCallback } from 'react'
 import { FormProvider, useForm } from 'react-hook-form';
-import { View } from 'react-native';
+import { FlatList, ListRenderItemInfo, View } from 'react-native';
 import { Icon, Tab, TabView, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
 import { heightPixel, Sizing, widthPixel } from 'styles/sizes';
 import BengkelHeader from './components/BengkelHeader';
 import ReservationFormComponent from '../components/ReservationFormComponent';
-import { BengkelItem, ReservationForm } from '../constants';
+import { BengkelItem, ReservationForm, ReviewItem } from '../constants';
 import { reservationFormSchema } from '../schema/reservationFormSchema';
 import TabBengkel from './components/TabBengkel';
 import { NavigationProp } from '@react-navigation/native';
+import ReviewItemComponent from './components/ReviewItemComponent';
 
 interface BengkelFormReservationProps {
   route: Route<string, ParamBengkel>
@@ -25,6 +26,16 @@ interface BengkelFormReservationProps {
 interface ParamBengkel {
   data: BengkelItem
 }
+
+const dummyReview: ReviewItem[] = [
+  {
+    name: 'Patrick S',
+    rating: 4,
+    date: new Date(),
+    serviceType: 'Servis Dasar',
+    review: 'Pelayanannya sangat baik dan ramah.',
+  }
+]
  
 const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, navigation }) => {
   const { data } = route.params
@@ -71,7 +82,14 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
             </ScrollView>
           ) : 
             <View>
-              <Text>Ini review</Text>
+              <FlatList 
+                data={dummyReview}
+                renderItem={(info: ListRenderItemInfo<ReviewItem>) => (
+                  <View>
+                    <ReviewItemComponent item={info.item} />
+                  </View>
+                )}
+              />
             </View>
           }
         </View>
