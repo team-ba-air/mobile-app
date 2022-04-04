@@ -15,7 +15,7 @@ const BengkelListItem: React.FC<BengkelListItemProps> = ({ data }) => {
   return ( 
     <View style={styles.container}>
       <View style={{ display: 'flex', alignItems: 'center', flexDirection: 'row' }}>
-        <View>
+        <View style={{ marginRight: widthPixel(8) }}>
           <Image 
             style={{ width: widthPixel(80), height: heightPixel(60) }}
             source={require('@assets/placeholder_bengkel.png')}

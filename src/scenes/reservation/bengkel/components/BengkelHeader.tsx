@@ -1,18 +1,23 @@
+import { NavigationProp } from '@react-navigation/native';
 import CustomChips from 'components/CustomChips';
 import React from 'react'
-import { View } from 'react-native';
-import { Image, Text } from 'react-native-elements';
-import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
+import { StyleSheet, View } from 'react-native';
+import { Icon, Image, Text } from 'react-native-elements';
+import { fontPixel, heightPixel, SCREEN_WIDTH, Sizing, widthPixel } from 'styles/sizes';
 import { BengkelItem } from '../../constants';
+import CarouselComponent from './CarouselComponent';
 
 interface BengkelHeaderProps {
   data: BengkelItem
+  navigation: NavigationProp<any>
 }
  
-const BengkelHeader: React.FC<BengkelHeaderProps> = ({ data }) => {
+const BengkelHeader: React.FC<BengkelHeaderProps> = ({ data, navigation }) => {
   return ( 
-    <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-      <View>
+    <View>
+      <CarouselComponent />
+      {/* <Image style={{ width: SCREEN_WIDTH, height: heightPixel(60) }} source={require('@assets/placeholder_bengkel.png')} resizeMode={'contain'} /> */}
+      <View style={styles.container}>
         <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold' }}>{data.name}, {data.location}</Text>
         <View style={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'row', marginTop: 8 }}>
           { data.isAuthorized && (
@@ -24,9 +29,14 @@ const BengkelHeader: React.FC<BengkelHeaderProps> = ({ data }) => {
         </View>
         <Text style={{ marginTop: 12 }}>{data.description}</Text>
       </View>
-      <Image style={{ width: widthPixel(80), height: heightPixel(60) }} source={require('@assets/placeholder_bengkel.png')} resizeMode={'contain'} />
     </View>
    );
 }
  
 export default BengkelHeader;
+
+const styles = StyleSheet.create({
+  container: { 
+    paddingHorizontal: widthPixel(20)
+  }
+})

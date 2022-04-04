@@ -6,19 +6,20 @@ import { SCREENS } from 'navigations/constants';
 import React, { useCallback } from 'react'
 import { FormProvider, useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { Tab, TabView, Text } from 'react-native-elements';
+import { Icon, Tab, TabView, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
-import { Sizing } from 'styles/sizes';
+import { heightPixel, Sizing, widthPixel } from 'styles/sizes';
 import BengkelHeader from './components/BengkelHeader';
 import ReservationFormComponent from '../components/ReservationFormComponent';
 import { BengkelItem, ReservationForm } from '../constants';
 import { reservationFormSchema } from '../schema/reservationFormSchema';
 import TabBengkel from './components/TabBengkel';
+import { NavigationProp } from '@react-navigation/native';
 
 interface BengkelFormReservationProps {
   route: Route<string, ParamBengkel>
-  navigation: any
+  navigation: NavigationProp<any>
 }
 
 interface ParamBengkel {
@@ -54,24 +55,28 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
   const [index, setIndex] = React.useState(0);
 
   return ( 
-    <AppContainer>
-      <BengkelHeader data={data} />
-      <TabBengkel index={index} setIndex={setIndex} />
-      <View>
-        {index === 0 ?
-        (
-          <ScrollView contentContainerStyle={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '90%' }}>
-            <FormProvider {...formMethods}>
-              <ReservationFormComponent />
-            </FormProvider>
-            <CustomButton onPress={handleFormSubmit(onSubmit)} style={{ bottom: 0 }} title='Checkout' />
-          </ScrollView>
-        ) : 
-          <ScrollView>
-            <Text>Ini review</Text>
-          </ScrollView>
-        }
-      </View>
+    <AppContainer style={{ padding: 0, position: 'relative' }}>
+      
+      <ScrollView style={{ overflow: 'scroll' }}>
+        <BengkelHeader data={data} navigation={navigation} />
+        <TabBengkel index={index} setIndex={setIndex} />
+        <View style={{ paddingHorizontal: widthPixel(20) }}>
+          {index === 0 ?
+          (
+            <ScrollView nestedScrollEnabled style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <FormProvider {...formMethods}>
+                <ReservationFormComponent />
+              </FormProvider>
+              <CustomButton onPress={handleFormSubmit(onSubmit)} style={{ bottom: 0, marginTop: heightPixel(16), marginBottom: heightPixel(16) }} title='Checkout' />
+            </ScrollView>
+          ) : 
+            <View>
+              <Text>Ini review</Text>
+            </View>
+          }
+        </View>
+      </ScrollView>
+      
     </AppContainer>
   );
 }
