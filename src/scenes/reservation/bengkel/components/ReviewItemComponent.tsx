@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1, 
     borderBottomColor: Color.gray[2],
     paddingBottom: heightPixel(8),
+    marginTop: heightPixel(4),
+    marginBottom: heightPixel(8)
   },
   subtitle: {
     fontSize: fontPixel(Sizing.text.body[10]),
