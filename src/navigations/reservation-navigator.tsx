@@ -16,7 +16,7 @@ const ReservationNavigator: React.FC<any> = () => {
     <Stack.Navigator>
       <Stack.Screen 
         options={{ headerShown: false }} 
-        name='HomeTab' 
+        name='HomeScreen' 
         component={HomeScreen}  />
       <Stack.Screen 
         options={{ headerShown: false }} 

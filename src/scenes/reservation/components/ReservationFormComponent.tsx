@@ -3,7 +3,7 @@ import CustomTextInput from 'components/CustomTextInput';
 import Dropdown, { OptionItem } from 'components/Dropdown';
 import React, { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form';
-import { ListRenderItemInfo, StyleSheet, View } from 'react-native';
+import { ListRenderItemInfo, ScrollView, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
