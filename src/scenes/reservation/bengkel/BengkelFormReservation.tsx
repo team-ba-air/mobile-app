@@ -6,14 +6,15 @@ import { SCREENS } from 'navigations/constants';
 import React, { useCallback } from 'react'
 import { FormProvider, useForm } from 'react-hook-form';
 import { View } from 'react-native';
-import { Text } from 'react-native-elements';
+import { Tab, TabView, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
-import AuthorizedChips from './components/AuthorizedChips';
 import BengkelHeader from './components/BengkelHeader';
-import ReservationFormComponent from './components/ReservationFormComponent';
-import { BengkelItem, ReservationForm } from './constants';
-import { reservationFormSchema } from './schema/reservationFormSchema';
+import ReservationFormComponent from '../components/ReservationFormComponent';
+import { BengkelItem, ReservationForm } from '../constants';
+import { reservationFormSchema } from '../schema/reservationFormSchema';
+import TabBengkel from './components/TabBengkel';
 
 interface BengkelFormReservationProps {
   route: Route<string, ParamBengkel>
@@ -50,16 +51,26 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
     navigation.navigate(SCREENS.reservation.checkout, { data })
   }, [])
 
+  const [index, setIndex] = React.useState(0);
+
   return ( 
     <AppContainer>
       <BengkelHeader data={data} />
-      <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '90%' }}>
-        <ScrollView>
-          <FormProvider {...formMethods}>
-            <ReservationFormComponent />
-          </FormProvider>
-        </ScrollView>
-        <CustomButton onPress={handleFormSubmit(onSubmit)} style={{ bottom: 0 }} title='Checkout' />
+      <TabBengkel index={index} setIndex={setIndex} />
+      <View>
+        {index === 0 ?
+        (
+          <ScrollView contentContainerStyle={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '90%' }}>
+            <FormProvider {...formMethods}>
+              <ReservationFormComponent />
+            </FormProvider>
+            <CustomButton onPress={handleFormSubmit(onSubmit)} style={{ bottom: 0 }} title='Checkout' />
+          </ScrollView>
+        ) : 
+          <ScrollView>
+            <Text>Ini review</Text>
+          </ScrollView>
+        }
       </View>
     </AppContainer>
   );

@@ -8,6 +8,7 @@ import { Image } from 'react-native-elements';
 import VehicleScreen from 'scenes/vehicle/VehicleScreen';
 import NavbarApp from 'components/NavbarApp';
 import VehicleNavigator from './vehicle-navigator';
+import ReservationNavigator from './reservation-navigator';
 
 const BottomNavigator = createBottomTabNavigator()
 
@@ -20,7 +21,7 @@ const AppNavigator = () => {
           tabBarLabel: 'Home',
         }} 
         name='HomeTab' 
-        component={HomeScreen} 
+        component={ReservationNavigator} 
       />
       <BottomNavigator.Screen 
         options={{
