@@ -30,6 +30,7 @@ export type ReservationForm = Partial<{
 }>
 
 export type ReviewItem = {
+  name: string
   rating: number
   date: Date
   serviceType: string

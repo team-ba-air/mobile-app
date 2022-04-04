@@ -16,6 +16,18 @@ const getFormatDate = (date: Date) => {
   return formatDate
 }
 
+const getFormatDateNumeric = (date: Date, separator: string = '/') => {
+  const day = date.getDate()
+  const month = date.getMonth()
+  let formatDate = (day < 10 ? `0${day}`: day )+
+  separator +
+  (month < 9 ? `0${month+1}`: `${month+1}` ) +
+  separator +
+  date.getFullYear()
+
+  return formatDate
+}
+
 const getFormatHour = (date: Date) => {
   let formatHour = date.getHours() +
   ':' +
@@ -24,4 +36,4 @@ const getFormatHour = (date: Date) => {
   return formatHour
 }
 
-export { getFullFormatDate, getFormatDate, getFormatHour }
+export { getFullFormatDate, getFormatDate, getFormatDateNumeric, getFormatHour }
