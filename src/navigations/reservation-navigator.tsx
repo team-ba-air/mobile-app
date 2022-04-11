@@ -8,6 +8,7 @@ import CheckoutScreen from 'scenes/checkout/CheckoutScreen';
 import SuccessReservation from 'scenes/checkout/SuccessReservation';
 import AppNavigator from './app-navigator';
 import MapsScreen from 'scenes/home/maps/MapsScreen';
+import SelectPaymentScreen from 'scenes/checkout/payment/SelectPaymentScreen';
 
 const Stack = createStackNavigator()
 
@@ -31,6 +32,7 @@ const ReservationNavigator: React.FC<any> = () => {
         name='BengkelFormReservation' 
         component={BengkelFormReservation} />
       <Stack.Screen name='CheckoutScreen' component={CheckoutScreen} />
+      <Stack.Screen name='SelectPayment' component={SelectPaymentScreen} />
       <Stack.Screen name='SuccessReservation' component={SuccessReservation} />
     </Stack.Navigator>
   )
