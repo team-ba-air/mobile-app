@@ -19,7 +19,7 @@ const FooterCheckout: React.FC<FooterCheckoutProps> = ({ navigation }) => {
         <Text style={styles.content}>Rp100.000</Text>
       </View>
       <View>
-        <CustomButton onPress={() => navigation.navigate(SCREENS.reservation.success)} buttonStyle={{ paddingLeft: 36, paddingRight: 36 }} title='Bayar' />
+        <CustomButton onPress={() => navigation.navigate(SCREENS.reservation.selectPayment)} buttonStyle={{ paddingLeft: 36, paddingRight: 36 }} title='Bayar' />
       </View>
     </View>
   );
