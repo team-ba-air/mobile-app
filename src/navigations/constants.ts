@@ -28,6 +28,7 @@ export const SCREENS = {
     bengkelFormReservation: 'BengkelFormReservation',
     checkout: 'CheckoutScreen',
     selectPayment: 'SelectPayment',
+    paymentDetail: 'PaymentDetail',
     success: 'SuccessReservation',
   },
 }
