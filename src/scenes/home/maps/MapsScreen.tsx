@@ -93,10 +93,9 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation }) => {
     return {
       display: 'flex',
       flexDirection: 'column-reverse',
-      justifyContent:'flex-end',
-      alignSelf: 'flex-end',
+      justifyContent:'flex-start',
       bottom: animatedPosition.value - 200,
-      backgroundColor: 'red',
+      // backgroundColor: 'red',
     }
   })
 
@@ -104,15 +103,23 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation }) => {
     return {
       display: 'flex',
       flexDirection: 'column-reverse',
-      justifyContent: 'flex-end',
-      left: SCREEN_WIDTH - 50,
-      bottom: animatedPosition.value - 200,
+      justifyContent: 'flex-start',
+      alignItems: 'flex-end',
+      height: animatedPosition.value - 50,
+      // bottom: animatedPosition.value - 200,
       width: '10%',
+      // backgroundColor: 'blue'
     }
   })
 
+  const styleLocation = location ? ({
+    display: 'flex'
+  }) : ({
+    display: 'none'
+  })
+
   return ( 
-    <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0, }}>
+    <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0, alignItems: 'flex-end' }}>
       <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
@@ -140,20 +147,22 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation }) => {
       <View style={styles.containerActionNavigate}>
         <Icon size={16} raised name={'arrow-back'} onPress={() => navigation.goBack()} />
       </View>
-      <Animated.View style={animatedStyleAction}>
-        <View>
+      <View>
+        <Animated.View style={animatedStyleAction}>
+          <View style={styles.warning}>
+            <Text style={{ fontSize: fontPixel(12), color: 'white', paddingHorizontal: widthPixel(4) }}>Lokasi tidak terbaca. Silakan klik pada peta untuk memilih lokasi, atau nyalakan GPS.</Text>
+            <Icon size={18} onPress={() => setShowWarning(false)} color={'white'} name={'close'}/>
+          </View>
           <Icon size={16} raised name={'gps-fixed'} onPress={handlePressGPS} />
+          
           {location && (
             <Icon size={16} raised name={'location-off'} onPress={() => setLocation(null)}/>
           )}
-        </View>
-      </Animated.View>
-      <Animated.View style={animatedStyle}>
-        <View style={styles.warning}>
-          <Text style={{ fontSize: fontPixel(12), color: 'white', paddingHorizontal: widthPixel(4) }}>Lokasi tidak terbaca. Silakan klik pada peta untuk memilih lokasi, atau nyalakan GPS.</Text>
-          <Icon size={18} onPress={() => setShowWarning(false)} color={'white'} name={'close'}/>
-        </View>
-      </Animated.View>
+        </Animated.View>
+        {/* <Animated.View style={animatedStyle}>
+          
+        </Animated.View> */}
+      </View>
     </AppContainer>
   );
 }
@@ -176,7 +185,7 @@ const styles = StyleSheet.create({
     display: 'flex', 
     flexDirection: 'row',
     justifyContent: 'space-around', 
-    width: '100%',
+    width: SCREEN_WIDTH,
     paddingVertical: heightPixel(8),
     paddingHorizontal: widthPixel(8),
   },
