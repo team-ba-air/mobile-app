@@ -112,12 +112,6 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation }) => {
     }
   })
 
-  const styleLocation = location ? ({
-    display: 'flex'
-  }) : ({
-    display: 'none'
-  })
-
   return ( 
     <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0, alignItems: 'flex-end' }}>
       <MapView

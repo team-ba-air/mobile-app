@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { StyleProp, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { StyleProp, StyleSheet, TouchableOpacity, View, ViewStyle } from 'react-native'
 import { Text } from 'react-native-elements'
 import { Color } from 'styles/colors'
-import { Sizing } from 'styles/sizes'
+import { fontPixel, heightPixel, Sizing } from 'styles/sizes'
 import { format } from 'date-fns'
 import RNDateTimePicker from '@react-native-community/datetimepicker'
 
@@ -10,15 +10,16 @@ interface FormInputDateProps {
   value?: Date
   onChange?: (value: Date) => void
   placeholder?: string
-  style?: StyleProp<any>
+  style?: StyleProp<ViewStyle>
   size?: number
   mode?: any
   formatDate?: string
   display?: any
+  error?: string
 }
  
 const FormInputDate: React.FC<FormInputDateProps> = (props) => {
-  const { value = new Date(), onChange, placeholder, style, size = 14, mode = 'date', formatDate = 'dd MMMM yyyy', display = 'default' } = props
+  const { value = new Date(), onChange, placeholder, style, size = 14, mode = 'date', formatDate = 'dd MMMM yyyy', display = 'default', error } = props
   const [open, setOpen] = useState<boolean>(false)
   const stylePlaceholder = value === undefined ? styles.placeholder : styles.value
 
@@ -40,11 +41,12 @@ const FormInputDate: React.FC<FormInputDateProps> = (props) => {
           }}
         />
       )}
-      <TouchableOpacity activeOpacity={1} onPress={() => setOpen(true)}>
-        <View style={[styles.input, style, { fontSize: size }]}>
-          <Text style={[{ fontSize: size }]}>{valueText}</Text> 
-        </View>
+      <TouchableOpacity style={[styles.input, style]} activeOpacity={1} onPress={() => setOpen(true)}>
+        <Text style={[{ fontSize: size }]}>{valueText}</Text> 
       </TouchableOpacity>
+      {error && (
+        <Text style={{ color: Color.red[7], fontSize: fontPixel(11), marginTop: heightPixel(4)}}>{error}</Text>
+      )}
     </>
    )
 }

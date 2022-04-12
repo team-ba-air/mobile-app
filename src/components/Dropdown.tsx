@@ -3,7 +3,7 @@ import { Image, ListRenderItemInfo, StyleProp, StyleSheet, Text, View } from 're
 import { ListItem } from 'react-native-elements';
 import { FlatList, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
-import { Sizing } from 'styles/sizes';
+import { fontPixel, heightPixel, Sizing } from 'styles/sizes';
 import BaseBottomSheet from './base/BaseBottomSheet';
 
 export type OptionItem = {
@@ -22,10 +22,11 @@ interface DropdownProps {
   options: OptionItem[]
   renderItem: (option: any) => React.ReactNode
   renderSelected: (option: any) => React.ReactNode
+  error?: string
 }
 
 const Dropdown: React.FC<DropdownProps> = (props) => {
-  const { value = '', onSelect, placeholder, size = 16, style, headerComponent, options = [], footerComponent, renderItem, renderSelected } = props
+  const { value = '', onSelect, placeholder, size = 16, style, headerComponent, options = [], footerComponent, renderItem, renderSelected, error } = props
   const stylePlaceholder = value === '' ? styles.placeholder : styles.value
 
   const [selected, setSelected] = useState<OptionItem | undefined>(undefined)
@@ -36,6 +37,7 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
   }, [value])
 
   const [visible, setVisible] = useState<boolean>(false)
+  console.log(error)
 
   return ( 
     <>
@@ -74,6 +76,9 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
           <Image source={require('assets/icon/arrow_down.png')} />
         </View>
       </TouchableOpacity>
+      {error && (
+        <Text style={{ color: Color.red[7], fontSize: fontPixel(11), marginTop: heightPixel(4)}}>{error}</Text>
+      )}
     </>
   );
 }
