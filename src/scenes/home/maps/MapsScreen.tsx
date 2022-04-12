@@ -190,17 +190,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     backgroundColor: 'blue',
   },
-  // containerActionIcon: {
-  //   display: 'flex',
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-between',
-  //   width: '100%',
-  // },
   containerActionNavigate: { 
-    display: 'flex', 
-    flexDirection: 'column', 
-    justifyContent: 'flex-end', 
-    alignItems: 'flex-end',
     left: -SCREEN_WIDTH + widthPixel(50),
   }
  });

@@ -9,7 +9,7 @@ import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { Icon, Tab, TabView, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
-import { heightPixel, Sizing, widthPixel } from 'styles/sizes';
+import { heightPixel, SCREEN_WIDTH, Sizing, widthPixel } from 'styles/sizes';
 import BengkelHeader from './components/BengkelHeader';
 import ReservationFormComponent from './components/ReservationFormComponent';
 import { BengkelItem, ReservationForm, ReviewItem } from '../constants';
@@ -58,8 +58,11 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
   const [index, setIndex] = React.useState(0);
 
   return ( 
-    <AppContainer style={{ padding: 0, position: 'relative' }}>
-      <Icon name={'arrow-back'} raised size={14} style={{ zIndex: 10 }} onPress={() => console.log('click')}/>
+    <AppContainer style={{ padding: 0, alignItems: 'flex-start' }}>
+      <View style={{  zIndex: 10, elevation: 10 }}>
+        <Icon name={'arrow-back'} raised size={14} onPress={() => navigation.goBack()}/>
+      </View>
+
       <ScrollView style={{ overflow: 'scroll', ...StyleSheet.absoluteFillObject }}>
         <BengkelHeader data={data} navigation={navigation} />
         <TabBengkel index={index} setIndex={setIndex} />
@@ -68,7 +71,7 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
           (
             <ScrollView 
               nestedScrollEnabled 
-              style={{ display: 'flex', flexDirection: 'column', height: '100%' }}
+              style={{ display: 'flex', flexDirection: 'column' }}
             >
               <FormProvider {...formMethods}>
                 <ReservationFormComponent />
