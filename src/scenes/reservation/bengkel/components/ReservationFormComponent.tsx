@@ -3,14 +3,17 @@ import CustomTextInput from 'components/CustomTextInput';
 import Dropdown, { OptionItem } from 'components/Dropdown';
 import React, { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form';
-import { ListRenderItemInfo, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, ListRenderItemInfo, ScrollView, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
-import { fontPixel, Sizing } from 'styles/sizes';
-import { AvailableHourItem, ReservationForm } from '../constants';
+import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
+import { AvailableHourItem, ReservationForm } from '../../constants';
 import HourChipsItem from './HourChipsItem';
 import FormInputDate from 'components/FormInputDate';
+import { PublicAPIResponse } from 'network/types';
+import getVehicleList from 'scenes/reservation/service/getVehicleList';
+import { useQuery } from 'react-query';
 
 interface ReservationFormComponentProps {
   
@@ -92,9 +95,20 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
     setValue,
   } = useFormContext<ReservationForm>()
 
+  const {
+    data: vehicleListResponse,
+  } = useQuery<PublicAPIResponse<OptionItem[]>>(
+    ['getVehicleList'],
+    () => getVehicleList(),
+    {
+      refetchOnWindowFocus: false,
+      retry: true,
+    }
+  )
+
   return ( 
     <View style={{ marginTop: 20 }}>
-      <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold' }}>Reservasi Servis</Text>
+      <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold' }}>Kendaraan yang diservis</Text>
 
       <Controller 
         name={'car'}
@@ -102,34 +116,38 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
         render={({ field: { onChange, value }}) => (
           <Dropdown style={styles.margin} 
             value={value} 
-            options={defaultCarOptions} 
+            options={vehicleListResponse?.body ?? []} 
             onSelect={onChange}
             placeholder={'Pilih mobil Anda'}
+            error={errors?.car?.message}
             headerComponent={
               <Text style={styles.titleBottomSheet}>Pilih mobil Anda</Text>
             }
             renderItem={(option) => (
-              <Text style={styles.itemModal}>{option}</Text>
+              <Text style={styles.itemModal}>{option?.brand} {option?.type} {option?.plat}</Text>
             )} 
             renderSelected={(option) => {
               return (
-              <Text style={{fontSize: fontPixel(Sizing.text.body[14]) }}>{option}</Text>
+              <Text style={{fontSize: fontPixel(Sizing.text.body[14]) }}>{option?.brand} {option?.type} {option?.plat}</Text>
             )}}
           />
         )}
       />
 
-      <Text style={styles.titleSection}>Tanggal dan Waktu</Text>
+      <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold', marginTop: heightPixel(16) }}>Hari dan Jam</Text>
 
       <Controller 
         name={'date'}
         control={control}
         render={({ field: { onChange, value }}) => (
-          <FormInputDate 
-            style={{ marginBottom: 8 }}
-            value={value}
-            onChange={onChange}
-          />
+          <View style={{ flexDirection: 'row', width: '100%', alignItems: 'center', marginVertical: heightPixel(16)}}>
+            <Image style={{ height: heightPixel(24), width: widthPixel(24), marginRight: widthPixel(8)}} source={require('@assets/icon/ic_calendar.png')} resizeMode={'contain'} />
+            <FormInputDate 
+              style={{ flex: 1 }}
+              value={value}
+              onChange={onChange}
+            />
+          </View>
         )}
       />
       
@@ -137,13 +155,22 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
         name={'hour'}
         control={control}
         render={({ field: { onChange, value }}) => (
-          <FlatList
-            horizontal
-            data={availableHours}
-            renderItem={(info: ListRenderItemInfo<AvailableHourItem>) => (
-              <HourChipsItem hour={info.item} value={value} onSelect={onChange}/>
+          <> 
+            <View style={{ flexDirection: 'row', width: '100%', alignItems: 'center'}}>
+              <Image style={{ height: heightPixel(24), width: widthPixel(24), marginRight: widthPixel(8)}} source={require('@assets/icon/ic_clock.png')} resizeMode={'contain'} />
+              
+              <FlatList
+                horizontal
+                data={availableHours}
+                renderItem={(info: ListRenderItemInfo<AvailableHourItem>) => (
+                  <HourChipsItem hour={info.item} value={value} onSelect={onChange}/>
+                )}
+              />
+            </View>
+            {errors?.hour?.message && (
+              <Text style={{ color: Color.red[7], fontSize: fontPixel(11), marginTop: heightPixel(4)}}>{errors?.hour?.message}</Text>
             )}
-          />
+          </>
         )}
       />
 
@@ -156,6 +183,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
             options={defaultServiceOptions} 
             onSelect={onChange}
             placeholder={'Pilih Servis'}
+            error={errors?.service?.message}
             headerComponent={
               <Text style={styles.titleBottomSheet}>Pilih Servis</Text>
             }
@@ -167,7 +195,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
             )} 
             renderSelected={(option) => {
               return (
-              <Text style={{fontSize: fontPixel(Sizing.text.body[14]) }}>{option?.name}-{option?.price}</Text>
+              <Text style={{fontSize: fontPixel(Sizing.text.body[14]) }}>{option?.name} - {option?.price}</Text>
             )}}
           />
         )}

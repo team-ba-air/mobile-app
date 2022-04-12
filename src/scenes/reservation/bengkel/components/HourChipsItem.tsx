@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Color } from 'styles/colors'
 import { fontPixel, Sizing } from 'styles/sizes'
-import { AvailableHourItem } from '../constants'
+import { AvailableHourItem } from '../../constants'
 
 interface HourChipsItemProps {
   hour: AvailableHourItem
