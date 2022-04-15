@@ -6,7 +6,7 @@ import { Color } from 'styles/colors';
 interface CustomButtonProps {
   title: string
   onPress?: () => void
-  type?: string
+  type?: 'primary' | 'secondary'
   disabled?: boolean
   style?: StyleProp<any>
   buttonStyle?: StyleProp<any>
