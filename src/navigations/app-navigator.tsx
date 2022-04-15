@@ -9,6 +9,7 @@ import VehicleScreen from 'scenes/vehicle/VehicleScreen';
 import NavbarApp from 'components/NavbarApp';
 import VehicleNavigator from './vehicle-navigator';
 import ReservationNavigator from './reservation-navigator';
+import HistoryScreen from 'scenes/history/HistoryScreen';
 
 const BottomNavigator = createBottomTabNavigator()
 
@@ -33,7 +34,17 @@ const AppNavigator = () => {
         component={VehicleNavigator} 
       />
       <BottomNavigator.Screen 
+        options={{
+          headerShown: false,
+          tabBarIcon: () => <Image source={require('@assets/icon/ic_car_nav.png')} style={{ width: 20, height: 20 }} resizeMode={'contain'} />,
+          tabBarLabel: 'History',
+        }}
+        name='History' 
+        component={HistoryScreen} 
+      />
+      <BottomNavigator.Screen 
         options={{ 
+          headerShown: false,
           tabBarIcon: () => <Image source={require('@assets/icon/ic_profile.png')} style={{ width: 20, height: 20 }} resizeMode={'contain'} />,
           tabBarLabel: 'Profil',
         }} 
