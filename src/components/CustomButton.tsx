@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleProp, StyleSheet, StyleSheetProperties, Text, TouchableOpacity, View } from 'react-native';
+import { StyleProp, StyleSheet, StyleSheetProperties, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
 import { Button, Icon, SocialIcon } from 'react-native-elements';
 import { Color } from 'styles/colors';
 
@@ -8,9 +8,9 @@ interface CustomButtonProps {
   onPress?: () => void
   type?: 'primary' | 'secondary'
   disabled?: boolean
-  style?: StyleProp<any>
+  style?: StyleProp<ViewStyle>
   buttonStyle?: StyleProp<any>
-  textStyle?: StyleProp<any>
+  textStyle?: StyleProp<TextStyle>
   icon?: React.ReactNode
 }
  
