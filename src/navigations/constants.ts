@@ -31,4 +31,7 @@ export const SCREENS = {
     paymentDetail: 'PaymentDetail',
     success: 'SuccessReservation',
   },
+  history: {
+    detail: 'HistoryDetail'
+  }
 }
