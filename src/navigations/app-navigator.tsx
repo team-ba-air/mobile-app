@@ -10,6 +10,7 @@ import NavbarApp from 'components/NavbarApp';
 import VehicleNavigator from './vehicle-navigator';
 import ReservationNavigator from './reservation-navigator';
 import HistoryScreen from 'scenes/history/HistoryScreen';
+import HistoryNavigator from './history-navigator';
 
 const BottomNavigator = createBottomTabNavigator()
 
@@ -40,7 +41,7 @@ const AppNavigator = () => {
           tabBarLabel: 'History',
         }}
         name='History' 
-        component={HistoryScreen} 
+        component={HistoryNavigator} 
       />
       <BottomNavigator.Screen 
         options={{ 

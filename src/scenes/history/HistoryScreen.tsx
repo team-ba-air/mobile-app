@@ -1,13 +1,16 @@
+import { NavigationProp } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
+import { SCREENS } from 'navigations/constants';
 import React, { useState } from 'react'
 import { FlatList, ListRenderItemInfo } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
 import BottomSheetReview from './components/BottomSheetReview';
 import HistoryItemComponent from './components/HistoryItemComponent';
 import { HistoryItem } from './constants';
 
 interface HistoryScreenProps {
-    
+  navigation: NavigationProp<any>
 }
 
 const dummyData: HistoryItem[] = [
@@ -31,7 +34,7 @@ const dummyData: HistoryItem[] = [
   }
 ]
  
-const HistoryScreen: React.FC<HistoryScreenProps> = () => {
+const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<HistoryItem | null>(null);
 
@@ -40,7 +43,9 @@ const HistoryScreen: React.FC<HistoryScreenProps> = () => {
       <FlatList 
         data={dummyData}
         renderItem={(info: ListRenderItemInfo<HistoryItem>) => (
-          <HistoryItemComponent item={info.item} setIsOpenReview={setIsOpen} setData={setData} />
+          <TouchableOpacity onPress={() => navigation.navigate(SCREENS.history.detail)}>
+            <HistoryItemComponent item={info.item} setIsOpenReview={setIsOpen} setData={setData} />
+          </TouchableOpacity>
         )}
       />
 
