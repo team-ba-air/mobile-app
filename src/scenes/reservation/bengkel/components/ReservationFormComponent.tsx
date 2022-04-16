@@ -92,7 +92,6 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
   const {
     control,
     formState: { errors },
-    setValue,
   } = useFormContext<ReservationForm>()
 
   const {
