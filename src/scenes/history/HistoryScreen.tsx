@@ -39,7 +39,7 @@ const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
   const [data, setData] = useState<HistoryItem | null>(null);
 
   return ( 
-    <AppContainer style={{ backgroundColor: Color.gray[1]}}>
+    <AppContainer style={{ backgroundColor: Color.gray[1] }}>
       <FlatList 
         data={dummyData}
         renderItem={(info: ListRenderItemInfo<HistoryItem>) => (
