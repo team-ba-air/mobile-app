@@ -1,7 +1,9 @@
 import AppContainer from 'components/AppContainer';
+import CustomButton from 'components/CustomButton';
 import React from 'react'
-import { ScrollView } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Color } from 'styles/colors';
+import { heightPixel, widthPixel } from 'styles/sizes';
 import HistoryStatusComponent from './components/HistoryStatusComponent';
 import InfoServiceComponent from './components/InfoServiceComponent';
 import NotesComponent from './components/NotesComponent';
@@ -20,6 +22,9 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = () => {
         <PaymentDetailComponent />
         <NotesComponent />
       </ScrollView>
+      <View style={{ paddingVertical: heightPixel(16), paddingHorizontal: widthPixel(20), backgroundColor: 'white', marginTop: heightPixel(4) }}>
+        <CustomButton type='primary' title='Beri Ulasan'/>
+      </View>
     </AppContainer>
   );
 }

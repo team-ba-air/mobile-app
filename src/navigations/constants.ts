@@ -23,6 +23,7 @@ export const SCREENS = {
     maps: 'Maps',
   },
   reservation: {
+    progressService: 'ProgressService',
     serviceReservation: 'ServiceReservation',
     bengkelReservation: 'BengkelReservation',
     bengkelFormReservation: 'BengkelFormReservation',

@@ -1,3 +1,4 @@
+import { NavigationProp } from '@react-navigation/native';
 import React from 'react'
 import { ListRenderItemInfo, View } from 'react-native';
 import { Text } from 'react-native-elements';
@@ -7,7 +8,7 @@ import { ReservationItem } from '../constants';
 import OngoingReservationItem from './OngoingReservationItem';
 
 interface OngoingReservationSectionProps {
-  
+  navigation: NavigationProp<any>
 }
 
 const defaultValues: ReservationItem[] = [
@@ -23,14 +24,14 @@ const defaultValues: ReservationItem[] = [
   },
 ]
  
-const OngoingReservationSection: React.FC<OngoingReservationSectionProps> = () => {
+const OngoingReservationSection: React.FC<OngoingReservationSectionProps> = ({ navigation }) => {
   return ( 
     <View>
       <Text style={{ marginTop: 16, fontSize: Sizing.text.body[14], fontWeight: 'bold', paddingLeft: 20, paddingRight: 20 }}>Sedang Berlangsung</Text>
       <FlatList 
         data={defaultValues}
         renderItem={(info: ListRenderItemInfo<ReservationItem>) => (
-          <OngoingReservationItem data={info.item} />
+          <OngoingReservationItem data={info.item} navigation={navigation} />
         )}
       />
     </View>
