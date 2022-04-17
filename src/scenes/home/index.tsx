@@ -1,3 +1,4 @@
+import { NavigationProp } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
 import React, { useEffect } from 'react';
 import { SectionList, StatusBar, StyleSheet, Text, View } from 'react-native';
@@ -10,7 +11,7 @@ import ServiceList from './components/ServiceList';
 import TipsTrick from './components/TipsTrick';
 
 interface HomeScreenProps {
-  navigation: any
+  navigation: NavigationProp<any>
 }
 
 const DATA = [
@@ -42,7 +43,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           <InfoLocation navigation={navigation}/>
           <CarServiceReservation navigation={navigation} />
           <ServiceList />
-          <OngoingReservationSection />
+          <OngoingReservationSection navigation={navigation} />
         </>
       }
       renderItem={({ item }) => <View>{renderBasedOnContent(item)}</View>}
