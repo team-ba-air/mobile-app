@@ -12,7 +12,7 @@ const HistoryNavigator: React.FC<any> = () => {
         options={{
           headerShown: false,
         }}
-        name='History' 
+        name='HistoryList' 
         component={HistoryScreen} />
       
       <Stack.Screen 
