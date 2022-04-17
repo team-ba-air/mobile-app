@@ -1,6 +1,8 @@
 import AppContainer from 'components/AppContainer';
 import React from 'react'
-import { Text, View } from 'react-native';
+import HistoryStatusComponent from './components/HistoryStatusComponent';
+import InfoServiceComponent from './components/InfoServiceComponent';
+import PaymentDetailComponent from './components/PaymentDetailComponent';
 
 interface HistoryDetailScreenProps {
     
@@ -9,9 +11,9 @@ interface HistoryDetailScreenProps {
 const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = () => {
   return ( 
     <AppContainer>
-      <View>
-        <Text>Nomor Booking</Text>
-      </View>
+      <HistoryStatusComponent />
+      <InfoServiceComponent />
+      <PaymentDetailComponent />
     </AppContainer>
   );
 }
