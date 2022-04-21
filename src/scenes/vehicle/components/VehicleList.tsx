@@ -21,7 +21,7 @@ const VehicleList: React.FC<VehicleListProps> = ({ navigation }) => {
   const {
     data: vehicleListResponse,
     isLoading: isFetchingVehicleList,
-    refetch
+    refetch,
   } = useQuery<PublicAPIResponse<VehicleItem[]>>(
     ['getVehicleList'],
     () => getVehicleList(),

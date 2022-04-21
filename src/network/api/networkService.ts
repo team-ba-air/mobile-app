@@ -23,18 +23,15 @@ networkService.interceptors.request.use(async request => {
 })
 
 networkService.interceptors.response.use(
-  (response): AxiosResponse<PublicAPIResponse<any>> => {
-    if (response.status === 401) {
-      getRefreshToken().then(token => {
-        refreshToken({ token }).then((newTokenResponse) => {
-          if (newTokenResponse.body) {
-            saveAccessToken(newTokenResponse.body.access_token)
-            saveRefreshToken(newTokenResponse.body.refresh_token)
-          }
-        })
-      })
-    }
-    return response
-  }
+  (response): AxiosResponse<PublicAPIResponse<any>> => ({
+    ...response.data,
+    code: response.data?.code ?? response.status,
+    success: response.data?.success ?? false,
+    message: response.data?.message ?? '',
+    data: response.data?.data ?? response?.data.result ?? response.data,
+    headers: response.headers,
+    config: response.config,
+  })
 )
+
 export default networkService

@@ -88,16 +88,6 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation }) => {
   }
 
   const animatedPosition = useSharedValue(0)
-  const animatedStyle = useAnimatedStyle(() => {
-    // console.log(animatedPosition.value);
-    return {
-      display: 'flex',
-      flexDirection: 'column-reverse',
-      justifyContent:'flex-start',
-      bottom: animatedPosition.value - 200,
-      // backgroundColor: 'red',
-    }
-  })
 
   const animatedStyleAction = useAnimatedStyle(() => {
     return {
@@ -153,9 +143,6 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation }) => {
             <Icon size={16} raised name={'location-off'} onPress={() => setLocation(null)}/>
           )}
         </Animated.View>
-        {/* <Animated.View style={animatedStyle}>
-          
-        </Animated.View> */}
       </View>
     </AppContainer>
   );

@@ -7,7 +7,7 @@ import NavbarApp from 'components/NavbarApp';
 import CheckoutScreen from 'scenes/checkout/CheckoutScreen';
 import SuccessReservation from 'scenes/checkout/SuccessReservation';
 import AppNavigator from './app-navigator';
-import MapsScreen from 'scenes/home/maps/MapsScreen';
+import MapsScreen from 'scenes/reservation/maps/MapsScreen';
 import SelectPaymentScreen from 'scenes/checkout/payment/SelectPaymentScreen';
 import PaymentDetailScreen from 'scenes/checkout/payment-detail/PaymentDetailScreen';
 import ProgressServiceScreen from 'scenes/home/progress/ProgressServiceScreen';

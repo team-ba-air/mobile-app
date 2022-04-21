@@ -11,9 +11,10 @@ export type BengkelItem = {
   name: string
   location: string
   description: string
-  estimatedPickUp: number
   distance: number
   rating: number
+  serviceAvailable: string[]
+  availableForCar: string[]
 }
 
 export type AvailableHourItem = {
