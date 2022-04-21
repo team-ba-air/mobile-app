@@ -18,7 +18,7 @@ import SplashScreen from 'scenes/welcome/SplashScreen';
 import OtpEmailScreen from 'scenes/authentication/otp/OtpEmailScreen';
 import OtpPhoneScreen from 'scenes/authentication/otp/OtpPhoneScreen';
 import UpdateVehicleScreen from 'scenes/vehicle/UpdateVehicleScreen';
-import MapsScreen from 'scenes/home/maps/MapsScreen';
+import MapsScreen from 'scenes/reservation/maps/MapsScreen';
 
 const Stack = createStackNavigator();
 

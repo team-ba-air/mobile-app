@@ -3,15 +3,24 @@ import { SCREENS } from 'navigations/constants';
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Icon, Image, Text } from 'react-native-elements';
-import { BengkelItem } from 'scenes/home/constants';
+import { BengkelItem } from '../../constants';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
+import { formatDistance } from 'utils/TextUtils';
 
 interface BengkelListItemProps {
   data: BengkelItem
 }
  
 const BengkelListItem: React.FC<BengkelListItemProps> = ({ data }) => {
+  const tagsList = [...data.serviceAvailable]
+  if (data.availableForCar.length > 0) {
+    tagsList.push(...data.availableForCar)
+  } else { 
+    tagsList.push('semua merek')
+  }
+  const bengkelTags = tagsList.join(', ')
+  
   return ( 
     <View style={styles.container}>
       <View style={{ display: 'flex', alignItems: 'center', flexDirection: 'row' }}>
@@ -29,19 +38,22 @@ const BengkelListItem: React.FC<BengkelListItemProps> = ({ data }) => {
           </View>
         </View>
         <View style={{ marginTop: 16 }}>
-          <View style={[styles.header]}>
-            <Text style={[styles.subtitle]}>Tutup sebentar lagi</Text>
-          </View>
-          <Text style={styles.name}>{data.name}, {data.location}</Text>
-          <Text style={styles.subtitle}>{data.description}</Text>
-          <Text style={[styles.subtitle, styles.pickUp, { marginTop: 16 }]}>Dijemput dalam {data.estimatedPickUp} menit</Text>
+          {data.isAlmostClosed && (
+            <View style={[styles.header]}>
+              <Text style={[styles.subtitle]}>Tutup sebentar lagi</Text>
+            </View>
+          )}
+          
+          <Text style={styles.name}>{data.name} {data.location && ','} {data.location}</Text>
+          <Text style={styles.tags}>{bengkelTags}</Text>
+          <Text style={styles.distance}>{formatDistance(data.distance)}</Text>
         </View>
       </View>
-      <View style={{ marginTop: 16 }}>
-        { data.isAuthorized && (
+      {data.isAuthorized && (
+        <View style={{ marginTop: 16 }}>
           <CustomChips text={'Authorized'} />
-        )}
-      </View>
+        </View>
+      )}
     </View>
   );
 }
@@ -73,4 +85,13 @@ const styles = StyleSheet.create({
   pickUp: {
     fontWeight: 'bold',
   },
+  tags: {
+    fontSize: fontPixel(10),
+    color: Color.gray.secondary,
+  },
+  distance: {
+    fontSize: fontPixel(10),
+    color: Color.gray.secondary,
+    fontWeight: 'bold',
+  }
 })

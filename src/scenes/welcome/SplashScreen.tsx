@@ -1,7 +1,7 @@
 import AppContainer from 'components/AppContainer';
 import { SCREENS } from 'navigations/constants';
 import React, { useEffect } from 'react'
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ToastAndroid } from 'react-native';
 import { Image } from 'react-native-elements';
 import { heightPixel, widthPixel } from 'styles/sizes';
 import { getAccessToken } from 'utils/TokenUtils';
@@ -14,7 +14,6 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
       getAccessToken().then(token => {
-        console.log(token)
         if (token) {
           navigation.navigate(SCREENS.app.home)
         } else {

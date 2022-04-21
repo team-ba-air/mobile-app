@@ -1,7 +1,7 @@
 import AppContainer from 'components/AppContainer'
 import CustomButton from 'components/CustomButton'
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, ToastAndroid } from 'react-native'
 import { Icon, Image } from 'react-native-elements'
 import { Color } from 'styles/colors'
 import { heightPixel, widthPixel } from 'styles/sizes'
@@ -27,7 +27,8 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
       onAuthenticate({
         token: userInfo.idToken ?? '',
       }).catch(err => {
-        navigation.navigate(SCREENS.app.home)
+        // navigation.navigate(SCREENS.app.home)
+        ToastAndroid.show('Error', ToastAndroid.SHORT)
         console.log(err)
       })
     } catch (error: any) {
