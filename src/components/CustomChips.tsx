@@ -1,16 +1,17 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
-import { fontPixel, Sizing } from 'styles/sizes';
+import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
 
 interface CustomChipsProps {
   text?: string
+  style?: StyleProp<ViewStyle>
 }
  
-const CustomChips: React.FC<CustomChipsProps> = ({ text }) => {
+const CustomChips: React.FC<CustomChipsProps> = ({ text, style }) => {
   return ( 
-    <View style={styles.authorizedContainer}>
+    <View style={[styles.authorizedContainer, style]}>
       <Text style={styles.authorizedText}>{text}</Text>
     </View>
    );
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Color.blue[8],
     borderRadius: 12,
-    paddingLeft: 8,
-    paddingRight: 8,
+    paddingHorizontal: widthPixel(8),
+    paddingVertical: heightPixel(2)
   },
 })

@@ -24,6 +24,7 @@ export const SCREENS = {
   },
   reservation: {
     progressService: 'ProgressService',
+    additionalComponent: 'AdditionalComponent',
     serviceReservation: 'ServiceReservation',
     bengkelReservation: 'BengkelReservation',
     bengkelFormReservation: 'BengkelFormReservation',
