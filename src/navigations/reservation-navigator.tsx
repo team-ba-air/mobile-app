@@ -11,6 +11,7 @@ import MapsScreen from 'scenes/reservation/maps/MapsScreen';
 import SelectPaymentScreen from 'scenes/checkout/payment/SelectPaymentScreen';
 import PaymentDetailScreen from 'scenes/checkout/payment-detail/PaymentDetailScreen';
 import ProgressServiceScreen from 'scenes/home/progress/ProgressServiceScreen';
+import AdditionalComponentScreen from 'scenes/home/additional-component/AdditionalComponentScreen';
 
 const Stack = createStackNavigator()
 
@@ -25,6 +26,10 @@ const ReservationNavigator: React.FC<any> = () => {
         options={{ headerShown: false }} 
         name='ProgressService' 
         component={ProgressServiceScreen}  />
+      <Stack.Screen 
+        options={{ headerShown: false }} 
+        name='AdditionalComponent' 
+        component={AdditionalComponentScreen}  />
       <Stack.Screen 
         options={{ headerShown: false }} 
         name='Maps' 

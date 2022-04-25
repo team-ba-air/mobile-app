@@ -2,7 +2,7 @@ import React, { useCallback, useRef } from 'react'
 import { View, Text, FlatList, ListRenderItemInfo } from 'react-native';
 import BottomSheet, { TouchableOpacity } from '@gorhom/bottom-sheet';
 import Animated from 'react-native-reanimated';
-import { BengkelItem, ServiceItem } from 'scenes/home/constants';
+import { ServiceItem } from 'scenes/home/constants';
 import { NavigationProp } from '@react-navigation/native';
 import { Sizing, widthPixel } from 'styles/sizes';
 import BengkelListItem from './BengkelListItem';
@@ -10,6 +10,7 @@ import { SCREENS } from 'navigations/constants';
 import { useQuery } from 'react-query';
 import { PublicAPIResponse } from 'network/types';
 import getShopList from 'scenes/reservation/service/getShopList';
+import { BengkelItem } from 'scenes/reservation/constants';
 
 interface BottomSheetBengkelListProps {
   animatedPosition?: Animated.SharedValue<number>
