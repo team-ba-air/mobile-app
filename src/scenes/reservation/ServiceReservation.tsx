@@ -1,13 +1,16 @@
 import AppContainer from 'components/AppContainer';
 import Dropdown from 'components/Dropdown';
 import { SCREENS } from 'navigations/constants';
+import { PublicAPIResponse } from 'network/types';
 import React, { useState } from 'react'
 import { ListRenderItemInfo, StyleSheet, Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
 import { FlatList, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { useQuery } from 'react-query';
 import { Color } from 'styles/colors';
-import { Sizing } from 'styles/sizes';
+import { heightPixel, Sizing, widthPixel } from 'styles/sizes';
 import { ServiceItem } from './constants';
+import getServicesList from './service/getServicesList';
 
 interface ServiceReservationProps {
   navigation: any
@@ -15,29 +18,34 @@ interface ServiceReservationProps {
 
 const serviceList: ServiceItem[] = [
   {
-    img: 'servis_logbook.png',
-    value: 'logbook',
-    label: 'Servis Logbook'
+    image: 'servis_logbook.png',
+    description: 'logbook',
+    name: 'Servis Logbook',
+    id: '1',
   },
   {
-    img: 'servis_dasar.png',
-    value: 'basic',
-    label: 'Servis dasar'
+    image: 'servis_dasar.png',
+    description: 'basic',
+    name: 'Servis dasar',
+    id: '2',
   },
   {
-    img: 'servis_ac',
-    value: 'AC',
-    label: 'Servis AC'
+    image: 'servis_ac',
+    description: 'AC',
+    name: 'Servis AC',
+    id: '3',
   },
   {
-    img: '',
-    value: 'clutch',
-    label: 'Servis Clutch'
+    image: '',
+    description: 'clutch',
+    name: 'Servis Clutch',
+    id: '4',
   },
   {
-    img: '',
-    value: 'oil',
-    label: 'Servis oli'
+    image: '',
+    description: 'oil',
+    name: 'Servis oli',
+    id: '5',
   },
 ]
 
@@ -53,6 +61,18 @@ const carOptions = [
 
 const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation }) => {
   const [car, setCar] = useState<string>('Yaris|B 2012 S')
+  const {
+    data: servicesListResponse,
+  } = useQuery<PublicAPIResponse<any>>(
+    ['getServicesList'],
+    () => getServicesList(),
+    {
+      refetchOnWindowFocus: false,
+      retry: true,
+    }
+  )
+
+  console.log(servicesListResponse)
   return ( 
     <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0 }}>
       <View style={{ backgroundColor: Color.blue[8], paddingHorizontal: 20, paddingBottom: 16 }}>
@@ -74,16 +94,16 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation }) =
         />
       </View>
       <FlatList
-        data={serviceList}
+        data={servicesListResponse?.body ?? []}
         horizontal={false}
         numColumns={2}
         columnWrapperStyle={styles.container}
         renderItem={(item: ListRenderItemInfo<ServiceItem>) => (
-          <TouchableWithoutFeedback containerStyle={styles.cardContainer} onPress={() => navigation.navigate(SCREENS.reservation.bengkelReservation, { service: item.item })}>
+          <TouchableWithoutFeedback containerStyle={styles.cardContainer} onPress={() => navigation.navigate(SCREENS.app.maps, { service: item.item })}>
             <Card containerStyle={styles.card}>
               <Card.Image containerStyle={styles.image} source={require(`@assets/servis_dasar.png`)} resizeMode={'contain'} />
               <View style={styles.label}>
-                <Text style={styles.text}>{item.item.label}</Text>
+                <Text style={styles.text}>{item.item.name}</Text>
               </View>
             </Card>
           </TouchableWithoutFeedback>
@@ -107,15 +127,16 @@ const styles = StyleSheet.create({
     padding: 0,
     borderRadius: 8,
     borderWidth: 2,
-    resizeMode: 'cover',
   },
   label: {
-    paddingVertical: 16,
-    paddingHorizontal: 20,
+    paddingVertical: heightPixel(8),
+    paddingHorizontal: widthPixel(16),
     display: 'flex',
     justifyContent: 'center',
   },
   image: {
+    height: heightPixel(64),
+    width: widthPixel(64),
     borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
   },

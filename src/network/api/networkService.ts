@@ -14,6 +14,8 @@ const networkService = axios.create({
 networkService.interceptors.request.use(async request => {
   const token = await getAccessToken()
 
+  console.log(token)
+
   request.headers = {
     ...request.headers,
     ...(token && { Authorization: `Bearer ${token}` }),

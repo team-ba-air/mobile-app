@@ -31,7 +31,7 @@ const BengkelListItem: React.FC<BengkelListItemProps> = ({ data }) => {
             resizeMode={'contain'}
           />
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-            <Icon size={14} name={'star'} color={'#f5e725'} />
+            <Icon size={14} name={'star'} color={'#f5e725'} tvParallaxProperties={undefined} />
             <Text style={{ fontSize: fontPixel(11), marginLeft: widthPixel(4), fontWeight: 'bold' }}>
               {data.rating}
             </Text>
