@@ -1,7 +1,8 @@
 export type ServiceItem = {
-  img: string
-  value: string
-  label: string
+  id: string
+  image: string
+  description: string
+  name: string
 }
 
 export type BengkelItem = {

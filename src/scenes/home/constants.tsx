@@ -1,3 +1,5 @@
+import { Color } from "styles/colors"
+
 export type PopularServiceItem = {
   img: string
   title: string
@@ -25,3 +27,11 @@ export type ServiceItem = {
   value: string
   label: string
 }
+
+export const PriorityMapItem = new Map()
+  .set('IMPORTANT', 'Penting')
+  .set('RECOMMENDED', 'Direkomendasikan')
+
+export const PriorityMapColor = new Map()
+  .set('IMPORTANT', Color.red[7])
+  .set('RECOMMENDED', Color.red[5])

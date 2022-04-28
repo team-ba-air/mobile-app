@@ -96,16 +96,14 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation }) => {
       justifyContent: 'flex-start',
       alignItems: 'flex-end',
       height: animatedPosition.value - 50,
-      // bottom: animatedPosition.value - 200,
       width: '10%',
-      // backgroundColor: 'blue'
     }
   })
 
   return ( 
     <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0, alignItems: 'flex-end' }}>
       <MapView
-        provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+        provider={PROVIDER_GOOGLE}
         style={styles.map}
         onRegionChangeComplete={handleRegionChange}
         region={{
@@ -129,18 +127,18 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation }) => {
         service={{ img: '', value: '', label: 'Servis Dasar' }} 
       />
       <View style={styles.containerActionNavigate}>
-        <Icon size={16} raised name={'arrow-back'} onPress={() => navigation.goBack()} />
+        <Icon size={16} raised name={'arrow-back'} onPress={() => navigation.goBack()} tvParallaxProperties={undefined} />
       </View>
       <View>
         <Animated.View style={animatedStyleAction}>
           <View style={styles.warning}>
             <Text style={{ fontSize: fontPixel(12), color: 'white', paddingHorizontal: widthPixel(4) }}>Lokasi tidak terbaca. Silakan klik pada peta untuk memilih lokasi, atau nyalakan GPS.</Text>
-            <Icon size={18} onPress={() => setShowWarning(false)} color={'white'} name={'close'}/>
+            <Icon size={18} onPress={() => setShowWarning(false)} color={'white'} name={'close'} tvParallaxProperties={undefined}/>
           </View>
-          <Icon size={16} raised name={'gps-fixed'} onPress={handlePressGPS} />
+          <Icon size={16} raised name={'gps-fixed'} onPress={handlePressGPS} tvParallaxProperties={undefined} />
           
           {location && (
-            <Icon size={16} raised name={'location-off'} onPress={() => setLocation(null)}/>
+            <Icon size={16} raised name={'location-off'} onPress={() => setLocation(null)} tvParallaxProperties={undefined}/>
           )}
         </Animated.View>
       </View>
