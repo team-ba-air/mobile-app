@@ -1,5 +1,6 @@
 const formatRupiah = (value: number) : string => {
-  return 'Rp' + new Intl.NumberFormat('de-DE').format(value)
+  // return 'Rp' + new Intl.NumberFormat('de-DE').format(value)
+  return 'Rp' + value.toString()
 }
 
 const formatDistance = (value: number) : string => {

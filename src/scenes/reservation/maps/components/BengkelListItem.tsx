@@ -1,5 +1,4 @@
 import CustomChips from 'components/CustomChips';
-import { SCREENS } from 'navigations/constants';
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Icon, Image, Text } from 'react-native-elements';
@@ -79,7 +78,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   subtitle: {
-    fontSize: fontPixel(Sizing.text.body[10]),
+    fontSize: fontPixel(10),
     color: Color.gray.secondary,
   },
   pickUp: {
