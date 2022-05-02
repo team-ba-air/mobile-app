@@ -1,3 +1,4 @@
+import { NavigationProp } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
 import React, { useState } from 'react'
 import { Text, View } from 'react-native';
@@ -8,10 +9,10 @@ import ProgressStatus from './components/ProgressStatus';
 import TabProgress from './components/TabProgress';
 
 interface ProgressServiceScreenProps {
-    
+  navigation: NavigationProp<any>
 }
  
-const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = () => {
+const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigation }) => {
   const [index, setIndex] = useState(0);
   return ( 
     <AppContainer style={{ paddingHorizontal: 0 }}>
@@ -23,7 +24,7 @@ const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = () => {
       <View style={{ paddingHorizontal: widthPixel(20) }}>
           {index === 0 ?
           (
-            <ProgressStatus />
+            <ProgressStatus navigation={navigation} />
           ) : 
             <BookingDetail />
           }
