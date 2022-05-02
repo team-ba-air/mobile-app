@@ -1,5 +1,5 @@
 import React from 'react';
-import ServiceReservation from "scenes/reservation/ServiceReservation"
+import ServiceReservation from "scenes/reservation/service-type/ServiceReservation"
 import HomeScreen from "scenes/home";
 import { createStackNavigator } from '@react-navigation/stack'
 import BengkelFormReservation from 'scenes/reservation/bengkel/BengkelFormReservation';
@@ -35,7 +35,7 @@ const ReservationNavigator: React.FC<any> = () => {
         name='Maps' 
         component={MapsScreen} />
       <Stack.Screen 
-        options={{ header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Pilih Servis'}/> }} 
+        options={{ headerShown: false }} 
         name='ServiceReservation' 
         component={ServiceReservation} />
       <Stack.Screen 

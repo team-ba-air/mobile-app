@@ -9,7 +9,7 @@ import CarList from 'scenes/authentication/car-list/CarList';
 import Navbar from 'components/Navbar';
 import AppNavigator from './app-navigator';
 import NavbarApp from 'components/NavbarApp';
-import ServiceReservation from 'scenes/reservation/ServiceReservation';
+import ServiceReservation from 'scenes/reservation/service-type/ServiceReservation';
 import BengkelFormReservation from 'scenes/reservation/bengkel/BengkelFormReservation';
 import CheckoutScreen from 'scenes/checkout/CheckoutScreen';
 import SuccessReservation from 'scenes/checkout/SuccessReservation';

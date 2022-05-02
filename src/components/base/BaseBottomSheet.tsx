@@ -2,6 +2,7 @@ import React, { ReactNode, useState } from 'react'
 import { Image, StyleSheet, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { Color } from 'styles/colors';
+import { heightPixel } from 'styles/sizes';
 
 interface BaseBottomSheetProps {
   children: ReactNode
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   content: {
+    minHeight: heightPixel(40),
     backgroundColor: 'white',
     paddingTop: 22,
     borderTopLeftRadius: 28,
