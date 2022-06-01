@@ -78,7 +78,6 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation }) =
 
   return ( 
     <>
-      {/* <BottomSheetServiceType /> */}
       <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0 }}>
         <View style={{ ...StyleSheet.absoluteFillObject }}>
           <ServiceTypeToolbar navigation={navigation} onPressHelp={() => setShow(true)} />
@@ -119,7 +118,7 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation }) =
           />
         </View>
         
-        <BottomSheetServiceType visible={show} onChangeVisible={setShow} />
+        <BottomSheetServiceType visible={show} onChangeVisible={setShow} data={serviceList} />
       </AppContainer>
     </>
 
