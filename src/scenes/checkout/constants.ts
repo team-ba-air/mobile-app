@@ -4,6 +4,9 @@ export type PaymentMethodItem = {
 }
 
 export type PaymentMethodSelectionItem = {
+  id: string
   name: string
-  imageUrl: string
+  image: string
+  notes: string[]
+  target?: string
 }

@@ -6,6 +6,7 @@ export type ServiceItem = {
 }
 
 export type BengkelItem = {
+  id: string
   img: string
   isAuthorized: boolean
   isAlmostClosed: boolean
@@ -16,6 +17,24 @@ export type BengkelItem = {
   rating: number
   serviceAvailable: string[]
   availableForCar: string[]
+}
+
+export type BengkelDetailItem = {
+  id: string
+  img: string
+  isAuthorized: boolean
+  name: string
+  description: string
+  rating: number
+  serviceAvailable: {
+    id: string
+    name: string
+    description: string
+    price: number
+  }[]
+  availableForCar: string[]
+  openTime: string
+  closeTime: string
 }
 
 export type AvailableHourItem = {

@@ -33,6 +33,7 @@ const mapResponseToBengkelItem = (response: PublicAPIResponse<GetShopListRespons
   return {
     ...response,
     body: bengkelList.map(bengkel => ({
+      id: bengkel.id,
       img: bengkel.image ?? '',
       isAuthorized: bengkel.is_authorized,
       isAlmostClosed: false,
