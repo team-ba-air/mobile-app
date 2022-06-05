@@ -14,12 +14,8 @@ export const mapVehicleListResponse = (response: PublicAPIResponse<GetVehicleLis
   return {
     ...response,
     body: vehicleList.map((vehicle) => ({
-      value: vehicle.id,
-      data: {
-        brand: vehicle.brand,
-        type: vehicle.type,
-        plat: vehicle.license_plate
-      }
+      value: `${vehicle.id}|${vehicle.brand}|${vehicle.type}|${vehicle.license_plate}`,
+      data: vehicle
     })),
   }
 }

@@ -6,7 +6,7 @@ import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 
 interface PaymentMethodComponentProps {
   data: PaymentMethodItem
-  onSelect: () => void
+  onSelect: (item: PaymentMethodSelectionItem) => void
 }
  
 const PaymentMethodComponent: React.FC<PaymentMethodComponentProps> = ({ data, onSelect }) => {
@@ -16,7 +16,7 @@ const PaymentMethodComponent: React.FC<PaymentMethodComponentProps> = ({ data, o
       <FlatList 
         data={data.item}
         renderItem={(info: ListRenderItemInfo<PaymentMethodSelectionItem>) => (
-          <TouchableOpacity onPress={onSelect} style={styles.containerItem}>
+          <TouchableOpacity onPress={() => onSelect(info.item)} style={styles.containerItem}>
             <Text style={{ fontSize: fontPixel(14) }}>{info.item.name}</Text>
             <Image style={{ width: widthPixel(12), height: heightPixel(16)}} source={require('@assets/right-arrow.png')} resizeMode={'contain'} />
           </TouchableOpacity>

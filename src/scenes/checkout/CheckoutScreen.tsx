@@ -1,5 +1,6 @@
 import { Route } from '@react-navigation/routers';
 import AppContainer from 'components/AppContainer';
+import { SCREENS } from 'navigations/constants';
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-elements';
@@ -15,16 +16,18 @@ interface CheckoutScreenProps {
 }
  
 const CheckoutScreen: React.FC<CheckoutScreenProps> = ({ route, navigation }) => {
-  const { data } = route.params
+  const data = route.params
 
-  console.log(data)
+  const onSubmit = () => {
+    navigation.navigate(SCREENS.reservation.selectPayment, { data })
+  }
 
   return ( 
     <AppContainer style={styles.container}>
       <View style={{ padding: 16 }}>
         <CheckoutReservation data={data} />
       </View>
-      <FooterCheckout navigation={navigation} />
+      <FooterCheckout onSubmit={onSubmit} />
     </AppContainer>
   );
 }

@@ -16,23 +16,13 @@ import getVehicleList from 'scenes/reservation/service/getVehicleList';
 import { useQuery } from 'react-query';
 
 interface ReservationFormComponentProps {
-  
+  serviceOptions?:  {
+    id: string
+    name: string
+    description: string
+    price: number
+  }[]
 }
-
-const defaultCarOptions: OptionItem[] = [
-  {
-    data: 'Toyota',
-    value: 'Toyota',
-  },
-  {
-    data: 'Daihatsu',
-    value: 'Daihatsu',
-  },
-  {
-    data: 'Honda',
-    value: 'Honda',
-  },
-]
 
 const defaultServiceOptions: OptionItem[] = [
   {
@@ -88,7 +78,7 @@ const availableHours: AvailableHourItem[] = [
   },
 ]
  
-const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => {
+const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ serviceOptions }) => {
   const {
     control,
     formState: { errors },
@@ -104,6 +94,11 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
       retry: true,
     }
   )
+
+  const serviceOptionsItem: OptionItem[] = serviceOptions?.map(option => ({
+    data: option,
+    value: `${option.id}|${option.name}|${option.description}|${option.price}`
+  })) ?? []
 
   return ( 
     <View style={{ marginTop: 20 }}>
@@ -179,7 +174,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = () => 
         render={({ field: { onChange, value }}) => (
           <Dropdown style={styles.margin} 
             value={value} 
-            options={defaultServiceOptions} 
+            options={serviceOptionsItem} 
             onSelect={onChange}
             placeholder={'Pilih Servis'}
             error={errors?.service?.message}
