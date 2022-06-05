@@ -90,7 +90,7 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
               style={{ display: 'flex', flexDirection: 'column' }}
             >
               <FormProvider {...formMethods}>
-                <ReservationFormComponent />
+                <ReservationFormComponent serviceOptions={shopDetailResponse?.body?.serviceAvailable} />
               </FormProvider>
               <CustomButton 
                 onPress={handleFormSubmit(onSubmit)} 

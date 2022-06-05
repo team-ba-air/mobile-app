@@ -10,11 +10,14 @@ interface CheckoutReservationProps {
 }
  
 const CheckoutReservation: React.FC<CheckoutReservationProps> = ({ data }) => {
+  const carItem = data?.car?.split('|')
+  const serviceItem = data?.service?.split('|')
+
   return ( 
     <>
     <View>
         <Text style={styles.title}>Mobil</Text>
-        <Text style={styles.content}>{data?.car}</Text>
+        <Text style={styles.content}>{carItem?.[1]} {carItem?.[2]} {carItem?.[3]}</Text>
       </View>
       <View style={{ marginTop: 16 }}>
         <Text style={styles.title}>Bengkel</Text>
@@ -22,7 +25,7 @@ const CheckoutReservation: React.FC<CheckoutReservationProps> = ({ data }) => {
       </View>
       <View style={{ marginTop: 16 }}>
         <Text style={styles.title}>Servis</Text>
-        <Text style={styles.content}>Servis Dasar - Rp100.000</Text>
+        <Text style={styles.content}>{serviceItem?.[1]} - {serviceItem?.[3]}</Text>
       </View>
       <View style={{ marginTop: 16 }}>
         <Text style={styles.title}>Waktu</Text>

@@ -1,15 +1,17 @@
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, Route } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
 import { SCREENS } from 'navigations/constants';
 import { PublicAPIResponse } from 'network/types';
 import React from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 import { useQuery } from 'react-query';
-import { PaymentMethodItem } from '../constants';
+import { ReservationForm } from 'scenes/reservation/constants';
+import { PaymentMethodItem, PaymentMethodSelectionItem } from '../constants';
 import getPaymentMethod from '../service/getPaymentMethod';
 import PaymentMethodComponent from './components/PaymentMethodComponent';
 
 interface SelectPaymentScreenProps {
+  route: Route<string, ReservationForm>
   navigation: NavigationProp<any, any>
 }
 
@@ -46,9 +48,14 @@ const dummyPayment: PaymentMethodItem[] = [
   }
 ]
  
-const SelectPaymentScreen: React.FC<SelectPaymentScreenProps> = ({ navigation }) => {
-  const onSelectPayment = () => {
-    navigation.navigate(SCREENS.reservation.paymentDetail)
+const SelectPaymentScreen: React.FC<SelectPaymentScreenProps> = ({ route, navigation }) => {
+  const onSelectPayment = (item: PaymentMethodSelectionItem) => {
+    const data: ReservationForm = {
+      ...route.params,
+      payment: item
+    }
+    
+    navigation.navigate(SCREENS.reservation.paymentDetail, { data })
   }
 
   const {

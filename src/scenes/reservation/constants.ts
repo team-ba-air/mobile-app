@@ -1,3 +1,5 @@
+import { PaymentMethodSelectionItem } from "scenes/checkout/constants"
+
 export type ServiceItem = {
   id: string
   image: string
@@ -45,6 +47,7 @@ export type AvailableHourItem = {
 export type ReservationForm = Partial<{
   car: string
   service: string
+  payment: PaymentMethodSelectionItem
   date: Date
   hour: string
   notes: string
