@@ -54,7 +54,10 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
   } = formMethods
 
   const onSubmit = useCallback((data: ReservationForm) => {
-    console.log(data)
+    const reservationData: ReservationForm = {
+      ...data,
+      shop: shopDetailResponse?.body,
+    }
     navigation.navigate(SCREENS.reservation.checkout, { data })
   }, [])
 

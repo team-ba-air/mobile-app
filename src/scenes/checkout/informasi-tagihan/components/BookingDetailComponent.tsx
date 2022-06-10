@@ -1,24 +1,21 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-elements';
+import { StyleSheet, Text, View } from 'react-native';
 import { ReservationForm } from 'scenes/reservation/constants';
 import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
 
-interface CheckoutReservationProps {
+interface BookingDetailComponentProps {
   data?: ReservationForm
 }
  
-const CheckoutReservation: React.FC<CheckoutReservationProps> = ({ data }) => {
+const BookingDetailComponent: React.FC<BookingDetailComponentProps> = ({ data }) => {
   const carItem = data?.car?.split('|')
   const serviceItem = data?.service?.split('|')
 
   return ( 
-    <>
-      <View>
-        <Text style={styles.title}>Mobil</Text>
-        <Text style={styles.content}>{carItem?.[1]} {carItem?.[2]} {carItem?.[3]}</Text>
-      </View>
+    <View>
+      <Text>Rincian Booking</Text>
+
       <View style={{ marginTop: 16 }}>
         <Text style={styles.title}>Bengkel</Text>
         <Text style={styles.content}>{data?.shop?.name}</Text>
@@ -36,11 +33,11 @@ const CheckoutReservation: React.FC<CheckoutReservationProps> = ({ data }) => {
         <Text style={styles.title}>Catatan tambahan</Text>
         <Text style={styles.content}>{data?.notes !== '' ? data?.notes : '-'}</Text>
       </View>
-    </>
-   );
+    </View>
+  );
 }
  
-export default CheckoutReservation;
+export default BookingDetailComponent;
 
 const styles = StyleSheet.create({
   title: {
