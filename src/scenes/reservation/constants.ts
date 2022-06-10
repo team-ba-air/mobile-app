@@ -45,6 +45,7 @@ export type AvailableHourItem = {
 }
 
 export type ReservationForm = Partial<{
+  shop: BengkelDetailItem
   car: string
   service: string
   payment: PaymentMethodSelectionItem

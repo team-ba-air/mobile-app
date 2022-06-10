@@ -28,6 +28,13 @@ export type ServiceItem = {
   label: string
 }
 
+export type AdditionalComponentSelectionItem = {
+  selected: boolean
+  component: string
+  price: number
+  priority: string
+}
+
 export const PriorityMapItem = new Map()
   .set('IMPORTANT', 'Penting')
   .set('RECOMMENDED', 'Direkomendasikan')

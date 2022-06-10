@@ -9,6 +9,7 @@ import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import { formatRupiah } from 'utils/TextUtils';
 import { PriorityMapColor, PriorityMapItem } from '../constants';
 import Footer from './components/Footer';
+import SelectAdditionalComponent from './components/SelectAdditionalComponent';
 
 interface AdditionalComponentScreenProps {
   navigation: NavigationProp<any>
@@ -40,23 +41,47 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
     }
   ))
 
-  const [componentList, setComponentList] = useState(selectComponentList)
-  
-  const handleChecked = (index: number, checked: boolean) => {
-    setComponentList(prev => {
-      prev[index].selected = checked
-      return prev
+  const [importantComponentList, setImportantComponentList] = useState(selectComponentList.filter(item => item.priority === 'IMPORTANT'))
+  const [recommendedComponentList, setRecommendedComponentList] = useState(selectComponentList.filter(item => item.priority === 'RECOMMENDED'))
+
+  const handleCheckedImportant = (index: number, checked: boolean) => {
+    console.log(index)
+    console.log('check')
+    const newComponentList = importantComponentList.map((value, idx) => {
+      if (idx === index) {
+        return {
+          ...value,
+          selected: checked
+        }
+      }
+
+      return value
     })
+    setImportantComponentList(newComponentList)
   }
 
-  const selectComponentListElement = componentList.map((value, idx) => (
-    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={{ marginRight: widthPixel(8) }}>{value.component} | {formatRupiah(value.price)}</Text>
-        <CustomChips style={{ backgroundColor: PriorityMapColor.get(value.priority)}} text={PriorityMapItem.get(value.priority)}/>
-      </View>
-      <CheckBox checked={value.selected} onPress={() => handleChecked(idx, !value.selected)} />
-    </View>
+  const handleCheckedRecommended = (index: number, checked: boolean) => {
+    console.log(index)
+    console.log('check')
+    const newComponentList = recommendedComponentList.map((value, idx) => {
+      if (idx === index) {
+        return {
+          ...value,
+          selected: checked
+        }
+      }
+
+      return value
+    })
+    setRecommendedComponentList(newComponentList)
+  }
+
+  const selectImportantComponentListElement = importantComponentList.map((value, idx) => (
+    <SelectAdditionalComponent index={idx} data={value} handleChecked={handleCheckedImportant} />
+  ))
+
+  const selectRecommendedComponentListElement = recommendedComponentList.map((value, idx) => (
+    <SelectAdditionalComponent index={idx} data={value} handleChecked={handleCheckedRecommended} />
   ))
 
   return (  
@@ -73,14 +98,27 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
         </Text>
 
         <View>
-          <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary, marginTop: heightPixel(16) }}>Kebutuhan Komponen Tambahan</Text>
-          {selectComponentListElement}
-        </View>
-
-        <View>
           <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary, marginTop: heightPixel(16) }}>Catatan dari Bengkel</Text>
           <Text style={{ marginTop: heightPixel(4) }}>{'V-Belt dan Kampas Rem Bapak/Ibu sudah terlalu lama tidak diganti, kalau terlalu lama dibiarkan bisa merusak komponen lain. Untuk Filter sudah tidak optimal juga, tapi masih bisa tahan ~3 bulan kedepan.'}</Text>
         </View>
+
+        <View>
+          <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary, marginTop: heightPixel(16) }}>Kebutuhan Komponen Tambahan</Text>
+          {selectImportantComponentListElement.length > 0 && (
+            <View style={{ marginTop: 16 }}>
+              <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', color: Color.red[7]}}>Penting ({selectImportantComponentListElement.length})</Text>
+              {selectImportantComponentListElement}
+            </View>
+          )}
+
+          {selectRecommendedComponentListElement.length > 0 && (
+            <View style={{ marginTop: 16 }}>
+              <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', color: Color.red[5]}}>Rekomendasi ({selectRecommendedComponentListElement.length})</Text>
+              {selectRecommendedComponentListElement}
+            </View>
+          )}
+        </View>
+
       </View>
 
       <Footer navigation={navigation} />
