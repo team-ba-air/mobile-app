@@ -29,9 +29,11 @@ const getFormatDateNumeric = (date: Date, separator: string = '/') => {
 }
 
 const getFormatHour = (date: Date) => {
-  let formatHour = date.getHours() +
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  let formatHour = (hour < 10 ? `0${hour}` : hour) +
   ':' +
-  date.getMinutes()
+  (minute < 10 ? `0${minute}` : minute)
 
   return formatHour
 }

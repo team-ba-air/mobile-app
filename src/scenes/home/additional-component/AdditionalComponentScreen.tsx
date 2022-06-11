@@ -1,15 +1,11 @@
 import { NavigationProp } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
-import CustomChips from 'components/CustomChips';
 import React, { useState } from 'react'
 import { Text, View } from 'react-native';
-import { CheckBox } from 'react-native-elements';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
-import { formatRupiah } from 'utils/TextUtils';
-import { PriorityMapColor, PriorityMapItem } from '../constants';
+import AdditionalListSectionComponent from './components/AdditionalListSectionComponent';
 import Footer from './components/Footer';
-import SelectAdditionalComponent from './components/SelectAdditionalComponent';
 
 interface AdditionalComponentScreenProps {
   navigation: NavigationProp<any>
@@ -44,46 +40,6 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
   const [importantComponentList, setImportantComponentList] = useState(selectComponentList.filter(item => item.priority === 'IMPORTANT'))
   const [recommendedComponentList, setRecommendedComponentList] = useState(selectComponentList.filter(item => item.priority === 'RECOMMENDED'))
 
-  const handleCheckedImportant = (index: number, checked: boolean) => {
-    console.log(index)
-    console.log('check')
-    const newComponentList = importantComponentList.map((value, idx) => {
-      if (idx === index) {
-        return {
-          ...value,
-          selected: checked
-        }
-      }
-
-      return value
-    })
-    setImportantComponentList(newComponentList)
-  }
-
-  const handleCheckedRecommended = (index: number, checked: boolean) => {
-    console.log(index)
-    console.log('check')
-    const newComponentList = recommendedComponentList.map((value, idx) => {
-      if (idx === index) {
-        return {
-          ...value,
-          selected: checked
-        }
-      }
-
-      return value
-    })
-    setRecommendedComponentList(newComponentList)
-  }
-
-  const selectImportantComponentListElement = importantComponentList.map((value, idx) => (
-    <SelectAdditionalComponent index={idx} data={value} handleChecked={handleCheckedImportant} />
-  ))
-
-  const selectRecommendedComponentListElement = recommendedComponentList.map((value, idx) => (
-    <SelectAdditionalComponent index={idx} data={value} handleChecked={handleCheckedRecommended} />
-  ))
-
   return (  
     <AppContainer style={{ 
       padding: 0, 
@@ -104,18 +60,12 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
 
         <View>
           <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary, marginTop: heightPixel(16) }}>Kebutuhan Komponen Tambahan</Text>
-          {selectImportantComponentListElement.length > 0 && (
-            <View style={{ marginTop: 16 }}>
-              <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', color: Color.red[7]}}>Penting ({selectImportantComponentListElement.length})</Text>
-              {selectImportantComponentListElement}
-            </View>
+          {importantComponentList.length > 0 && (
+            <AdditionalListSectionComponent title={'important'} data={importantComponentList} setData={setImportantComponentList} />
           )}
 
-          {selectRecommendedComponentListElement.length > 0 && (
-            <View style={{ marginTop: 16 }}>
-              <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', color: Color.red[5]}}>Rekomendasi ({selectRecommendedComponentListElement.length})</Text>
-              {selectRecommendedComponentListElement}
-            </View>
+          {recommendedComponentList.length > 0 && (
+            <AdditionalListSectionComponent title={'recommended'} data={recommendedComponentList} setData={setRecommendedComponentList} />
           )}
         </View>
 
