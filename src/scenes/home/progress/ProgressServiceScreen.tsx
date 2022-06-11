@@ -6,6 +6,7 @@ import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import BookingDetail from './components/BookingDetail';
 import ProgressStatus from './components/ProgressStatus';
+import ServiceStatusStepIndicator from './components/ServiceStatusStepIndicator';
 import TabProgress from './components/TabProgress';
 
 interface ProgressServiceScreenProps {

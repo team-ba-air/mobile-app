@@ -5,12 +5,39 @@ import React from 'react'
 import { Text, View } from 'react-native';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel } from 'styles/sizes';
+import ServiceStatusStepIndicator from './ServiceStatusStepIndicator';
 
 interface ProgressStatusProps {
   navigation: NavigationProp<any>
 }
  
 const ProgressStatus: React.FC<ProgressStatusProps> = ({ navigation }) => {
+  const sampleData = {
+    currentStep: 2,
+    progress: [
+      {
+        step: 0,
+        time: new Date(),
+      },
+      {
+        step: 1,
+        time: new Date(),
+      },
+      {
+        step: 2,
+        time: new Date(),
+      },
+      {
+        step: 3,
+        time: null
+      },
+      {
+        step: 4,
+        time: null,
+      }
+    ]
+  }
+
   return ( 
     <View>
       <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Status</Text>
@@ -22,7 +49,8 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ navigation }) => {
       <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Komponen Tambahan</Text>
       <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>{'-'}</Text>
 
-      <CustomButton title='Komponen Tambahan' type='primary' onPress={() => navigation.navigate(SCREENS.reservation.additionalComponent)} />
+      <ServiceStatusStepIndicator progressTime={sampleData.progress} currentPosition={sampleData.currentStep} />
+      {/* <CustomButton title='Komponen Tambahan' type='primary' onPress={() => navigation.navigate(SCREENS.reservation.additionalComponent)} /> */}
     </View>
   );
 }

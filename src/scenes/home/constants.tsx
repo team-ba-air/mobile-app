@@ -35,6 +35,11 @@ export type AdditionalComponentSelectionItem = {
   priority: string
 }
 
+export type ProgressTime = {
+  step: number
+  time: Date | null
+}
+
 export const PriorityMapItem = new Map()
   .set('IMPORTANT', 'Penting')
   .set('RECOMMENDED', 'Direkomendasikan')
