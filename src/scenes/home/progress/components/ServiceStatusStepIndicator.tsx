@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { Text, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 import StepIndicator from 'react-native-step-indicator';
-import { ProgressTime } from 'scenes/home/constants';
+import { LABEL_STATUS, ProgressTime } from 'scenes/home/constants';
+import { Color } from 'styles/colors';
+import { heightPixel, widthPixel } from 'styles/sizes';
 import StatusDetailComponent from './StatusDetailComponent';
 
 interface ServiceStatusStepIndicatorProps {
@@ -10,48 +13,67 @@ interface ServiceStatusStepIndicatorProps {
 }
  
 const ServiceStatusStepIndicator: React.FC<ServiceStatusStepIndicatorProps> = ({ currentPosition, progressTime }) => {
-  const labels = [
-    'Mobil Sampai di Bengkel',
-    'Dalam Antrian Servis',
-    'Dalam Pengerjaan',
-    'Inspeksi Akhir',
-    'Mobil Siap Diambil',
-  ]
-
   const customStyles = {
     stepIndicatorSize: 30,
-    currentStepIndicatorSize: 30,
+    currentStepIndicatorSize: 40,
     separatorStrokeWidth: 2,
-    currentStepStrokeWidth: 2,
-    stepStrokeCurrentColor: "#04c92e",
-    stepStrokeWidth: 2,
-    stepStrokeFinishedColor: "#04c92e",
+    currentStepStrokeWidth: 0,
+    stepStrokeCurrentColor: Color.blue[8],
+    stepStrokeWidth: 0,
+    stepStrokeFinishedColor: Color.gray[0],
     stepStrokeUnFinishedColor: "#aaaaaa",
-    separatorFinishedColor: "#04c92e",
+    separatorFinishedColor: Color.blue[8],
     separatorUnFinishedColor: "#aaaaaa",
-    stepIndicatorFinishedColor: "#04c92e",
+    stepIndicatorFinishedColor: Color.gray[0],
     stepIndicatorUnFinishedColor: "#ffffff",
     stepIndicatorCurrentColor: "#ffffff",
-    stepIndicatorLabelFontSize: 13,
-    currentStepIndicatorLabelFontSize: 13,
     stepIndicatorLabelCurrentColor: "#fe7013",
     stepIndicatorLabelFinishedColor: "#ffffff",
     stepIndicatorLabelUnFinishedColor: "#aaaaaa",
-    labelColor: "#999999",
-    labelSize: 13,
-    currentStepLabelColor: "#fe7013"
   };
 
   return ( 
-    <View style={{ height: 300 }}>
+    <View style={{ 
+      height: 250, 
+      borderWidth: 1, 
+      borderColor: Color.gray[2], 
+      borderRadius: 8,
+      paddingVertical: heightPixel(4), 
+      paddingHorizontal: widthPixel(8),
+      marginVertical: heightPixel(8),
+      }}
+    >
       <StepIndicator 
         customStyles={customStyles}
         direction='vertical'
         currentPosition={currentPosition}
-        labels={labels}
+        labels={LABEL_STATUS}
         stepCount={5}
         renderLabel={({ position, stepStatus, label, currentPosition }) => {
-          return <StatusDetailComponent time={progressTime[position].time} label={label} />
+          return (
+            <StatusDetailComponent 
+              time={progressTime[position].time} 
+              label={label} 
+              position={position} 
+              currentPosition={currentPosition} 
+              stepStatus={stepStatus}
+            />
+          )
+        }}
+        renderStepIndicator={({ position, stepStatus }) => {
+          return (
+            <>
+              {stepStatus === 'finished' && (
+                <Icon tvParallaxProperties={null} type='material' name='check-circle' color={Color.blue[8]} />
+              )}
+              {stepStatus === 'unfinished' && (
+                <Icon tvParallaxProperties={null} type='material' name='fiber-manual-record' color={Color.gray[2]} />
+              )}
+              {stepStatus === 'current' && (
+                <Icon tvParallaxProperties={null} type='material' name='trip-origin' color={Color.blue[8]} />
+              )}
+            </>
+          )
         }}
       />
       {/* <Text>Awaiting Confirmation</Text> */}

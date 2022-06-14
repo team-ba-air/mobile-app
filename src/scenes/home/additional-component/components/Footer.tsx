@@ -4,19 +4,23 @@ import { SCREENS } from 'navigations/constants';
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-elements';
+import { AdditionalComponentSelectionItem } from 'scenes/home/constants';
 import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
+import { formatRupiah } from 'utils/TextUtils';
 
 interface FooterProps {
   navigation: any
+  data: AdditionalComponentSelectionItem[]
 }
  
-const Footer: React.FC<FooterProps> = ({ navigation }) => {
+const Footer: React.FC<FooterProps> = ({ navigation, data }) => {
+  const totalPrice = data.reduce((priceAccumulator, item) => priceAccumulator + item.price, 0)
   return ( 
     <View style={styles.container}>
       <View>
         <Text style={styles.title}>Biaya Tambahan</Text>
-        <Text style={styles.content}>Rp100.000</Text>
+        <Text style={styles.content}>{formatRupiah(totalPrice)}</Text>
       </View>
       <View>
         <CustomButton onPress={() => navigation.navigate(SCREENS.reservation.selectPayment)} buttonStyle={{ paddingLeft: 36, paddingRight: 36 }} title='Bayar' />

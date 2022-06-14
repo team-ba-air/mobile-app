@@ -40,6 +40,8 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
   const [importantComponentList, setImportantComponentList] = useState(selectComponentList.filter(item => item.priority === 'IMPORTANT'))
   const [recommendedComponentList, setRecommendedComponentList] = useState(selectComponentList.filter(item => item.priority === 'RECOMMENDED'))
 
+  const selectedComponentList = importantComponentList.concat(recommendedComponentList).filter(value => value.selected)
+
   return (  
     <AppContainer style={{ 
       padding: 0, 
@@ -71,7 +73,7 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
 
       </View>
 
-      <Footer navigation={navigation} />
+      <Footer data={selectedComponentList} navigation={navigation} />
     </AppContainer>
   );
 }

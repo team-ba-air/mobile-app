@@ -2,56 +2,65 @@ import { NavigationProp } from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
 import React from 'react'
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
+import { ReservationDetailItem } from 'scenes/home/constants';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel } from 'styles/sizes';
+import AdditionalComponentButton from './AdditionalComponentButton';
 import ServiceStatusStepIndicator from './ServiceStatusStepIndicator';
 
 interface ProgressStatusProps {
+  data: ReservationDetailItem
   navigation: NavigationProp<any>
 }
  
-const ProgressStatus: React.FC<ProgressStatusProps> = ({ navigation }) => {
-  const sampleData = {
-    currentStep: 2,
-    progress: [
-      {
-        step: 0,
-        time: new Date(),
-      },
-      {
-        step: 1,
-        time: new Date(),
-      },
-      {
-        step: 2,
-        time: new Date(),
-      },
-      {
-        step: 3,
-        time: null
-      },
-      {
-        step: 4,
-        time: null,
-      }
-    ]
-  }
+const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => {
+  const dateNow = new Date().getDate()
+  const dateDiff = data.info_booking.datetime.getDate() - dateNow
 
+  const additionalComponentListElement = data.additional_component.map((value, idx) => (
+    <Text style={{ fontWeight: 'bold' }}>{idx + 1}. {value.name}</Text>
+  ))
   return ( 
-    <View>
-      <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Status</Text>
-      <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>{'5 hari lagi'}</Text>
+    <>
+      <ScrollView contentContainerStyle={{ marginTop: heightPixel(8), display: 'flex', justifyContent: 'space-between', overflow: 'scroll' }}>
+        <View>
+          {data.status > 0 && (
+            <>
+              <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Service Assistant</Text>
+              <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>
+                {data.service_assistant ? data.service_assistant : '-'}
+              </Text>
 
-      <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Service Assistant</Text>
-      <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>{'Michael Hans'}</Text>
+              <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Komponen Tambahan</Text>
+              {data.additional_component.length === 0 ? (
+                data.requested_additional_component.length > 0 ? (
+                  <AdditionalComponentButton onPress={() => navigation.navigate(SCREENS.reservation.additionalComponent)} />
+                ) : (
+                  <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>{'-'}</Text>
+                )
+              ) : (
+                additionalComponentListElement
+              )}
+            </>
+          )}
 
-      <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Komponen Tambahan</Text>
-      <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>{'-'}</Text>
+          
+          <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary, marginTop: heightPixel(12) }}>Status Servis</Text>
+          {data.status === 0 ? (
+            <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>
+              {dateDiff > 0 ? `${dateDiff} hari lagi menuju servis` : 'Menunggu mobil sampai di bengkel'}
+            </Text>
+          ): (
+            <ServiceStatusStepIndicator progressTime={data.progress} currentPosition={data.status} />
+          )}
+        </View>
+        
+      </ScrollView>
 
-      <ServiceStatusStepIndicator progressTime={sampleData.progress} currentPosition={sampleData.currentStep} />
-      {/* <CustomButton title='Komponen Tambahan' type='primary' onPress={() => navigation.navigate(SCREENS.reservation.additionalComponent)} /> */}
-    </View>
+      <CustomButton style={{ marginTop: heightPixel(16) }} type='primary' title='Hubungi Bengkel' />
+    </>
+    
   );
 }
  
