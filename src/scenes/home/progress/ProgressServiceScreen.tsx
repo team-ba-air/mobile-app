@@ -129,7 +129,7 @@ const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigatio
           (
             <ProgressStatus data={sampleDataProgress} navigation={navigation} />
           ) : 
-            <BookingDetail data={sampleDataProgress} />
+            <BookingDetail data={sampleDataProgress} navigation={navigation} />
           }
         </ScrollView>
     </AppContainer>

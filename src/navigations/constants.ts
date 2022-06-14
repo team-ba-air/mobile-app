@@ -24,6 +24,7 @@ export const SCREENS = {
   },
   reservation: {
     progressService: 'ProgressService',
+    informasiTagihan: 'InformasiTagihan',
     additionalComponent: 'AdditionalComponent',
     serviceReservation: 'ServiceReservation',
     bengkelReservation: 'BengkelReservation',

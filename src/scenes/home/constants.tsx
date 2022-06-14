@@ -14,25 +14,21 @@ export type TipsTrickItem = {
 
 export type ReservationItem = {
   id: string
-  info_booking: {
-    car: VehicleInfo
-    shop: ShopInfo
-    service: ServiceInfo
-    datetime: Date
-    notes: string
-  }
+  info_booking: BookingInformationItem
   status: number
+}
+
+export type BookingInformationItem = {
+  car: VehicleInfo
+  shop: ShopInfo
+  service: ServiceInfo
+  datetime: Date
+  notes: string
 }
 
 export type ReservationDetailItem = {
   booking_number: string
-  info_booking: {
-    car: VehicleInfo
-    shop: ShopInfo
-    service: ServiceInfo
-    datetime: Date
-    notes: string
-  }
+  info_booking: BookingInformationItem
   status: number
   progress: StepTime[]
   service_assistant: string
