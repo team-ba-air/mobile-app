@@ -11,25 +11,36 @@ interface OngoingReservationSectionProps {
   navigation: NavigationProp<any>
 }
 
-const defaultValues: ReservationItem[] = [
-  {
-    bengkelName: 'Auto 2000',
-    bengkelLocation: 'Jakarta Utara',
-    serviceType: 'Servis Dasar',
-    carType: 'Yaris',
-    plat: 'B 2012 S',
-    currentStep: 2,
-    totalStep: 4,
-    date: 12312312312312,
-  },
-]
- 
 const OngoingReservationSection: React.FC<OngoingReservationSectionProps> = ({ navigation }) => {
+  const sampleDataProgress: ReservationItem[] = [{
+    id: '',
+    info_booking: {
+      car: {
+        id: '',
+        brand: 'Toyota',
+        type: 'Yaris',
+        license_plate: 'B 2000 S',
+      },
+      shop: {
+        id: '',
+        name: 'Auto 2000, Jakarta Utara',
+      },
+      service: {
+        id: '',
+        name: 'Servis Dasar',
+        description: '',
+        price: 10000,
+      },
+      datetime: new Date('2022-06-15T11:27:39.404Z'),
+      notes: '',
+    },
+    status: 0, // 0, 1, 2, 3, 4
+  }]
   return ( 
     <View>
       <Text style={{ marginTop: 16, fontSize: Sizing.text.body[14], fontWeight: 'bold', paddingLeft: 20, paddingRight: 20 }}>Sedang Berlangsung</Text>
       <FlatList 
-        data={defaultValues}
+        data={sampleDataProgress}
         renderItem={(info: ListRenderItemInfo<ReservationItem>) => (
           <OngoingReservationItem data={info.item} navigation={navigation} />
         )}
