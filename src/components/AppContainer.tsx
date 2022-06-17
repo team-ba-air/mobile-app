@@ -1,18 +1,41 @@
-import React, { ReactNode } from 'react'
-import { ImageBackground, StyleProp, StyleSheet, ViewStyle } from 'react-native';
+import React, { ReactNode, useState } from 'react'
+import { ImageBackground, RefreshControl, ScrollView, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 interface AppContainerProps {
   children: ReactNode
   style?: StyleProp<ViewStyle>
   backgroundImage?: any
+  onRefresh?: () => void
+  refreshDisable?: boolean
 }
  
-const AppContainer: React.FC<AppContainerProps> = ({ children, style, backgroundImage }) => {
+const AppContainer: React.FC<AppContainerProps> = ({ children, style, backgroundImage, onRefresh, refreshDisable }) => {
+  const [refreshing, setRefreshing] = useState(false)
+
+  const handleRefresh = () => {
+    setRefreshing(true)
+    onRefresh?.()
+    setTimeout(() => {
+      setRefreshing(false)
+    }, 2000)
+  }
+
   return ( 
     <SafeAreaView style={[styles.container]}>
       <ImageBackground style={[styles.backgroundImage, style]} source={backgroundImage}>
-        {children}
+        {refreshDisable ? children : (
+          <ScrollView
+            refreshControl={
+              <RefreshControl 
+                refreshing={refreshing}
+                onRefresh={handleRefresh}
+              />
+            }
+          >
+            {children}
+          </ScrollView>
+        )}
       </ImageBackground>
     </SafeAreaView>
    );
@@ -24,6 +47,7 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     backgroundColor: '#FFFFFF',
+    flex: 1,
   },
   backgroundImage:{
     flex: 1,
