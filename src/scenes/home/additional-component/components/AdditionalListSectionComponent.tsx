@@ -1,8 +1,8 @@
-import React from 'react'
-import { Text, View } from 'react-native';
+import React, { useState } from 'react'
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { AdditionalComponentSelectionItem } from 'scenes/home/constants';
 import { Color } from 'styles/colors';
-import { fontPixel } from 'styles/sizes';
+import { fontPixel, widthPixel } from 'styles/sizes';
 import SelectAdditionalComponent from './SelectAdditionalComponent';
 
 interface AdditionalListSectionComponentProps {
@@ -12,6 +12,8 @@ interface AdditionalListSectionComponentProps {
 }
  
 const AdditionalListSectionComponent: React.FC<AdditionalListSectionComponentProps> = ({ title, data, setData }) => {
+  const [visible, setVisible] = useState<boolean>(true)
+
   const handleChecked = (index: number, checked: boolean) => {
     console.log(index)
     console.log('check')
@@ -34,10 +36,22 @@ const AdditionalListSectionComponent: React.FC<AdditionalListSectionComponentPro
 
   return ( 
     <View style={{ marginTop: 16 }}>
-      <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', color: title === 'important' ? Color.red[7] : Color.red[5]}}>
-        {title === 'important' ? 'Penting' : 'Rekomendasi'} ({selectComponentListElement.length})
-      </Text>
-      {selectComponentListElement}
+      <TouchableOpacity 
+        onPress={() => setVisible(!visible)}
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingRight: widthPixel(8),
+        }}
+      >
+        <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', color: title === 'important' ? Color.red[7] : Color.red[5]}}>
+          {title === 'important' ? 'Penting' : 'Rekomendasi'} ({selectComponentListElement.length})
+        </Text>
+        <Image source={require('assets/icon/arrow_down.png')}/>
+      </TouchableOpacity>
+      
+      {visible && selectComponentListElement}
     </View>
   );
 }

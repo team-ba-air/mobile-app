@@ -61,18 +61,18 @@ const sampleDataProgress: ReservationDetailItem = {
   ],
   service_assistant: 'Michael Hans',
   additional_component: [
-    {
-      id: '',
-      name: 'V-Belt',
-      priority: 'IMPORTANT', // IMPORTANT or RECOMMENDED
-      price: 10000,
-    },
-    {
-      id: '',
-      name: 'Filter AC',
-      priority: 'IMPORTANT',
-      price: 10000,
-    },
+    // {
+    //   id: '',
+    //   name: 'V-Belt',
+    //   priority: 'IMPORTANT', // IMPORTANT or RECOMMENDED
+    //   price: 10000,
+    // },
+    // {
+    //   id: '',
+    //   name: 'Filter AC',
+    //   priority: 'IMPORTANT',
+    //   price: 10000,
+    // },
     // {
     //   id: '',
     //   name: 'Filter AC',
@@ -85,32 +85,14 @@ const sampleDataProgress: ReservationDetailItem = {
     //   priority: 'IMPORTANT',
     //   price: 10000,
     // },
-    {
-      id: '',
-      name: 'Filter AC',
-      priority: 'IMPORTANT',
-      price: 10000,
-    },
-    {
-      id: '',
-      name: 'Filter AC',
-      priority: 'IMPORTANT',
-      price: 10000,
-    },
-    {
-      id: '',
-      name: 'Filter AC',
-      priority: 'IMPORTANT',
-      price: 10000,
-    },
   ],
   requested_additional_component: [
-    // {
-    //   id: '',
-    //   name: '',
-    //   priority: 'IMPORTANT',
-    //   price: 10000,
-    // },
+    {
+      id: '',
+      name: '',
+      priority: 'IMPORTANT',
+      price: 10000,
+    },
   ],
   requested_additional_component_notes: '',
 }

@@ -1,7 +1,7 @@
 import { NavigationProp } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
 import React, { useState } from 'react'
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import AdditionalListSectionComponent from './components/AdditionalListSectionComponent';
@@ -27,6 +27,12 @@ const dummyData = [
     price: 150000,
     priority: 'RECOMMENDED',
   },
+  {
+    component: 'Filter',
+    price: 150000,
+    priority: 'RECOMMENDED',
+  },
+
 ]
  
 const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ navigation }) => {
@@ -43,13 +49,17 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
   const selectedComponentList = importantComponentList.concat(recommendedComponentList).filter(value => value.selected)
 
   return (  
-    <AppContainer style={{ 
-      padding: 0, 
-      display: 'flex',
-      justifyContent: 'space-between',
-      flexDirection: 'column'
-    }}>
-      <View style={{ paddingHorizontal: widthPixel(20), marginTop: heightPixel(20) }}>
+    <AppContainer 
+      style={{ 
+        padding: 0, 
+        display: 'flex',
+        justifyContent: 'space-between',
+        flexDirection: 'column',
+        backgroundColor: Color.gray[1]
+      }}
+      refreshDisable
+    >
+      <ScrollView style={{ paddingHorizontal: widthPixel(20), paddingTop: heightPixel(20), paddingBottom: heightPixel(36), backgroundColor: 'white' }}>
         <Text style={{ textAlign: 'justify' }}>
           <Text>Setelah diagnosis lebih lanjut oleh bengkel, terdapat beberapa komponen yang perlu diganti. </Text>
           <Text style={{ fontWeight: 'bold' }}>Hanya komponen yang Anda centang yang akan diganti.</Text>
@@ -71,7 +81,7 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
           )}
         </View>
 
-      </View>
+      </ScrollView>
 
       <Footer data={selectedComponentList} navigation={navigation} />
     </AppContainer>
