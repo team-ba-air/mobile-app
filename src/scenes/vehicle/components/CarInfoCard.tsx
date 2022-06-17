@@ -1,33 +1,24 @@
 import { SCREENS } from 'navigations/constants'
 import React, { useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { Button, Card, Icon, Image } from 'react-native-elements'
-import { useMutation } from 'react-query'
+import { Card, Image } from 'react-native-elements'
 import { Color } from 'styles/colors'
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes'
 import { getFormatDate } from 'utils/DateUtil'
 import { VehicleItem } from '../constants'
-import deleteVehicleById from '../service/deleteVehicleById'
 
 interface CarInfoCardProps {
   car?: VehicleItem,
   navigation: any
+  showSnackbar?: () => void
+  showModal?: () => void
 }
 
-const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation }) => {
+const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation, showSnackbar, showModal }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const { isLoading: isDeleting, mutateAsync: onDelete } = useMutation(deleteVehicleById, {
-    onSuccess: (data) => {
-      console.log(data)
-    },
-  })
-
   const deleteVehicle = () => {
-    onDelete({ id: car?.id ?? '' }).catch((e) => {
-      // do nothing
-      console.log(e)
-    })
+    showModal?.()
   }
 
   const updateVehicle = () => {
@@ -84,7 +75,7 @@ const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation }) => {
               <Text style={{ 
                 fontSize: fontPixel(Sizing.text.body[12]), 
                 fontWeight: 'bold',
-                color: Color.red[4],
+                color: Color.red[7],
               }}>
                 Hapus
               </Text>

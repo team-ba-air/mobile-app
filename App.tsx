@@ -13,6 +13,7 @@ import {
 import Navigator from 'navigations'
 import { NavigationContainer } from '@react-navigation/native';
 import AppProvider from 'context/AppProvider';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 type AppProps = {}
@@ -29,9 +30,11 @@ const App: React.FC<AppProps> = () => {
   }, [])
   return (
     <AppProvider>
-      <NavigationContainer>
-        <Navigator />
-      </NavigationContainer>
+      <PaperProvider>
+        <NavigationContainer>
+          <Navigator />
+        </NavigationContainer>
+      </PaperProvider>
     </AppProvider>
   );
 };

@@ -6,6 +6,7 @@ import FormInputDate from "components/FormInputDate"
 import { SCREENS } from "navigations/constants"
 import React, { useEffect, useState } from "react"
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native"
+import { Snackbar } from "react-native-paper"
 import { useMutation } from "react-query"
 import { Sizing } from "styles/sizes"
 import BottomSheetVin from "./components/BottomSheetVin"
@@ -80,6 +81,8 @@ const defaultColorOptions: OptionItem[] = [
 const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, route }) => {
   const { car } = route.params
 
+  const [visible, setVisible] = useState<boolean>(false)
+
   const [brand, setBrand] = useState<string>(car?.brand ?? '')
   const [type, setType] = useState<string>(car?.type ?? '')
   const [year, setYear] = useState<string>(car?.year ?? '')
@@ -105,12 +108,18 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
       navigation.navigate(SCREENS.vehicle.list)
       console.log(data)
     },
+    onError: () => {
+      setVisible(true)
+    },
   })
 
   const { isLoading: isUpdating, mutateAsync: onUpdate } = useMutation(updateVehicleById, {
     onSuccess: (data) => {
       navigation.navigate(SCREENS.vehicle.list)
       console.log(data)
+    },
+    onError: () => {
+      setVisible(true)
     },
   })
 
@@ -164,6 +173,13 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
 
   return ( 
     <AppContainer style={styles.container}>
+      <Snackbar
+        visible={visible}
+        onDismiss={() => setVisible(false)}
+        duration={5000}
+      >
+        Something wrong. Please try again later.
+      </Snackbar>
       <BottomSheetVin visible={showVin} onChangeVisible={setShowVin} />
       <View>
         <Text style={styles.title}>{car ? 'Perbarui' : 'Tambah'} Info Mobil</Text>

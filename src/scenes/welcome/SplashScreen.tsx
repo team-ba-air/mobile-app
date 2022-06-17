@@ -30,7 +30,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
   }, [])
 
   return (
-    <AppContainer style={styles.container}>
+    <AppContainer style={styles.container} refreshDisable>
       <Image 
         style={{ height: heightPixel(64), width: widthPixel(244)}}
         source={require('@assets/icon/ic_logo_text.webp')} 
