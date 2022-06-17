@@ -1,6 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native';
 import { CheckBox } from 'react-native-elements';
+import { Checkbox } from 'react-native-paper';
 import { AdditionalComponentSelectionItem } from 'scenes/home/constants';
 import { Color } from 'styles/colors';
 import { widthPixel } from 'styles/sizes';
@@ -24,7 +25,7 @@ const SelectAdditionalComponent: React.FC<SelectAdditionalComponentProps> = ({ i
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text style={{ marginRight: widthPixel(8) }}>{data.component} | {formatRupiah(data.price)}</Text>
       </View>
-      <CheckBox checked={data.selected} onPress={() => handleChecked(index, !data.selected)} />
+      <Checkbox status={data.selected ? 'checked' : 'unchecked'} onPress={() => handleChecked(index, !data.selected)} />
     </View>
   );
 }
