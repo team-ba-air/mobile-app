@@ -30,11 +30,11 @@ const App: React.FC<AppProps> = () => {
   }, [])
   return (
     <AppProvider>
-      <PaperProvider>
         <NavigationContainer>
-          <Navigator />
+          <PaperProvider>
+            <Navigator />
+          </PaperProvider>
         </NavigationContainer>
-      </PaperProvider>
     </AppProvider>
   );
 };

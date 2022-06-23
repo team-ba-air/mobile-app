@@ -6,7 +6,7 @@ import { PublicAPIResponse } from 'network/types'
 import React, { useState } from 'react'
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native'
 import { Modal, Portal, Provider, Snackbar } from 'react-native-paper'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { Color } from 'styles/colors'
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes'
 import CarInfoCard from './components/CarInfoCard'
@@ -20,6 +20,8 @@ interface VehicleScreenProps {
 }
  
 const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation }) => {
+  const queryClient = useQueryClient()
+
   const {
     data: vehicleListResponse,
     refetch,
@@ -49,13 +51,13 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation }) => {
   const { isLoading: isDeleting, mutateAsync: onDelete } = useMutation(deleteVehicleById, {
     onSuccess: (data) => {
       showSnackbar()
+      queryClient.invalidateQueries('getVehicleList')
     },
   })
 
   const onDeleteVehicle = () => {
     onDelete({ id: deletedCar?.id ?? '' }).catch((e) => {
       // do nothing
-      console.log(e)
     })
     onDismiss()
   }
@@ -71,62 +73,60 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation }) => {
 
   return (
     <AppContainer style={styles.container} onRefresh={handleRefresh}>
-      <Provider>
-        <Portal>
-          <Modal visible={modalVisible} onDismiss={onDismiss}>
-            <ModalDeleteVehicle
-              data={deletedCar} 
-              onDelete={onDeleteVehicle} 
-              onCancel={onDismiss} 
-            />
-          </Modal>
-        </Portal>
+      <Portal>
+        <Modal visible={modalVisible} onDismiss={onDismiss}>
+          <ModalDeleteVehicle
+            data={deletedCar} 
+            onDelete={onDeleteVehicle} 
+            onCancel={onDismiss} 
+          />
+        </Modal>
+      </Portal>
         
-        <FlatList
-          data={vehicleListResponse?.body ?? []}
-          renderItem={(info: ListRenderItemInfo<VehicleItem>) => (
-            <>
-              {info.index === 0 ? 
-                <View style={styles.containerCard}>
-                  <CarInfoCard
-                    car={info.item} 
-                    navigation={navigation} 
-                    showSnackbar={() => showSnackbar()} 
-                    showModal={() => showModal(info.item)} 
-                  />
-                  <View style={{ width: '100%', height: '100%', position: 'absolute', top: 0 }}>
-                    <View style={{ height: heightPixel(60), backgroundColor: Color.blue[8] }}></View>
-                  </View>
-                </View>
-              :
-                <CarInfoCard 
+      <FlatList
+        data={vehicleListResponse?.body ?? []}
+        renderItem={(info: ListRenderItemInfo<VehicleItem>) => (
+          <>
+            {info.index === 0 ? 
+              <View style={styles.containerCard}>
+                <CarInfoCard
                   car={info.item} 
                   navigation={navigation} 
                   showSnackbar={() => showSnackbar()} 
                   showModal={() => showModal(info.item)} 
                 />
-              }
-              
-            </>
-          )}
-          ListFooterComponent={
-            <CustomButton
-              textStyle={{ color: Color.gray.secondary, fontSize: fontPixel(16) }}
-              style={{ marginVertical: heightPixel(16), marginHorizontal: widthPixel(20) }}
-              onPress={() => navigation.navigate(SCREENS.vehicle.update, { car: null })} 
-              type='secondary' 
-              title={'+ Tambah Kendaraan'} />
-          }
-        />
-        <Snackbar
-          visible={visible}
-          onDismiss={() => setVisible(false)}
-          duration={4000}
-          style={{ backgroundColor: Color.red[8] }}
-        >
-          Mobil {deletedCar?.type} {deletedCar?.plat} berhasil dihapus
-        </Snackbar>
-      </Provider>
+                <View style={{ width: '100%', height: '100%', position: 'absolute', top: 0 }}>
+                  <View style={{ height: heightPixel(60), backgroundColor: Color.blue[8] }}></View>
+                </View>
+              </View>
+            :
+              <CarInfoCard 
+                car={info.item} 
+                navigation={navigation} 
+                showSnackbar={() => showSnackbar()} 
+                showModal={() => showModal(info.item)} 
+              />
+            }
+            
+          </>
+        )}
+        ListFooterComponent={
+          <CustomButton
+            textStyle={{ color: Color.gray.secondary, fontSize: fontPixel(16) }}
+            style={{ marginVertical: heightPixel(16), marginHorizontal: widthPixel(20) }}
+            onPress={() => navigation.navigate(SCREENS.vehicle.update, { car: null })} 
+            type='secondary' 
+            title={'+ Tambah Kendaraan'} />
+        }
+      />
+      <Snackbar
+        visible={visible}
+        onDismiss={() => setVisible(false)}
+        duration={4000}
+        style={{ backgroundColor: Color.red[8] }}
+      >
+        Mobil {deletedCar?.type} {deletedCar?.plat} berhasil dihapus
+      </Snackbar>
     </AppContainer>
   )
 }

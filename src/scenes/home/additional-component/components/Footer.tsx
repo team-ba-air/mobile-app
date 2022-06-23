@@ -12,9 +12,10 @@ import { formatRupiah } from 'utils/TextUtils';
 interface FooterProps {
   navigation: any
   data: AdditionalComponentSelectionItem[]
+  showModal: () => void
 }
  
-const Footer: React.FC<FooterProps> = ({ navigation, data }) => {
+const Footer: React.FC<FooterProps> = ({ navigation, data, showModal }) => {
   const totalPrice = data.reduce((priceAccumulator, item) => priceAccumulator + item.price, 0)
   return ( 
     <View style={styles.container}>
@@ -28,7 +29,7 @@ const Footer: React.FC<FooterProps> = ({ navigation, data }) => {
       <View style={{ marginTop: heightPixel(24) }}>
         <CustomButton 
           type='primary'
-          onPress={() => navigation.navigate(SCREENS.reservation.selectPayment)} 
+          onPress={showModal} 
           buttonStyle={{ paddingLeft: widthPixel(36), paddingRight: widthPixel(36) }} 
           title='Ya, Setuju dan Lanjut Bayar' 
         />

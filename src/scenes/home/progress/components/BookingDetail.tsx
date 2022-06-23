@@ -5,7 +5,7 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { ReservationDetailItem } from 'scenes/home/constants';
 import { Color } from 'styles/colors';
-import { fontPixel, heightPixel } from 'styles/sizes';
+import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import { getFormatDateNumeric, getFormatHour } from 'utils/DateUtil';
 
 interface BookingDetailProps {
@@ -17,7 +17,7 @@ const BookingDetail: React.FC<BookingDetailProps> = ({ data, navigation }) => {
   const infoBooking = data.info_booking
   return (  
     <>
-      <View style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <View style={{ paddingHorizontal: widthPixel(20), display: 'flex', justifyContent: 'space-between' }}>
         <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Mobil</Text>
         <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>
           {infoBooking.car.type} {infoBooking.car.license_plate}
@@ -50,7 +50,7 @@ const BookingDetail: React.FC<BookingDetailProps> = ({ data, navigation }) => {
         
       </View>
 
-      <CustomButton type='primary' title='Informasi Tagihan' onPress={() => navigation.navigate(SCREENS.reservation.informasiTagihan)} />
+      <CustomButton style={{ paddingHorizontal: widthPixel(20) }} type='primary' title='Informasi Tagihan' onPress={() => navigation.navigate(SCREENS.reservation.informasiTagihan)} />
     </>
    
   );

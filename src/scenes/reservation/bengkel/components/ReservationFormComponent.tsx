@@ -183,7 +183,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
             }
             renderItem={(option) => (
               <View>
-                <Text style={{ fontSize: fontPixel(Sizing.text.body[14]), fontWeight: 'bold' }}>{option.name} - Rp{option.price}</Text>
+                <Text style={{ fontSize: fontPixel(Sizing.text.body[14]), fontWeight: 'bold' }}>{option.name} • Rp{option.price}</Text>
                 <Text style={{ fontSize: fontPixel(Sizing.text.body[14]), color: Color.gray[8]}}>{option.description}</Text>
               </View>
             )} 

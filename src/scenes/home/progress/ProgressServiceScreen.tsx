@@ -100,13 +100,13 @@ const sampleDataProgress: ReservationDetailItem = {
 const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigation }) => {
   const [index, setIndex] = useState(0);
   return ( 
-    <AppContainer style={{ paddingHorizontal: 0 }}>
+    <AppContainer style={{ paddingHorizontal: 0 }} refreshDisable>
       <View style={{ borderWidth: 1, borderColor: Color.gray[2], borderRadius: 4, paddingVertical: heightPixel(12), paddingHorizontal: widthPixel(16), marginHorizontal: widthPixel(16) }}>
         <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Nomor Booking</Text>
         <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{sampleDataProgress.booking_number}</Text>
       </View>
       <TabProgress index={index} setIndex={setIndex}/>
-      <ScrollView contentContainerStyle={{ paddingHorizontal: widthPixel(20), height: '100%', display: 'flex', justifyContent: 'space-between' }}>
+      <ScrollView contentContainerStyle={{ height: '100%', display: 'flex', justifyContent: 'space-between' }}>
           {index === 0 ?
           (
             <ProgressStatus data={sampleDataProgress} navigation={navigation} />

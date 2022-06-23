@@ -7,10 +7,10 @@ import { SCREENS } from "navigations/constants"
 import React, { useEffect, useState } from "react"
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native"
 import { Snackbar } from "react-native-paper"
-import { useMutation } from "react-query"
+import { useMutation, useQueryClient } from "react-query"
 import { Sizing } from "styles/sizes"
 import BottomSheetVin from "./components/BottomSheetVin"
-import addVehicle from "./service/addVehicle"
+import addVehicle, { AddVehicleResponse } from "./service/addVehicle"
 import updateVehicleById from "./service/updateVehicleById"
 
 interface UpdateVehicleScreenProps {
@@ -80,6 +80,7 @@ const defaultColorOptions: OptionItem[] = [
 
 const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, route }) => {
   const { car } = route.params
+  const queryClient = useQueryClient()
 
   const [visible, setVisible] = useState<boolean>(false)
 
@@ -103,21 +104,20 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
     }
   }, [brand, type, year, plat])
 
+  const handleSuccess = () => {
+    queryClient.invalidateQueries('getVehicleList')
+    navigation.navigate(SCREENS.vehicle.list)
+  }
+
   const { isLoading: isAdding, mutateAsync: onAdd } = useMutation(addVehicle, {
-    onSuccess: (data) => {
-      navigation.navigate(SCREENS.vehicle.list)
-      console.log(data)
-    },
+    onSuccess: handleSuccess,
     onError: () => {
       setVisible(true)
     },
   })
 
   const { isLoading: isUpdating, mutateAsync: onUpdate } = useMutation(updateVehicleById, {
-    onSuccess: (data) => {
-      navigation.navigate(SCREENS.vehicle.list)
-      console.log(data)
-    },
+    onSuccess: handleSuccess,
     onError: () => {
       setVisible(true)
     },

@@ -4,12 +4,12 @@ import { View, Image, Text } from 'react-native';
 import { Color } from 'styles/colors';
 import { widthPixel, heightPixel, fontPixel } from 'styles/sizes';
 
-interface ModalRemoveAdditionalComponentProps {
-  onRemove: () => void
+interface ModalConfirmationProps {
+  onConfirm: () => void
   onCancel: () => void
 }
  
-const ModalRemoveAdditionalComponent: React.FC<ModalRemoveAdditionalComponentProps> = ({ onRemove, onCancel }) => {
+const ModalConfirmation: React.FC<ModalConfirmationProps> = ({ onConfirm, onCancel }) => {
   return ( 
     <View 
       style={{ 
@@ -22,20 +22,26 @@ const ModalRemoveAdditionalComponent: React.FC<ModalRemoveAdditionalComponentPro
       }}
     >
       <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' }}>
-        <Image source={require('assets/board_question.webp')}/>
+        <Image source={require('assets/board_check.webp')}/>
       </View>
       
       <Text style={{ textAlign: 'center', fontSize: fontPixel(16), fontWeight: 'bold', marginTop: heightPixel(24) }}>
-        Batalkan Komponen Tambahan Ini?
+        Konfirmasi Komponen Tambahan Ini?
       </Text>
-      <Text style={{ textAlign: 'center', fontSize: fontPixel(12), color: Color.gray.secondary, marginTop: heightPixel(8), lineHeight: 18 }}>
-        Komponen ini ditandai sebagai penting oleh bengkel. Membatalkan komponen ini mungkin mempengaruhi hasil servis secara signifikan
+      <Text style={{ 
+        textAlign: 'center', 
+        fontSize: fontPixel(12), 
+        color: Color.gray.secondary, 
+        marginTop: heightPixel(8),
+        lineHeight: 18,
+      }}>
+        Pastikan bahwa Anda sudah yakin dengan pilihan Anda, karena apa yang Anda pilih tidak dapat diganti dan akan langsung dikerjakan oleh mekanik.
       </Text>
 
-      <CustomButton onPress={onRemove} style={{ marginTop: heightPixel(16) }} type='primary' title='Ya, Batalkan Komponen' />
+      <CustomButton onPress={onConfirm} style={{ marginTop: heightPixel(16) }} type='primary' title='Ya, Setuju' />
       <CustomButton onPress={onCancel} style={{ marginTop: heightPixel(8) }} type='secondary' title='Batal' />
     </View>
-  )
+  );
 }
  
-export default ModalRemoveAdditionalComponent;
+export default ModalConfirmation;
