@@ -1,11 +1,15 @@
 import { NavigationProp } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
+import { SCREENS } from 'navigations/constants';
 import React, { useState } from 'react'
 import { ScrollView, Text, View } from 'react-native';
+import { Modal, Portal, Provider } from 'react-native-paper';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import AdditionalListSectionComponent from './components/AdditionalListSectionComponent';
 import Footer from './components/Footer';
+import ModalConfirmation from './components/ModalConfirmation';
+import ModalRemoveAdditionalComponent from './components/ModalRemoveAdditionalComponent';
 
 interface AdditionalComponentScreenProps {
   navigation: NavigationProp<any>
@@ -36,6 +40,8 @@ const dummyData = [
 ]
  
 const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ navigation }) => {
+  const [visible, setVisible] = useState<boolean>(false)
+
   const selectComponentList = dummyData.map(value => (
     {
       ...value,
@@ -48,6 +54,15 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
 
   const selectedComponentList = importantComponentList.concat(recommendedComponentList).filter(value => value.selected)
 
+  const handleConfirm = () => {
+    handleDismiss()
+    navigation.navigate(SCREENS.reservation.progressService)
+  }
+
+  const handleDismiss = () => {
+    setVisible(false)
+  }
+
   return (  
     <AppContainer 
       style={{ 
@@ -59,6 +74,11 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
       }}
       refreshDisable
     >
+      <Portal>
+        <Modal visible={visible} onDismiss={handleDismiss}>
+          <ModalConfirmation onConfirm={handleConfirm} onCancel={handleDismiss} />
+        </Modal>
+      </Portal>
       <ScrollView style={{ paddingHorizontal: widthPixel(20), paddingTop: heightPixel(20), paddingBottom: heightPixel(36), backgroundColor: 'white' }}>
         <Text style={{ textAlign: 'justify' }}>
           <Text>Setelah diagnosis lebih lanjut oleh bengkel, terdapat beberapa komponen yang perlu diganti. </Text>
@@ -83,7 +103,7 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
 
       </ScrollView>
 
-      <Footer data={selectedComponentList} navigation={navigation} />
+      <Footer data={selectedComponentList} navigation={navigation} showModal={() => setVisible(true)} />
     </AppContainer>
   );
 }

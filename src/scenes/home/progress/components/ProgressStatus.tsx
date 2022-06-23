@@ -5,7 +5,7 @@ import React from 'react'
 import { ScrollView, Text, View } from 'react-native';
 import { ReservationDetailItem } from 'scenes/home/constants';
 import { Color } from 'styles/colors';
-import { fontPixel, heightPixel } from 'styles/sizes';
+import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import AdditionalComponentButton from './AdditionalComponentButton';
 import ServiceStatusStepIndicator from './ServiceStatusStepIndicator';
 
@@ -23,7 +23,7 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => 
   ))
   return ( 
     <>
-      <ScrollView contentContainerStyle={{ marginTop: heightPixel(8), display: 'flex', justifyContent: 'space-between', overflow: 'scroll' }}>
+      <ScrollView contentContainerStyle={{ paddingHorizontal: widthPixel(20), marginTop: heightPixel(8), display: 'flex', justifyContent: 'space-between', overflow: 'scroll' }}>
         <View>
           {data.status > 0 && (
             <>
@@ -58,7 +58,7 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => 
         
       </ScrollView>
 
-      <CustomButton style={{ marginTop: heightPixel(16) }} type='primary' title='Hubungi Bengkel' />
+      <CustomButton style={{ paddingHorizontal: widthPixel(20), marginTop: heightPixel(16) }} type='primary' title='Hubungi Bengkel' />
     </>
     
   );

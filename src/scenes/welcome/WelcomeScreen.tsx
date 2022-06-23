@@ -96,7 +96,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
   })
 
   return (
-    <AppContainer style={{ paddingHorizontal: 0 }}>
+    <AppContainer style={{ paddingHorizontal: 0 }} refreshDisable>
       <CarouselComponent />
       <CustomButton 
         style={[{ marginHorizontal: 20, marginVertical: 8 }, styles.buttonGoogle]}
