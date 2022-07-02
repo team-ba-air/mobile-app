@@ -16,7 +16,7 @@ const ModalDeleteVehicle: React.FC<ModalDeleteVehicleProps> = ({ data, onDelete,
     <View 
       style={{ 
         backgroundColor: 'white', 
-        width: '90%', 
+        width: '80%', 
         borderRadius: 8, 
         alignSelf: 'center', 
         paddingHorizontal: widthPixel(16),

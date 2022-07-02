@@ -50,8 +50,8 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation }) => {
 
   const { isLoading: isDeleting, mutateAsync: onDelete } = useMutation(deleteVehicleById, {
     onSuccess: (data) => {
-      showSnackbar()
       queryClient.invalidateQueries('getVehicleList')
+      showSnackbar()
     },
   })
 

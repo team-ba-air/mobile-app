@@ -1,16 +1,29 @@
 import CustomButton from 'components/CustomButton'
 import { SCREENS } from 'navigations/constants'
+import { PublicAPIResponse } from 'network/types'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Card, Icon, Image, Button } from 'react-native-elements'
+import { useQuery } from 'react-query'
 import { Color } from 'styles/colors'
 import { Sizing, fontPixel } from 'styles/sizes'
+import { VehicleInfo } from '../constants'
+import getVehicleList from '../service/getVehicleList'
 
 interface CarServiceReservationProps {
   navigation: any
 }
  
 const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigation }) => {
+  const { data: vehicleListResponse } = useQuery<PublicAPIResponse<VehicleInfo[]>>(
+    ['getVehicleList'],
+    () => getVehicleList(),
+    {
+      refetchOnWindowFocus: false,
+      retry: true,
+    }
+  )
+
   const goToReservation = () => {
     console.log('Go To Reservation')
     navigation.navigate(SCREENS.reservation.serviceReservation)

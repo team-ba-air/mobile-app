@@ -20,7 +20,8 @@ import ReviewItemComponent from './components/ReviewItemComponent';
 import ReviewComponent from './components/ReviewComponent';
 import { PublicAPIResponse } from 'network/types';
 import getShopDetail from '../service/getShopDetail';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
+import createReservation from '../service/createReservation';
 
 interface BengkelFormReservationProps {
   route: Route<string, ParamBengkel>
@@ -60,6 +61,12 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
     }
     navigation.navigate(SCREENS.reservation.checkout, { data })
   }, [])
+
+  const { isLoading: isCreatingReservation, mutateAsync: onCreateReservation } = useMutation(createReservation, {
+    onSuccess: (data) => {
+      navigation.navigate(SCREENS.app.home)
+    },
+  })
 
   const {
     data: shopDetailResponse,
