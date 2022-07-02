@@ -51,6 +51,7 @@ const OngoingReservationSection: React.FC<OngoingReservationSectionProps> = ({ n
       retry: true,
     }
   )
+
   return ( 
     <View>
       <Text style={{ marginTop: 16, fontSize: Sizing.text.body[14], fontWeight: 'bold', paddingLeft: 20, paddingRight: 20 }}>Sedang Berlangsung</Text>

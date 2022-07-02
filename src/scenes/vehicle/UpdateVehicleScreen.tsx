@@ -6,9 +6,11 @@ import FormInputDate from "components/FormInputDate"
 import { SCREENS } from "navigations/constants"
 import React, { useEffect, useState } from "react"
 import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native"
+import { Icon } from "react-native-elements"
 import { Snackbar } from "react-native-paper"
 import { useMutation, useQueryClient } from "react-query"
-import { Sizing } from "styles/sizes"
+import { Color } from "styles/colors"
+import { fontPixel, heightPixel, Sizing, widthPixel } from "styles/sizes"
 import BottomSheetVin from "./components/BottomSheetVin"
 import addVehicle, { AddVehicleResponse } from "./service/addVehicle"
 import updateVehicleById from "./service/updateVehicleById"
@@ -183,7 +185,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
       <BottomSheetVin visible={showVin} onChangeVisible={setShowVin} />
       <View>
         <Text style={styles.title}>{car ? 'Perbarui' : 'Tambah'} Info Mobil</Text>
-        <Dropdown style={styles.margin} placeholder={'Merek Mobil'} value={brand} onSelect={setBrand} options={defaultOptions}
+        <Dropdown style={{ marginTop: heightPixel(16) }} placeholder={'Merek Mobil'} value={brand} onSelect={setBrand} options={defaultOptions}
           headerComponent={
             <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold', marginHorizontal: 16 }}>Pilih merek mobil Anda</Text>
           }
@@ -196,7 +198,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
           )}}
         />
 
-        <Dropdown style={styles.margin} placeholder={'Tipe'} value={type} onSelect={setType} options={defaultTypeOptions}
+        <Dropdown style={{ marginTop: heightPixel(16) }} placeholder={'Tipe'} value={type} onSelect={setType} options={defaultTypeOptions}
           headerComponent={
             <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold', marginHorizontal: 16 }}>Pilih tipe mobil Anda</Text>
           }
@@ -208,7 +210,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
           )}
         />
 
-        <Dropdown style={styles.margin} placeholder={'Tahun'} value={year} onSelect={setYear} options={defaultYearOptions}
+        <Dropdown style={{ marginTop: heightPixel(16) }} placeholder={'Tahun'} value={year} onSelect={setYear} options={defaultYearOptions}
           renderItem={(option) => (
             <Text style={styles.itemModal}>{option}</Text>
           )} 
@@ -217,7 +219,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
           )}
         />
 
-        <Dropdown style={styles.margin} placeholder={'Warna'} value={color} onSelect={setColor} options={defaultColorOptions}
+        <Dropdown style={{ marginTop: heightPixel(16) }} placeholder={'Warna'} value={color} onSelect={setColor} options={defaultColorOptions}
           renderItem={(option) => (
             <Text style={styles.itemModal}>{option}</Text>
           )}
@@ -226,18 +228,21 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
           )}
         />
 
-        <CustomTextInput style={styles.margin} placeholder={'Plat Nomor'} onChange={setPlat} value={plat} />
+        <CustomTextInput style={{ marginTop: heightPixel(16) }} placeholder={'Plat Nomor'} onChange={setPlat} value={plat} />
 
-        <TouchableWithoutFeedback onPress={() => setShowVin(true)} style={{ marginTop: 16 }}>
-          <Text style={{ fontSize: Sizing.text.body[12], fontWeight: 'bold' }}>Nomor VIN Kendaraan</Text>
+        <TouchableWithoutFeedback onPress={() => setShowVin(true)}>
+          <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', marginTop: heightPixel(16) }}>
+            <Text style={{ fontSize: fontPixel(Sizing.text.body[12]), fontWeight: 'bold' }}>Nomor VIN Kendaraan</Text>
+            <Icon size={heightPixel(16)} type='material' name='info' tvParallaxProperties={null} style={{ marginLeft: widthPixel(4) }} color={Color.gray[4]} />
+          </View>
         </TouchableWithoutFeedback>
-        <CustomTextInput style={styles.margin} placeholder={'Nomor VIN'} onChange={setVin} value={vin} />
+        <CustomTextInput style={{ marginTop: heightPixel(10) }} placeholder={'Nomor VIN'} onChange={setVin} value={vin} />
 
-        <Text style={{ marginTop: 16, fontSize: Sizing.text.body[12], fontWeight: 'bold' }}>Masa Berlaku STNK</Text>
-        <FormInputDate style={styles.margin} placeholder={'Masa Berlaku STNK'} onChange={setExpireDate} value={expireDate} />
+        <Text style={{ marginTop: heightPixel(16), fontSize: fontPixel(Sizing.text.body[12]), fontWeight: 'bold' }}>Masa Berlaku STNK</Text>
+        <FormInputDate style={{ marginTop: heightPixel(10) }} placeholder={'Masa Berlaku STNK'} onChange={setExpireDate} value={expireDate} />
       </View>
       
-      <CustomButton disabled={disabled} onPress={handleForm} type='primary' title={'Simpan'}/>
+      <CustomButton style={{ marginTop: heightPixel(16) }} disabled={disabled} onPress={handleForm} type='primary' title={'Simpan'}/>
 
     </AppContainer>
     );
@@ -253,9 +258,6 @@ const styles = StyleSheet.create({
   itemModal: {
     fontSize: Sizing.text.body[14],
     fontWeight: 'bold',
-  },
-  margin: {
-    marginTop: 16,
   },
   container: {
     display: 'flex',

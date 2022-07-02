@@ -49,8 +49,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       renderItem={({ item }) => <View>{renderBasedOnContent(item)}</View>}
     />
       
-      {/* <PopularService />
-      <TipsTrick /> */}
   </AppContainer>;
 };
 
