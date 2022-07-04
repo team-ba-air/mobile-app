@@ -31,7 +31,7 @@ const AppNavigator = () => {
           tabBarIcon: () => <Image source={require('@assets/icon/ic_car_nav.png')} style={{ width: 20, height: 20 }} resizeMode={'contain'} />,
           tabBarLabel: 'Mobil',
         }}
-        name='Mobil' 
+        name='Vehicle' 
         component={VehicleNavigator} 
       />
       <BottomNavigator.Screen 

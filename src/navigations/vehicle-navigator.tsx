@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 const VehicleNavigator: React.FC<any> = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen options={{ header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Mobil Saya'}/> }} name='Vehicle' component={VehicleScreen} />
+      <Stack.Screen options={{ header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Mobil Saya'}/> }} name='VehicleList' component={VehicleScreen} />
       <Stack.Screen options={{ header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Info Mobil'}/> }}  name='UpdateVehicle' component={UpdateVehicleScreen} />
     </Stack.Navigator>
   )
