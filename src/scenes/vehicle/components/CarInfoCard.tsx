@@ -12,10 +12,12 @@ interface CarInfoCardProps {
   navigation: any
   showSnackbar?: () => void
   showModal?: () => void
+  isOpen: boolean
+  setIsOpen: (status: boolean) => void
 }
 
-const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation, showSnackbar, showModal }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation, showSnackbar, showModal, isOpen, setIsOpen }) => {
+  // const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const deleteVehicle = () => {
     showModal?.()

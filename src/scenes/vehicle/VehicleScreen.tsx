@@ -1,11 +1,11 @@
-import { NavigationProp } from '@react-navigation/native'
+import { NavigationProp, Route } from '@react-navigation/native'
 import AppContainer from 'components/AppContainer'
 import CustomButton from 'components/CustomButton'
 import { SCREENS } from 'navigations/constants'
 import { PublicAPIResponse } from 'network/types'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native'
-import { Modal, Portal, Provider, Snackbar } from 'react-native-paper'
+import { Modal, Portal, Snackbar } from 'react-native-paper'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { Color } from 'styles/colors'
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes'
@@ -15,12 +15,23 @@ import { VehicleItem } from './constants'
 import deleteVehicleById from './service/deleteVehicleById'
 import getVehicleList from './service/getVehicleList'
 
+type VehicleDetail = {
+  vehicle: VehicleItem
+  isOpen: boolean
+}
+
+interface ParamVehicle {
+  data: VehicleDetail
+}
+
 interface VehicleScreenProps {
   navigation: NavigationProp<any>
+  route: Route<any, ParamVehicle>
 }
  
-const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation }) => {
+const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation, route }) => {
   const queryClient = useQueryClient()
+  const { data } = route.params
 
   const {
     data: vehicleListResponse,
@@ -33,6 +44,31 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation }) => {
       retry: true,
     }
   )
+
+  console.log('response')
+  console.log(vehicleListResponse?.body ?? [])
+
+  const [openDetail, setOpenDetail] = useState<VehicleDetail[]>([])
+
+  useEffect(() => {
+    const vehicleList = vehicleListResponse?.body ?? []
+
+    const detailStatus = vehicleList.map(value => ({
+      vehicle: value,
+      isOpen: false,
+    }))
+    
+    console.log('detail status')
+    console.log(detailStatus)
+
+    setOpenDetail(detailStatus)
+
+    if (data) {
+      onToggleDetail(data.vehicle.id, data.isOpen)
+    }
+  }, [vehicleListResponse])
+
+  console.log(openDetail)
 
   const [visible, setVisible] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
@@ -66,6 +102,23 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation }) => {
     setModalVisible(false)
   }
 
+  const onToggleDetail = (id: string, isOpen: boolean) => {
+    const idx = openDetail.findIndex(value => value.vehicle.id === id)
+
+    if (idx > -1) {
+      const newOpenDetail = [...openDetail]
+      const idxVehicle = newOpenDetail[idx].vehicle
+      console.log('index: ' + idx )
+      console.log(idxVehicle)
+      newOpenDetail[idx] = {
+        vehicle: idxVehicle,
+        isOpen,
+      }
+  
+      setOpenDetail(newOpenDetail)
+    }
+  }
+
   const handleRefresh = () => {
     setVisible(false)
     refetch()
@@ -84,16 +137,18 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation }) => {
       </Portal>
         
       <FlatList
-        data={vehicleListResponse?.body ?? []}
-        renderItem={(info: ListRenderItemInfo<VehicleItem>) => (
+        data={openDetail}
+        renderItem={(info: ListRenderItemInfo<VehicleDetail>) => (
           <>
             {info.index === 0 ? 
               <View style={styles.containerCard}>
                 <CarInfoCard
-                  car={info.item} 
+                  car={info.item.vehicle} 
                   navigation={navigation} 
                   showSnackbar={() => showSnackbar()} 
-                  showModal={() => showModal(info.item)} 
+                  showModal={() => showModal(info.item.vehicle)} 
+                  isOpen={openDetail?.[info.index]?.isOpen ?? false}
+                  setIsOpen={(status) => onToggleDetail(info.item.vehicle.id, status)}
                 />
                 <View style={{ width: '100%', height: '100%', position: 'absolute', top: 0 }}>
                   <View style={{ height: heightPixel(60), backgroundColor: Color.blue[8] }}></View>
@@ -101,10 +156,12 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation }) => {
               </View>
             :
               <CarInfoCard 
-                car={info.item} 
+                car={info.item.vehicle} 
                 navigation={navigation} 
                 showSnackbar={() => showSnackbar()} 
-                showModal={() => showModal(info.item)} 
+                showModal={() => showModal(info.item.vehicle)} 
+                isOpen={openDetail?.[info.index]?.isOpen ?? false}
+                setIsOpen={(status) => onToggleDetail(info.item.vehicle.id, status)}
               />
             }
             

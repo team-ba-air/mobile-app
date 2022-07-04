@@ -14,7 +14,8 @@ export const SCREENS = {
     otpPhone: 'OtpPhoneScreen',
   },
   vehicle: {
-    list: 'Vehicle',
+    root: 'Vehicle',
+    list: 'VehicleList',
     update: 'UpdateVehicle',
   },
   app: {
