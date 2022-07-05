@@ -8,8 +8,9 @@ import { Card, Icon, Image, Button } from 'react-native-elements'
 import { useQuery } from 'react-query'
 import { VehicleItem } from 'scenes/vehicle/constants'
 import { Color } from 'styles/colors'
-import { Sizing, fontPixel, widthPixel } from 'styles/sizes'
+import { Sizing, fontPixel, widthPixel, SCREEN_WIDTH, heightPixel } from 'styles/sizes'
 import getVehicleList from '../service/getVehicleList'
+import AddVehicleButton from './AddVehicleButton'
 
 interface CarServiceReservationProps {
   navigation: NavigationProp<any>
@@ -45,29 +46,55 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
     })
   }
 
+  const vehicleList = vehicleListResponse?.body ?? []
+
   return ( 
     <>
     <View style={styles.containerCard}>
-      <FlatList 
-        data={vehicleListResponse?.body ?? []}
-        horizontal
-        renderItem={(info: ListRenderItemInfo<VehicleItem>) => (
-          <View style={styles.card}>
-            <View style={styles.carInfo}>
-              <View style={styles.carTextContainer}>
-                <Text style={styles.carPlatText}>{info.item.brand}</Text>
-                <Text style={styles.carTypeText}>{info.item.type}</Text>
-                <Text style={styles.carPlatText}>{info.item.plat}</Text>
+      {vehicleList.length > 0 ? (
+        <FlatList 
+          data={vehicleList}
+          horizontal
+          renderItem={(info: ListRenderItemInfo<VehicleItem>) => (
+            <View style={styles.card}>
+              <View style={styles.carInfo}>
+                <View style={styles.carTextContainer}>
+                  <Text style={styles.carPlatText}>{info.item.brand}</Text>
+                  <Text style={styles.carTypeText}>{info.item.type}</Text>
+                  <Text style={styles.carPlatText}>{info.item.plat}</Text>
+                </View>
+                <Image style={styles.imageCar} source={require('@assets/car_placeholder.png')} resizeMode={'contain'} />
               </View>
-              <Image style={styles.imageCar} source={require('@assets/car_placeholder.png')} resizeMode={'contain'} />
+              <View style={styles.action}>
+                <CustomButton buttonStyle={styles.detail} onPress={() => goToReservation(info.item)} title='Servis' type='primary' />
+                <Button buttonStyle={styles.reservation} onPress={() => goToDetail(info.item)} title='Lihat detail' type='clear' />
+              </View>
             </View>
-            <View style={styles.action}>
-              <CustomButton buttonStyle={styles.detail} onPress={() => goToReservation(info.item)} title='Servis' type='primary' />
-              <Button buttonStyle={styles.reservation} onPress={() => goToDetail(info.item)} title='Lihat detail' type='clear' />
+          )}
+        />
+      ) : (
+        <View style={styles.card}>
+          <View style={styles.carInfo}>
+            <View style={styles.carTextContainer}>
+              <Text style={{
+                fontSize: fontPixel(14),
+                color: Color.gray.secondary,
+                lineHeight: 21,
+              }}>
+                Anda belum menambahkan kendaraan
+              </Text>
             </View>
+            <Image style={styles.imageCar} source={require('@assets/empty_car.webp')} resizeMode={'contain'} />
           </View>
-        )}
-      />
+          <View style={styles.action}>
+            <AddVehicleButton onPress={() => navigation.navigate(SCREENS.vehicle.root, { 
+              screen: SCREENS.vehicle.update, 
+              params: { car: null } 
+            })} />
+          </View>
+        </View>
+      )}
+
       
       <View style={{ width: '100%', height: '100%', position: 'absolute', top: 0, zIndex: -5 }}>
         <View style={{ flex: 0.5, backgroundColor: Color.blue[8] }}>
@@ -103,11 +130,10 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   action: {
-    paddingLeft: 16,
-    paddingBottom: 8,
+    paddingHorizontal: widthPixel(16),
+    paddingBottom: heightPixel(8),
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    width: '100%',
   },
   detail: {
     paddingLeft: 32,
@@ -140,11 +166,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   imageCar: {
-    height: 140,
-    width: 240,
+    height: 120,
+    width: 220,
     marginRight: 16,
     marginBottom: 8,
     borderBottomLeftRadius: 8,
+    flex: 1,
   },
   carPlatText: {
     fontSize: fontPixel(Sizing.text.body[12]),
@@ -156,5 +183,6 @@ const styles = StyleSheet.create({
   carTextContainer: {
     marginLeft: 20,
     marginTop: 20,
+    maxWidth: SCREEN_WIDTH * 0.4
   },
 })
