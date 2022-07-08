@@ -31,7 +31,7 @@ interface VehicleScreenProps {
  
 const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation, route }) => {
   const queryClient = useQueryClient()
-  const { data } = route.params
+  const params = route.params
 
   const {
     data: vehicleListResponse,
@@ -62,8 +62,8 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation, route }) => {
     console.log(detailStatus)
 
     setOpenDetail(detailStatus)
-
-    if (data) {
+    if (route.params) {
+      const { data } = route.params
       onToggleDetail(data.vehicle.id, data.isOpen)
     }
   }, [vehicleListResponse])

@@ -24,15 +24,21 @@ const ReservationNavigator: React.FC<any> = () => {
         name='HomeScreen' 
         component={HomeScreen}  />
       <Stack.Screen 
-        options={{ headerShown: false }} 
+        options={{ 
+          header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Progres Servis'} type='secondary' />
+        }} 
         name='ProgressService' 
         component={ProgressServiceScreen}  />
       <Stack.Screen 
-        options={{ headerShown: false }} 
+        options={{ 
+          header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Komponen Tambahan'} type='secondary' />
+        }} 
         name='AdditionalComponent' 
         component={AdditionalComponentScreen}  />
       <Stack.Screen 
-        options={{ headerShown: false }} 
+        options={{ 
+          header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Informasi Tagihan'} type='secondary' />
+        }} 
         name='InformasiTagihan' 
         component={InformasiTagihanScreen}  />
       <Stack.Screen 
@@ -40,14 +46,21 @@ const ReservationNavigator: React.FC<any> = () => {
         name='Maps' 
         component={MapsScreen} />
       <Stack.Screen 
-        options={{ headerShown: false }} 
+        options={{ 
+          header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Pilih Jenis Servis'} type='secondary' />
+        }} 
         name='ServiceType' 
         component={ServiceReservation} />
       <Stack.Screen 
         options={{ headerShown: false }} 
         name='BengkelFormReservation' 
         component={BengkelFormReservation} />
-      <Stack.Screen name='CheckoutScreen' component={CheckoutScreen} />
+      <Stack.Screen 
+        options={{
+          header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Checkout'} type='secondary' />
+        }}
+        name='CheckoutScreen' 
+        component={CheckoutScreen} />
       <Stack.Screen name='SelectPayment' component={SelectPaymentScreen} />
       <Stack.Screen name='PaymentDetail' component={PaymentDetailScreen} />
       <Stack.Screen name='SuccessReservation' component={SuccessReservation} />

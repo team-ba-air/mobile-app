@@ -1,7 +1,10 @@
+import { PublicAPIResponse } from 'network/types'
 import React from 'react'
 import { FlatList, ListRenderItemInfo, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Card, Image, Text } from 'react-native-elements'
+import { useQuery } from 'react-query'
 import { Sizing } from 'styles/sizes'
+import getServicesList, { GetServicesListResponse } from '../service/getServicesList'
 
 interface ServiceListProps {
   
@@ -47,6 +50,19 @@ const ServiceList: React.FC<ServiceListProps> = () => {
       title: 'Servis Dasar',
     },
   ]
+
+  const {
+    data: servicesListResponse,
+  } = useQuery<PublicAPIResponse<GetServicesListResponse>>(
+    ['getServicesList'],
+    () => getServicesList(),
+    {
+      refetchOnWindowFocus: false,
+      retry: true,
+    }
+  )
+
+
   return ( 
     <Card containerStyle={styles.cardStyle}>
       <FlatList

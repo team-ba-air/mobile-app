@@ -2,24 +2,37 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Icon, Image, Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
-import { Sizing } from 'styles/sizes';
+import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
 
 interface NavbarAppProps {
   title?: string
   navigation: any
+  type?: 'primary' | 'secondary'
+  disableBack?: boolean
 }
  
-const NavbarApp: React.FC<NavbarAppProps> = ({ title, navigation }) => {
+const NavbarApp: React.FC<NavbarAppProps> = ({ title, navigation, type = 'primary', disableBack = false }) => {
   return ( 
-    <View style={styles.container}>
-      <Image
-        style={{ width: 16, height: 16 }}
-        source={require('@assets/icon/left_arrow.png')} 
-        resizeMode={'contain'} 
-        onPress={() => navigation.goBack(null)}
-      />
+    <View style={[styles.container, { backgroundColor: type === 'primary' ? Color.blue[8] : Color.gray[0], }]}>
+      {!disableBack && (
+        type === 'primary' ? 
+          <Image
+            style={{ width: 16, height: 16 }}
+            source={require('@assets/icon/left_arrow.png')} 
+            resizeMode={'contain'} 
+            onPress={() => navigation.goBack(null)}
+          />
+        :
+          <Image
+            style={{ width: 16, height: 16 }}
+            source={require('@assets/icon/left_arrow_black.png')} 
+            resizeMode={'contain'} 
+            onPress={() => navigation.goBack(null)}
+          />
+      )}
+      
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={[styles.title, { color: type === 'primary' ? Color.gray[0] : Color.gray.primary }]}>{title}</Text>
       </View>
     </View>
   );
@@ -31,14 +44,12 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     padding: 20,
-    backgroundColor: Color.blue[8],
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center'
   },
   title: {
-    fontSize: Sizing.text.body[16],
-    color: Color.gray[0],
+    fontSize: fontPixel(16),
     fontWeight: 'bold',
   },
   titleContainer: {
