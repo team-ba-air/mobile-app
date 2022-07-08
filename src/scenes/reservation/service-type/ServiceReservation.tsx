@@ -1,21 +1,31 @@
+import { Route } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
-import Dropdown from 'components/Dropdown';
+import Dropdown, { OptionItem } from 'components/Dropdown';
 import { SCREENS } from 'navigations/constants';
 import { PublicAPIResponse } from 'network/types';
-import React, { useState } from 'react'
-import { ListRenderItemInfo, StyleSheet, Text, View } from 'react-native';
-import { Card } from 'react-native-elements';
+import React, { useEffect, useState } from 'react'
+import { Image, ListRenderItemInfo, StyleSheet, Text, View } from 'react-native';
+import { Card, Icon } from 'react-native-elements';
 import { FlatList, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useQuery } from 'react-query';
+import { VehicleItem } from 'scenes/vehicle/constants';
 import { Color } from 'styles/colors';
-import { heightPixel, Sizing, widthPixel } from 'styles/sizes';
+import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
+import { string } from 'yup';
 import { ServiceItem } from '../constants';
 import getServicesList from '../service/getServicesList';
+import getVehicleList from '../service/getVehicleList';
 import BottomSheetServiceType from './components/BottomSheetServiceType';
+import CarSelectionComponent from './components/CarSelectionComponent';
 import ServiceTypeToolbar from './components/ServiceTypeToolbar';
 
 interface ServiceReservationProps {
   navigation: any
+  route: Route<any, ParamCar>
+}
+
+interface ParamCar {
+  data: string
 }
 
 const serviceList: ServiceItem[] = [
@@ -51,19 +61,13 @@ const serviceList: ServiceItem[] = [
   },
 ]
 
-const carOptions = [
-  {
-    data: {
-      type: 'Yaris',
-      plat: 'B 2012 S',
-    },
-    value: 'Yaris|B 2012 S',
-  }
-]
-
-const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation }) => {
+const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, route }) => {
   const [show, setShow] = useState<boolean>(false)
-  const [car, setCar] = useState<string>('Yaris|B 2012 S')
+  const [infoService, setInfoService] = useState<ServiceItem>()
+  const [car, setCar] = useState<string>('')
+
+  const { data } = route.params
+
   const {
     data: servicesListResponse,
   } = useQuery<PublicAPIResponse<any>>(
@@ -75,52 +79,97 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation }) =
     }
   )
 
+  const {
+    data: vehicleListResponse,
+  } = useQuery<PublicAPIResponse<OptionItem[]>>(
+    ['getVehicleList-option'],
+    () => getVehicleList(),
+    {
+      refetchOnWindowFocus: false,
+      retry: true,
+    }
+  )
+
+  const serviceList = servicesListResponse?.body ?? []
+  const vehicleList = vehicleListResponse?.body ?? []
+
+  useEffect(() => {
+    if (data) {
+      if (vehicleList.length > 0) {
+        setCar(data)
+      }
+    }
+  }, [vehicleList])
 
   return ( 
-    <>
-      <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0 }}>
+      <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0 }} refreshDisable>
         <View style={{ ...StyleSheet.absoluteFillObject }}>
-          <ServiceTypeToolbar navigation={navigation} onPressHelp={() => setShow(true)} />
           
-          <View style={{ backgroundColor: Color.blue[8], paddingHorizontal: 20, paddingBottom: 16 }}>
-            <Dropdown 
+          <View style={{ paddingHorizontal: widthPixel(20), paddingVertical: heightPixel(16) }}>
+            <CarSelectionComponent 
               value={car} 
-              options={carOptions}
+              options={vehicleList}
               onSelect={setCar} 
+              placeholder={'Pilih Mobil Anda'}
+              headerComponent={(
+                <View style={{ paddingHorizontal: widthPixel(16) }}>
+                  <Text style={{ fontSize: fontPixel(16), fontWeight: 'bold' }}>Pilih Kendaraan</Text>
+                </View>
+              )}
               renderItem={(option: any) => (
                 <View>
-                  <Text>{option.type} {option.plat}</Text>
+                  <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{option.brand} {option.type} {option.license_plate}</Text>
                 </View>
-              )} 
+              )}
               renderSelected={(option: any) => (
                 <View>
-                  <Text style={{ fontSize: Sizing.text.body[12], color: Color.gray[6] }}>Buat mobil</Text>
-                  <Text style={{ fontSize: Sizing.text.body[14], fontWeight: 'bold' }}>{option.type} {option.plat}</Text>
+                  <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{option?.type} {option?.license_plate}</Text>
                 </View>
               )}          
             />
           </View>
           <FlatList
-            data={servicesListResponse?.body ?? []}
+            style={{ paddingHorizontal: widthPixel(20) }}
+            data={serviceList}
             horizontal={false}
             numColumns={2}
             columnWrapperStyle={styles.container}
+            keyExtractor={(item, idx) => String(idx)}
             renderItem={(item: ListRenderItemInfo<ServiceItem>) => (
-              <TouchableWithoutFeedback containerStyle={styles.cardContainer} onPress={() => navigation.navigate(SCREENS.app.maps, { service: item.item })}>
-                <Card containerStyle={styles.card}>
-                  <Card.Image containerStyle={styles.image} source={require(`@assets/servis_dasar.png`)} resizeMode={'contain'} />
-                  <View style={styles.label}>
-                    <Text style={styles.text}>{item.item.name}</Text>
-                  </View>
-                </Card>
-              </TouchableWithoutFeedback>
+              <View style={styles.cardContainer}>
+                <View style={styles.card}>
+                  <TouchableWithoutFeedback onPress={() => {
+                    setInfoService(item.item)
+                    setShow(true)
+                  }}>
+                    <Icon 
+                      style={{
+                        alignSelf: 'flex-end',
+                        marginRight: widthPixel(4),
+                        marginTop: heightPixel(4),
+                      }}
+                      type='material'
+                      name='info'
+                      color={Color.gray[4]}
+                      size={widthPixel(16)} 
+                      tvParallaxProperties={undefined}
+                    />
+                  </TouchableWithoutFeedback>
+                  
+                  <TouchableWithoutFeedback onPress={() => navigation.navigate(SCREENS.app.maps, { service: item.item })}>
+                    <Image style={styles.image} source={require(`@assets/servis_example.png`)} resizeMode={'contain'} />
+                    <View style={styles.label}>
+                      <Text style={styles.text}>{item.item.name}</Text>
+                    </View>
+                  </TouchableWithoutFeedback>
+                </View>
+              </View>
             )}
           />
         </View>
         
-        <BottomSheetServiceType visible={show} onChangeVisible={setShow} data={serviceList} />
+        <BottomSheetServiceType visible={show} onChangeVisible={setShow} data={infoService} />
       </AppContainer>
-    </>
 
   );
 }
@@ -133,12 +182,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
   },
   cardContainer: {
-    flex: 0.5,
+    flex: 0.45,
+    marginBottom: heightPixel(16),
   },
   card: {
     padding: 0,
-    borderRadius: 8,
+    borderRadius: 4,
     borderWidth: 2,
+    borderColor: Color.gray[2],
+    // marginHorizontal: widthPixel(8),
   },
   label: {
     paddingVertical: heightPixel(8),
@@ -149,11 +201,10 @@ const styles = StyleSheet.create({
   image: {
     height: heightPixel(64),
     width: widthPixel(64),
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+    alignSelf: 'center',
   },
   text: {
-    fontSize: Sizing.text.body[14],
+    fontSize: fontPixel(14),
     textAlign: 'center',
   }
 })

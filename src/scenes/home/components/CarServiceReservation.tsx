@@ -30,7 +30,9 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
 
   const goToReservation = (vehicle: VehicleItem) => {
     console.log('Go To Reservation')
-    navigation.navigate(SCREENS.reservation.serviceReservation, vehicle)
+    navigation.navigate(SCREENS.reservation.serviceReservation, {
+      data: `${vehicle.id}|${vehicle.brand}|${vehicle.type}|${vehicle.plat}`
+    })
   }
 
   const goToDetail = (vehicle: VehicleItem) => {
@@ -86,7 +88,12 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
             </View>
             <Image style={styles.imageCar} source={require('@assets/empty_car.webp')} resizeMode={'contain'} />
           </View>
-          <View style={styles.action}>
+          <View style={{
+            paddingHorizontal: widthPixel(16),
+            paddingBottom: heightPixel(8),
+            display: 'flex',
+            width: '100%',
+          }}>
             <AddVehicleButton onPress={() => navigation.navigate(SCREENS.vehicle.root, { 
               screen: SCREENS.vehicle.update, 
               params: { car: null } 
@@ -133,7 +140,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: widthPixel(16),
     paddingBottom: heightPixel(8),
     display: 'flex',
-    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   detail: {
     paddingLeft: 32,

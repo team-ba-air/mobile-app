@@ -101,7 +101,7 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation }) => {
   })
 
   return ( 
-    <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0, alignItems: 'flex-end' }}>
+    <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0, alignItems: 'flex-end' }} refreshDisable>
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
