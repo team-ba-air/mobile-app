@@ -1,17 +1,12 @@
-import React, { JSXElementConstructor, ReactElement, ReactNode, useEffect, useState } from 'react'
-import { Image, ListRenderItemInfo, StyleProp, StyleSheet, Text, View } from 'react-native';
-import { ListItem } from 'react-native-elements';
-import { FlatList, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
+import BaseBottomSheet from 'components/base/BaseBottomSheet';
+import { OptionItem } from 'components/Dropdown';
+import React, { useEffect, useState } from 'react'
+import { Image, View, Text, FlatList, TouchableOpacity, ListRenderItemInfo, StyleSheet, StyleProp } from 'react-native';
+import { Icon, ListItem } from 'react-native-elements';
 import { Color } from 'styles/colors';
-import { fontPixel, heightPixel, Sizing } from 'styles/sizes';
-import BaseBottomSheet from './base/BaseBottomSheet';
+import { fontPixel, heightPixel } from 'styles/sizes';
 
-export type OptionItem = {
-  data: any
-  value: string
-}
-
-interface DropdownProps {
+interface CarSelectionComponentProps {
   value?: string
   onSelect?: (value: string) => void
   placeholder?: string
@@ -24,26 +19,24 @@ interface DropdownProps {
   renderSelected: (option: any) => React.ReactNode
   error?: string
 }
-
-const Dropdown: React.FC<DropdownProps> = (props) => {
+ 
+const CarSelectionComponent: React.FC<CarSelectionComponentProps> = (props) => {
   const { value = '', onSelect, placeholder, size = 16, style, headerComponent, options = [], footerComponent, renderItem, renderSelected, error } = props
   const stylePlaceholder = value === '' ? styles.placeholder : styles.value
 
   const [selected, setSelected] = useState<OptionItem | undefined>(undefined)
 
   useEffect(() => {
-    const optionSelected = options.find(option => option.value === value)
+    const optionSelected = options.find((option: OptionItem) => option.value === value)
     setSelected(optionSelected)
   }, [value])
 
   const [visible, setVisible] = useState<boolean>(false)
-  console.log(error)
 
   return ( 
     <>
       <BaseBottomSheet onChangeVisible={setVisible} visible={visible}>
         <View>
-          {/* <Text style={styles.titleModal}>Pilih merek mobil Anda</Text> */}
           {headerComponent}
           <FlatList
             keyExtractor={(item, index) => index.toString()}
@@ -68,12 +61,15 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
       </BaseBottomSheet>
       <TouchableOpacity activeOpacity={1} onPress={() => setVisible(true)}>
         <View style={[styles.input, style, { fontSize: size }]}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Text style={{ fontSize: fontPixel(12), color: Color.gray[9] }}>Mobil yang ingin diservis</Text>
+            <Icon type='material' name='keyboard-arrow-down' color={Color.red[7]} tvParallaxProperties={undefined}/>
+          </View>
           {selected === undefined ? (
             <Text style={[{ fontSize: size }, stylePlaceholder]}>{placeholder}</Text>
           ) : (
             renderSelected(selected.data)
           )}  
-          <Image source={require('assets/icon/arrow_down.png')} />
         </View>
       </TouchableOpacity>
       {error && (
@@ -83,23 +79,23 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
   );
 }
  
-export default Dropdown;
+export default CarSelectionComponent;
 
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: '#F8FAFD',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#E7ECF3',
-    borderRadius: 8,
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexDirection: 'row',
-    alignItems: 'center',
+    // backgroundColor: '#F8FAFD',
+    // borderWidth: 1,
+    // borderStyle: 'solid',
+    // borderColor: '#E7ECF3',
+    // borderRadius: 8,
+    // paddingLeft: 16,
+    // paddingRight: 16,
+    // paddingTop: 16,
+    // paddingBottom: 16,
+    // display: 'flex',
+    // justifyContent: 'space-between',
+    // flexDirection: 'row',
+    // alignItems: 'center',
   },
   placeholder: {
     color: Color.gray.secondary,
@@ -108,7 +104,7 @@ const styles = StyleSheet.create({
     color: Color.gray.primary,
   },
   title: {
-    fontSize: Sizing.text.body[16],
+    fontSize: fontPixel(16),
     fontWeight: 'bold',
   }
 })

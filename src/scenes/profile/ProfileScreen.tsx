@@ -16,7 +16,7 @@ interface ProfileScreenProps {
  
 const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
   return ( 
-    <AppContainer style={styles.container}>
+    <AppContainer style={styles.container} refreshDisable>
       <View>
         <View style={styles.infoContainer}>
           <View>

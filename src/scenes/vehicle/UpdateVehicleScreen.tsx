@@ -192,10 +192,9 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
           renderItem={(option) => (
             <Text style={styles.itemModal}>{option}</Text>
           )} 
-          renderSelected={(option) => {
-            return (
+          renderSelected={(option) =>  (
             <Text style={{fontSize: Sizing.text.body[16], fontWeight: 'bold'}}>{option}</Text>
-          )}}
+          )}
         />
 
         <Dropdown style={{ marginTop: heightPixel(16) }} placeholder={'Tipe'} value={type} onSelect={setType} options={defaultTypeOptions}

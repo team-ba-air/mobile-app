@@ -11,15 +11,21 @@ interface BaseBottomSheetProps {
 }
  
 const BaseBottomSheet: React.FC<BaseBottomSheetProps> = (props) => {
-  const { children, visible = false, onChangeVisible = () => {} } = props 
+  const { children, visible = false, onChangeVisible = () => {} } = props
+  
+  const handleHide = () => {
+    onChangeVisible(false)
+  }
+  
   return ( 
     <Modal
       isVisible={visible}
       animationIn='slideInUp'
       style={styles.view}
       swipeDirection={['down', 'up']}
-      onBackdropPress={() => onChangeVisible(false)}
-      onBackButtonPress={() => onChangeVisible(false)}
+      onBackdropPress={handleHide}
+      onBackButtonPress={handleHide}
+      onSwipeComplete={handleHide}
     >
       <View style={styles.content}>
         <View style={styles.line}/>

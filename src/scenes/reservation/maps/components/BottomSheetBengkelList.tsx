@@ -39,7 +39,7 @@ const BottomSheetBengkelList: React.FC<BottomSheetBengkelListProps> = ({ animate
 
   console.log(shopListResponse)
   return ( 
-    <BottomSheet style={{ paddingHorizontal: widthPixel(16) }} animatedPosition={animatedPosition} ref={bottomSheetRef} index={1} snapPoints={['40%', '80%']} onChange={handleSheetChanges}>
+    <BottomSheet style={{ paddingHorizontal: widthPixel(16) }} animatedPosition={animatedPosition} ref={bottomSheetRef} index={0} snapPoints={['40%', '80%']} onChange={handleSheetChanges}>
       <View>
         <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold' }}>Bengkel yang bisa {service.label}</Text>
       </View>

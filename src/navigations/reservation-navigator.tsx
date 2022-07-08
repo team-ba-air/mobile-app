@@ -41,7 +41,7 @@ const ReservationNavigator: React.FC<any> = () => {
         component={MapsScreen} />
       <Stack.Screen 
         options={{ headerShown: false }} 
-        name='ServiceReservation' 
+        name='ServiceType' 
         component={ServiceReservation} />
       <Stack.Screen 
         options={{ headerShown: false }} 
