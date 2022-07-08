@@ -94,6 +94,12 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, rou
   const vehicleList = vehicleListResponse?.body ?? []
 
   useEffect(() => {
+    navigation.getParent()?.setOptions({ tabBarStyle: { display: "none" }})
+    return () => navigation.getParent()?.setOptions({ tabBarStyle: undefined })
+  }, [navigation]);
+  
+
+  useEffect(() => {
     if (data) {
       if (vehicleList.length > 0) {
         setCar(data)
@@ -156,7 +162,7 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, rou
                     />
                   </TouchableWithoutFeedback>
                   
-                  <TouchableWithoutFeedback onPress={() => navigation.navigate(SCREENS.app.maps, { service: item.item })}>
+                  <TouchableWithoutFeedback onPress={() => navigation.navigate(SCREENS.app.maps, { data: item.item })}>
                     <Image style={styles.image} source={require(`@assets/servis_example.png`)} resizeMode={'contain'} />
                     <View style={styles.label}>
                       <Text style={styles.text}>{item.item.name}</Text>
