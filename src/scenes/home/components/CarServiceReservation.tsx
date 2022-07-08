@@ -68,8 +68,14 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
                 <Image style={styles.imageCar} source={require('@assets/car_placeholder.png')} resizeMode={'contain'} />
               </View>
               <View style={styles.action}>
-                <CustomButton buttonStyle={styles.detail} onPress={() => goToReservation(info.item)} title='Servis' type='primary' />
-                <Button buttonStyle={styles.reservation} onPress={() => goToDetail(info.item)} title='Lihat detail' type='clear' />
+                <CustomButton 
+                  textStyle={{ fontSize: fontPixel(12) }}
+                  buttonStyle={styles.detail} 
+                  onPress={() => goToReservation(info.item)} 
+                  title='Servis' 
+                  type='primary' 
+                />
+                <Button titleStyle={{ fontSize: fontPixel(12), fontWeight: 'bold' }} buttonStyle={styles.reservation} onPress={() => goToDetail(info.item)} title='Lihat detail' type='clear' />
               </View>
             </View>
           )}
@@ -144,10 +150,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   detail: {
-    paddingLeft: 32,
-    paddingRight: 32,
+    paddingVertical: heightPixel(4),
+    paddingHorizontal: widthPixel(24),
     backgroundColor: Color.blue[8],
-    borderRadius: 12,
+    borderRadius: 8,
   },
   detailText: { 
     color: Color.blue[1], 
@@ -160,12 +166,6 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     paddingTop: 0,
     flex: 1,
-  },
-  reservationText: {
-    color: Color.blue[8],
-    fontSize: Sizing.text.body[14],
-    fontWeight: 'bold',
-    alignSelf: 'center',
   },
   carInfo: {
     width: '100%',
