@@ -173,6 +173,11 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
     }
   } 
 
+  useEffect(() => {
+    navigation.getParent()?.setOptions({ tabBarStyle: { display: "none" }})
+    return () => navigation.getParent()?.setOptions({ tabBarStyle: undefined })
+  }, [navigation]);
+
   return ( 
     <AppContainer style={styles.container}>
       <Snackbar

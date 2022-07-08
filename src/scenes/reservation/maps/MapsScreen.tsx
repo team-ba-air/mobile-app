@@ -9,10 +9,16 @@ import BottomSheetBengkelList from './components/BottomSheetBengkelList';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
 import { fontPixel, heightPixel, SCREEN_HEIGHT, SCREEN_WIDTH, widthPixel } from 'styles/sizes';
 import { Color } from 'styles/colors';
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, Route } from '@react-navigation/native';
+import { ServiceItem } from '../constants';
 
 interface MapsScreenProps {
   navigation: NavigationProp<any>
+  route: Route<any, ParamService>
+}
+
+interface ParamService {
+  data: ServiceItem
 }
 
 export type LocationPoint = {
@@ -20,10 +26,12 @@ export type LocationPoint = {
   longitude: number
 }
  
-const MapsScreen: React.FC<MapsScreenProps> = ({ navigation }) => {
+const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
   const [region, setRegion] = useState<LocationPoint | null>(null)
   const [location, setLocation] = useState<LocationPoint | null>(null)
   const [showWarning, setShowWarning] = useState<boolean>(true)
+
+  console.log(route.params)
 
   useEffect(() => {
     PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
