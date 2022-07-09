@@ -27,6 +27,7 @@ export type BookingInformationItem = {
 }
 
 export type ReservationDetailItem = {
+  id: string
   booking_number: string
   info_booking: BookingInformationItem
   status: number

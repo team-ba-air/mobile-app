@@ -4,16 +4,20 @@ import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 
 interface HistoryStatusComponentProps {
-    
+  bookingNumber: string
+  status: number
 }
  
-const HistoryStatusComponent: React.FC<HistoryStatusComponentProps> = () => {
+const HistoryStatusComponent: React.FC<HistoryStatusComponentProps> = ({
+  bookingNumber,
+  status,
+}) => {
   return ( 
     <View style={{ backgroundColor: 'white', paddingHorizontal: widthPixel(20), paddingVertical: heightPixel(16), marginVertical: heightPixel(8) }}>
       <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <View>
           <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Nomor Booking</Text>
-          <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{'1232132ASDASD'}</Text>
+          <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{bookingNumber}</Text>
         </View>
 
         <View>
