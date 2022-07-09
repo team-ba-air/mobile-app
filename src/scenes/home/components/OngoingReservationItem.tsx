@@ -34,7 +34,7 @@ const OngoingReservationItem: React.FC<OngoingReservationItemProps> = ({ data, n
   }
 
   return ( 
-    <TouchableOpacity onPress={() => navigation.navigate(SCREENS.reservation.progressService)}>
+    <TouchableOpacity onPress={() => navigation.navigate(SCREENS.reservation.progressService, { data: data.id })}>
       <Card containerStyle={styles.card}>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
           <View style={{ flex: 3 }}>

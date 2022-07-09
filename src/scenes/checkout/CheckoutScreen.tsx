@@ -4,22 +4,37 @@ import { SCREENS } from 'navigations/constants';
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-elements';
+import { useMutation } from 'react-query';
 import { ReservationForm } from 'scenes/reservation/constants';
 import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
 import CheckoutReservation from './components/CheckoutReservation';
 import FooterCheckout from './components/FooterCheckout';
+import createReservation from './service/createReservation';
 
 interface CheckoutScreenProps {
-  route: Route<string, ReservationForm>
+  route: Route<string, ParamReservationFrom>
   navigation: any
+}
+
+interface ParamReservationFrom {
+  data: ReservationForm
 }
  
 const CheckoutScreen: React.FC<CheckoutScreenProps> = ({ route, navigation }) => {
-  const data = route.params
+  const { data } = route.params
+
+  const { isLoading: isCreatingReservation, mutateAsync: onCreateReservation } = useMutation(createReservation, {
+    onSuccess: (data) => {
+      navigation.navigate(SCREENS.app.home)
+    },
+  })
 
   const onSubmit = () => {
-    navigation.navigate(SCREENS.reservation.selectPayment, { data })
+    onCreateReservation({ data }).catch(() => {
+      // do nothing
+    })
+    // navigation.navigate(SCREENS.reservation.selectPayment, { data })
   }
 
   return ( 

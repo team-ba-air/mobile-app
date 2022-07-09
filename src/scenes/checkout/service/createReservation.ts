@@ -10,7 +10,7 @@ export type CreateReservationRequest = {
 export type CreateReservationRequestData = {
   shop_id: string
   service_id: string
-  payment_id: string
+  // payment_id: string
   datetime: Date
   car_id: string
   notes: string
@@ -27,7 +27,7 @@ const mapRequestData = (request: CreateReservationRequest): CreateReservationReq
   return {
     shop_id: '',
     service_id: data.service ?? '',
-    payment_id: data.payment?.id ?? '',
+    // payment_id: data.payment?.id ?? '',
     datetime: new Date(),
     car_id: data.car?.split('|')?.[0] ?? '',
     notes: data.notes ?? '',

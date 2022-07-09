@@ -1,3 +1,4 @@
+import { Route } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
 import React from 'react'
 import { Image, ScrollView, Text, View } from 'react-native';
@@ -9,49 +10,21 @@ import BookingDetailComponent from './components/BookingDetailComponent';
 import DetailBillComponent from './components/DetailBillComponent';
 
 interface InformasiTagihanScreenProps {
-  
+  route: Route<any, ParamInformasiTagihan>
+}
+
+interface ParamInformasiTagihan {
+  additionalComponents: AdditionalComponentItem[]
+  bookingInformation: BookingInformationItem
 }
  
-const InformasiTagihanScreen: React.FC<InformasiTagihanScreenProps> = () => {
-  const sampleAdditionalComponents: AdditionalComponentItem[] = [
-    {
-      id: '',
-      name: 'V-Belt',
-      priority: 'IMPORTANT', // IMPORTANT or RECOMMENDED
-      price: 10000,
-    },
-    {
-      id: '',
-      name: 'Filter AC',
-      priority: 'IMPORTANT',
-      price: 10000,
-    },
-  ]
-  const sampleBookingInformation: BookingInformationItem = {
-    car: {
-      id: '',
-      brand: '',
-      type: 'Yaris',
-      license_plate: 'B 2000 S',
-    },
-    shop: {
-      id: '',
-      name: 'Auto 2000, Jakarta Utara',
-    },
-    service: {
-      id: '',
-      name: 'Servis Dasar 10000 KM',
-      description: '',
-      price: 15000,
-    },
-    datetime: new Date('2022-06-14T11:27:39.404Z'),
-    notes: '',
-  }
+const InformasiTagihanScreen: React.FC<InformasiTagihanScreenProps> = ({ route }) => {
+  const { additionalComponents, bookingInformation } = route.params
 
-  const totalPriceAdditionalComponent = sampleAdditionalComponents.reduce((totalAccumulator, component) => totalAccumulator + component.price, 0)
+  const totalPriceAdditionalComponent = additionalComponents.reduce((totalAccumulator, component) => totalAccumulator + component.price, 0)
 
   return ( 
-    <AppContainer style={{ backgroundColor: Color.gray[2], padding: 0 }}>
+    <AppContainer style={{ backgroundColor: Color.gray[2], padding: 0 }} refreshDisable>
       <ScrollView style={{ overflow: 'scroll', height: '100%' }}>
         <View style={{ backgroundColor: 'white', paddingHorizontal: widthPixel(20), paddingVertical: heightPixel(20) }}>
           <Image source={require('assets/icon/otoku_confirmation_success.webp')} style={{ alignSelf: 'center', marginTop: heightPixel(24) }} />
@@ -72,15 +45,15 @@ const InformasiTagihanScreen: React.FC<InformasiTagihanScreenProps> = () => {
 
           <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Jumlah Tagihan</Text>
           <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', color: Color.red[7] }}>
-            {formatRupiah(totalPriceAdditionalComponent + sampleBookingInformation.service.price)}
+            {formatRupiah(totalPriceAdditionalComponent + bookingInformation.service.price)}
           </Text>
         </View>
         
-        {sampleAdditionalComponents.length > 0 && (
-          <DetailBillComponent additionalComponents={sampleAdditionalComponents} />
+        {additionalComponents.length > 0 && (
+          <DetailBillComponent additionalComponents={additionalComponents} />
         )}
 
-        <BookingDetailComponent data={sampleBookingInformation} />
+        <BookingDetailComponent data={bookingInformation} />
       </ScrollView>
     </AppContainer>
   );
