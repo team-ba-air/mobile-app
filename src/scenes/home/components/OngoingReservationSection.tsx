@@ -41,7 +41,7 @@ const OngoingReservationSection: React.FC<OngoingReservationSectionProps> = ({ n
   }]
 
   const {
-    data: vehicleListResponse,
+    data: progressServiceListResponse,
     refetch,
   } = useQuery<PublicAPIResponse<ReservationItem[]>>(
     ['getProgressServiceList'],
@@ -51,6 +51,8 @@ const OngoingReservationSection: React.FC<OngoingReservationSectionProps> = ({ n
       retry: true,
     }
   )
+
+  const progressServiceList = progressServiceListResponse?.body ?? []
 
   return ( 
     <View>

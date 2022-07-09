@@ -15,6 +15,14 @@ interface BookingDetailProps {
  
 const BookingDetail: React.FC<BookingDetailProps> = ({ data, navigation }) => {
   const infoBooking = data.info_booking
+
+  const handleClick = () => {
+    navigation.navigate(SCREENS.reservation.informasiTagihan, {
+      additionalComponents: data.additional_component,
+      bookingInformation: infoBooking,
+    })
+  }
+
   return (  
     <>
       <View style={{ paddingHorizontal: widthPixel(20), display: 'flex', justifyContent: 'space-between' }}>
@@ -50,7 +58,7 @@ const BookingDetail: React.FC<BookingDetailProps> = ({ data, navigation }) => {
         
       </View>
 
-      <CustomButton style={{ paddingHorizontal: widthPixel(20) }} type='primary' title='Informasi Tagihan' onPress={() => navigation.navigate(SCREENS.reservation.informasiTagihan)} />
+      <CustomButton style={{ paddingHorizontal: widthPixel(20) }} type='primary' title='Informasi Tagihan' onPress={handleClick} />
     </>
    
   );

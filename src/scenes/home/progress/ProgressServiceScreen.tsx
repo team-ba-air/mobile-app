@@ -1,17 +1,25 @@
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, Route } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
-import React, { useState } from 'react'
+import { PublicAPIResponse } from 'network/types';
+import React, { useEffect, useState } from 'react'
 import { ScrollView, Text, View } from 'react-native';
+import { useQuery } from 'react-query';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import { ReservationDetailItem } from '../constants';
+import getProgressServiceDetail from '../service/getProgressServiceDetail';
 import BookingDetail from './components/BookingDetail';
 import ProgressStatus from './components/ProgressStatus';
 import ServiceStatusStepIndicator from './components/ServiceStatusStepIndicator';
 import TabProgress from './components/TabProgress';
 
 interface ProgressServiceScreenProps {
+  route: Route<any, ParamProgress>
   navigation: NavigationProp<any>
+}
+
+interface ParamProgress {
+  data: string
 }
 
 const sampleDataProgress: ReservationDetailItem = {
@@ -97,8 +105,29 @@ const sampleDataProgress: ReservationDetailItem = {
   requested_additional_component_notes: '',
 }
  
-const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigation }) => {
+const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigation, route }) => {
+  const { data } = route.params
+
   const [index, setIndex] = useState(0);
+
+  const {
+    data: progressServiceDetailResponse,
+  } = useQuery<PublicAPIResponse<ReservationDetailItem>>(
+    ['getProgressServiceDetail', data],
+    () => getProgressServiceDetail({ id: data }),
+    {
+      refetchOnWindowFocus: false,
+      retry: true,
+    }
+  )
+
+  const progressServiceDetail = progressServiceDetailResponse?.body
+
+  useEffect(() => {
+    navigation.getParent()?.setOptions({ tabBarStyle: { display: "none" }})
+    return () => navigation.getParent()?.setOptions({ tabBarStyle: undefined })
+  }, [navigation]);
+
   return ( 
     <AppContainer style={{ paddingHorizontal: 0 }} refreshDisable>
       <View style={{ borderWidth: 1, borderColor: Color.gray[2], borderRadius: 4, paddingVertical: heightPixel(12), paddingHorizontal: widthPixel(16), marginHorizontal: widthPixel(16) }}>

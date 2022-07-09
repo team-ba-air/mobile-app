@@ -59,14 +59,8 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
       ...data,
       shop: shopDetailResponse?.body,
     }
-    navigation.navigate(SCREENS.reservation.checkout, { data })
+    navigation.navigate(SCREENS.reservation.checkout, { data: reservationData })
   }, [])
-
-  const { isLoading: isCreatingReservation, mutateAsync: onCreateReservation } = useMutation(createReservation, {
-    onSuccess: (data) => {
-      navigation.navigate(SCREENS.app.home)
-    },
-  })
 
   const {
     data: shopDetailResponse,

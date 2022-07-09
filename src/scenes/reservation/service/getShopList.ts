@@ -50,7 +50,7 @@ const mapResponseToBengkelItem = (response: PublicAPIResponse<GetShopListRespons
 
 const getShopList = async (data: GetShopListRequest) => {
   const request = QueryString.stringify(data)
-  console.log(`${getShopListEndpoint}/${request}`)
+  console.log(`${getShopListEndpoint}/?${request}`)
   const response: PublicAPIResponse<GetShopListResponse> = await networkService.get(`${getShopListEndpoint}/?${request}`)
 
   return mapResponseToBengkelItem(response)
