@@ -23,6 +23,7 @@ interface ParamProgress {
 }
 
 const sampleDataProgress: ReservationDetailItem = {
+  id: '1',
   booking_number: '9182397dfiwhbf8weg8',
   info_booking: {
     car: {

@@ -19,15 +19,22 @@ interface BottomSheetReviewProps {
 
 const reviewRatingPredicate = [
   '',
-  'Sangat Kurang Baik',
-  'Kurang Baik',
-  'Cukup',
-  'Baik',
+  'Mengecewakan',
+  'Kurang memuaskan',
+  'Biasa saja',
+  'Cukup Baik',
   'Sangat Baik',
 ]
  
 const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, setIsOpenReview }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
+
+  useEffect(() => {
+    reset({
+      rating: 0,
+      review: '',
+    })
+  }, [data])
 
   useEffect(() => {
     console.log(isOpen)
@@ -58,6 +65,7 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, set
   const {
     control,
     formState: { errors },
+    reset,
   } = formMethods
 
   const yellowStar = Array(4).fill(0)
@@ -81,8 +89,8 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, set
       <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', paddingVertical: heightPixel(16) }}>
         <View>
           <View>
-            <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>{data?.location}</Text>
-            <Text style={{ fontSize: fontPixel(16), fontWeight: 'bold' }}>{data?.serviceType} - {data?.brand} {data?.carType}</Text>
+            <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>{data?.shop.name}</Text>
+            <Text style={{ fontSize: fontPixel(16), fontWeight: 'bold' }}>{data?.service.name} - {data?.car.brand} {data?.car.type}</Text>
           </View>
 
           <Controller 
@@ -92,10 +100,10 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, set
               <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginVertical: heightPixel(24) }}>
                 <View style={{ flexDirection: 'row' }}>
                   {Array(value).fill(0).map((_, index) => (
-                    <Icon size={heightPixel(40)} name={'star'} color={'#f5e725'} onPress={() => onChange(index + 1)} />
+                    <Icon size={heightPixel(40)} name={'star'} color={'#f5e725'} onPress={() => onChange(index + 1)} tvParallaxProperties={undefined} />
                   ))}
                   {Array(5 - value).fill(0).map((_, index) => (
-                    <Icon size={heightPixel(40)} name={'star'} color={Color.gray[2]} onPress={() => onChange(value + index + 1)}  />
+                    <Icon size={heightPixel(40)} name={'star'} color={Color.gray[2]} onPress={() => onChange(value + index + 1)} tvParallaxProperties={undefined}  />
                   ))}
                 </View>
                 

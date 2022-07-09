@@ -15,22 +15,44 @@ interface HistoryScreenProps {
 
 const dummyData: HistoryItem[] = [
   {
-    serviceType: 'Servis Reguler 10.000KM',
-    price: 4000000,
-    brand: 'Toyota',
-    carType: 'Yaris',
-    plat: 'B 2012 S',
-    date: new Date(),
-    location: 'Auto 2000, Jakarta Utara'
+    id: '1',
+    car: {
+      id: '',
+      brand: 'Toyota',
+      type: 'Yaris',
+      license_plate: 'B 2000 S',
+    },
+    shop: {
+      id: '',
+      name: 'Auto 2000, Jakarta Utara',
+    },
+    service: {
+      id: '',
+      name: 'Servis Reguler 20.000 KM',
+      description: '',
+      price: 400000,
+    },
+    datetime: new Date(),
   },
   {
-    serviceType: 'Servis Reguler 20.000KM',
-    price: 5000000,
-    brand: 'Toyota',
-    carType: 'Yaris',
-    plat: 'B 2012 S',
-    date: new Date(),
-    location: 'Auto 2000, Jakarta Utara'
+    id: '2',
+    car: {
+      id: '',
+      brand: 'Toyota',
+      type: 'Yaris',
+      license_plate: 'B 2000 S',
+    },
+    shop: {
+      id: '',
+      name: 'Auto 2000, Jakarta Utara',
+    },
+    service: {
+      id: '',
+      name: 'Servis Reguler 20.000 KM',
+      description: '',
+      price: 500000,
+    },
+    datetime: new Date(),
   }
 ]
  
@@ -38,14 +60,16 @@ const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<HistoryItem | null>(null);
 
+  const handleClick = () => {
+    navigation.navigate(SCREENS.history.detail)
+  }
+
   return ( 
-    <AppContainer style={{ backgroundColor: Color.gray[1] }}>
+    <AppContainer style={{ backgroundColor: Color.gray[1] }} refreshDisable>
       <FlatList 
         data={dummyData}
         renderItem={(info: ListRenderItemInfo<HistoryItem>) => (
-          <TouchableOpacity onPress={() => navigation.navigate(SCREENS.history.detail)}>
-            <HistoryItemComponent item={info.item} setIsOpenReview={setIsOpen} setData={setData} />
-          </TouchableOpacity>
+          <HistoryItemComponent item={info.item} setIsOpenReview={setIsOpen} setData={setData} handleClick={handleClick} />
         )}
       />
 
