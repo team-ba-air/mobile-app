@@ -37,7 +37,7 @@ const OngoingReservationSection: React.FC<OngoingReservationSectionProps> = ({ n
       datetime: new Date('2022-06-15T11:27:39.404Z'),
       notes: '',
     },
-    status: 0, // 0, 1, 2, 3, 4
+    status: 0, // 0, 1, 2, 3, 4, 5
   }]
 
   const {

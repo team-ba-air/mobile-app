@@ -10,11 +10,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { reviewHistorySchema } from '../schema/reviewHistorySchema';
 import CustomTextInput from 'components/CustomTextInput';
 import CustomButton from 'components/CustomButton';
+import { useMutation } from 'react-query';
+import submitReview from '../service/submitReview';
 
 interface BottomSheetReviewProps {
   data: HistoryItem | null
   isOpen: boolean
-  setIsOpenReview: (open: boolean) => void
+  onClose: () => void
 }
 
 const reviewRatingPredicate = [
@@ -26,7 +28,7 @@ const reviewRatingPredicate = [
   'Sangat Baik',
 ]
  
-const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, setIsOpenReview }) => {
+const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onClose }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   useEffect(() => {
@@ -40,6 +42,8 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, set
     console.log(isOpen)
     if (isOpen) {
       bottomSheetRef.current?.expand()
+    } else {
+      bottomSheetRef.current?.close()
     }
   }, [isOpen])
 
@@ -66,10 +70,28 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, set
     control,
     formState: { errors },
     reset,
+    watch,
+    getValues,
   } = formMethods
 
-  const yellowStar = Array(4).fill(0)
-  const grayStar = Array(5 - 4).fill(0)
+  const isDisabled = watch('rating') === 0 || watch('review') === ''
+
+  const { isLoading: isSubmitingReview, mutateAsync: onSubmitReview } = useMutation(submitReview, {
+    onSuccess: (data) => {
+      onClose()
+    },
+  })
+
+  const handleReview = () => {
+    if (data) {
+      onSubmitReview({
+        history: data,
+        review: getValues()
+      }).catch(() => {
+        // do nothing
+      })
+    }
+  }
 
   return ( 
     <BottomSheet 
@@ -82,7 +104,7 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, set
       onChange={(index) => {
         console.log(index)
         if (index === -1) {
-          setIsOpenReview(false)
+          onClose()
         } 
       }}
     >
@@ -124,7 +146,7 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, set
                 style={{ marginVertical: heightPixel(8) }}
                 value={value} 
                 onChange={onChange} 
-                placeholder={'Insert your review'} 
+                placeholder={'Tuliskan komentar Anda (mis. kualitas, kecepatan, keramahan)'} 
                 multiline={true} 
                 lines={4} 
               />
@@ -132,7 +154,7 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, set
           />
         </View>
 
-        <CustomButton type={'primary'} title={'Kirim Ulasan'}/>
+        <CustomButton onPress={handleReview} type={'primary'} title={'Kirim Ulasan'} disabled={isDisabled} />
       </View>
     </BottomSheet>
   );

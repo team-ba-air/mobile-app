@@ -1,11 +1,15 @@
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, Route } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
 import CustomButton from 'components/CustomButton';
-import React, { useEffect } from 'react'
+import { PublicAPIResponse } from 'network/types';
+import React, { useEffect, useState } from 'react'
 import { ScrollView, Text, View } from 'react-native';
+import { useQuery } from 'react-query';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
-import { HistoryDetailItem } from '../constants';
+import BottomSheetReview from '../components/BottomSheetReview';
+import { HistoryDetailItem, HistoryItem } from '../constants';
+import getHistoryDetail from '../service/getHistoryDetail';
 import HistoryStatusComponent from './components/HistoryStatusComponent';
 import InfoServiceComponent from './components/InfoServiceComponent';
 import NotesComponent from './components/NotesComponent';
@@ -13,6 +17,11 @@ import PaymentDetailComponent from './components/PaymentDetailComponent';
 
 interface HistoryDetailScreenProps {
   navigation: NavigationProp<any>
+  route: Route<any, ParamHistoryDetail>
+}
+
+interface ParamHistoryDetail {
+  data: HistoryItem
 }
 
 const sampleData: HistoryDetailItem = {
@@ -49,11 +58,44 @@ const sampleData: HistoryDetailItem = {
   requested_additional_component_notes: '',
 }
  
-const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation }) => {
+const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, route }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const { data } = route.params
+
+  const {
+    data: historyDetailResponse,
+    refetch,
+  } = useQuery<PublicAPIResponse<HistoryDetailItem>>(
+    ['getHistoryDetail', data],
+    () => getHistoryDetail({ id: data.id }),
+    {
+      refetchOnWindowFocus: false,
+      retry: true,
+    }
+  )
+
   useEffect(() => {
     navigation.getParent()?.setOptions({ tabBarStyle: { display: "none" }})
     return () => navigation.getParent()?.setOptions({ tabBarStyle: undefined })
   }, [navigation]);
+
+  const mapHistoryDetailItem = (data: HistoryDetailItem): HistoryItem => {
+    return {
+      id: data.id,
+      status: data.status,
+      car: data.car,
+      shop: data.shop,
+      service: data.service,
+      datetime: data.datetime,
+      additional_component: data.additional_component,
+    }
+  }
+
+  const handleClose = () => {
+    console.log('Review History Detail')
+    setIsOpen(false)
+  }
 
   return ( 
     <AppContainer style={{ backgroundColor: Color.gray[1], padding: 0 }} refreshDisable>
@@ -70,12 +112,13 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation })
         <NotesComponent notes={sampleData.requested_additional_component_notes} />
       </ScrollView>
       <View style={{ paddingVertical: heightPixel(16), paddingHorizontal: widthPixel(20), backgroundColor: 'white', marginTop: heightPixel(4) }}>
-        <CustomButton type='primary' title='Beri Ulasan'/>
+        <CustomButton type='primary' title='Beri Ulasan' onPress={() => setIsOpen(true)} />
         <Text style={{ fontSize: fontPixel(11), marginTop: heightPixel(12), alignSelf: 'center' }}>
           <Text style={{ color: Color.gray.secondary }}>Perlu bantuan?</Text>
           <Text style={{ color: Color.blue[8] }}> Hubungi Tim Otoku </Text>
         </Text>
       </View>
+      <BottomSheetReview onClose={handleClose} data={mapHistoryDetailItem(sampleData)} isOpen={isOpen} />
     </AppContainer>
   );
 }
