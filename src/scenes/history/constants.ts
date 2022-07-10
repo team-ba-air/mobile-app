@@ -2,10 +2,12 @@ import { AdditionalComponentItem, ServiceInfo, ShopInfo, VehicleInfo } from "sce
 
 export type HistoryItem = {
   id: string
+  status: number
   car: VehicleInfo
   shop: ShopInfo
   service: ServiceInfo
   datetime: Date
+  additional_component: AdditionalComponentItem[]
 }
 
 export type HistoryDetailItem = {

@@ -5,6 +5,7 @@ import { Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel } from 'styles/sizes';
 import { getFormatDate } from 'utils/DateUtil';
+import { formatRupiah } from 'utils/TextUtils';
 import { HistoryItem } from '../constants';
 
 interface HistoryItemComponentProps {
@@ -15,13 +16,15 @@ interface HistoryItemComponentProps {
 }
  
 const HistoryItemComponent: React.FC<HistoryItemComponentProps> = ({ item, setIsOpenReview, setData, handleClick }) => {
+  const totalPriceAdditionalComponent = item.additional_component.reduce((totalAccumulator, component) => totalAccumulator + component.price, 0)
+
   return ( 
     <View style={{ backgroundColor: Color.gray[0], borderRadius: 8, padding: 16, marginBottom: heightPixel(8) }}>
       <TouchableWithoutFeedback onPress={handleClick}>
         <View>
           <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text style={{ fontSize: fontPixel(14) }}>{item.service.name}</Text>
-            <Text style={{ fontSize: fontPixel(14) }}>{item.service.price}</Text>
+            <Text style={{ fontSize: fontPixel(14) }}>{formatRupiah(item.service.price + totalPriceAdditionalComponent)}</Text>
           </View>
 
           <Text style={{ fontSize: fontPixel(12), color: Color.gray[6], marginBottom: heightPixel(16) }}>{item.car.type} {item.car.license_plate}</Text>

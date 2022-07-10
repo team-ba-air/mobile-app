@@ -28,8 +28,15 @@ const CustomButton: React.FC<CustomButtonProps> = (props) => {
     //   onPress={onPress} 
     //   title={title} 
     // />
-    <View style={[style]}>
-      <TouchableOpacity activeOpacity={0.6} onPress={onPress} style={[styles.appButtonContainer, styleType, buttonStyle]}>
+    <View style={[style, {
+      opacity: disabled ? 0.6 : 1,
+    }]}>
+      <TouchableOpacity 
+        disabled={disabled} 
+        activeOpacity={0.6} 
+        onPress={onPress} 
+        style={[styles.appButtonContainer, styleType, buttonStyle]}
+      >
         {icon}
         <Text style={[styles.appButtonText, colorType, textStyle]}>{title}</Text>
       </TouchableOpacity>
@@ -63,7 +70,6 @@ const styles = StyleSheet.create({
   colorPrimary: {
     color: Color.gray[0],
     fontWeight: 'bold',
-    opacity: 1,
   },
   secondary: {
     backgroundColor: Color.gray[3],
