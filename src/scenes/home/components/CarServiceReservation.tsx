@@ -61,9 +61,23 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
             <View style={styles.card}>
               <View style={styles.carInfo}>
                 <View style={styles.carTextContainer}>
-                  <Text style={styles.carPlatText}>{info.item.brand}</Text>
-                  <Text style={styles.carTypeText}>{info.item.type}</Text>
-                  <Text style={styles.carPlatText}>{info.item.plat}</Text>
+                  <Text style={{
+                    fontSize: fontPixel(12),
+                    fontWeight: 'bold',
+                  }}>
+                    {info.item.brand}
+                  </Text>
+                  <Text style={{
+                    fontSize: fontPixel(24),
+                    fontWeight: 'bold',
+                  }}>
+                    {info.item.type}
+                  </Text>
+                  <Text style={{
+                    fontSize: fontPixel(12),
+                  }}>
+                    {info.item.plat}
+                  </Text>
                 </View>
                 <Image style={styles.imageCar} source={require('@assets/car_placeholder.png')} resizeMode={'contain'} />
               </View>
@@ -182,11 +196,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   carPlatText: {
-    fontSize: fontPixel(Sizing.text.body[12]),
-  },
-  carTypeText: {
-    fontSize: fontPixel(Sizing.text.body[16]),
-    fontWeight: 'bold',
+    fontSize: fontPixel(12),
   },
   carTextContainer: {
     marginLeft: 20,

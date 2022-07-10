@@ -1,16 +1,15 @@
 import React from 'react'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 import HomeScreen from "scenes/home";
 import ProfileScreen from 'scenes/profile/ProfileScreen';
-import { Image } from 'react-native-elements';
+import { Icon, Image } from 'react-native-elements';
 import VehicleScreen from 'scenes/vehicle/VehicleScreen';
 import NavbarApp from 'components/NavbarApp';
 import VehicleNavigator from './vehicle-navigator';
 import ReservationNavigator from './reservation-navigator';
 import HistoryScreen from 'scenes/history/HistoryScreen';
 import HistoryNavigator from './history-navigator';
+import { Color } from 'styles/colors';
 
 const BottomNavigator = createBottomTabNavigator()
 
@@ -19,7 +18,7 @@ const AppNavigator = () => {
       <BottomNavigator.Screen 
         options={{ 
           headerShown: false, 
-          tabBarIcon: () => <Image source={require('@assets/icon/ic_home.png')} style={{ width: 20, height: 20 }} resizeMode={'contain'} />, 
+          tabBarIcon: ({ focused }) => <Icon type='material' name='home' size={24} color={focused ? Color.blue[7] : Color.gray[7]} tvParallaxProperties={undefined} />,
           tabBarLabel: 'Home',
         }} 
         name='HomeTab' 
@@ -28,7 +27,7 @@ const AppNavigator = () => {
       <BottomNavigator.Screen 
         options={{
           headerShown: false,
-          tabBarIcon: () => <Image source={require('@assets/icon/ic_car_nav.png')} style={{ width: 20, height: 20 }} resizeMode={'contain'} />,
+          tabBarIcon: ({ focused }) => <Icon type='material' name='drive-eta' size={24} color={focused ? Color.blue[7] : Color.gray[7]} tvParallaxProperties={undefined} />,
           tabBarLabel: 'Mobil',
         }}
         name='Vehicle' 
@@ -37,7 +36,7 @@ const AppNavigator = () => {
       <BottomNavigator.Screen 
         options={{
           headerShown: false,
-          tabBarIcon: () => <Image source={require('@assets/icon/ic_car_nav.png')} style={{ width: 20, height: 20 }} resizeMode={'contain'} />,
+          tabBarIcon: ({ focused }) => <Icon type='material' name='article' size={24} color={focused ? Color.blue[7] : Color.gray[7]} tvParallaxProperties={undefined} />,
           tabBarLabel: 'History',
         }}
         name='History' 
@@ -46,7 +45,7 @@ const AppNavigator = () => {
       <BottomNavigator.Screen 
         options={{ 
           headerShown: false,
-          tabBarIcon: () => <Image source={require('@assets/icon/ic_profile.png')} style={{ width: 20, height: 20 }} resizeMode={'contain'} />,
+          tabBarIcon: ({ focused }) => <Icon type='material' name='person' size={24} color={focused ? Color.blue[7] : Color.gray[7]} tvParallaxProperties={undefined} />,
           tabBarLabel: 'Profil',
         }} 
         name='Profile'
