@@ -15,8 +15,8 @@ const InfoLocation: React.FC<InfoLocationProps> = ({ navigation }) => {
       <View>
         <Text style={{ fontSize: Sizing.text.subheading[18], color: Color.gray[0], fontWeight: 'bold' }}>Hi, Oto</Text>
       </View>
-      <View style={{ marginTop: 12 }}>
-        <Icon name='location-on-outlined' />
+      <View style={{ marginTop: 12, flexDirection: 'row', alignItems: 'center' }}>
+        <Icon type='material' name='location-on' color={Color.red[4]} tvParallaxProperties={undefined} />
         <View>
           <Text style={{ fontSize: Sizing.text.body[11], color: Color.blue[1]}}>Lokasi Anda</Text>
           <Text style={{ fontSize: Sizing.text.body[12], color: Color.gray[0], fontWeight: 'bold' }}>Ancol, Jakarta Utara</Text>
