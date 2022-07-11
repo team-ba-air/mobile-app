@@ -1,19 +1,18 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from "scenes/home";
 import ProfileScreen from 'scenes/profile/ProfileScreen';
-import { Icon, Image } from 'react-native-elements';
-import VehicleScreen from 'scenes/vehicle/VehicleScreen';
-import NavbarApp from 'components/NavbarApp';
+import { Icon } from 'react-native-elements';
 import VehicleNavigator from './vehicle-navigator';
 import ReservationNavigator from './reservation-navigator';
-import HistoryScreen from 'scenes/history/HistoryScreen';
 import HistoryNavigator from './history-navigator';
 import { Color } from 'styles/colors';
+import BookingButtonNavigation from 'components/BookingButtonNavigation';
+import BookingContainer from 'scenes/home/BookingContainer';
 
 const BottomNavigator = createBottomTabNavigator()
 
-const AppNavigator = () => {
+const AppNavigator = (props: any) => {
+  const { navigation } = props
   return <BottomNavigator.Navigator>
       <BottomNavigator.Screen 
         options={{ 
@@ -32,6 +31,13 @@ const AppNavigator = () => {
         }}
         name='Vehicle' 
         component={VehicleNavigator} 
+      />
+      <BottomNavigator.Screen 
+        options={{
+          tabBarButton: (props) => <BookingButtonNavigation navigation={navigation} />,
+        }}
+        name='Booking' 
+        component={BookingContainer} 
       />
       <BottomNavigator.Screen 
         options={{

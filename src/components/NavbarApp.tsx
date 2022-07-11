@@ -13,7 +13,15 @@ interface NavbarAppProps {
  
 const NavbarApp: React.FC<NavbarAppProps> = ({ title, navigation, type = 'primary', disableBack = false }) => {
   return ( 
-    <View style={[styles.container, { backgroundColor: type === 'primary' ? Color.blue[8] : Color.gray[0], }]}>
+    <View style={[
+      styles.container, 
+      { 
+        backgroundColor: type === 'primary' ? Color.blue[8] : Color.gray[0], 
+        borderBottomWidth: type === 'secondary' ? 1 : 0,
+        borderBottomColor: Color.gray[3],
+        borderStyle: 'solid',
+      }
+    ]}>
       {!disableBack && (
         type === 'primary' ? 
           <Image

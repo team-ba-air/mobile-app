@@ -8,6 +8,7 @@ export type HistoryItem = {
   service: ServiceInfo
   datetime: Date
   additional_component: AdditionalComponentItem[]
+  review: ReviewItem | null
 }
 
 export type HistoryDetailItem = {
@@ -22,6 +23,13 @@ export type HistoryDetailItem = {
   payment_method: string
   additional_component: AdditionalComponentItem[]
   requested_additional_component_notes: string
+  review: ReviewItem | null
+}
+
+export type ReviewItem = {
+  date: Date
+  rating: number
+  review: string
 }
 
 export type ReviewHistoryForm = {

@@ -38,7 +38,8 @@ const dummyData: HistoryItem[] = [
       price: 400000,
     },
     datetime: new Date(),
-    additional_component: []
+    additional_component: [],
+    review: null,
   },
   {
     id: '2',
@@ -60,7 +61,8 @@ const dummyData: HistoryItem[] = [
       price: 500000,
     },
     datetime: new Date(),
-    additional_component: []
+    additional_component: [],
+    review: null,
   }
 ]
  
