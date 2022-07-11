@@ -35,15 +35,18 @@ const HistoryItemComponent: React.FC<HistoryItemComponentProps> = ({ item, setIs
               <Text style={{ fontSize: fontPixel(10), color: Color.gray[6] }}>{item.shop.name}</Text>
             </View>
 
-            <CustomButton 
-              style={{ zIndex: 5 }}
-              textStyle={{ fontSize: fontPixel(12) }} 
-              type='primary' 
-              title={'Beri Ulasan'} 
-              onPress={() => {
-                setData(item)
-                setIsOpenReview(true)
-              }} />
+            {(item.status > 4 && item.review === null) && (
+              <CustomButton 
+                style={{ zIndex: 5 }}
+                textStyle={{ fontSize: fontPixel(12) }} 
+                type='primary' 
+                title={'Beri Ulasan'} 
+                onPress={() => {
+                  setData(item)
+                  setIsOpenReview(true)
+                }} />
+            )}
+            
           </View>
         </View>
       </TouchableWithoutFeedback>

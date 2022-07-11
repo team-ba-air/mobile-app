@@ -44,7 +44,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
           <InfoLocation navigation={navigation}/>
           <CarServiceReservation navigation={navigation} />
           <ReminderServiceComponent />
-          <ServiceList />
+          <ServiceList navigation={navigation} />
           <OngoingReservationSection navigation={navigation} />
         </>
       }

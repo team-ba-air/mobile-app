@@ -1,60 +1,23 @@
+import { NavigationProp } from '@react-navigation/native'
+import { SCREENS } from 'navigations/constants'
 import { PublicAPIResponse } from 'network/types'
 import React from 'react'
 import { FlatList, ListRenderItemInfo, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { Card, Image, Text } from 'react-native-elements'
 import { useQuery } from 'react-query'
-import { Sizing } from 'styles/sizes'
+import { ServiceItem } from 'scenes/reservation/constants'
+import { heightPixel, Sizing, widthPixel } from 'styles/sizes'
 import getServicesList, { GetServicesListResponse } from '../service/getServicesList'
 
 interface ServiceListProps {
-  
-}
-
-type ServiceItem = {
-  img: any
-  title: string
+  navigation: NavigationProp<any>
 }
  
-const ServiceList: React.FC<ServiceListProps> = () => {
-  const services = [
-    {
-      img: 'assets/icon/service_iamge.png',
-      title: 'Servis Dasar',
-    },
-    {
-      img: 'assets/icon/service_iamge.png',
-      title: 'Servis Dasar',
-    },
-    {
-      img: 'assets/icon/service_iamge.png',
-      title: 'Servis Dasar',
-    },
-    {
-      img: 'assets/icon/service_iamge.png',
-      title: 'Servis Dasar',
-    },
-    {
-      img: 'assets/icon/service_iamge.png',
-      title: 'Servis Dasar',
-    },
-    {
-      img: 'assets/icon/service_iamge.png',
-      title: 'Servis Dasar',
-    },
-    {
-      img: 'assets/icon/service_iamge.png',
-      title: 'Servis Dasar',
-    },
-    {
-      img: 'assets/icon/service_iamge.png',
-      title: 'Servis Dasar',
-    },
-  ]
-
+const ServiceList: React.FC<ServiceListProps> = ({ navigation }) => {
   const {
     data: servicesListResponse,
   } = useQuery<PublicAPIResponse<GetServicesListResponse>>(
-    ['getServicesList'],
+    ['getServicesList-home'],
     () => getServicesList(),
     {
       refetchOnWindowFocus: false,
@@ -66,17 +29,24 @@ const ServiceList: React.FC<ServiceListProps> = () => {
   return ( 
     <Card containerStyle={styles.cardStyle}>
       <FlatList
-        data={services}
+        data={servicesListResponse?.body ?? []}
         initialNumToRender={4}
         maxToRenderPerBatch={4}
         removeClippedSubviews={true}
         numColumns={4}
         renderItem={(info: ListRenderItemInfo<ServiceItem>) => {
           return (
-            <TouchableOpacity onPress={() => {}}>
-              <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 16, marginHorizontal: 16 }}>
-                <Image source={require('@assets/icon/service_image.png')} style={{ width: 24, height: 24 }} resizeMode={"contain"} />
-                <Text style={{ marginTop: 8, fontSize: Sizing.text.body[10] }}>{info.item.title}</Text>
+            <TouchableOpacity style={{ width: '25%'}} onPress={() => navigation.navigate(SCREENS.reservation.serviceReservation, { data: '' })}>
+              <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 16 }}>
+                <Image 
+                  source={{
+                    uri: info.item.image,
+                    width: heightPixel(24),
+                    height: widthPixel(24),
+                  }} 
+                  style={{ width: 24, height: 24 }} 
+                  resizeMode={"contain"} />
+                <Text style={{ marginTop: 8, fontSize: Sizing.text.body[10] }}>{info.item.name}</Text>
               </View>
             </TouchableOpacity>
           )
@@ -92,7 +62,7 @@ const styles = StyleSheet.create({
   cardStyle: {
     paddingBottom: 0, 
     borderRadius: 12, 
-    marginHorizontal: 20,
+    marginHorizontal: widthPixel(20),
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

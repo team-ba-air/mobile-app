@@ -1,23 +1,20 @@
 import { Route } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
-import Dropdown, { OptionItem } from 'components/Dropdown';
+import { OptionItem } from 'components/Dropdown';
 import { SCREENS } from 'navigations/constants';
 import { PublicAPIResponse } from 'network/types';
 import React, { useEffect, useState } from 'react'
 import { Image, ListRenderItemInfo, StyleSheet, Text, View } from 'react-native';
-import { Card, Icon } from 'react-native-elements';
-import { FlatList, TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { Icon } from 'react-native-elements';
+import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useQuery } from 'react-query';
-import { VehicleItem } from 'scenes/vehicle/constants';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
-import { string } from 'yup';
 import { ServiceItem } from '../constants';
 import getServicesList from '../service/getServicesList';
 import getVehicleList from '../service/getVehicleList';
 import BottomSheetServiceType from './components/BottomSheetServiceType';
 import CarSelectionComponent from './components/CarSelectionComponent';
-import ServiceTypeToolbar from './components/ServiceTypeToolbar';
 
 interface ServiceReservationProps {
   navigation: any
@@ -91,6 +88,7 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, rou
   )
 
   const serviceList = servicesListResponse?.body ?? []
+  console.log(serviceList)
   const vehicleList = vehicleListResponse?.body ?? []
 
   useEffect(() => {
@@ -163,7 +161,16 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, rou
                   </TouchableWithoutFeedback>
                   
                   <TouchableWithoutFeedback onPress={() => navigation.navigate(SCREENS.app.maps, { data: item.item })}>
-                    <Image style={styles.image} source={require(`@assets/servis_example.png`)} resizeMode={'contain'} />
+                    <Image 
+                      style={styles.image} 
+                      // source={require(`@assets/servis_example.png`)} 
+                      source={{
+                        uri: item.item.image,
+                        width: heightPixel(64),
+                        height: widthPixel(64),
+                      }}
+                      resizeMode={'contain'} 
+                    />
                     <View style={styles.label}>
                       <Text style={styles.text}>{item.item.name}</Text>
                     </View>

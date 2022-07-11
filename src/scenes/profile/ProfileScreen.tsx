@@ -6,7 +6,7 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Image, Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
-import { Sizing } from 'styles/sizes';
+import { heightPixel, Sizing, widthPixel } from 'styles/sizes';
 import { removeAccessToken } from 'utils/TokenUtils';
 import ProfileAction from './components/ProfileAction';
 
@@ -78,11 +78,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 20,
     backgroundColor: Color.gray[0],
-    marginBottom: 24,
+    marginBottom: heightPixel(24),
   },
   containerBottom: {
-    paddingHorizontal: 20,
-    paddingBottom: 16,
+    paddingHorizontal: widthPixel(20),
+    paddingBottom: heightPixel(24),
     display: 'flex',
     justifyContent: 'center',
   }

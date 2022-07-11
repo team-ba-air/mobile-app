@@ -56,6 +56,11 @@ const sampleData: HistoryDetailItem = {
     }
   ],
   requested_additional_component_notes: '',
+  review: {
+    date: new Date(),
+    rating: 5,
+    review: 'a',
+  },
 }
  
 const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, route }) => {
@@ -89,6 +94,7 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
       service: data.service,
       datetime: data.datetime,
       additional_component: data.additional_component,
+      review: data.review
     }
   }
 
@@ -112,8 +118,11 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
         <NotesComponent notes={sampleData.requested_additional_component_notes} />
       </ScrollView>
       <View style={{ paddingVertical: heightPixel(16), paddingHorizontal: widthPixel(20), backgroundColor: 'white', marginTop: heightPixel(4) }}>
-        <CustomButton type='primary' title='Beri Ulasan' onPress={() => setIsOpen(true)} />
-        <Text style={{ fontSize: fontPixel(11), marginTop: heightPixel(12), alignSelf: 'center' }}>
+        {sampleData.review === null && (
+          <CustomButton style={{ marginBottom: heightPixel(12) }} type='primary' title='Beri Ulasan' onPress={() => setIsOpen(true)} />
+        )}
+        
+        <Text style={{ fontSize: fontPixel(11), alignSelf: 'center' }}>
           <Text style={{ color: Color.gray.secondary }}>Perlu bantuan?</Text>
           <Text style={{ color: Color.blue[8] }}> Hubungi Tim Otoku </Text>
         </Text>
