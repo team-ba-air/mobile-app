@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, ListRenderItemInfo, Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { FlatList, ListRenderItemInfo, Text, View, Image, TouchableOpacity } from 'react-native';
 import { PaymentMethodItem, PaymentMethodSelectionItem } from 'scenes/checkout/constants';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
@@ -16,9 +16,25 @@ const PaymentMethodComponent: React.FC<PaymentMethodComponentProps> = ({ data, o
       <FlatList 
         data={data.item}
         renderItem={(info: ListRenderItemInfo<PaymentMethodSelectionItem>) => (
-          <TouchableOpacity onPress={() => onSelect(info.item)} style={styles.containerItem}>
-            <Text style={{ fontSize: fontPixel(14) }}>{info.item.name}</Text>
-            <Image style={{ width: widthPixel(12), height: heightPixel(16)}} source={require('@assets/right-arrow.png')} resizeMode={'contain'} />
+          <TouchableOpacity 
+            onPress={() => onSelect(info.item)} 
+            style={{
+              borderBottomWidth: 1, 
+              borderBottomColor: Color.gray[2],  
+              paddingBottom: heightPixel(8),
+              marginBottom: heightPixel(8),
+            }} 
+            disabled={!info.item.active}
+          >
+            <View style={{
+              flexDirection: 'row', 
+              justifyContent: 'space-between', 
+              alignItems: 'center', 
+              opacity: info.item.active ? 1 : 0.6,
+            }}>
+              <Text style={{ fontSize: fontPixel(14) }}>{info.item.name} {!info.item.active && '(Segera tersedia)'}</Text>
+              <Image style={{ width: widthPixel(12), height: heightPixel(16)}} source={require('@assets/right-arrow.png')} resizeMode={'contain'} />
+            </View>
           </TouchableOpacity>
         )}
       />
@@ -27,15 +43,3 @@ const PaymentMethodComponent: React.FC<PaymentMethodComponentProps> = ({ data, o
 }
  
 export default PaymentMethodComponent;
-
-const styles = StyleSheet.create({
-  containerItem: {
-    borderBottomWidth: 1, 
-    borderBottomColor: Color.gray[2], 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    alignItems: 'center', 
-    paddingBottom: heightPixel(8),
-    marginBottom: heightPixel(8)
-  }
-})

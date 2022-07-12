@@ -5,14 +5,19 @@ import { PublicAPIResponse } from 'network/types';
 import React from 'react';
 import { FlatList, ListRenderItemInfo } from 'react-native';
 import { useQuery } from 'react-query';
+import { AdditionalComponentItem } from 'scenes/home/constants';
 import { ReservationForm } from 'scenes/reservation/constants';
 import { PaymentMethodItem, PaymentMethodSelectionItem } from '../constants';
 import getPaymentMethod from '../service/getPaymentMethod';
 import PaymentMethodComponent from './components/PaymentMethodComponent';
 
 interface SelectPaymentScreenProps {
-  route: Route<string, ReservationForm>
+  route: Route<string, ParamSelectPayment>
   navigation: NavigationProp<any, any>
+}
+
+interface ParamSelectPayment {
+  additionalComponent: AdditionalComponentItem[]
 }
 
 const dummyPayment: PaymentMethodItem[] = [
@@ -25,6 +30,7 @@ const dummyPayment: PaymentMethodItem[] = [
         image: '',
         notes: ['Notes 1', 'Notes 2'],
         target: '',
+        active: false,
       },
       {
         id: '2',
@@ -32,6 +38,7 @@ const dummyPayment: PaymentMethodItem[] = [
         image: '',
         notes: ['Notes 1', 'Notes 2', 'Notes 3'],
         target: '',
+        active: false,
       }
     ]
   },
@@ -42,20 +49,18 @@ const dummyPayment: PaymentMethodItem[] = [
         id: '3',
         name: 'Bayar Langsung di Bengkel',
         image: '',
-        notes: [],
+        notes: ['Anda dapat melakukan pembayaran di bengkel dengan metode pembayaran yang tersedia di bengkel.'],
+        active: true,
       }
     ]
   }
 ]
  
 const SelectPaymentScreen: React.FC<SelectPaymentScreenProps> = ({ route, navigation }) => {
+  const { additionalComponent } = route.params
+
   const onSelectPayment = (item: PaymentMethodSelectionItem) => {
-    const data: ReservationForm = {
-      ...route.params,
-      payment: item
-    }
-    
-    navigation.navigate(SCREENS.reservation.paymentDetail, { data })
+    navigation.navigate(SCREENS.reservation.paymentDetail, { additionalComponent, paymentMethod: item })
   }
 
   const {
@@ -70,7 +75,7 @@ const SelectPaymentScreen: React.FC<SelectPaymentScreenProps> = ({ route, naviga
   )
 
   return ( 
-    <AppContainer>
+    <AppContainer refreshDisable>
       <FlatList 
         data={dummyPayment}
         renderItem={(info: ListRenderItemInfo<PaymentMethodItem>) => (

@@ -34,7 +34,6 @@ const CheckoutScreen: React.FC<CheckoutScreenProps> = ({ route, navigation }) =>
     onCreateReservation({ data }).catch(() => {
       // do nothing
     })
-    // navigation.navigate(SCREENS.reservation.selectPayment, { data })
   }
 
   return ( 

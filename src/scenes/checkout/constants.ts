@@ -9,4 +9,5 @@ export type PaymentMethodSelectionItem = {
   image: string
   notes: string[]
   target?: string
+  active: boolean
 }

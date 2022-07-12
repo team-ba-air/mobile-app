@@ -6,6 +6,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { Modal, Portal, Provider } from 'react-native-paper';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
+import { AdditionalComponentItem } from '../constants';
 import AdditionalListSectionComponent from './components/AdditionalListSectionComponent';
 import Footer from './components/Footer';
 import ModalConfirmation from './components/ModalConfirmation';
@@ -15,24 +16,28 @@ interface AdditionalComponentScreenProps {
   navigation: NavigationProp<any>
 }
 
-const dummyData = [
+const dummyData: AdditionalComponentItem[] = [
   {
-    component: 'V-Belt',
+    id: '1',
+    name: 'V-Belt',
     price: 250000,
     priority: 'IMPORTANT',
   },
   {
-    component: 'Kampas Rem',
+    id: '2',
+    name: 'Kampas Rem',
     price: 180000,
     priority: 'IMPORTANT',
   },
   {
-    component: 'Filter',
+    id: '3',
+    name: 'Filter',
     price: 150000,
     priority: 'RECOMMENDED',
   },
   {
-    component: 'Filter',
+    id: '4',
+    name: 'Filter',
     price: 150000,
     priority: 'RECOMMENDED',
   },
@@ -45,7 +50,7 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
   const selectComponentList = dummyData.map(value => (
     {
       ...value,
-      selected: false,
+      selected: value.priority === 'IMPORTANT' ? true : false,
     }
   ))
 
@@ -56,7 +61,7 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
 
   const handleConfirm = () => {
     handleDismiss()
-    navigation.navigate(SCREENS.reservation.progressService)
+    navigation.navigate(SCREENS.reservation.selectPayment, { additionalComponent: selectedComponentList })
   }
 
   const handleDismiss = () => {

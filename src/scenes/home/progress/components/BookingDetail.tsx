@@ -25,7 +25,7 @@ const BookingDetail: React.FC<BookingDetailProps> = ({ data, navigation }) => {
 
   return (  
     <>
-      <View style={{ paddingHorizontal: widthPixel(20), display: 'flex', justifyContent: 'space-between' }}>
+      <View style={{ paddingHorizontal: widthPixel(20), display: 'flex', justifyContent: 'space-between', marginTop: heightPixel(8), }}>
         <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Mobil</Text>
         <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>
           {infoBooking.car.type} {infoBooking.car.license_plate}

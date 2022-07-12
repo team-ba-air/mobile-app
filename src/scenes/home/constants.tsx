@@ -76,8 +76,9 @@ export type StepTime = {
 }
 
 export type AdditionalComponentSelectionItem = {
+  id: string
   selected: boolean
-  component: string
+  name: string
   price: number
   priority: string
 }
