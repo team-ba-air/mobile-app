@@ -1,12 +1,14 @@
 import { NavigationProp } from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
-import React from 'react'
+import React, { useState } from 'react'
 import { ScrollView, Text, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { ReservationDetailItem } from 'scenes/home/constants';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import AdditionalComponentButton from './AdditionalComponentButton';
+import BottomSheetAdditionalComponent from './BottomSheetAdditionalComponent';
 import ServiceStatusStepIndicator from './ServiceStatusStepIndicator';
 
 interface ProgressStatusProps {
@@ -17,6 +19,8 @@ interface ProgressStatusProps {
 const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => {
   const dateNow = new Date().getDate()
   const dateDiff = data.info_booking.datetime.getDate() - dateNow
+
+  const [show, setShow] = useState(false)
 
   const additionalComponentListElement = data.additional_component.map((value, idx) => (
     <Text style={{ fontWeight: 'bold' }}>{idx + 1}. {value.name}</Text>
@@ -32,7 +36,17 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => 
                 {data.service_assistant ? data.service_assistant : '-'}
               </Text>
 
-              <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Komponen Tambahan</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary, marginRight: widthPixel(4) }}>Komponen Tambahan</Text>
+                <Icon 
+                  type='material' 
+                  name='info' 
+                  tvParallaxProperties={undefined} 
+                  color={Color.gray[3]} 
+                  size={16} 
+                  onPress={() => setShow(true)}
+                />
+              </View>
               {data.additional_component.length === 0 ? (
                 data.requested_additional_component.length > 0 ? (
                   <AdditionalComponentButton onPress={() => navigation.navigate(SCREENS.reservation.additionalComponent)} />
@@ -57,6 +71,8 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => 
         </View>
         
       </ScrollView>
+
+      <BottomSheetAdditionalComponent visible={show} onChangeVisible={setShow} />
 
       <CustomButton style={{ paddingHorizontal: widthPixel(20), marginTop: heightPixel(16) }} type='primary' title='Hubungi Bengkel' />
     </>

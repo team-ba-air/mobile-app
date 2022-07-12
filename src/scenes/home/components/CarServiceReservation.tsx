@@ -79,7 +79,13 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
                     {info.item.plat}
                   </Text>
                 </View>
-                <Image style={styles.imageCar} source={require('@assets/car_placeholder.png')} resizeMode={'contain'} />
+                <Image 
+                  style={styles.imageCar} 
+                  // source={require('@assets/car_placeholder.png')} 
+                  source={{
+                    uri: 'https://carnetwork.s3.ap-southeast-1.amazonaws.com/file/f9ad028fc8894cd5885e6bfb1c146018.jpg'
+                  }}
+                  resizeMode={'contain'} />
               </View>
               <View style={styles.action}>
                 <CustomButton 

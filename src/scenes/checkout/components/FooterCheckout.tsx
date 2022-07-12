@@ -1,26 +1,42 @@
 import { useNavigation } from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
-import React from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native';
-import { Text } from 'react-native-elements';
+import { Icon, Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
 import { Sizing } from 'styles/sizes';
+import BottomSheetPriceEstimation from './BottomSheetPriceEstimation';
 
 interface FooterCheckoutProps {
   onSubmit: () => void
 }
  
 const FooterCheckout: React.FC<FooterCheckoutProps> = ({ onSubmit }) => {
+  const [show, setShow] = useState(false)
+
   return ( 
     <View style={styles.container}>
       <View>
-        <Text style={styles.title}>Estimasi Biaya</Text>
+        <View>
+          <Text style={styles.title}>Estimasi Biaya</Text>
+          <Icon 
+            type='material' 
+            name='info' 
+            tvParallaxProperties={undefined} 
+            color={Color.gray[3]} 
+            size={16} 
+            onPress={() => setShow(true)}
+          />
+        </View>
+        
         <Text style={styles.content}>Rp100.000</Text>
       </View>
       <View>
         <CustomButton onPress={onSubmit} buttonStyle={{ paddingLeft: 36, paddingRight: 36 }} title='Bayar' />
       </View>
+
+      <BottomSheetPriceEstimation visible={show} onChangeVisible={setShow} />
     </View>
   );
 }

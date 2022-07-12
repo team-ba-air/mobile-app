@@ -23,7 +23,7 @@ const SelectAdditionalComponent: React.FC<SelectAdditionalComponentProps> = ({ i
       borderBottomWidth: 1,
     }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Text style={{ marginRight: widthPixel(8) }}>{data.component} • {formatRupiah(data.price)}</Text>
+        <Text style={{ marginRight: widthPixel(8) }}>{data.name} • {formatRupiah(data.price)}</Text>
       </View>
       <Checkbox status={data.selected ? 'checked' : 'unchecked'} onPress={() => handleChecked(index, !data.selected)} />
     </View>

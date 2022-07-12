@@ -61,8 +61,18 @@ const ReservationNavigator: React.FC<any> = () => {
         }}
         name='CheckoutScreen' 
         component={CheckoutScreen} />
-      <Stack.Screen name='SelectPayment' component={SelectPaymentScreen} />
-      <Stack.Screen name='PaymentDetail' component={PaymentDetailScreen} />
+      <Stack.Screen 
+        options={{
+          header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Pilih Metode Pembayaran'} type='secondary' />
+        }}
+        name='SelectPayment' 
+        component={SelectPaymentScreen} />
+      <Stack.Screen 
+        options={{
+          header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Konfirmasi Pembayaran'} type='secondary' />
+        }}
+        name='PaymentDetail' 
+        component={PaymentDetailScreen} />
       <Stack.Screen name='SuccessReservation' component={SuccessReservation} />
     </Stack.Navigator>
   )
