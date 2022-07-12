@@ -36,9 +36,13 @@ const PaymentDetailComponent: React.FC<PaymentDetailComponentProps> = ({
         ))}
       </View>
 
-      <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Metode Pembayaran</Text>
-      <Text style={{ fontSize: fontPixel(14), marginBottom: heightPixel(16) }}>{paymentMethod ? paymentMethod.name : 'Belum dipilih'}</Text>
-
+      {paymentMethod && (
+        <View>
+          <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Metode Pembayaran</Text>
+          <Text style={{ fontSize: fontPixel(14), marginBottom: heightPixel(16) }}>{paymentMethod.name}</Text>
+        </View>
+      )}
+      
       <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Total Bayar</Text>
       <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{formatRupiah(servicePrice + totalPriceAdditionalComponent)}</Text>
     </View>
