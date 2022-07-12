@@ -12,7 +12,7 @@ import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import { formatRupiah } from 'utils/TextUtils';
 import { PaymentMethodSelectionItem } from '../constants';
 import createReservation from '../service/createReservation';
-import UpdateProgressService from '../service/updateProgressService';
+import UpdateProgressService, { UpdateProgressServiceResponse } from '../service/updateProgressService';
 
 interface PaymentDetailScreenProps {
   route: Route<string, ParamPaymentDetail>
@@ -22,16 +22,63 @@ interface PaymentDetailScreenProps {
 interface ParamPaymentDetail {
   additionalComponent: AdditionalComponentItem[]
   paymentMethod: PaymentMethodSelectionItem
+  status?: number
+}
+
+const sampleResponse: UpdateProgressServiceResponse = {
+  id: '1',
+  booking_number: '12312A',
+  booking_information: {
+    car: {
+      id: '',
+      brand: 'Toyota',
+      type: 'Yaris',
+      license_plate: 'B 2000 S',
+    },
+    shop: {
+      id: '',
+      name: 'Auto 2000, Jakarta Utara',
+    },
+    service: {
+      id: '',
+      name: 'Servis Dasar 10000 KM',
+      description: '',
+      price: 15000,
+    },
+    datetime: new Date('2022-06-14T11:27:39.404Z'),
+    notes: '',
+  },
+  additional_component: [
+    {
+      id: '1',
+      name: 'V-Belt',
+      price: 250000,
+      priority: 'IMPORTANT',
+    },
+    {
+      id: '2',
+      name: 'Kampas Rem',
+      price: 180000,
+      priority: 'IMPORTANT',
+    },
+  ],
+  payment_method: {
+    id: '1',
+    name: 'Bayar di Bengkel',
+    image: '',
+    notes: [],
+    active: true,
+  }
 }
  
 const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, navigation }) => {
-  const { additionalComponent, paymentMethod } = route.params
+  const { additionalComponent, paymentMethod, status } = route.params
 
   const totalPrice = additionalComponent.reduce((priceAccumulator, item) => priceAccumulator + item.price, 0)
 
   const { isLoading: isUpdatingProgressService, mutateAsync: onUpdateProgressService } = useMutation(UpdateProgressService, {
     onSuccess: (data) => {
-      navigation.navigate(SCREENS.reservation.informasiTagihan)
+      // navigation.navigate(SCREENS.reservation.informasiTagihan)
     },
   })
 
@@ -39,8 +86,18 @@ const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, naviga
     onUpdateProgressService({
       additionalComponent,
       paymentMethod,
+      status,
     }).catch(() => {
       // do nothing
+    })
+
+    navigation.navigate(SCREENS.reservation.informasiTagihan, {
+      id: sampleResponse.id,
+      bookingNumber: sampleResponse.booking_number,
+      additionalComponents: sampleResponse.additional_component,
+      bookingInformation: sampleResponse.booking_information,
+      paymentMethod: sampleResponse.payment_method,
+      type: 'confirmation-success',
     })
   }
 

@@ -1,3 +1,4 @@
+import { PaymentMethodSelectionItem } from "scenes/checkout/constants"
 import { AdditionalComponentItem, ServiceInfo, ShopInfo, VehicleInfo } from "scenes/home/constants"
 
 export type HistoryItem = {
@@ -20,7 +21,7 @@ export type HistoryDetailItem = {
   service: ServiceInfo
   datetime: Date
   notes: string
-  payment_method: string
+  payment_method: PaymentMethodSelectionItem | null
   additional_component: AdditionalComponentItem[]
   requested_additional_component_notes: string
   review: ReviewItem | null

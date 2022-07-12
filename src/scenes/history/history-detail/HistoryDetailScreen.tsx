@@ -46,7 +46,13 @@ const sampleData: HistoryDetailItem = {
   },
   datetime: new Date(),
   notes: 'Kebetulan daerah saya lumayan banyak debu, AC saya jadi agak kurang dingin sih',
-  payment_method: 'string',
+  payment_method: {
+    id: '',
+    name: 'Bayar di Bengkel',
+    image: '',
+    notes: [],
+    active: true,
+  },
   additional_component: [
     {
       id: '',
@@ -114,7 +120,7 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
           notes={sampleData.notes} 
           datetime={sampleData.datetime} 
         />
-        <PaymentDetailComponent servicePrice={sampleData.service.price} additionalComponent={sampleData.additional_component} />
+        <PaymentDetailComponent paymentMethod={sampleData.payment_method} servicePrice={sampleData.service.price} additionalComponent={sampleData.additional_component} />
         <NotesComponent notes={sampleData.requested_additional_component_notes} />
       </ScrollView>
       <View style={{ paddingVertical: heightPixel(16), paddingHorizontal: widthPixel(20), backgroundColor: 'white', marginTop: heightPixel(4) }}>
