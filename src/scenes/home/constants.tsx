@@ -1,3 +1,4 @@
+import { PaymentMethodSelectionItem } from "scenes/checkout/constants"
 import { VehicleItem } from "scenes/vehicle/constants"
 import { Color } from "styles/colors"
 
@@ -36,6 +37,7 @@ export type ReservationDetailItem = {
   additional_component: AdditionalComponentItem[]
   requested_additional_component: AdditionalComponentItem[]
   requested_additional_component_notes: string
+  payment_method: PaymentMethodSelectionItem | null
 }
 
 export type AdditionalComponentItem = {

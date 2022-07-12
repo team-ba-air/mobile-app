@@ -6,10 +6,11 @@ import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import { formatRupiah } from 'utils/TextUtils';
 
 interface DetailBillComponentProps {
+  servicePrice: number
   additionalComponents: AdditionalComponentItem[]
 }
  
-const DetailBillComponent: React.FC<DetailBillComponentProps> = ({ additionalComponents }) => {
+const DetailBillComponent: React.FC<DetailBillComponentProps> = ({ additionalComponents, servicePrice }) => {
   const [showDetailAdditionalComponent, setShowDetailAdditionalComponent] = useState<boolean>(false)
 
   const totalPriceAdditionalComponent = additionalComponents.reduce((totalAccumulator, component) => totalAccumulator + component.price, 0)
@@ -27,7 +28,7 @@ const DetailBillComponent: React.FC<DetailBillComponentProps> = ({ additionalCom
 
       <View style={{ marginTop: 16 }}>
         <Text style={styles.title}>Biaya Servis Awal</Text>
-        <Text style={styles.content}>{formatRupiah(100000)}</Text>
+        <Text style={styles.content}>{formatRupiah(servicePrice)}</Text>
       </View>
 
       <View style={{ marginTop: 16 }}>

@@ -18,8 +18,11 @@ const BookingDetail: React.FC<BookingDetailProps> = ({ data, navigation }) => {
 
   const handleClick = () => {
     navigation.navigate(SCREENS.reservation.informasiTagihan, {
+      id: data.id,
+      bookingNumber: data.booking_number,
       additionalComponents: data.additional_component,
       bookingInformation: infoBooking,
+      paymentMethod: data.payment_method
     })
   }
 
