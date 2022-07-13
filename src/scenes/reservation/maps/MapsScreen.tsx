@@ -36,10 +36,10 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
   useEffect(() => {
     PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       {
-        title: "Cool Photo App Camera Permission",
+        title: "Otoku Location Permission",
         message:
-          "Cool Photo App needs access to your camera " +
-          "so you can take awesome pictures.",
+          "Otoku needs access to your location " +
+          "so you can choose service station based on your location.",
         buttonNeutral: "Ask Me Later",
         buttonNegative: "Cancel",
         buttonPositive: "OK"
@@ -47,7 +47,7 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
         if (permission === PermissionsAndroid.RESULTS.GRANTED) {
           getLocation()
         } else {
-          console.log("Camera permission denied");
+          console.log("Location permission denied");
         }
       })
   }, [])
