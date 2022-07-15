@@ -12,11 +12,19 @@ target 'CarServiceApp' do
     :hermes_enabled => false
   )
 
+  pod 'React-RCTLinking', :path => '../node_modules/react-native/Libraries/LinkingIOS'
+
+  pod 'GoogleSignIn', '~> 6.1.0'
+
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-  pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
+  # pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
 
   pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+
+  pod 'FBSDKCoreKit', :modular_headers => true
+  pod 'FBSDKLoginKit', :modular_headers => true
+  pod 'FBSDKShareKit', :modular_headers => true
 
   target 'CarServiceAppTests' do
     inherit! :complete
@@ -32,4 +40,11 @@ target 'CarServiceApp' do
   post_install do |installer|
     react_native_post_install(installer)
   end
+
+  post_install do |installer|
+    installer.pods_project.build_configurations.each do |config|
+      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+    end
+  end
+  
 end
