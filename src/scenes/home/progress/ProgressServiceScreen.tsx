@@ -5,6 +5,7 @@ import { PublicAPIResponse } from 'network/types';
 import React, { useEffect, useState } from 'react'
 import { ScrollView, Text, View } from 'react-native';
 import { Portal } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useQuery } from 'react-query';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
@@ -115,6 +116,8 @@ const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigatio
   )
 
   const progressServiceDetail = progressServiceDetailResponse?.body
+
+  const insets = useSafeAreaInsets()
 
   useEffect(() => {
     if (sampleDataProgress.status >= 4) {

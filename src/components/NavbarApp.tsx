@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { Icon, Image, Text } from 'react-native-elements';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
 
@@ -12,6 +13,7 @@ interface NavbarAppProps {
 }
  
 const NavbarApp: React.FC<NavbarAppProps> = ({ title, navigation, type = 'primary', disableBack = false }) => {
+  const insets = useSafeAreaInsets()
   return ( 
     <View style={[
       styles.container, 
@@ -20,6 +22,7 @@ const NavbarApp: React.FC<NavbarAppProps> = ({ title, navigation, type = 'primar
         borderBottomWidth: type === 'secondary' ? 1 : 0,
         borderBottomColor: Color.gray[3],
         borderStyle: 'solid',
+        paddingTop: Platform.OS === 'ios' ? insets.top : 0,
       }
     ]}>
       {!disableBack && (

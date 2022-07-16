@@ -35,11 +35,11 @@ const InfoLocation: React.FC<InfoLocationProps> = ({ navigation }) => {
       <View>
         <Text style={{ fontSize: fontPixel(Sizing.text.subheading[18]), color: Color.gray[0], fontWeight: 'bold' }}>Hi, Oto</Text>
       </View>
-      <View style={{ marginTop: 12, flexDirection: 'row', alignItems: 'center' }}>
+      <View style={{ marginTop: 12, flexDirection: 'row', alignItems: 'center', maxWidth: '50%' }}>
         <Icon type='material' name='location-on' color={Color.red[4]} tvParallaxProperties={undefined} />
         <View>
           <Text style={{ fontSize: fontPixel(Sizing.text.body[11]), color: Color.blue[1]}}>Lokasi Anda</Text>
-          <Text style={{ fontSize: fontPixel(Sizing.text.body[12]), color: Color.gray[0], fontWeight: 'bold' }}>{address ? address : '-'}</Text>
+          <Text numberOfLines={1} ellipsizeMode={'tail'} style={{ fontSize: fontPixel(Sizing.text.body[12]), color: Color.gray[0], fontWeight: 'bold' }}>{address ? address : '-'}</Text>
         </View>
       </View>
     </TouchableOpacity>
