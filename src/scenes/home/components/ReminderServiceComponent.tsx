@@ -28,13 +28,13 @@ const ReminderServiceComponent: React.FC<ReminderServiceComponentProps> = () => 
         marginRight: widthPixel(16),
       }} />
 
-      <View style={{ paddingVertical: heightPixel(12) }}>
+      <View style={{ paddingVertical: heightPixel(12), flex: 1 }}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>Pengingat Servis</Text>
           <Icon type='material' name='close' size={heightPixel(12)} tvParallaxProperties={undefined} />
         </View>
         
-        <Text style={{ fontSize: fontPixel(10), fontWeight: 'bold', color: Color.gray.secondary}}>Toyota Yaris B 2277 S</Text>
+        <Text style={{ fontSize: fontPixel(10), fontWeight: 'bold', color: Color.gray.secondary }}>Toyota Yaris B 2277 S</Text>
 
         <View style={{ 
           flexDirection: 'row', 
@@ -42,7 +42,7 @@ const ReminderServiceComponent: React.FC<ReminderServiceComponentProps> = () => 
           alignItems: 'center',
           marginTop: heightPixel(8),
         }}>
-          <View style={{ marginRight: widthPixel(8) }}>
+          <View style={{ marginRight: widthPixel(8), maxWidth: '60%' }}>
             <Text style={{ fontSize: fontPixel(10) }}>
               <Text>Rekomendasi servis:</Text> 
               <Text style={{ fontWeight: 'bold' }}> 24 Juni</Text>

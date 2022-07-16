@@ -1,13 +1,12 @@
 import AppContainer from 'components/AppContainer';
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PermissionsAndroid, StyleSheet, Text, View } from 'react-native';
 import MapView, { MapEvent, Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import { Icon } from 'react-native-elements';
-import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import BottomSheetBengkelList from './components/BottomSheetBengkelList';
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated';
-import { fontPixel, heightPixel, SCREEN_HEIGHT, SCREEN_WIDTH, widthPixel } from 'styles/sizes';
+import { fontPixel, heightPixel, SCREEN_WIDTH, widthPixel } from 'styles/sizes';
 import { Color } from 'styles/colors';
 import { NavigationProp, Route } from '@react-navigation/native';
 import { ServiceItem } from '../constants';
@@ -112,7 +111,7 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
     <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0, alignItems: 'flex-end' }} refreshDisable>
       <MapView
         provider={PROVIDER_GOOGLE}
-        style={styles.map}
+        // style={styles.map}
         onRegionChangeComplete={handleRegionChange}
         region={{
           latitude: region?.latitude ?? 37.78825,

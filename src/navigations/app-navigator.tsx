@@ -8,6 +8,7 @@ import HistoryNavigator from './history-navigator';
 import { Color } from 'styles/colors';
 import BookingButtonNavigation from 'components/BookingButtonNavigation';
 import BookingContainer from 'scenes/home/BookingContainer';
+import NavbarApp from 'components/NavbarApp';
 
 const BottomNavigator = createBottomTabNavigator()
 
@@ -50,7 +51,7 @@ const AppNavigator = (props: any) => {
       />
       <BottomNavigator.Screen 
         options={{ 
-          headerShown: false,
+          header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Profil'} disableBack />,
           tabBarIcon: ({ focused }) => <Icon type='material' name='person' size={24} color={focused ? Color.blue[7] : Color.gray[7]} tvParallaxProperties={undefined} />,
           tabBarLabel: 'Profil',
         }} 

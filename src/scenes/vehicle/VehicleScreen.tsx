@@ -201,5 +201,6 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     position: 'relative',
+    zIndex: 10,
   },
 })

@@ -2,6 +2,7 @@ import { NavigationProp } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
 import React, { useEffect } from 'react';
 import { SectionList, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Color } from 'styles/colors';
 import CarServiceReservation from './components/CarServiceReservation';
 import InfoLocation from './components/InfoLocation';
@@ -35,30 +36,33 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     }
   }
 
-  return <AppContainer style={styles.container}>
-    <StatusBar backgroundColor={Color.blue[8]} />
-    <SectionList 
-      sections={DATA}
-      ListHeaderComponent={
-        <>
-          <InfoLocation navigation={navigation}/>
-          <CarServiceReservation navigation={navigation} />
-          <ReminderServiceComponent />
-          <ServiceList navigation={navigation} />
-          <OngoingReservationSection navigation={navigation} />
-        </>
-      }
-      renderItem={({ item }) => <View>{renderBasedOnContent(item)}</View>}
-    />
-      
-  </AppContainer>;
+  const insets = useSafeAreaInsets()
+
+  return (
+    <AppContainer 
+      style={{
+        display: 'flex',
+        padding: 0,
+      }}
+      safeAreaBackground={Color.blue[8]}
+    >
+      <SectionList 
+        sections={DATA}
+        ListHeaderComponent={
+          <>
+            <InfoLocation navigation={navigation}/>
+            <CarServiceReservation navigation={navigation} />
+            <ReminderServiceComponent />
+            <ServiceList navigation={navigation} />
+            <OngoingReservationSection navigation={navigation} />
+          </>
+        }
+        renderItem={({ item }) => <View>{renderBasedOnContent(item)}</View>}
+      />
+        
+    </AppContainer>
+  );
 };
 
 export default HomeScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    padding: 0,
-  }
-})

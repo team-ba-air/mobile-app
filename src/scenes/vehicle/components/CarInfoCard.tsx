@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
     margin: 0,
     marginTop: heightPixel(20),
     marginHorizontal: widthPixel(20),
+    zIndex: 20,
   },
   action: {
     display: 'flex',
