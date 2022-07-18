@@ -14,7 +14,9 @@ const BottomNavigator = createBottomTabNavigator()
 
 const AppNavigator = (props: any) => {
   const { navigation } = props
-  return <BottomNavigator.Navigator>
+  return <BottomNavigator.Navigator
+    screenOptions={{ unmountOnBlur: true }}
+  >
       <BottomNavigator.Screen 
         options={{ 
           headerShown: false, 

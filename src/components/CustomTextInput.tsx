@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleProp, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Platform, StyleProp, StyleSheet, Text, TextInput, View } from 'react-native'
 import { Input } from 'react-native-elements'
 import { Color } from 'styles/colors'
 import { fontPixel, heightPixel } from 'styles/sizes'
@@ -20,7 +20,13 @@ const CustomTextInput: React.FC<CustomTextInputProps> = (props) => {
 
   return ( 
     <>
-      <View style={{...styles.input, ...style}}>
+      <View style={[
+        styles.input, 
+        style, 
+        (Platform.OS === 'ios') && ({
+          paddingVertical: heightPixel(12),
+        })]}
+      >
         <TextInput 
           style={{ fontSize: size }} 
           textAlignVertical={'top'} 

@@ -4,15 +4,18 @@ import CustomTextInput from "components/CustomTextInput"
 import Dropdown, { OptionItem } from "components/Dropdown"
 import FormInputDate from "components/FormInputDate"
 import { SCREENS } from "navigations/constants"
+import { PublicAPIResponse } from "network/types"
 import React, { useEffect, useState } from "react"
-import { StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native"
+import { Image, StyleSheet, Text, TouchableWithoutFeedback, View } from "react-native"
 import { Icon } from "react-native-elements"
 import { Snackbar } from "react-native-paper"
-import { useMutation, useQueryClient } from "react-query"
+import { useMutation, useQuery, useQueryClient } from "react-query"
 import { Color } from "styles/colors"
 import { fontPixel, heightPixel, Sizing, widthPixel } from "styles/sizes"
 import BottomSheetVin from "./components/BottomSheetVin"
 import addVehicle, { AddVehicleResponse } from "./service/addVehicle"
+import getVehicleBrand from "./service/getVehicleBrand"
+import getVehicleType from "./service/getVehicleType"
 import updateVehicleById from "./service/updateVehicleById"
 
 interface UpdateVehicleScreenProps {
@@ -50,36 +53,6 @@ const defaultTypeOptions: OptionItem[] = [
   },
 ]
 
-const defaultYearOptions: OptionItem[] = [
-  {
-    data: '2010',
-    value: '2010',
-  },
-  {
-    data: '2011',
-    value: '2011',
-  },
-  {
-    data: '2012',
-    value: '2012',
-  },
-]
-
-const defaultColorOptions: OptionItem[] = [
-  {
-    data: 'Hitam',
-    value: 'Hitam',
-  },
-  {
-    data: 'Merah',
-    value: 'Merah',
-  },
-  {
-    data: 'Putih',
-    value: 'Putih',
-  },
-]
-
 const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, route }) => {
   const { car } = route.params
   const queryClient = useQueryClient()
@@ -93,6 +66,33 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
   const [plat, setPlat] = useState<string>(car?.plat ?? '')
   const [vin, setVin] = useState<string>(car?.vin ?? '')
   const [expireDate, setExpireDate] = useState<Date>()
+
+  const {
+    data: vehicleBrandResponse,
+  } = useQuery<PublicAPIResponse<OptionItem[]>>(
+    ['getVehicleBrand'],
+    () => getVehicleBrand(),
+    {
+      refetchOnWindowFocus: false,
+      retry: true,
+    }
+  )
+
+  const {
+    data: vehicleTypeResponse,
+  } = useQuery<PublicAPIResponse<OptionItem[]>>(
+    ['getVehicleType', brand],
+    () => getVehicleType({ brand }),
+    {
+      refetchOnWindowFocus: false,
+      retry: true,
+    }
+  )
+
+  const brandList = vehicleBrandResponse?.body ?? []
+  const typeList = vehicleTypeResponse?.body ?? []
+
+  console.log(brandList)
 
   const [disabled, setDisabled] = useState(true)
 
@@ -190,15 +190,21 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
       <BottomSheetVin visible={showVin} onChangeVisible={setShowVin} />
       <View>
         <Text style={styles.title}>{car ? 'Perbarui' : 'Tambah'} Info Mobil</Text>
-        <Dropdown style={{ marginTop: heightPixel(16) }} placeholder={'Merek Mobil'} value={brand} onSelect={setBrand} options={defaultOptions}
+        <Dropdown style={{ marginTop: heightPixel(16) }} placeholder={'Merek Mobil'} value={brand} onSelect={setBrand} options={brandList}
           headerComponent={
             <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold', marginHorizontal: 16 }}>Pilih merek mobil Anda</Text>
           }
           renderItem={(option) => (
-            <Text style={styles.itemModal}>{option}</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <Image source={{ 
+                uri: option.image_url, 
+                width: heightPixel(20),
+                height: widthPixel(20), }} />
+              <Text style={styles.itemModal}>{option.name}</Text>
+            </View>
           )} 
           renderSelected={(option) =>  (
-            <Text style={{fontSize: Sizing.text.body[16], fontWeight: 'bold'}}>{option}</Text>
+            <Text style={{fontSize: Sizing.text.body[16], fontWeight: 'bold'}}>{option.name}</Text>
           )}
         />
 
@@ -214,23 +220,9 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
           )}
         />
 
-        <Dropdown style={{ marginTop: heightPixel(16) }} placeholder={'Tahun'} value={year} onSelect={setYear} options={defaultYearOptions}
-          renderItem={(option) => (
-            <Text style={styles.itemModal}>{option}</Text>
-          )} 
-          renderSelected={(option) => (
-            <Text style={{fontSize: Sizing.text.body[16], fontWeight: 'bold'}}>{option}</Text>
-          )}
-        />
+        <CustomTextInput style={{ marginTop: heightPixel(16) }} placeholder={'Tahun'} onChange={setYear} value={year} />
 
-        <Dropdown style={{ marginTop: heightPixel(16) }} placeholder={'Warna'} value={color} onSelect={setColor} options={defaultColorOptions}
-          renderItem={(option) => (
-            <Text style={styles.itemModal}>{option}</Text>
-          )}
-          renderSelected={(option) => (
-            <Text style={{fontSize: Sizing.text.body[16], fontWeight: 'bold'}}>{option}</Text>
-          )}
-        />
+        <CustomTextInput style={{ marginTop: heightPixel(16) }} placeholder={'Warna'} onChange={setColor} value={color} />
 
         <CustomTextInput style={{ marginTop: heightPixel(16) }} placeholder={'Plat Nomor'} onChange={setPlat} value={plat} />
 
