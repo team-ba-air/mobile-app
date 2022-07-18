@@ -9,3 +9,9 @@ export type VehicleItem = {
   expiredDate?: Date
   lastService: string
 }
+
+export type VehicleBrandItem = {
+  id: string
+  name: string
+  image_url: string
+}

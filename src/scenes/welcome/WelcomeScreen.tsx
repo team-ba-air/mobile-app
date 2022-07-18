@@ -1,7 +1,7 @@
 import AppContainer from 'components/AppContainer'
 import CustomButton from 'components/CustomButton'
 import React from 'react'
-import { StyleSheet, ToastAndroid } from 'react-native'
+import { Platform, StyleSheet, ToastAndroid } from 'react-native'
 import { Icon, Image } from 'react-native-elements'
 import { Color } from 'styles/colors'
 import { heightPixel, widthPixel } from 'styles/sizes'
@@ -13,12 +13,14 @@ import { GraphRequest, GraphRequestManager, AccessToken, LoginButton, LoginManag
 import authenticateSSOFacebook from './service/authenticateSSOFacebook'
 import { saveAccessToken } from 'utils/TokenUtils'
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 interface WelcomeScreenProps {
   navigation: any
 }
  
 const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
+  const insets = useSafeAreaInsets()
   const signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices()
@@ -96,7 +98,13 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
   })
 
   return (
-    <AppContainer style={{ paddingHorizontal: 0 }} refreshDisable>
+    <AppContainer 
+      style={[{ 
+        paddingHorizontal: 0, 
+      }, Platform.OS === 'ios' && ({
+        paddingBottom: insets.bottom,
+      })]} 
+      refreshDisable>
       <CarouselComponent />
       <CustomButton 
         style={[{ marginHorizontal: 20, marginVertical: 8 }, styles.buttonGoogle]}

@@ -1,5 +1,5 @@
-import React, { ReactNode, useState } from 'react'
-import { Image, StyleSheet, View } from 'react-native';
+import React, { ReactNode, useRef, useState } from 'react'
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { Color } from 'styles/colors';
 import { heightPixel, SCREEN_HEIGHT } from 'styles/sizes';
@@ -12,25 +12,48 @@ interface BaseBottomSheetProps {
  
 const BaseBottomSheet: React.FC<BaseBottomSheetProps> = (props) => {
   const { children, visible = false, onChangeVisible = () => {} } = props
+
+  const [offset, setOffset] = useState<number>()
+
+  const scrollViewRef = useRef<ScrollView>(null);
   
   const handleHide = () => {
     onChangeVisible(false)
   }
+
+  const handleScrollTo = (point: any) => {
+    if (scrollViewRef.current) {
+      scrollViewRef.current.scrollTo(point)
+    }
+  }
+
+  const handleOnScroll = (event: any) => {
+    setOffset(event.nativeEvent.contentOffset.y);
+  };
   
   return ( 
     <Modal
       isVisible={visible}
       animationIn='slideInUp'
       style={styles.view}
-      swipeDirection={['down', 'up']}
+      swipeDirection={['down']}
       onBackdropPress={handleHide}
       onBackButtonPress={handleHide}
       onSwipeComplete={handleHide}
+      scrollTo={handleScrollTo}
+      scrollOffset={offset}
+      propagateSwipe
     >
       <View style={styles.content}>
         <View style={styles.line}/>
         <Image source={require('assets/icon/drag_indicator.svg')} />
-        {children}
+        <ScrollView 
+          style={{ paddingBottom: heightPixel(8) }}
+          ref={scrollViewRef} 
+          onScroll={handleOnScroll} 
+          scrollEventThrottle={16}>
+          {children}
+        </ScrollView>
       </View>
     </Modal>
    );
@@ -50,6 +73,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 28,
     borderTopRightRadius: 28,
     borderColor: 'rgba(0, 0, 0, 0.1)',
+    maxHeight: '90%',
   },
   line: {
     alignSelf: 'center',

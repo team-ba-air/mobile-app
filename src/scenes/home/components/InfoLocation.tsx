@@ -21,14 +21,14 @@ const InfoLocation: React.FC<InfoLocationProps> = ({ navigation }) => {
     lng: -122.0842771,
   }
   
-  Geocoder.geocodePosition(NY).then(res => {
+  Geocoder.geocodePosition(NY).then((res: any) => {
       // res is an Array of geocoding object (see below)
       console.log(res[0])
       const formattedAddress = res[0].formattedAddress.split(', ')[0]
       const subLocality = res[0].subLocality
       setAddress(`${formattedAddress}${subLocality ? `, ${subLocality}` : ''}`)
   })
-  .catch(err => console.log(err))
+  .catch((err: any) => console.log(err))
   
   return ( 
     <TouchableOpacity style={styles.container} onPress={() => navigation.navigate(SCREENS.app.maps)}>

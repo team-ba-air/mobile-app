@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 
 const VehicleNavigator: React.FC<any> = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName='VehicleList'>
       <Stack.Screen options={{ header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Mobil Saya'} disableBack /> }} name='VehicleList' component={VehicleScreen} />
       <Stack.Screen options={{ header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Info Mobil'} type='secondary' /> }}  name='UpdateVehicle' component={UpdateVehicleScreen} />
     </Stack.Navigator>

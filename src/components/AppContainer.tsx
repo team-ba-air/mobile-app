@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from 'react'
 import { ColorValue, ImageBackground, RefreshControl, ScrollView, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { heightPixel } from 'styles/sizes';
 
 interface AppContainerProps {
   children: ReactNode
@@ -9,9 +10,10 @@ interface AppContainerProps {
   onRefresh?: () => void
   refreshDisable?: boolean
   safeAreaBackground?: ColorValue
+  edges?: ('top' | 'bottom')[]
 }
  
-const AppContainer: React.FC<AppContainerProps> = ({ children, style, backgroundImage, onRefresh, refreshDisable, safeAreaBackground }) => {
+const AppContainer: React.FC<AppContainerProps> = ({ children, style, backgroundImage, onRefresh, refreshDisable, safeAreaBackground, edges = [] }) => {
   const [refreshing, setRefreshing] = useState(false)
 
   const handleRefresh = () => {
@@ -60,6 +62,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     // height: '100%',
-    // padding: 20,
+    padding: heightPixel(20),
   },
 })

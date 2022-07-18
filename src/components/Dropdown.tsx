@@ -1,10 +1,11 @@
-import React, { JSXElementConstructor, ReactElement, ReactNode, useEffect, useState } from 'react'
+import React, { JSXElementConstructor, ReactElement, ReactNode, useEffect, useRef, useState } from 'react'
 import { Image, ListRenderItemInfo, StyleProp, StyleSheet, Text, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { FlatList, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, Sizing } from 'styles/sizes';
 import BaseBottomSheet from './base/BaseBottomSheet';
+import BottomSheet from '@gorhom/bottom-sheet';
 
 export type OptionItem = {
   data: any
@@ -29,6 +30,16 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
   const { value = '', onSelect, placeholder, size = 16, style, headerComponent, options = [], footerComponent, renderItem, renderSelected, error } = props
   const stylePlaceholder = value === '' ? styles.placeholder : styles.value
 
+  // const bottomSheetRef = useRef<BottomSheet>(null);
+  const [visible, setVisible] = useState<boolean>(false)
+
+  // useEffect(() => {
+  //   if (visible) {
+  //     bottomSheetRef.current?.expand()
+  //   }
+  // }, [visible])
+  console.log(`${placeholder}: ${visible}`)
+
   const [selected, setSelected] = useState<OptionItem | undefined>(undefined)
 
   useEffect(() => {
@@ -36,11 +47,9 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
     setSelected(optionSelected)
   }, [value])
 
-  const [visible, setVisible] = useState<boolean>(false)
-  console.log(error)
-
   return ( 
     <>
+      {/* <BottomSheet style={{ zIndex: 20 }} ref={bottomSheetRef} index={0} snapPoints={['40%', '80%']} enablePanDownToClose> */}
       <BaseBottomSheet onChangeVisible={setVisible} visible={visible}>
         <View>
           {/* <Text style={styles.titleModal}>Pilih merek mobil Anda</Text> */}
@@ -66,7 +75,8 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
           {footerComponent}
         </View>
       </BaseBottomSheet>
-      <TouchableOpacity activeOpacity={1} onPress={() => setVisible(true)}>
+      {/* </BottomSheet> */}
+      <TouchableOpacity style={{ zIndex: 10 }} activeOpacity={1} onPress={() => setVisible(true)}>
         <View style={[styles.input, style, { fontSize: size }]}>
           {selected === undefined ? (
             <Text style={[{ fontSize: size }, stylePlaceholder]}>{placeholder}</Text>
