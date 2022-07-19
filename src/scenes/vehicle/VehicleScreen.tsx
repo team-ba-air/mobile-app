@@ -45,7 +45,6 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation, route }) => {
     }
   )
 
-  console.log('response')
   console.log(vehicleListResponse?.body ?? [])
 
   const [openDetail, setOpenDetail] = useState<VehicleDetail[]>([])
@@ -57,9 +56,6 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation, route }) => {
       vehicle: value,
       isOpen: false,
     }))
-    
-    console.log('detail status')
-    console.log(detailStatus)
 
     setOpenDetail(detailStatus)
     if (route.params) {
@@ -67,8 +63,6 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation, route }) => {
       onToggleDetail(data.vehicle.id, data.isOpen)
     }
   }, [vehicleListResponse])
-
-  console.log(openDetail)
 
   const [visible, setVisible] = useState(false)
   const [modalVisible, setModalVisible] = useState(false)
@@ -87,7 +81,10 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation, route }) => {
   const { isLoading: isDeleting, mutateAsync: onDelete } = useMutation(deleteVehicleById, {
     onSuccess: (data) => {
       queryClient.invalidateQueries('getVehicleList')
-      showSnackbar()
+      setTimeout(() => {
+        showSnackbar()
+      }, 2000)
+      
     },
   })
 

@@ -1,6 +1,7 @@
 import React, { ReactNode, useState } from 'react'
-import { ColorValue, ImageBackground, RefreshControl, ScrollView, StyleProp, StyleSheet, ViewStyle } from 'react-native';
+import { ColorValue, ImageBackground, Platform, RefreshControl, ScrollView, StyleProp, StyleSheet, ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Color } from 'styles/colors';
 import { heightPixel } from 'styles/sizes';
 
 interface AppContainerProps {
@@ -34,8 +35,10 @@ const AppContainer: React.FC<AppContainerProps> = ({ children, style, background
       <ImageBackground style={[styles.backgroundImage, style]} source={backgroundImage}>
         {refreshDisable ? children : (
           <ScrollView
+            contentContainerStyle={{ flexGrow: 1 }}
             refreshControl={
               <RefreshControl 
+                style={Platform.OS === 'ios' && ({backgroundColor: Color.blue[8]})}
                 refreshing={refreshing}
                 onRefresh={handleRefresh}
               />

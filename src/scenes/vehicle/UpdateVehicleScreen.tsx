@@ -1,3 +1,4 @@
+import { Route } from "@react-navigation/native"
 import AppContainer from "components/AppContainer"
 import CustomButton from "components/CustomButton"
 import CustomTextInput from "components/CustomTextInput"
@@ -13,45 +14,20 @@ import { useMutation, useQuery, useQueryClient } from "react-query"
 import { Color } from "styles/colors"
 import { fontPixel, heightPixel, Sizing, widthPixel } from "styles/sizes"
 import BottomSheetVin from "./components/BottomSheetVin"
+import { VehicleItem } from "./constants"
 import addVehicle, { AddVehicleResponse } from "./service/addVehicle"
 import getVehicleBrand from "./service/getVehicleBrand"
 import getVehicleType from "./service/getVehicleType"
 import updateVehicleById from "./service/updateVehicleById"
 
 interface UpdateVehicleScreenProps {
-  route: any
+  route: Route<any, ParamVehicle>
   navigation: any
 }
 
-const defaultOptions: OptionItem[] = [
-  {
-    data: 'Toyota',
-    value: 'Toyota',
-  },
-  {
-    data: 'Daihatsu',
-    value: 'Daihatsu',
-  },
-  {
-    data: 'Honda',
-    value: 'Honda',
-  },
-]
-
-const defaultTypeOptions: OptionItem[] = [
-  {
-    data: 'Agya',
-    value: 'Agya',
-  },
-  {
-    data: 'Alphard',
-    value: 'Alphard',
-  },
-  {
-    data: 'Yaris',
-    value: 'Yaris',
-  },
-]
+interface ParamVehicle {
+  car: VehicleItem
+}
 
 const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, route }) => {
   const { car } = route.params
@@ -147,6 +123,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
             vin,
             expiredDate: expireDate,
             lastService: car.lastService,
+            imageUrl: car.imageUrl,
           }
         }).catch(e => {
           console.log(e)
@@ -154,7 +131,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
       } else {
         const carData = {
           car: {
-            id: car?.id ?? '',
+            id: '',
             brand,
             type,
             year,
@@ -162,7 +139,8 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
             plat,
             vin,
             expiredDate: expireDate,
-            lastService: car?.lastService ?? '-',
+            lastService: '-',
+            imageUrl: '',
           }
         }
         console.log(carData)
@@ -179,8 +157,9 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
   }, [navigation]);
 
   return ( 
-    <AppContainer style={styles.container}>
+    <AppContainer style={styles.container} refreshDisable>
       <Snackbar
+        wrapperStyle={{ zIndex: 10, alignSelf: 'center' }}
         visible={visible}
         onDismiss={() => setVisible(false)}
         duration={5000}
@@ -195,11 +174,12 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
             <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold', marginHorizontal: 16 }}>Pilih merek mobil Anda</Text>
           }
           renderItem={(option) => (
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Image source={{ 
                 uri: option.image_url, 
                 width: heightPixel(20),
-                height: widthPixel(20), }} />
+                height: widthPixel(20),
+              }} />
               <Text style={styles.itemModal}>{option.name}</Text>
             </View>
           )} 
@@ -248,12 +228,13 @@ export default UpdateVehicleScreen;
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: Sizing.text.heading[28],
+    fontSize: fontPixel(24),
     fontWeight: 'bold'
   },
   itemModal: {
-    fontSize: Sizing.text.body[14],
+    fontSize: fontPixel(14),
     fontWeight: 'bold',
+    marginLeft: widthPixel(8),
   },
   container: {
     display: 'flex',

@@ -6,7 +6,7 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Image, Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
-import { heightPixel, Sizing, widthPixel } from 'styles/sizes';
+import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
 import { removeAccessToken } from 'utils/TokenUtils';
 import ProfileAction from './components/ProfileAction';
 
@@ -25,7 +25,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
             <Text style={styles.normalText}>0812 3456 7891</Text>
           </View>
           <View>
-            <CustomButton buttonStyle={styles.button} textStyle={{ fontSize: Sizing.text.body[12], fontWeight: 'bold' }} title='Detail'/>
+            <CustomButton buttonStyle={styles.button} textStyle={{ fontSize: fontPixel(Sizing.text.body[12]), fontWeight: 'bold' }} title='Detail'/>
           </View>
         </View>
 
@@ -33,7 +33,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
       </View>
       <View style={styles.containerBottom}>
         <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 16 }}>
-          <Image source={require('@assets/icon/ic_logo_text.webp')} style={{ width: 100, height: 32, marginBottom: 8 }} resizeMode={'contain'} />
+          <Image source={require('@assets/icon/ic_logo_text.webp')} style={{ width: widthPixel(100), height: heightPixel(32), marginBottom: heightPixel(8) }} resizeMode={'contain'} />
           <Text style={{ color: Color.gray.secondary }}>Ver 1.0.0</Text>
         </View>
         <CustomButton onPress={() => {
@@ -57,17 +57,17 @@ const styles = StyleSheet.create({
     padding: 0,
   },
   normalText: {
-    fontSize: Sizing.text.body[14],
+    fontSize: fontPixel(Sizing.text.body[14]),
   },
   headerText: {
-    fontSize: Sizing.text.body[16],
+    fontSize: fontPixel(Sizing.text.body[16]),
     fontWeight: 'bold',
   },
   button: { 
-    paddingTop: 6,
-    paddingBottom: 6,
-    paddingLeft: 24, 
-    paddingRight: 24, 
+    paddingTop: heightPixel(6),
+    paddingBottom: heightPixel(6),
+    paddingLeft: widthPixel(24), 
+    paddingRight: widthPixel(24), 
     borderRadius: 8 
   },
   infoContainer: { 
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingHorizontal: widthPixel(20),
+    paddingVertical: heightPixel(20),
     backgroundColor: Color.gray[0],
     marginBottom: heightPixel(24),
   },

@@ -49,6 +49,7 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
   }
 
   const vehicleList = vehicleListResponse?.body ?? []
+  console.log(vehicleList)
 
   return ( 
     <>
@@ -81,9 +82,10 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
                 </View>
                 <Image 
                   style={styles.imageCar} 
-                  // source={require('@assets/car_placeholder.png')} 
                   source={{
-                    uri: 'https://carnetwork.s3.ap-southeast-1.amazonaws.com/file/f9ad028fc8894cd5885e6bfb1c146018.jpg'
+                    uri: info.item.imageUrl,
+                    width: 40,
+                    height: 40,
                   }}
                   resizeMode={'contain'} />
               </View>
@@ -112,7 +114,7 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
                 Anda belum menambahkan kendaraan
               </Text>
             </View>
-            <Image style={styles.imageCar} source={require('@assets/empty_car.webp')} resizeMode={'contain'} />
+            <Image style={styles.imageCar} source={require('@assets/empty_car.png')} resizeMode={'contain'} />
           </View>
           <View style={{
             paddingHorizontal: widthPixel(16),

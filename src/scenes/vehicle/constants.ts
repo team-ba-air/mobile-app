@@ -8,6 +8,7 @@ export type VehicleItem = {
   vin: string
   expiredDate?: Date
   lastService: string
+  imageUrl: string
 }
 
 export type VehicleBrandItem = {
