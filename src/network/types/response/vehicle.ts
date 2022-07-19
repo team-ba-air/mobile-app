@@ -9,6 +9,8 @@ interface VehicleResponse {
   vin: string
   certificate_expire_date: string
   created_at: string
+  last_service: string
+  car_image_url: string
 }
 
 export type { VehicleResponse }

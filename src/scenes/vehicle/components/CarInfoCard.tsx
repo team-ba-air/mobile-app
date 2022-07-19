@@ -37,7 +37,12 @@ const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation, showSnackbar
           <Text style={styles.carTypeText}>{car?.type}</Text>
           <Text style={styles.carPlatText}>{car?.plat}</Text>
         </View>
-        <Card.Image containerStyle={styles.imageCar} source={require('@assets/car_placeholder.png')} />
+        <Card.Image 
+          containerStyle={styles.imageCar} 
+          source={{
+            uri: car?.imageUrl
+          }} 
+        />
       </View>
       {isOpen && (
         <View>
@@ -68,7 +73,7 @@ const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation, showSnackbar
           <View style={styles.row}>
             <View style={styles.column}>
               <Text style={styles.attributeHeader}>Terakhir Servis</Text>
-              <Text>{car?.lastService}</Text>
+              <Text>{car?.lastService ?? '-'}</Text>
             </View>
           </View>
 

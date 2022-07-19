@@ -127,7 +127,7 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, rou
               )}
               renderSelected={(option: any) => (
                 <View>
-                  <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{option?.type} {option?.license_plate}</Text>
+                  <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{option?.brand} {option?.type} {option?.license_plate}</Text>
                 </View>
               )}          
             />

@@ -22,7 +22,8 @@ export const mapVehicleListResponse = (response: PublicAPIResponse<GetVehicleLis
       plat: vehicle.license_plate ?? '',
       vin: vehicle.vin ?? '',
       expiredDate: new Date(vehicle.certificate_expire_date),
-      lastService: '-',
+      lastService: vehicle.last_service,
+      imageUrl: vehicle.car_image_url ?? '',
     })),
   }
 }
