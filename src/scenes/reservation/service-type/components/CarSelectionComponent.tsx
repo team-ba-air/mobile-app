@@ -1,4 +1,4 @@
-import BaseBottomSheet from 'components/base/BaseBottomSheet';
+import BaseBottomSheet from 'components/BaseBottomSheet';
 import { OptionItem } from 'components/Dropdown';
 import React, { useEffect, useState } from 'react'
 import { Image, View, Text, FlatList, TouchableOpacity, ListRenderItemInfo, StyleSheet, StyleProp } from 'react-native';

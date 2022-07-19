@@ -92,7 +92,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
   const brandList = vehicleBrandResponse?.body ?? []
   const typeList = vehicleTypeResponse?.body ?? []
 
-  console.log(brandList)
+  console.log(typeList)
 
   const [disabled, setDisabled] = useState(true)
 
@@ -204,11 +204,11 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
             </View>
           )} 
           renderSelected={(option) =>  (
-            <Text style={{fontSize: Sizing.text.body[16], fontWeight: 'bold'}}>{option.name}</Text>
+            <Text style={{fontSize: Sizing.text.body[16], fontWeight: 'bold'}}>{option?.name}</Text>
           )}
         />
 
-        <Dropdown style={{ marginTop: heightPixel(16) }} placeholder={'Tipe'} value={type} onSelect={setType} options={defaultTypeOptions}
+        <Dropdown style={{ marginTop: heightPixel(16) }} placeholder={'Tipe'} value={type} onSelect={setType} options={typeList}
           headerComponent={
             <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold', marginHorizontal: 16 }}>Pilih tipe mobil Anda</Text>
           }

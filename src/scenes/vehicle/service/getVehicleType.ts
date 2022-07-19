@@ -2,7 +2,6 @@ import { OptionItem } from "components/Dropdown"
 import networkService from "network/api/networkService"
 import { PublicAPIResponse } from "network/types"
 import QueryString from "qs"
-import { VehicleBrandItem } from "../constants"
 
 export type GetVehicleTypeRequest = {
   brand: string
@@ -14,6 +13,7 @@ export const getVehicleTypeEndpoint = 'vehicle/type'
 
 const mapResponseToOption = (response: PublicAPIResponse<GetVehicleTypeResponse>): PublicAPIResponse<OptionItem[]> => {
   const brandList = response.body ?? []
+  console.log(response)
   return {
     ...response,
     body: brandList.map(value => ({
@@ -25,8 +25,9 @@ const mapResponseToOption = (response: PublicAPIResponse<GetVehicleTypeResponse>
 
 const getVehicleType = async (request: GetVehicleTypeRequest) => {
   const query = QueryString.stringify(request)
+  console.log(query)
   const response: PublicAPIResponse<GetVehicleTypeResponse> = await networkService.get(
-    `${getVehicleTypeEndpoint}/?${query}`
+    `${getVehicleTypeEndpoint}?${query}`
   )
 
   return mapResponseToOption(response)
