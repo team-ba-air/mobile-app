@@ -15,7 +15,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
     setTimeout(() => {
       getAccessToken().then(token => {
         if (token) {
-          navigation.navigate(SCREENS.app.home)
+          navigation.navigate(SCREENS.app.homeMenu)
         } else {
           navigation.navigate(SCREENS.welcome.welcomeScreen)
         }

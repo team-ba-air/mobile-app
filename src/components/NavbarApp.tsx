@@ -22,8 +22,10 @@ const NavbarApp: React.FC<NavbarAppProps> = ({ title, navigation, type = 'primar
         borderBottomWidth: type === 'secondary' ? 1 : 0,
         borderBottomColor: Color.gray[3],
         borderStyle: 'solid',
-        paddingTop: Platform.OS === 'ios' ? insets.top : 0,
-      }
+      }, 
+      Platform.OS === 'ios' && ({
+        paddingTop: insets.top,
+      })
     ]}>
       {!disableBack && (
         type === 'primary' ? 
