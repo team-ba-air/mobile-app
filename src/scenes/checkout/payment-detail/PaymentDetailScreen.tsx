@@ -98,6 +98,7 @@ const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, naviga
       bookingInformation: sampleResponse.booking_information,
       paymentMethod: sampleResponse.payment_method,
       type: 'confirmation-success',
+      isFinish: status === 5,
     })
   }
 

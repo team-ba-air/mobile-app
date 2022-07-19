@@ -56,7 +56,7 @@ const BookingDetail: React.FC<BookingDetailProps> = ({ data, navigation }) => {
         <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Biaya</Text>
         <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
           <Text style={{ fontSize: fontPixel(16), fontWeight: 'bold' }}>{'Rp490.000'}</Text>
-          <Text style={{ fontSize: fontPixel(11), fontWeight: 'bold', color: Color.blue[8] }}>Belum lunas (pembayaran di bengkel)</Text>
+          <Text style={{ fontSize: fontPixel(11), fontWeight: 'bold', color: Color.blue[8] }}>Pembayaran di bengkel</Text>
         </View>
         
       </View>

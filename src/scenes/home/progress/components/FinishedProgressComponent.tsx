@@ -43,6 +43,7 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
         status: 5,
       })
     } else {
+      handleDismiss()
       navigation.navigate(SCREENS.reservation.selectPayment, { 
         additionalComponent: data.additional_component,
         status: 5,

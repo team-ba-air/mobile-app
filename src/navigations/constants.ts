@@ -20,7 +20,7 @@ export const SCREENS = {
   },
   app: {
     mainApp: 'App',
-    home: 'Home',
+    home: 'HomeScreen',
     maps: 'Maps',
   },
   reservation: {

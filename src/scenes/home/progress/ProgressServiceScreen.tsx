@@ -49,7 +49,7 @@ const sampleDataProgress: ReservationDetailItem = {
     datetime: new Date('2022-06-14T11:27:39.404Z'),
     notes: 'Kebetulan daerah saya lumayan banyak debu, AC saya jadi agak kurang dingin sih',
   },
-  status: 4, // 0, 1, 2, 3, 4
+  status: 3, // 0, 1, 2, 3, 4
   progress: [
     {
       step: 0,
@@ -74,18 +74,18 @@ const sampleDataProgress: ReservationDetailItem = {
   ],
   service_assistant: 'Michael Hans',
   additional_component: [
-    {
-      id: '',
-      name: 'V-Belt',
-      priority: 'IMPORTANT', // IMPORTANT or RECOMMENDED
-      price: 10000,
-    },
-    {
-      id: '',
-      name: 'Filter AC',
-      priority: 'IMPORTANT',
-      price: 10000,
-    },
+    // {
+    //   id: '',
+    //   name: 'V-Belt',
+    //   priority: 'IMPORTANT', // IMPORTANT or RECOMMENDED
+    //   price: 10000,
+    // },
+    // {
+    //   id: '',
+    //   name: 'Filter AC',
+    //   priority: 'IMPORTANT',
+    //   price: 10000,
+    // },
   ],
   requested_additional_component: [
     {
