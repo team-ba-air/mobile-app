@@ -24,15 +24,16 @@ interface ParamInformasiTagihan {
   bookingInformation: BookingInformationItem
   paymentMethod?: PaymentMethodSelectionItem
   type?: 'confirmation-success' | 'booking-success'
+  isFinish?: boolean
 }
  
 const InformasiTagihanScreen: React.FC<InformasiTagihanScreenProps> = ({ route, navigation }) => {
-  const { id, additionalComponents, bookingInformation, bookingNumber, paymentMethod, type } = route.params
+  const { id, additionalComponents, bookingInformation, bookingNumber, paymentMethod, type, isFinish = false } = route.params
 
   const totalPriceAdditionalComponent = additionalComponents.reduce((totalAccumulator, component) => totalAccumulator + component.price, 0)
 
   const handleBack = () => {
-    if (type === 'booking-success') {
+    if (type === 'booking-success' || isFinish) {
       navigation.navigate(SCREENS.app.home)
     } else {
       navigation.navigate(SCREENS.reservation.progressService, { data: id })
@@ -57,7 +58,9 @@ const InformasiTagihanScreen: React.FC<InformasiTagihanScreenProps> = ({ route, 
           {type === 'confirmation-success' && (
             <View style={{ alignSelf: 'center', margin: heightPixel(24) }}>
               <Text style={{ fontSize: fontPixel(20), fontWeight: 'bold', textAlign: 'center' }}>Konfirmasi Berhasil!</Text>
-              <Text style={{ fontSize: fontPixel(12), color: Color.gray.secondary, textAlign: 'center' }}>Servis anda akan segera dikerjakan</Text>
+              <Text style={{ fontSize: fontPixel(12), color: Color.gray.secondary, textAlign: 'center' }}>
+                {isFinish ? 'Servis anda telah selesai, silakan lakukan pembayaran!' : 'Servis anda akan segera dikerjakan'}
+              </Text>
             </View>
           )}
           
@@ -105,7 +108,14 @@ const InformasiTagihanScreen: React.FC<InformasiTagihanScreenProps> = ({ route, 
         borderTopColor: Color.gray[2],
         borderTopWidth: 2,
       }}>
-        <CustomButton onPress={handleBack} type='primary' title={type === 'booking-success' ? 'Kembali ke Home' : 'Kembali ke Progres Servis'} />
+        <CustomButton 
+          onPress={handleBack} 
+          type='primary' 
+          title={type === 'booking-success' || isFinish ? 
+            'Kembali ke Home' : 
+            'Kembali ke Progres Servis'
+          } 
+        />
       </View>
     </AppContainer>
   );

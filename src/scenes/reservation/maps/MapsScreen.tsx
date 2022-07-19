@@ -124,8 +124,8 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
+          latitude: -6.89474,
+          longitude: 107.610476,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}

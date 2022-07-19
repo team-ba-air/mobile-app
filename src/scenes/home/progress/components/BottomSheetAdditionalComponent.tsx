@@ -21,7 +21,7 @@ const BottomSheetAdditionalComponent: React.FC<BottomSheetAdditionalComponentPro
           Pada pengerjaan servis, seringkali terdapat komponen yang harus diganti dan tidak termasuk dengan biaya servis awal. Penambahan komponen baru dapat diketahui ketika mekanik sedang melakukan inspeksi yang mendalam.
         </Text>
 
-        <Text style={{ fontSize: fontPixel(14), color: Color.gray[9], textAlign: 'justify', lineHeight: 21 }}>
+        <Text style={{ fontSize: fontPixel(14), color: Color.gray[9], textAlign: 'justify', lineHeight: 21, marginTop: heightPixel(8) }}>
           Karena tidak termasuk dengan biaya servis awal, maka penambahan komponen memerlukan penambahan biaya. Karena itu, dibutuhkan persetujuan dari pemilik kendaraan sebelum servis dilanjutkan.
         </Text>
       </View>
