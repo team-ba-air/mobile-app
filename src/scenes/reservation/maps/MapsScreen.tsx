@@ -1,6 +1,6 @@
 import AppContainer from 'components/AppContainer';
-import React, { useEffect, useState } from 'react'
-import { PermissionsAndroid, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react'
+import { PermissionsAndroid, Platform, StyleSheet, Text, View } from 'react-native';
 import MapView, { MapEvent, Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import { Icon } from 'react-native-elements';
@@ -10,6 +10,7 @@ import { fontPixel, heightPixel, SCREEN_WIDTH, widthPixel } from 'styles/sizes';
 import { Color } from 'styles/colors';
 import { NavigationProp, Route } from '@react-navigation/native';
 import { ServiceItem } from '../constants';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface MapsScreenProps {
   navigation: NavigationProp<any>
@@ -26,13 +27,26 @@ export type LocationPoint = {
 }
  
 const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
-  const [region, setRegion] = useState<LocationPoint | null>(null)
-  const [location, setLocation] = useState<LocationPoint | null>(null)
-  const [showWarning, setShowWarning] = useState<boolean>(true)
+  const insets = useSafeAreaInsets()
 
-  console.log(route.params)
+  const map = useRef<MapView>(null)
+
+  const [location, setLocation] = useState<LocationPoint | null>(null)
 
   useEffect(() => {
+    if (Platform.OS === 'android') {
+      handlePermissionAndroid()
+    } else {
+      Geolocation.requestAuthorization("whenInUse").then((value) => {
+        console.log(`Value Request Authorization: ${value}`)
+        if (value === 'granted') {
+          getLocation()
+        }
+      })
+    }
+  }, [])
+
+  const handlePermissionAndroid = () => {
     PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       {
         title: "Otoku Location Permission",
@@ -49,41 +63,36 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
           console.log("Location permission denied");
         }
       })
-  }, [])
+  }
 
   const getLocation = () => {
     Geolocation.getCurrentPosition(
       (position) => {
-        setRegion({
+        const dataRegion: Region = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-        })
+          latitudeDelta: 0.05,
+          longitudeDelta: 0.05,
+        }
+        
+        console.log('UPDATE')
+        if (Platform.OS === 'ios') {
+          map.current?.animateToRegion(dataRegion, 0.1)
+        }
 
         setLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         })
-        console.log(position);
       },
       (error) => {
-        // See error code charts in documentation.
         console.log(error.code, error.message);
       },
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     );
   }
 
-  const handleRegionChange = (region: Region, details?: {
-    isGesture: boolean;
-  } | undefined) => {
-    setRegion({
-      latitude: region.latitude,
-      longitude: region.longitude,
-    })
-  }
-
   const handlePressMap = (e: MapEvent) => {
-    console.log(e.nativeEvent)
     setLocation({
       latitude: e.nativeEvent.coordinate.latitude,
       longitude: e.nativeEvent.coordinate.longitude,
@@ -104,18 +113,19 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
       alignItems: 'flex-end',
       height: animatedPosition.value - 50,
       width: '10%',
+      marginBottom: 40,
     }
   })
 
   return ( 
     <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0, alignItems: 'flex-end' }} refreshDisable>
       <MapView
+        ref={map}
         provider={PROVIDER_GOOGLE}
-        // style={styles.map}
-        onRegionChangeComplete={handleRegionChange}
-        region={{
-          latitude: region?.latitude ?? 37.78825,
-          longitude: region?.longitude ?? -122.4324,
+        style={styles.map}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
@@ -123,6 +133,7 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
       >
         {location && (
           <Marker 
+            key='LOCATION'
             coordinate={location}
           />
         )}
@@ -133,15 +144,13 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
         animatedPosition={animatedPosition} 
         service={{ img: '', value: '', label: 'Servis Dasar' }} 
       />
-      <View style={styles.containerActionNavigate}>
+      <View style={[styles.containerActionNavigate, Platform.OS === 'ios' && ({
+        paddingTop: insets.top,
+      })]}>
         <Icon size={16} raised name={'arrow-back'} onPress={() => navigation.goBack()} tvParallaxProperties={undefined} />
       </View>
       <View>
         <Animated.View style={animatedStyleAction}>
-          <View style={styles.warning}>
-            <Text style={{ fontSize: fontPixel(12), color: 'white', paddingHorizontal: widthPixel(4) }}>Lokasi tidak terbaca. Silakan klik pada peta untuk memilih lokasi, atau nyalakan GPS.</Text>
-            <Icon size={18} onPress={() => setShowWarning(false)} color={'white'} name={'close'} tvParallaxProperties={undefined}/>
-          </View>
           <Icon size={16} raised name={'gps-fixed'} onPress={handlePressGPS} tvParallaxProperties={undefined} />
           
           {location && (

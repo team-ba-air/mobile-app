@@ -25,7 +25,9 @@ const ServiceList: React.FC<ServiceListProps> = ({ navigation }) => {
     }
   )
 
+  const serviceList = servicesListResponse?.body ?? []
 
+  if (serviceList.length === 0) return null
   return ( 
     <Card containerStyle={styles.cardStyle}>
       <FlatList

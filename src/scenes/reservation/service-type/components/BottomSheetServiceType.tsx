@@ -3,7 +3,7 @@ import React from 'react'
 import { View, Text, FlatList, ListRenderItemInfo, TouchableOpacity } from 'react-native';
 import { ServiceItem } from 'scenes/reservation/constants';
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
-import BaseBottomSheet from 'components/base/BaseBottomSheet'
+import BaseBottomSheet from 'components/BaseBottomSheet'
 import { Color } from 'styles/colors';
 
 interface BottomSheetServiceTypeProps {

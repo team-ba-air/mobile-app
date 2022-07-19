@@ -12,7 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		518C13A2F8531E37B7A7E3BA /* libPods-CarServiceApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1403ADBC24CED3D29712E30E /* libPods-CarServiceApp.a */; };
-		54C4E0E628803AD400D21C0E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 54C4E0E528803AD400D21C0E /* GoogleService-Info.plist */; };
+		5478AE7428857F90000BF356 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5478AE7328857F90000BF356 /* GoogleService-Info.plist */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		88D177E574D25978A47C949A /* libPods-CarServiceApp-CarServiceAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11CAEF5E90FCBE5874AD648A /* libPods-CarServiceApp-CarServiceAppTests.a */; };
 /* End PBXBuildFile section */
@@ -34,7 +34,7 @@
 		00E356F21AD99517003FC87E /* CarServiceAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CarServiceAppTests.m; sourceTree = "<group>"; };
 		0C7260AEEC536787A0946645 /* Pods-CarServiceApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarServiceApp.release.xcconfig"; path = "Target Support Files/Pods-CarServiceApp/Pods-CarServiceApp.release.xcconfig"; sourceTree = "<group>"; };
 		11CAEF5E90FCBE5874AD648A /* libPods-CarServiceApp-CarServiceAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CarServiceApp-CarServiceAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07F961A680F5B00A75B9A /* CarServiceApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarServiceApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Otoku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Otoku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = CarServiceApp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = CarServiceApp/AppDelegate.m; sourceTree = "<group>"; wrapsLines = 1; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CarServiceApp/Images.xcassets; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 		5449F913287F08080037F272 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		5449F914287F08080037F272 /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		5449F915287F08080037F272 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		54C4E0E528803AD400D21C0E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../yahya1547/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5478AE7328857F90000BF356 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../yahya1547/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		664185E5C22A47F8B2A0C4B7 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = CarServiceApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		849D6A4FFE344E0A8398F138 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 		13B07FAE1A68108700A75B9A /* CarServiceApp */ = {
 			isa = PBXGroup;
 			children = (
-				54C4E0E528803AD400D21C0E /* GoogleService-Info.plist */,
+				5478AE7328857F90000BF356 /* GoogleService-Info.plist */,
 				544962C3287EF62D0037F272 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -191,7 +191,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* CarServiceApp.app */,
+				13B07F961A680F5B00A75B9A /* Otoku.app */,
 				00E356EE1AD99517003FC87E /* CarServiceAppTests.xctest */,
 			);
 			name = Products;
@@ -274,7 +274,7 @@
 			);
 			name = CarServiceApp;
 			productName = CarServiceApp;
-			productReference = 13B07F961A680F5B00A75B9A /* CarServiceApp.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Otoku.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -364,7 +364,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				54C4E0E628803AD400D21C0E /* GoogleService-Info.plist in Resources */,
+				5478AE7428857F90000BF356 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -616,8 +616,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = CarServiceApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobile.otoku;
+				PRODUCT_NAME = Otoku;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -641,8 +641,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = CarServiceApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobile.otoku;
+				PRODUCT_NAME = Otoku;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -27,10 +27,6 @@ const BaseBottomSheet: React.FC<BaseBottomSheetProps> = (props) => {
     }
   }
 
-  const handleOnScroll = (event: any) => {
-    setOffset(event.nativeEvent.contentOffset.y);
-  };
-  
   return ( 
     <Modal
       isVisible={visible}
@@ -47,13 +43,7 @@ const BaseBottomSheet: React.FC<BaseBottomSheetProps> = (props) => {
       <View style={styles.content}>
         <View style={styles.line}/>
         <Image source={require('assets/icon/drag_indicator.svg')} />
-        <ScrollView 
-          style={{ paddingBottom: heightPixel(8) }}
-          ref={scrollViewRef} 
-          onScroll={handleOnScroll} 
-          scrollEventThrottle={16}>
-          {children}
-        </ScrollView>
+        {children}
       </View>
     </Modal>
    );

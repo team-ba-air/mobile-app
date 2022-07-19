@@ -1,4 +1,4 @@
-import BaseBottomSheet from 'components/base/BaseBottomSheet';
+import BaseBottomSheet from 'components/BaseBottomSheet';
 import React from 'react'
 import { Text, View } from 'react-native';
 import { Color } from 'styles/colors';
