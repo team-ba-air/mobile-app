@@ -156,6 +156,8 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
     return () => navigation.getParent()?.setOptions({ tabBarStyle: undefined })
   }, [navigation]);
 
+  console.log(expireDate)
+
   return ( 
     <AppContainer style={styles.container} refreshDisable>
       <Snackbar
@@ -215,7 +217,13 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
         <CustomTextInput style={{ marginTop: heightPixel(10) }} placeholder={'Nomor VIN'} onChange={setVin} value={vin} />
 
         <Text style={{ marginTop: heightPixel(16), fontSize: fontPixel(Sizing.text.body[12]), fontWeight: 'bold' }}>Masa Berlaku STNK</Text>
-        <FormInputDate style={{ marginTop: heightPixel(10) }} placeholder={'Masa Berlaku STNK'} onChange={setExpireDate} value={expireDate} />
+        <FormInputDate 
+          style={{ marginTop: heightPixel(10) }} 
+          placeholder={'Masa Berlaku STNK'} 
+          onChange={setExpireDate} 
+          value={expireDate} 
+          display={'spinner'}
+        />
       </View>
       
       <CustomButton style={{ marginTop: heightPixel(16) }} disabled={disabled} onPress={handleForm} type='primary' title={'Simpan'}/>

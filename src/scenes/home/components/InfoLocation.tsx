@@ -23,6 +23,7 @@ const InfoLocation: React.FC<InfoLocationProps> = ({ navigation }) => {
   
   Geocoder.geocodePosition(NY).then((res: any) => {
       // res is an Array of geocoding object (see below)
+      console.log('GEOCODER')
       console.log(res[0])
       const formattedAddress = res[0].formattedAddress.split(', ')[0]
       const subLocality = res[0].subLocality
@@ -31,7 +32,7 @@ const InfoLocation: React.FC<InfoLocationProps> = ({ navigation }) => {
   .catch((err: any) => console.log(err))
   
   return ( 
-    <TouchableOpacity style={styles.container} onPress={() => navigation.navigate(SCREENS.app.maps)}>
+    <View style={styles.container}>
       <View>
         <Text style={{ fontSize: fontPixel(Sizing.text.subheading[18]), color: Color.gray[0], fontWeight: 'bold' }}>Hi, Oto</Text>
       </View>
@@ -42,7 +43,7 @@ const InfoLocation: React.FC<InfoLocationProps> = ({ navigation }) => {
           <Text numberOfLines={1} ellipsizeMode={'tail'} style={{ fontSize: fontPixel(Sizing.text.body[12]), color: Color.gray[0], fontWeight: 'bold' }}>{address ? address : '-'}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
    );
 }
  

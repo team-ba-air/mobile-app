@@ -22,6 +22,7 @@ export const SCREENS = {
     mainApp: 'App',
     home: 'HomeScreen',
     maps: 'Maps',
+    homeMenu: 'Home',
   },
   reservation: {
     progressService: 'ProgressService',
