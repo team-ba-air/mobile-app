@@ -40,6 +40,16 @@ const BottomSheetBengkelList: React.FC<BottomSheetBengkelListProps> = ({ animate
 
   const shopList = shopListResponse?.body ?? []
 
+  const handleClick = (item: BengkelItem) => {
+    navigation.navigate(SCREENS.reservation.bengkelFormReservation, { 
+      data: {
+        shop: item,
+        car,
+        service,
+      }
+    })
+  }
+
   return ( 
     <BottomSheet style={{ paddingHorizontal: widthPixel(16) }} animatedPosition={animatedPosition} ref={bottomSheetRef} index={0} snapPoints={['40%', '80%']} onChange={handleSheetChanges}>
       <View>
@@ -48,7 +58,7 @@ const BottomSheetBengkelList: React.FC<BottomSheetBengkelListProps> = ({ animate
       <FlatList
         data={shopListResponse?.body ?? []}
         renderItem={(info: ListRenderItemInfo<BengkelItem>) => (
-          <TouchableOpacity onPress={() => navigation.navigate(SCREENS.reservation.bengkelFormReservation, { data: info.item })}>
+          <TouchableOpacity onPress={() => handleClick(info.item)}>
             <BengkelListItem data={info.item} />
           </TouchableOpacity>
         )}

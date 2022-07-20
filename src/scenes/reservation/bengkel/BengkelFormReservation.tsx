@@ -3,26 +3,24 @@ import { Route } from '@react-navigation/routers';
 import AppContainer from 'components/AppContainer';
 import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form';
-import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
-import { Icon, Tab, TabView, Text } from 'react-native-elements';
+import { StyleSheet, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Color } from 'styles/colors';
-import { heightPixel, SCREEN_WIDTH, Sizing, widthPixel } from 'styles/sizes';
+import { heightPixel, widthPixel } from 'styles/sizes';
 import BengkelHeader from './components/BengkelHeader';
 import ReservationFormComponent from './components/ReservationFormComponent';
-import { BengkelDetailItem, BengkelItem, ReservationForm, ReviewItem } from '../constants';
+import { BengkelDetailItem, BengkelItem, ReservationForm, ReviewItem, ServiceItem } from '../constants';
 import { reservationFormSchema } from '../schema/reservationFormSchema';
 import TabBengkel from './components/TabBengkel';
 import { NavigationProp } from '@react-navigation/native';
-import ReviewItemComponent from './components/ReviewItemComponent';
 import ReviewComponent from './components/ReviewComponent';
 import { PublicAPIResponse } from 'network/types';
 import getShopDetail from '../service/getShopDetail';
-import { useMutation, useQuery } from 'react-query';
-import createReservation from '../service/createReservation';
+import { useQuery } from 'react-query';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { VehicleItem } from 'scenes/vehicle/constants';
 
 interface BengkelFormReservationProps {
   route: Route<string, ParamBengkel>
@@ -30,7 +28,11 @@ interface BengkelFormReservationProps {
 }
 
 interface ParamBengkel {
-  data: BengkelItem
+  data: {
+    shop: BengkelItem
+    car: VehicleItem
+    service: ServiceItem
+  }
 }
 
  
@@ -38,8 +40,10 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
   const { data } = route.params
   const insets = useSafeAreaInsets()
 
-  const formInitialValues = {
-    car: '',
+  const valueCar = `${data.car.id}|${data.car.brand}|${data.car.type}|${data.car.plat}`
+
+  const formInitialValues: ReservationForm = {
+    car: valueCar,
     service: '',
     date: new Date(),
     hour: '',
@@ -54,6 +58,7 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
 
   const {
     handleSubmit: handleFormSubmit,
+    setValue,
   } = formMethods
 
   const onSubmit = useCallback((data: ReservationForm) => {
@@ -68,16 +73,23 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
     data: shopDetailResponse,
   } = useQuery<PublicAPIResponse<BengkelDetailItem>>(
     ['getShopDetail', data],
-    () => getShopDetail({ id: data.id }),
+    () => getShopDetail({ id: data.car.id }),
     {
       refetchOnWindowFocus: false,
       retry: true,
     }
   )
 
-  console.log(shopDetailResponse)
+  useEffect(() => {
+    if (shopDetailResponse) {
+      setValue('shop', shopDetailResponse.body)
+    }
+  }, [shopDetailResponse])
 
-  const [index, setIndex] = React.useState(0);
+  const shopDetail = shopDetailResponse?.body
+  console.log(`Shop Detail: ${shopDetail}`)
+
+  const [index, setIndex] = React.useState(0)
 
   return ( 
     <AppContainer style={{ padding: 0, alignItems: 'flex-start' }} refreshDisable>
@@ -96,7 +108,10 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
               style={{ display: 'flex', flexDirection: 'column' }}
             >
               <FormProvider {...formMethods}>
-                <ReservationFormComponent serviceOptions={shopDetailResponse?.body?.serviceAvailable} />
+                <ReservationFormComponent 
+                  serviceOptions={shopDetailResponse?.body?.serviceAvailable ?? []} 
+                  car={data.car}
+                />
               </FormProvider>
               <CustomButton 
                 onPress={handleFormSubmit(onSubmit)} 

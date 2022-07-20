@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native';
 import { BookingInformationItem } from 'scenes/home/constants';
@@ -30,7 +31,7 @@ const BookingDetailComponent: React.FC<BookingDetailComponentProps> = ({ data })
       </View>
       <View style={{ marginTop: 16 }}>
         <Text style={styles.title}>Waktu</Text>
-        <Text style={styles.content}>{getFormatDateNumeric(data.datetime)}</Text>
+        <Text style={styles.content}>{format(data.datetime, 'eeee, dd MMMM yyyy')}</Text>
         <Text style={styles.content}>{getFormatHour(data.datetime)} WIB</Text>
       </View>
       <View style={{ marginTop: 16 }}>
