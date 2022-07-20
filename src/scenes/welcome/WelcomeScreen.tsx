@@ -90,14 +90,14 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
   const { isLoading: isAuthenticating, mutateAsync: onAuthenticate } = useMutation(authenticateSSOGoogle, {
     onSuccess: (data) => {
       saveAccessToken(data.body?.access_token ?? '')
-      navigation.navigate(SCREENS.app.home)
+      navigation.navigate(SCREENS.app.homeMenu)
     },
   })
 
   const { isLoading: isAuthenticatingFacebook, mutateAsync: onAuthenticateFacebook } = useMutation(authenticateSSOFacebook, {
     onSuccess: (data) => {
       saveAccessToken(data.body?.access_token ?? '')
-      navigation.navigate(SCREENS.app.home)
+      navigation.navigate(SCREENS.app.homeMenu)
     },
   })
 

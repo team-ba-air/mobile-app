@@ -46,7 +46,6 @@ const CarouselComponent: React.FC<CarouselComponentProps> = () => {
     removeClippedSubviews: true,
     scrollEventThrottle: 16,
     windowSize: 2,
-    keyExtractor: useCallback(e => e.id, []),
     getItemLayout: useCallback(
       (_, index) => ({
         index,
@@ -68,6 +67,7 @@ const CarouselComponent: React.FC<CarouselComponentProps> = () => {
     <View>
       <FlatList 
         data={data}
+        keyExtractor={(_, index) => index.toString()}
         renderItem={(info: ListRenderItemInfo<any>) => (
           <SlideItem {...info.item} />
         )}

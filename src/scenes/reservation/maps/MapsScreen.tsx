@@ -11,6 +11,7 @@ import { Color } from 'styles/colors';
 import { NavigationProp, Route } from '@react-navigation/native';
 import { ServiceItem } from '../constants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { VehicleItem } from 'scenes/vehicle/constants';
 
 interface MapsScreenProps {
   navigation: NavigationProp<any>
@@ -18,7 +19,10 @@ interface MapsScreenProps {
 }
 
 interface ParamService {
-  data: ServiceItem
+  data: {
+    car: VehicleItem,
+    service: ServiceItem,
+  }
 }
 
 export type LocationPoint = {
@@ -28,7 +32,7 @@ export type LocationPoint = {
  
 const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets()
-
+  const { data } = route.params
   const map = useRef<MapView>(null)
 
   const [location, setLocation] = useState<LocationPoint | null>(null)
@@ -142,7 +146,8 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
       <BottomSheetBengkelList 
         navigation={navigation} 
         animatedPosition={animatedPosition} 
-        service={{ img: '', value: '', label: 'Servis Dasar' }} 
+        service={data.service}
+        car={data.car} 
       />
       <View style={[styles.containerActionNavigate, Platform.OS === 'ios' && ({
         paddingTop: insets.top,

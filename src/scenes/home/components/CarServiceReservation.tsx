@@ -31,7 +31,7 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
   const goToReservation = (vehicle: VehicleItem) => {
     console.log('Go To Reservation')
     navigation.navigate(SCREENS.reservation.serviceReservation, {
-      data: `${vehicle.id}|${vehicle.brand}|${vehicle.type}|${vehicle.plat}`
+      data: vehicle
     })
   }
 
