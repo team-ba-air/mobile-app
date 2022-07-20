@@ -1,9 +1,12 @@
+import { format } from 'date-fns';
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-elements';
 import { ReservationForm } from 'scenes/reservation/constants';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, Sizing } from 'styles/sizes';
+import { getFormatDateNumeric } from 'utils/DateUtil';
+import { formatRupiah } from 'utils/TextUtils';
 
 interface CheckoutReservationProps {
   data?: ReservationForm
@@ -12,6 +15,8 @@ interface CheckoutReservationProps {
 const CheckoutReservation: React.FC<CheckoutReservationProps> = ({ data }) => {
   const carItem = data?.car?.split('|')
   const serviceItem = data?.service?.split('|')
+
+  const servicePrice = parseInt(serviceItem?.[3] ?? '0')
 
   return ( 
     <>
@@ -25,11 +30,11 @@ const CheckoutReservation: React.FC<CheckoutReservationProps> = ({ data }) => {
       </View>
       <View style={{ marginTop: heightPixel(16) }}>
         <Text style={styles.title}>Servis</Text>
-        <Text style={styles.content}>{serviceItem?.[1]} - {serviceItem?.[3]}</Text>
+        <Text style={styles.content}>{serviceItem?.[1]} - {formatRupiah(servicePrice)}</Text>
       </View>
       <View style={{ marginTop: heightPixel(16) }}>
         <Text style={styles.title}>Waktu</Text>
-        <Text style={styles.content}>Kamis, 7 Oktober 2021</Text>
+        <Text style={styles.content}>{format(data?.date ?? new Date(), 'eeee, dd MMMM yyyy')}</Text>
         <Text style={styles.content}>{data?.hour} WIB</Text>
       </View>
       <View style={{ marginTop: heightPixel(16) }}>

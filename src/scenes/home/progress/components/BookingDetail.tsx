@@ -1,5 +1,6 @@
 import { NavigationProp } from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
+import { format } from 'date-fns';
 import { SCREENS } from 'navigations/constants';
 import * as React from 'react';
 import { Text, View } from 'react-native';
@@ -45,7 +46,7 @@ const BookingDetail: React.FC<BookingDetailProps> = ({ data, navigation }) => {
         </Text>
 
         <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Waktu</Text>
-        <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{getFormatDateNumeric(infoBooking.datetime)}</Text>
+        <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{format(infoBooking.datetime, 'eeee, dd MMMM yyyy')}</Text>
         <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>{`${getFormatHour(infoBooking.datetime)} WIB`}</Text>
 
         <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Catatan Tambahan</Text>

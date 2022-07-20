@@ -37,7 +37,7 @@ const CheckoutScreen: React.FC<CheckoutScreenProps> = ({ route, navigation }) =>
   }
 
   return ( 
-    <AppContainer style={styles.container}>
+    <AppContainer style={styles.container} refreshDisable>
       <View style={{ padding: 16 }}>
         <CheckoutReservation data={data} />
       </View>

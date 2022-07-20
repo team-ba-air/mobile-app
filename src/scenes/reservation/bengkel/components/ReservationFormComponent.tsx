@@ -14,6 +14,7 @@ import FormInputDate from 'components/FormInputDate';
 import { PublicAPIResponse } from 'network/types';
 import getVehicleList from 'scenes/reservation/service/getVehicleList';
 import { useQuery } from 'react-query';
+import { VehicleItem } from 'scenes/vehicle/constants';
 
 interface ReservationFormComponentProps {
   serviceOptions?:  {
@@ -22,33 +23,22 @@ interface ReservationFormComponentProps {
     description: string
     price: number
   }[]
+  car: VehicleItem
 }
 
-const defaultServiceOptions: OptionItem[] = [
+const serviceListData = [
   {
-    data: {
-      name: 'Servis Dasar',
-      description: 'Servis Dasar mencakup servis rutin pada mesin mobil',
-      price: 1000000,
-    },
-    value: 'Servis Dasar',
+    id: '1',
+    name: 'Servis Reguler 10.000KM',
+    description: 'Servis Rutin Setiap 10.000KM atau setiap 6 bulan sekali',
+    price: 500000,
   },
   {
-    data: {
-      name: 'Servis AC',
-      description: 'Servis AC mencakup perbaikan AC mobil',
-      price: 1000000,
-    },
-    value: 'Servis AC',
-  },
-  {
-    data: {
-      name: 'Servis Kaca',
-      description: 'Servis Kaca mencakup perbaikan Kaca pada mobil',
-      price: 1000000,
-    },
-    value: 'Servis Kaca',
-  },
+    id: '2',
+    name: 'Servis Reguler 20.000KM',
+    description: 'Servis Rutin Setiap 20.000KM atau setiap 1 tahun sekali',
+    price: 600000,
+  }
 ]
 
 const availableHours: AvailableHourItem[] = [
@@ -78,7 +68,7 @@ const availableHours: AvailableHourItem[] = [
   },
 ]
  
-const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ serviceOptions }) => {
+const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ serviceOptions, car }) => {
   const {
     control,
     formState: { errors },
@@ -87,7 +77,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
   const {
     data: vehicleListResponse,
   } = useQuery<PublicAPIResponse<OptionItem[]>>(
-    ['getVehicleList'],
+    ['getVehicleList-option'],
     () => getVehicleList(),
     {
       refetchOnWindowFocus: false,
@@ -99,6 +89,11 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
     data: option,
     value: `${option.id}|${option.name}|${option.description}|${option.price}`
   })) ?? []
+
+  const serviceListOptions: OptionItem[] = serviceListData.map(option => ({
+    data: option,
+    value: `${option.id}|${option.name}|${option.description}|${option.price}`
+  }))
 
   return ( 
     <View style={{ marginTop: 20 }}>
@@ -122,7 +117,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
             )} 
             renderSelected={(option) => {
               return (
-              <Text style={{fontSize: fontPixel(Sizing.text.body[14]) }}>{option?.brand} {option?.type} {option?.plat}</Text>
+              <Text style={{fontSize: fontPixel(Sizing.text.body[14]) }}>{option?.brand} {option?.type} {option?.license_plate}</Text>
             )}}
           />
         )}
@@ -174,7 +169,8 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
         render={({ field: { onChange, value }}) => (
           <Dropdown style={styles.margin} 
             value={value} 
-            options={serviceOptionsItem} 
+            // options={serviceOptionsItem} 
+            options={serviceListOptions}
             onSelect={onChange}
             placeholder={'Pilih Servis'}
             error={errors?.service?.message}

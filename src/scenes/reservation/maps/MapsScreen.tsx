@@ -115,9 +115,8 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
       flexDirection: 'column-reverse',
       justifyContent: 'flex-start',
       alignItems: 'flex-end',
-      height: animatedPosition.value - 50,
+      height: animatedPosition.value - (Platform.OS === 'android' ? 50 : 100),
       width: '10%',
-      marginBottom: 40,
     }
   })
 
