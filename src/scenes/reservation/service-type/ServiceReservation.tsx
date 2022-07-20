@@ -8,6 +8,7 @@ import { Image, ListRenderItemInfo, StyleSheet, Text, View } from 'react-native'
 import { Icon } from 'react-native-elements';
 import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useQuery } from 'react-query';
+import { VehicleItem } from 'scenes/vehicle/constants';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
 import { ServiceItem } from '../constants';
@@ -22,7 +23,7 @@ interface ServiceReservationProps {
 }
 
 interface ParamCar {
-  data: string
+  data: VehicleItem
 }
 
 const serviceList: ServiceItem[] = [
@@ -100,10 +101,20 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, rou
   useEffect(() => {
     if (data) {
       if (vehicleList.length > 0) {
-        setCar(data)
+        const valueCar = `${data.id}|${data.brand}|${data.type}|${data.plat}`
+        setCar(valueCar)
       }
     }
   }, [vehicleList])
+
+  const handleClick = (item: ServiceItem) => {
+    navigation.navigate(SCREENS.app.maps, { 
+      data: {
+        car: data,
+        service: item,
+      }
+    })
+  }
 
   return ( 
       <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0 }} refreshDisable>
@@ -160,7 +171,7 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, rou
                     />
                   </TouchableWithoutFeedback>
                   
-                  <TouchableWithoutFeedback onPress={() => navigation.navigate(SCREENS.app.maps, { data: item.item })}>
+                  <TouchableWithoutFeedback onPress={() => handleClick(item.item)}>
                     <Image 
                       style={styles.image} 
                       // source={require(`@assets/servis_example.png`)} 

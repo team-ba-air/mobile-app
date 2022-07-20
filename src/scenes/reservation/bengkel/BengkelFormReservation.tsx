@@ -22,6 +22,7 @@ import { PublicAPIResponse } from 'network/types';
 import getShopDetail from '../service/getShopDetail';
 import { useMutation, useQuery } from 'react-query';
 import createReservation from '../service/createReservation';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface BengkelFormReservationProps {
   route: Route<string, ParamBengkel>
@@ -35,6 +36,7 @@ interface ParamBengkel {
  
 const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, navigation }) => {
   const { data } = route.params
+  const insets = useSafeAreaInsets()
 
   const formInitialValues = {
     car: '',
@@ -78,8 +80,8 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
   const [index, setIndex] = React.useState(0);
 
   return ( 
-    <AppContainer style={{ padding: 0, alignItems: 'flex-start' }}>
-      <View style={{  zIndex: 10, elevation: 10 }}>
+    <AppContainer style={{ padding: 0, alignItems: 'flex-start' }} refreshDisable>
+      <View style={{  zIndex: 10, elevation: 10, marginTop: insets.top }}>
         <Icon name={'arrow-back'} raised size={14} onPress={() => navigation.goBack()} tvParallaxProperties={undefined}/>
       </View>
 

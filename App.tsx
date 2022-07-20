@@ -23,7 +23,8 @@ const App: React.FC<AppProps> = () => {
     GoogleSignin.configure({
       scopes: [],
       webClientId: '75808358640-7phfh1dhh5eqtnvt84vebs41m87cp660.apps.googleusercontent.com',
-      offlineAccess: true,
+      iosClientId: '75808358640-0cbiskapsimcmi3b3a4edbmb156s4d93.apps.googleusercontent.com',
+      offlineAccess: false,
       hostedDomain: '',
       forceCodeForRefreshToken: true,
     })

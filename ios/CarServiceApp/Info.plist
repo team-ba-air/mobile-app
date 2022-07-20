@@ -32,7 +32,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.75808358640-0cbiskapsimcmi3b3a4edbmb156s4d93</string>
-				<string>281471494005783</string>
+				<string>fb281471494005783</string>
 			</array>
 		</dict>
 	</array>
@@ -57,8 +57,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

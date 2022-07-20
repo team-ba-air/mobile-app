@@ -2,7 +2,6 @@ import React, { useCallback, useRef } from 'react'
 import { View, Text, FlatList, ListRenderItemInfo } from 'react-native';
 import BottomSheet, { TouchableOpacity } from '@gorhom/bottom-sheet';
 import Animated from 'react-native-reanimated';
-import { ServiceItem } from 'scenes/home/constants';
 import { NavigationProp } from '@react-navigation/native';
 import { Sizing, widthPixel } from 'styles/sizes';
 import BengkelListItem from './BengkelListItem';
@@ -10,15 +9,17 @@ import { SCREENS } from 'navigations/constants';
 import { useQuery } from 'react-query';
 import { PublicAPIResponse } from 'network/types';
 import getShopList from 'scenes/reservation/service/getShopList';
-import { BengkelItem } from 'scenes/reservation/constants';
+import { BengkelItem, ServiceItem } from 'scenes/reservation/constants';
+import { VehicleItem } from 'scenes/vehicle/constants';
 
 interface BottomSheetBengkelListProps {
   animatedPosition?: Animated.SharedValue<number>
   navigation: NavigationProp<any>
   service: ServiceItem
+  car: VehicleItem
 }
  
-const BottomSheetBengkelList: React.FC<BottomSheetBengkelListProps> = ({ animatedPosition, navigation, service }) => {
+const BottomSheetBengkelList: React.FC<BottomSheetBengkelListProps> = ({ animatedPosition, navigation, service, car }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const handleSheetChanges = useCallback((index: number) => {
@@ -30,18 +31,19 @@ const BottomSheetBengkelList: React.FC<BottomSheetBengkelListProps> = ({ animate
     isLoading: isFetchingVehicleList,
   } = useQuery<PublicAPIResponse<any>>(
     ['getShopList'],
-    () => getShopList({ lat: -6, long: 106}),
+    () => getShopList({ lat: -6, long: 106, type: service.name, typeCar: car.brand }),
     {
       refetchOnWindowFocus: false,
       retry: true,
     }
   )
 
-  console.log(shopListResponse)
+  const shopList = shopListResponse?.body ?? []
+
   return ( 
     <BottomSheet style={{ paddingHorizontal: widthPixel(16) }} animatedPosition={animatedPosition} ref={bottomSheetRef} index={0} snapPoints={['40%', '80%']} onChange={handleSheetChanges}>
       <View>
-        <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold' }}>Bengkel yang bisa {service.label}</Text>
+        <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold' }}>Bengkel yang bisa {service.name}</Text>
       </View>
       <FlatList
         data={shopListResponse?.body ?? []}

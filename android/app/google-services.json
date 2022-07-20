@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "75808358640-hogqvdrgg27p26g2h41jmhnuahvm3o6u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.carserviceapp",
+            "certificate_hash": "8bf5da7d2ae462a17bd409a76465e45b0318993e"
+          }
+        },
+        {
           "client_id": "75808358640-ndumdkam9favd6stsb9sa717e4d96gat.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -37,6 +45,13 @@
             {
               "client_id": "75808358640-7phfh1dhh5eqtnvt84vebs41m87cp660.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "75808358640-0cbiskapsimcmi3b3a4edbmb156s4d93.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mobile.otoku"
+              }
             }
           ]
         }
