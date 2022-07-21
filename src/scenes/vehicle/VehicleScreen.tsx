@@ -83,7 +83,7 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation, route }) => {
       queryClient.invalidateQueries('getVehicleList')
       setTimeout(() => {
         showSnackbar()
-      }, 2000)
+      }, 1000)
       
     },
   })
@@ -177,7 +177,12 @@ const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation, route }) => {
         visible={visible}
         onDismiss={() => setVisible(false)}
         duration={4000}
-        style={{ backgroundColor: Color.red[8] }}
+        style={{ backgroundColor: Color.red[7], marginBottom: heightPixel(24) }}
+        theme={{
+          colors: {
+            surface: 'white'
+          }
+        }}
       >
         Mobil {deletedCar?.type} {deletedCar?.plat} berhasil dihapus
       </Snackbar>

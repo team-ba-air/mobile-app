@@ -4,6 +4,7 @@ import CustomButton from 'components/CustomButton';
 import { PublicAPIResponse } from 'network/types';
 import React, { useEffect, useState } from 'react'
 import { ScrollView, Text, View } from 'react-native';
+import { Snackbar } from 'react-native-paper';
 import { useQuery } from 'react-query';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
@@ -71,6 +72,7 @@ const sampleData: HistoryDetailItem = {
  
 const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, route }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [visible, setVisible] = useState(false)
 
   const { data } = route.params
 
@@ -109,6 +111,10 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
     setIsOpen(false)
   }
 
+  const handleSuccess = () => {
+    setVisible(true)
+  }
+
   return ( 
     <AppContainer style={{ backgroundColor: Color.gray[1], padding: 0 }} refreshDisable>
       <ScrollView>
@@ -133,7 +139,28 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
           <Text style={{ color: Color.blue[8] }}> Hubungi Tim Otoku </Text>
         </Text>
       </View>
-      <BottomSheetReview onClose={handleClose} data={mapHistoryDetailItem(sampleData)} isOpen={isOpen} />
+
+      <BottomSheetReview 
+        onSuccess={handleSuccess}
+        onClose={handleClose} 
+        data={mapHistoryDetailItem(sampleData)} 
+        isOpen={isOpen} 
+      />
+
+      <Snackbar
+        visible={visible}
+        onDismiss={() => setVisible(false)}
+        duration={4000}
+        style={{ backgroundColor: '#27AE60' }}
+        wrapperStyle={{ alignSelf: 'center' }}
+        theme={{
+          colors: {
+            surface: 'white'
+          }
+        }}
+      >
+        Terima kasih, ulasan berhasil diberikan!
+      </Snackbar>
     </AppContainer>
   );
 }

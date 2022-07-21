@@ -4,10 +4,10 @@ import { SCREENS } from 'navigations/constants';
 import { PublicAPIResponse } from 'network/types';
 import React, { useState } from 'react'
 import { FlatList, ListRenderItemInfo, Text, View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Snackbar } from 'react-native-paper';
 import { useQuery } from 'react-query';
 import { Color } from 'styles/colors';
-import { fontPixel, heightPixel } from 'styles/sizes';
+import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import BottomSheetReview from './components/BottomSheetReview';
 import HistoryItemComponent from './components/HistoryItemComponent';
 import { HistoryItem } from './constants';
@@ -67,6 +67,7 @@ const dummyData: HistoryItem[] = [
 ]
  
 const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
+  const [visible, setVisible] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<HistoryItem | null>(null);
 
@@ -96,10 +97,14 @@ const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
     setIsOpen(false)
   }
 
+  const handleSuccess = () => {
+    setVisible(true)
+  }
+
   return ( 
-    <AppContainer style={{ backgroundColor: Color.gray[1] }} refreshDisable>
+    <AppContainer style={{ backgroundColor: Color.gray[1], paddingHorizontal: 0 }} refreshDisable>
       {ongoingList.length > 0 && (
-        <View>
+        <View style={{ paddingHorizontal: widthPixel(20) }}>
           <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(8) }}>Sedang Berlangsung</Text>
           <FlatList 
             data={ongoingList}
@@ -110,7 +115,7 @@ const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
         </View>
       )}
       
-      <View>
+      <View style={{ paddingHorizontal: widthPixel(20) }}>
         {finishedList.length > 0 && (
           <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(8) }}>Selesai</Text>
         )}
@@ -123,7 +128,27 @@ const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
         />
       </View>
 
-      <BottomSheetReview onClose={handleClose} data={data} isOpen={isOpen} />
+      <BottomSheetReview 
+        onSuccess={handleSuccess}
+        onClose={handleClose} 
+        data={data} 
+        isOpen={isOpen} 
+      />
+
+      <Snackbar
+        visible={visible}
+        onDismiss={() => setVisible(false)}
+        duration={4000}
+        style={{ backgroundColor: '#27AE60', marginBottom: heightPixel(24) }}
+        wrapperStyle={{ alignSelf: 'center' }}
+        theme={{
+          colors: {
+            surface: 'white'
+          }
+        }}
+      >
+        Terima kasih, ulasan berhasil diberikan!
+      </Snackbar>
     </AppContainer>
   );
 }
