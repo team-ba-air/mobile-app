@@ -11,7 +11,7 @@ interface InfoLocationProps {
 }
  
 const InfoLocation: React.FC<InfoLocationProps> = ({ navigation }) => {
-  const [name, setName] = useState('Yahya Yahya Yahya')
+  const [name, setName] = useState('')
   const [address, setAddress] = useState('')
   // var NY = {
   //   lat: -6.2347,
@@ -24,8 +24,6 @@ const InfoLocation: React.FC<InfoLocationProps> = ({ navigation }) => {
   
   Geocoder.geocodePosition(NY).then((res: any) => {
       // res is an Array of geocoding object (see below)
-      console.log('GEOCODER')
-      console.log(res[0])
       const formattedAddress = res[0].formattedAddress.split(', ')[0]
       const subLocality = res[0].subLocality
       setAddress(`${formattedAddress}${subLocality ? `, ${subLocality}` : ''}`)
