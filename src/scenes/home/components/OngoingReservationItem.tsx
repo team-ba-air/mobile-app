@@ -40,7 +40,7 @@ const OngoingReservationItem: React.FC<OngoingReservationItemProps> = ({ data, n
           <View style={{ flex: 3 }}>
             <View>
               <Text style={{ fontSize: Sizing.text.body[10], fontWeight: 'bold', color: Color.gray.secondary}}>{data.info_booking.shop.name} </Text>
-              <Text style={{ fontSize: Sizing.text.body[14], fontWeight: 'bold' }}>{data.info_booking.service.name} - {data.info_booking.car.type} {data.info_booking.car.license_plate}</Text>
+              <Text style={{ fontSize: Sizing.text.body[14], fontWeight: 'bold' }}>{data.info_booking.service.name} - {data.info_booking.car.brand} {data.info_booking.car.type} {data.info_booking.car.license_plate}</Text>
             </View>
 
             <LinearProgress style={{ height: 8, borderRadius: 8, marginTop: heightPixel(12) }} color='primary' value={data.status / 5} variant='determinate' />

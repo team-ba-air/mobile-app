@@ -1,4 +1,4 @@
-import { NavigationProp } from '@react-navigation/native';
+import { NavigationProp, Route } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
 import { SCREENS } from 'navigations/constants';
 import React, { useState } from 'react'
@@ -14,6 +14,11 @@ import ModalRemoveAdditionalComponent from './components/ModalRemoveAdditionalCo
 
 interface AdditionalComponentScreenProps {
   navigation: NavigationProp<any>
+  route: Route<any, ParamAdditionalComponent>
+}
+
+interface ParamAdditionalComponent {
+  servicePrice: number
 }
 
 const dummyData: AdditionalComponentItem[] = [
@@ -44,7 +49,8 @@ const dummyData: AdditionalComponentItem[] = [
 
 ]
  
-const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ navigation }) => {
+const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ navigation, route }) => {
+  const { servicePrice } = route.params
   const [visible, setVisible] = useState<boolean>(false)
 
   const selectComponentList = dummyData.map(value => (
@@ -61,7 +67,7 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
 
   const handleConfirm = () => {
     handleDismiss()
-    navigation.navigate(SCREENS.reservation.selectPayment, { additionalComponent: selectedComponentList })
+    navigation.navigate(SCREENS.reservation.selectPayment, { additionalComponent: selectedComponentList, servicePrice: servicePrice })
   }
 
   const handleDismiss = () => {

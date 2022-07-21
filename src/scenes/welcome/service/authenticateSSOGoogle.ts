@@ -1,13 +1,11 @@
 import networkService from "network/api/networkService"
-import { PublicAPIResponse } from "network/types"
+import { LoginResponse, PublicAPIResponse } from "network/types"
 
 export type AuthenticateSSOGoogleRequest = {
   token: string
 }
 
-export type AuthenticateSSOGoogleResponse = {
-  access_token: string
-}
+export type AuthenticateSSOGoogleResponse = LoginResponse
 
 export const authenticateSSOGoogleEndpoint = '/auth/google'
 

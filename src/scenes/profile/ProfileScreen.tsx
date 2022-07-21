@@ -7,7 +7,7 @@ import { StyleSheet, View } from 'react-native';
 import { Image, Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
-import { removeAccessToken } from 'utils/TokenUtils';
+import { removeAccessToken } from 'utils/StorageUtils';
 import ProfileAction from './components/ProfileAction';
 
 interface ProfileScreenProps {

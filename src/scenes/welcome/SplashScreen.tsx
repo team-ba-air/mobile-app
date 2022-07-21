@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { StyleSheet, ToastAndroid } from 'react-native';
 import { Image } from 'react-native-elements';
 import { heightPixel, widthPixel } from 'styles/sizes';
-import { getAccessToken } from 'utils/TokenUtils';
+import { getAccessToken } from 'utils/StorageUtils';
 
 interface SplashScreenProps {
   navigation: any

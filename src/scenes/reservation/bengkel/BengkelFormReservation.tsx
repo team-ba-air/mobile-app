@@ -8,7 +8,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { StyleSheet, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
-import { heightPixel, widthPixel } from 'styles/sizes';
+import { heightPixel, SCREEN_HEIGHT, widthPixel } from 'styles/sizes';
 import BengkelHeader from './components/BengkelHeader';
 import ReservationFormComponent from './components/ReservationFormComponent';
 import { BengkelDetailItem, BengkelItem, ReservationForm, ReviewItem, ServiceItem } from '../constants';
@@ -73,7 +73,7 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
     data: shopDetailResponse,
   } = useQuery<PublicAPIResponse<BengkelDetailItem>>(
     ['getShopDetail', data],
-    () => getShopDetail({ id: data.car.id }),
+    () => getShopDetail({ id: data.shop.id }),
     {
       refetchOnWindowFocus: false,
       retry: true,
@@ -92,39 +92,38 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
   const [index, setIndex] = React.useState(0)
 
   return ( 
-    <AppContainer style={{ padding: 0, alignItems: 'flex-start' }} refreshDisable>
-      <View style={{  zIndex: 10, elevation: 10, marginTop: insets.top }}>
-        <Icon name={'arrow-back'} raised size={14} onPress={() => navigation.goBack()} tvParallaxProperties={undefined}/>
-      </View>
-
-      <ScrollView style={{ overflow: 'scroll', ...StyleSheet.absoluteFillObject }}>
-        <BengkelHeader data={shopDetailResponse?.body} />
-        <TabBengkel index={index} setIndex={setIndex} />
-        <View style={{ paddingHorizontal: widthPixel(20) }}>
-          {index === 0 ?
-          (
-            <ScrollView 
-              nestedScrollEnabled 
-              style={{ display: 'flex', flexDirection: 'column' }}
-            >
-              <FormProvider {...formMethods}>
-                <ReservationFormComponent 
-                  serviceOptions={shopDetailResponse?.body?.serviceAvailable ?? []} 
-                  car={data.car}
+    <AppContainer style={{ padding: 0, zIndex: 1 }}>
+      {/* <View style={{  zIndex: 10, elevation: 10, marginTop: insets.top, opacity: 0 }}>
+      
+      </View> */}
+      <ScrollView style={{ zIndex: 1}}>
+        <View>
+          <BengkelHeader data={shopDetailResponse?.body} />
+          <TabBengkel index={index} setIndex={setIndex} />
+          <View style={{ display: 'flex', justifyContent: 'space-between' }}>
+            {index === 0 ?
+            (
+              <>
+                <FormProvider {...formMethods}>
+                  <ReservationFormComponent 
+                    serviceOptions={shopDetailResponse?.body?.serviceAvailable ?? []} 
+                    car={data.car}
+                  />
+                </FormProvider>
+                <CustomButton 
+                  onPress={handleFormSubmit(onSubmit)} 
+                  style={{ bottom: 0, marginTop: heightPixel(16), marginBottom: heightPixel(16), paddingHorizontal: widthPixel(20) }} 
+                  title='Checkout' 
                 />
-              </FormProvider>
-              <CustomButton 
-                onPress={handleFormSubmit(onSubmit)} 
-                style={{ bottom: 0, marginTop: heightPixel(16), marginBottom: heightPixel(16) }} 
-                title='Checkout' 
-              />
-            </ScrollView>
-          ) : 
-            <ReviewComponent />
-          }
+              </>
+            ) : 
+              <ReviewComponent />
+            }
+          </View>
+
         </View>
       </ScrollView>
-      
+      {/* <Icon style={{ zIndex: 10, elevation: 10, position: 'absolute', top: 0 }} name={'arrow-back'} raised size={14} onPress={() => navigation.goBack()} tvParallaxProperties={undefined}/> */}
     </AppContainer>
   );
 }

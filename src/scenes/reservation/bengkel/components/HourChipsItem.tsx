@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { Color } from 'styles/colors'
-import { fontPixel, Sizing } from 'styles/sizes'
+import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes'
 import { AvailableHourItem } from '../../constants'
 
 interface HourChipsItemProps {
@@ -19,16 +19,26 @@ const HourChipsItem: React.FC<HourChipsItemProps> = ({ hour, value, onSelect }) 
     : 
       styles.containerUnavailable
 
+  const textColor = hour.available ?
+  hour.hour === value ? 
+      'white' 
+    : 
+      Color.blue[8]
+  : 
+    Color.gray[5]
+
   return ( 
-    <TouchableOpacity onPress={() => {
-      if (hour.hour !== value && hour.available) {
-        onSelect?.(hour.hour)
-      }
-    }}>
-      <View style={styleContainer}>
-        <Text style={styles.text}>{hour.hour}</Text>
-      </View>
-    </TouchableOpacity>
+    <View>
+      <TouchableOpacity onPress={() => {
+        if (hour.hour !== value && hour.available) {
+          onSelect?.(hour.hour)
+        }
+      }}>
+        <View style={styleContainer}>
+          <Text style={[styles.text, { color: textColor }]}>{hour.hour}</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   )
 }
  
@@ -37,34 +47,39 @@ export default HourChipsItem
 const styles = StyleSheet.create({
   container: {
     borderRadius: 4,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    marginRight: 8,
+    paddingVertical: heightPixel(4),
+    paddingHorizontal: widthPixel(8),
+    marginRight: widthPixel(8),
   },
   containerSelected: {
     borderRadius: 4,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    marginRight: 8,
-    backgroundColor: Color.red[7],
+    paddingVertical: heightPixel(4),
+    paddingHorizontal: widthPixel(8),
+    marginRight: widthPixel(8),
+    backgroundColor: Color.blue[8],
   },
   containerUnselected: {
     borderRadius: 4,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    marginRight: 8,
-    backgroundColor: Color.red[4],
+    paddingVertical: heightPixel(4),
+    paddingHorizontal: widthPixel(8),
+    marginRight: widthPixel(8),
+    borderColor: Color.gray[3],
+    borderWidth: 1,
   },
   containerUnavailable: {
     borderRadius: 4,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-    marginRight: 8,
+    paddingVertical: heightPixel(4),
+    paddingHorizontal: widthPixel(8),
+    marginRight: widthPixel(8),
     backgroundColor: Color.gray[4],
   },
   text: {
     color: Color.gray[0],
-    fontSize: fontPixel(Sizing.text.body[14]),
+    fontSize: fontPixel(14),
     fontWeight: 'bold',
+  },
+  textUnselected: {
+    color: Color.blue[8],
+    fontSize: fontPixel(14)
   },
 })

@@ -1,13 +1,11 @@
 import networkService from "network/api/networkService"
-import { PublicAPIResponse } from "network/types"
+import { LoginResponse, PublicAPIResponse } from "network/types"
 
 export type AuthenticateSSOFacebookRequest = {
   token: string
 }
 
-export type AuthenticateSSOFacebookResponse = {
-  access_token: string
-}
+export type AuthenticateSSOFacebookResponse = LoginResponse
 
 export const authenticateSSOFacebookEndpoint = '/auth/facebook'
 
