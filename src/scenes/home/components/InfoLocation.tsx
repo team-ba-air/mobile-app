@@ -1,16 +1,17 @@
-import { SCREENS } from 'navigations/constants';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Icon, Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
-import { fontPixel, Sizing } from 'styles/sizes';
+import { fontPixel, SCREEN_WIDTH, Sizing } from 'styles/sizes';
 import Geocoder from 'react-native-geocoder';
+import { getName } from 'utils/StorageUtils';
 
 interface InfoLocationProps {
   navigation: any
 }
  
 const InfoLocation: React.FC<InfoLocationProps> = ({ navigation }) => {
+  const [name, setName] = useState('Yahya Yahya Yahya')
   const [address, setAddress] = useState('')
   // var NY = {
   //   lat: -6.2347,
@@ -30,11 +31,26 @@ const InfoLocation: React.FC<InfoLocationProps> = ({ navigation }) => {
       setAddress(`${formattedAddress}${subLocality ? `, ${subLocality}` : ''}`)
   })
   .catch((err: any) => console.log(err))
+
+  useEffect(() => {
+    getName().then(value => setName(value))
+  }, [])
   
   return ( 
     <View style={styles.container}>
       <View>
-        <Text style={{ fontSize: fontPixel(Sizing.text.subheading[18]), color: Color.gray[0], fontWeight: 'bold' }}>Hi, Oto</Text>
+        <Text 
+          style={{ 
+            fontSize: fontPixel(Sizing.text.subheading[18]), 
+            color: Color.gray[0], 
+            fontWeight: 'bold',
+            maxWidth: SCREEN_WIDTH * 0.5,
+          }}
+          numberOfLines={1}
+          ellipsizeMode={'tail'}
+        >
+          {name ? `Hi, ${name}` : ''}
+        </Text>
       </View>
       <View style={{ marginTop: 12, flexDirection: 'row', alignItems: 'center', maxWidth: '50%' }}>
         <Icon type='material' name='location-on' color={Color.red[4]} tvParallaxProperties={undefined} />

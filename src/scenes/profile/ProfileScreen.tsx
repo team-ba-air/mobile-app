@@ -2,12 +2,12 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import AppContainer from 'components/AppContainer';
 import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Image, Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
-import { removeAccessToken } from 'utils/StorageUtils';
+import { getEmail, getName, getPhoneNumber, getPhoto, removeAccessToken } from 'utils/StorageUtils';
 import ProfileAction from './components/ProfileAction';
 
 interface ProfileScreenProps {
@@ -15,14 +15,28 @@ interface ProfileScreenProps {
 }
  
 const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [photo, setPhoto] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+
+  useEffect(() => {
+    getName().then(value => setName(value))
+    getEmail().then(value => setEmail(value))
+    getPhoto().then(value => setPhoto(value))
+    getPhoneNumber().then(value => setPhoneNumber(value))
+  }, [])
+
   return ( 
     <AppContainer style={styles.container} refreshDisable>
       <View>
         <View style={styles.infoContainer}>
-          <View>
-            <Text style={styles.headerText}>Oto Suroto</Text>
-            <Text style={styles.normalText}>otosuroto@gmail.com</Text>
-            <Text style={styles.normalText}>0812 3456 7891</Text>
+          <View style={{ maxWidth: '70%'}}>
+            <Text style={styles.headerText} numberOfLines={1} ellipsizeMode={'tail'}>{name}</Text>
+            <Text style={styles.normalText} numberOfLines={1} ellipsizeMode={'tail'}>{email}</Text>
+            {phoneNumber !== '' && (
+              <Text style={styles.normalText}>{phoneNumber}</Text>
+            )}
           </View>
           <View>
             <CustomButton buttonStyle={styles.button} textStyle={{ fontSize: fontPixel(Sizing.text.body[12]), fontWeight: 'bold' }} title='Detail'/>

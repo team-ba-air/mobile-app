@@ -12,7 +12,6 @@ export const authenticateSSOGoogleEndpoint = '/auth/google'
 const authenticateSSOGoogle = async (data: AuthenticateSSOGoogleRequest) => {
   const response: PublicAPIResponse<AuthenticateSSOGoogleResponse> = await networkService.post(authenticateSSOGoogleEndpoint, data)
 
-  console.log(response)
   return response
 }
 
