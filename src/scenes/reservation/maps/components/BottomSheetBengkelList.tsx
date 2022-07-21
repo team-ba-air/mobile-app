@@ -3,7 +3,7 @@ import { View, Text, FlatList, ListRenderItemInfo } from 'react-native';
 import BottomSheet, { TouchableOpacity } from '@gorhom/bottom-sheet';
 import Animated from 'react-native-reanimated';
 import { NavigationProp } from '@react-navigation/native';
-import { Sizing, widthPixel } from 'styles/sizes';
+import { fontPixel, Sizing, widthPixel } from 'styles/sizes';
 import BengkelListItem from './BengkelListItem';
 import { SCREENS } from 'navigations/constants';
 import { useQuery } from 'react-query';
@@ -11,6 +11,7 @@ import { PublicAPIResponse } from 'network/types';
 import getShopList from 'scenes/reservation/service/getShopList';
 import { BengkelItem, ServiceItem } from 'scenes/reservation/constants';
 import { VehicleItem } from 'scenes/vehicle/constants';
+import { Color } from 'styles/colors';
 
 interface BottomSheetBengkelListProps {
   animatedPosition?: Animated.SharedValue<number>
@@ -51,9 +52,11 @@ const BottomSheetBengkelList: React.FC<BottomSheetBengkelListProps> = ({ animate
   }
 
   return ( 
-    <BottomSheet style={{ paddingHorizontal: widthPixel(16) }} animatedPosition={animatedPosition} ref={bottomSheetRef} index={0} snapPoints={['40%', '80%']} onChange={handleSheetChanges}>
+    <BottomSheet style={{ }} animatedPosition={animatedPosition} ref={bottomSheetRef} index={0} snapPoints={['40%', '80%']} onChange={handleSheetChanges}>
       <View>
-        <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold' }}>Bengkel yang bisa {service.name}</Text>
+        <Text style={{ fontSize: fontPixel(16), fontWeight: 'bold', paddingHorizontal: widthPixel(20) }}>
+          Bengkel yang bisa <Text style={{ color: Color.blue[8] }}>{service.name}</Text>
+        </Text>
       </View>
       <FlatList
         data={shopListResponse?.body ?? []}

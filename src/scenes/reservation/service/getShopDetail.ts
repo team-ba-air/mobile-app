@@ -28,6 +28,11 @@ export type GetShopDetailResponse = {
 export const getShopDetailEndpoint = '/shop'
 
 const mapResponseToBengkelDetailItem = (response: PublicAPIResponse<GetShopDetailResponse>): PublicAPIResponse<BengkelDetailItem> => {
+  const openTime = response.body?.open_time ? new Date(response.body.open_time) : new Date()
+  const closeTime = response.body?.close_time ? new Date(response.body.close_time) : new Date()
+  
+  openTime.setHours(openTime.getHours() - 7)
+  closeTime.setHours(closeTime.getHours() - 7)
   return {
     ...response,
     body: {
@@ -39,8 +44,8 @@ const mapResponseToBengkelDetailItem = (response: PublicAPIResponse<GetShopDetai
       isAuthorized: response.body?.is_authorized ?? false,
       serviceAvailable: response.body?.service_available ?? [],
       availableForCar: response.body?.available_for_car ?? [],
-      openTime: response.body?.open_time ?? '',
-      closeTime: response.body?.close_time ?? '',
+      openTime: openTime,
+      closeTime: closeTime,
     }
   }
 }

@@ -30,7 +30,7 @@ const mapSubmitReviewData = (request: SubmitReviewRequest): SubmitReviewDataRequ
 const submitReview = async (request: SubmitReviewRequest) => {
   const data = mapSubmitReviewData(request)
   const response: PublicAPIResponse<SubmitReviewResponse> = await networkService.post(
-    submitReviewEndpoint(request.history.id),
+    submitReviewEndpoint(request.history.shop.id),
     data
   )
   

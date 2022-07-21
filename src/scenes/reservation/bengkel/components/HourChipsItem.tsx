@@ -8,9 +8,10 @@ interface HourChipsItemProps {
   hour: AvailableHourItem
   value?: string
   onSelect?: (value: string) => void
+  setScrollEnabled: (enabled: boolean) => void
 }
  
-const HourChipsItem: React.FC<HourChipsItemProps> = ({ hour, value, onSelect }) => {
+const HourChipsItem: React.FC<HourChipsItemProps> = ({ hour, value, onSelect, setScrollEnabled }) => {
   const styleContainer = hour.available ?
     hour.hour === value ? 
         styles.containerSelected 
@@ -28,7 +29,6 @@ const HourChipsItem: React.FC<HourChipsItemProps> = ({ hour, value, onSelect }) 
     Color.gray[5]
 
   return ( 
-    <View>
       <TouchableOpacity onPress={() => {
         if (hour.hour !== value && hour.available) {
           onSelect?.(hour.hour)
@@ -38,7 +38,6 @@ const HourChipsItem: React.FC<HourChipsItemProps> = ({ hour, value, onSelect }) 
           <Text style={[styles.text, { color: textColor }]}>{hour.hour}</Text>
         </View>
       </TouchableOpacity>
-    </View>
   )
 }
  
@@ -49,7 +48,6 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingVertical: heightPixel(4),
     paddingHorizontal: widthPixel(8),
-    marginRight: widthPixel(8),
   },
   containerSelected: {
     borderRadius: 4,

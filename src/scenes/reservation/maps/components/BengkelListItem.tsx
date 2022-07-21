@@ -1,10 +1,10 @@
 import CustomChips from 'components/CustomChips';
 import React from 'react'
-import { StyleSheet, View } from 'react-native';
+import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { Icon, Image, Text } from 'react-native-elements';
 import { BengkelItem } from '../../constants';
 import { Color } from 'styles/colors';
-import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
+import { fontPixel, heightPixel, SCREEN_WIDTH, Sizing, widthPixel } from 'styles/sizes';
 import { formatDistance } from 'utils/TextUtils';
 
 interface BengkelListItemProps {
@@ -22,7 +22,7 @@ const BengkelListItem: React.FC<BengkelListItemProps> = ({ data }) => {
   
   return ( 
     <View style={styles.container}>
-      <View style={{ display: 'flex', alignItems: 'center', flexDirection: 'row' }}>
+      <View style={{ display: 'flex', alignItems: 'center', flexDirection: 'row', width: SCREEN_WIDTH * 0.8, paddingHorizontal: widthPixel(16) }}>
         <View style={{ marginRight: widthPixel(8) }}>
           <Image 
             style={{ width: widthPixel(80), height: heightPixel(60) }}
@@ -36,23 +36,31 @@ const BengkelListItem: React.FC<BengkelListItemProps> = ({ data }) => {
             </Text>
           </View>
         </View>
-        <View style={{ marginTop: 16 }}>
-          {data.isAlmostClosed && (
-            <View style={[styles.header]}>
-              <Text style={[styles.subtitle]}>Tutup sebentar lagi</Text>
-            </View>
-          )}
-          
-          <Text style={styles.name}>{data.name} {data.location && ','} {data.location}</Text>
-          <Text style={styles.tags}>{bengkelTags}</Text>
+        <View style={{ marginTop: 16, flexGrow: 1, width: '90%' }}>
+          <View style={[styles.header]}>
+            <Text style={[styles.subtitle]}>
+            {data.isAlmostClosed && (
+              'Tutup sebentar lagi'
+            )}
+            </Text>
+            {data.isAuthorized && (
+              <View>
+                <CustomChips text={'Authorized'} />
+              </View>
+            )}
+          </View>
+          <Text style={styles.name}>{data.name}</Text>
+          <FlatList 
+            data={tagsList}
+            numColumns={3}
+            renderItem={(info: ListRenderItemInfo<string>) => (
+              <CustomChips text={info.item} style={{ marginRight: widthPixel(2), marginTop: heightPixel(4) }} />
+            )}
+          />
           <Text style={styles.distance}>{formatDistance(data.distance)}</Text>
         </View>
       </View>
-      {data.isAuthorized && (
-        <View style={{ marginTop: 16 }}>
-          <CustomChips text={'Authorized'} />
-        </View>
-      )}
+      
     </View>
   );
 }
@@ -63,10 +71,10 @@ const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1, 
     borderBottomColor: Color.gray[2], 
-    paddingBottom: 16,
+    paddingBottom: heightPixel(16),
+    // paddingHorizontal: widthPixel(20),
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
   },
   header: {
     display: 'flex',
@@ -92,5 +100,6 @@ const styles = StyleSheet.create({
     fontSize: fontPixel(10),
     color: Color.gray.secondary,
     fontWeight: 'bold',
+    marginTop: heightPixel(4),
   }
 })

@@ -58,6 +58,7 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
         <FlatList 
           data={vehicleList}
           horizontal
+          showsHorizontalScrollIndicator={false}
           renderItem={(info: ListRenderItemInfo<VehicleItem>) => (
             <View style={styles.card}>
               <View style={styles.carInfo}>
