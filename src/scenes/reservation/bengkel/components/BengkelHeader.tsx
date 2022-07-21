@@ -1,5 +1,6 @@
 import { NavigationProp } from '@react-navigation/native';
 import CustomChips from 'components/CustomChips';
+import { format } from 'date-fns';
 import React from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Icon, Image, Text } from 'react-native-elements';
@@ -29,7 +30,7 @@ const BengkelHeader: React.FC<BengkelHeaderProps> = ({ data }) => {
     <View>
       <CarouselComponent />
       <View style={styles.container}>
-        <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold' }}>{data?.name} </Text>
+        <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold', marginTop: heightPixel(16) }}>{data?.name} </Text>
         <View style={{ display: 'flex', justifyContent: 'flex-start', marginTop: 8 }}>
           <View style={{ flexDirection: 'row', marginBottom: heightPixel(4) }}>
             {bengkelTags.map(tag => (
@@ -37,9 +38,9 @@ const BengkelHeader: React.FC<BengkelHeaderProps> = ({ data }) => {
             ))}
           </View>
         </View>
-        {data?.description && (
-          <Text style={{ marginTop: 12 }}>{data.description}</Text>
-        )}
+
+        <Text>Buka jam {format(data?.openTime ?? new Date(), 'HH:mm')} - {format(data?.closeTime ?? new Date(), 'HH:mm')} WIB</Text>
+
       </View>
     </View>
    );

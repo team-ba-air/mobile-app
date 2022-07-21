@@ -3,10 +3,9 @@ import { Route } from '@react-navigation/routers';
 import AppContainer from 'components/AppContainer';
 import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form';
-import { StyleSheet, View } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { heightPixel, SCREEN_HEIGHT, widthPixel } from 'styles/sizes';
 import BengkelHeader from './components/BengkelHeader';
@@ -39,6 +38,8 @@ interface ParamBengkel {
 const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, navigation }) => {
   const { data } = route.params
   const insets = useSafeAreaInsets()
+
+  const [outerScrollEnabled, setOuterScrollEnabled] = useState(true)
 
   const valueCar = `${data.car.id}|${data.car.brand}|${data.car.type}|${data.car.plat}`
 
@@ -89,40 +90,50 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
   const shopDetail = shopDetailResponse?.body
   console.log(`Shop Detail: ${shopDetail}`)
 
-  const [index, setIndex] = React.useState(0)
+  const [index, setIndex] = useState(0)
 
   return ( 
-    <AppContainer style={{ padding: 0, zIndex: 1 }}>
+    <AppContainer style={{ padding: 0, display: 'flex' }} refreshDisable scrollEnabled={outerScrollEnabled}>
       {/* <View style={{  zIndex: 10, elevation: 10, marginTop: insets.top, opacity: 0 }}>
       
       </View> */}
-      <ScrollView style={{ zIndex: 1}}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <BengkelHeader data={shopDetailResponse?.body} />
+        <TabBengkel index={index} setIndex={setIndex} />
         <View>
-          <BengkelHeader data={shopDetailResponse?.body} />
-          <TabBengkel index={index} setIndex={setIndex} />
-          <View style={{ display: 'flex', justifyContent: 'space-between' }}>
-            {index === 0 ?
-            (
-              <>
+          {index === 0 ?
+          (
+            <>
+              <View>
                 <FormProvider {...formMethods}>
-                  <ReservationFormComponent 
+                  <ReservationFormComponent
+                    setScrollEnabled={setOuterScrollEnabled} 
                     serviceOptions={shopDetailResponse?.body?.serviceAvailable ?? []} 
                     car={data.car}
                   />
                 </FormProvider>
-                <CustomButton 
-                  onPress={handleFormSubmit(onSubmit)} 
-                  style={{ bottom: 0, marginTop: heightPixel(16), marginBottom: heightPixel(16), paddingHorizontal: widthPixel(20) }} 
-                  title='Checkout' 
-                />
-              </>
-            ) : 
-              <ReviewComponent />
-            }
-          </View>
 
+              </View>
+              <CustomButton 
+                onPress={handleFormSubmit(onSubmit)} 
+                style={{ bottom: 0, marginTop: heightPixel(16), marginBottom: heightPixel(16), paddingHorizontal: widthPixel(20) }} 
+                title='Checkout' 
+              />
+            </>
+          ) : 
+            <ReviewComponent shopId={data.shop.id} />
+          }
         </View>
       </ScrollView>
+      {/* <SectionList sections={[]}
+        ListHeaderComponent={
+          <>
+          
+          </>
+        }
+        renderItem={() => null}
+      >
+      </SectionList> */}
       {/* <Icon style={{ zIndex: 10, elevation: 10, position: 'absolute', top: 0 }} name={'arrow-back'} raised size={14} onPress={() => navigation.goBack()} tvParallaxProperties={undefined}/> */}
     </AppContainer>
   );

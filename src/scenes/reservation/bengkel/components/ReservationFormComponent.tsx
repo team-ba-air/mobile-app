@@ -3,11 +3,11 @@ import CustomTextInput from 'components/CustomTextInput';
 import Dropdown, { OptionItem } from 'components/Dropdown';
 import React, { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form';
-import { Image, ListRenderItemInfo, ScrollView, StyleSheet, View } from 'react-native';
+import { FlatList, Image, ListRenderItemInfo, ScrollView, StyleSheet, Touchable, TouchableWithoutFeedback, View } from 'react-native';
 import { Text } from 'react-native-elements';
-import { FlatList } from 'react-native-gesture-handler';
+// import { FlatList } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
-import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
+import { fontPixel, heightPixel, SCREEN_WIDTH, Sizing, widthPixel } from 'styles/sizes';
 import { AvailableHourItem, ReservationForm } from '../../constants';
 import HourChipsItem from './HourChipsItem';
 import FormInputDate from 'components/FormInputDate';
@@ -16,6 +16,7 @@ import getVehicleList from 'scenes/reservation/service/getVehicleList';
 import { useQuery } from 'react-query';
 import { VehicleItem } from 'scenes/vehicle/constants';
 import { formatRupiah } from 'utils/TextUtils';
+import { ScrollView as GestureHandlerScrollView } from 'react-native-gesture-handler'
 
 interface ReservationFormComponentProps {
   serviceOptions?:  {
@@ -25,6 +26,7 @@ interface ReservationFormComponentProps {
     price: number
   }[]
   car: VehicleItem
+  setScrollEnabled: (enabled: boolean) => void
 }
 
 const serviceListData = [
@@ -69,7 +71,7 @@ const availableHours: AvailableHourItem[] = [
   },
 ]
  
-const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ serviceOptions, car }) => {
+const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ serviceOptions, car, setScrollEnabled }) => {
   const {
     control,
     formState: { errors },
@@ -95,6 +97,10 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
     data: option,
     value: `${option.id}|${option.name}|${option.description}|${option.price}`
   }))
+
+  const handleInnerPressIn = () => setScrollEnabled(false);
+  const handleInnerPressOut = () => setScrollEnabled(true);
+
 
   return ( 
     <View style={{ marginTop: 20 }}>
@@ -153,18 +159,19 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
         name={'hour'}
         control={control}
         render={({ field: { onChange, value }}) => (
-          <View style={{ marginLeft: widthPixel(20) }}> 
-            <ScrollView nestedScrollEnabled contentContainerStyle={{ flexDirection: 'row', width: '100%', alignItems: 'center'}}>
+          <View style={{ paddingLeft: widthPixel(20), width: SCREEN_WIDTH }}> 
+            <View style={{ flexDirection: 'row', alignItems: 'center'}}>
               <Image style={{ height: heightPixel(24), width: widthPixel(24), marginRight: widthPixel(8)}} source={require('@assets/icon/ic_clock.png')} resizeMode={'contain'} />
               
               <FlatList
                 horizontal
+                showsHorizontalScrollIndicator={false}
                 data={availableHours}
                 renderItem={(info: ListRenderItemInfo<AvailableHourItem>) => (
-                  <HourChipsItem hour={info.item} value={value} onSelect={onChange}/>
+                  <HourChipsItem hour={info.item} value={value} onSelect={onChange} setScrollEnabled={setScrollEnabled}/>
                 )}
               />
-            </ScrollView>
+            </View>
             {errors?.hour?.message && (
               <Text style={{ color: Color.red[7], fontSize: fontPixel(11), marginTop: heightPixel(4)}}>{errors?.hour?.message}</Text>
             )}
@@ -215,7 +222,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
         marginTop: heightPixel(16),
         paddingHorizontal: widthPixel(20),
       }}>
-        Catatan
+        Catatan Tambahan
       </Text>
 
       <Controller 

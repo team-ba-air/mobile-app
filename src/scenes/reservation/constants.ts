@@ -35,8 +35,8 @@ export type BengkelDetailItem = {
     price: number
   }[]
   availableForCar: string[]
-  openTime: string
-  closeTime: string
+  openTime: Date
+  closeTime: Date
 }
 
 export type AvailableHourItem = {
@@ -54,10 +54,17 @@ export type ReservationForm = Partial<{
   notes: string
 }>
 
+export type ShopReview = {
+  total_count: number
+  average_rating: number
+  reviews: ReviewItem[]
+}
+
 export type ReviewItem = {
   name: string
   rating: number
   date: Date
-  serviceType: string
-  review: string
+  car: string
+  service: string
+  description: string
 }

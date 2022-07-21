@@ -17,11 +17,11 @@ const ReviewItemComponent: React.FC<ReviewItemComponentProps> = ({ item }) => {
     <View style={styles.container}>
       <Text>{item.name}</Text>
       <View style={{ display: 'flex', flexDirection: 'row' }}>
-        {yellowStar.map(value => (
-          <Icon size={14} name={'star'} color={'#f5e725'}/>
+        {yellowStar.map(() => (
+          <Icon size={14} name={'star'} color={'#f5e725'} tvParallaxProperties={undefined}/>
         ))}
-        {grayStar.map(value => (
-          <Icon size={14} name={'star'} color={Color.gray[2]}/>
+        {grayStar.map(() => (
+          <Icon size={14} name={'star'} color={Color.gray[2]} tvParallaxProperties={undefined}/>
         ))}
       </View>
 
@@ -31,10 +31,10 @@ const ReviewItemComponent: React.FC<ReviewItemComponentProps> = ({ item }) => {
         justifyContent: 'space-between', 
         paddingVertical: heightPixel(4) 
       }}>
-        <Text style={styles.subtitle}>{item.serviceType}</Text>
+        <Text style={styles.subtitle}>{item.service} - {item.car}</Text>
         <Text style={styles.subtitle}>{getFormatDateNumeric(item.date)}</Text>
       </View>
-      <Text>{item.review}</Text>
+      <Text>{item.description}</Text>
     </View>
   );
 }
