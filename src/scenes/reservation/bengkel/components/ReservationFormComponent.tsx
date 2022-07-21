@@ -15,6 +15,7 @@ import { PublicAPIResponse } from 'network/types';
 import getVehicleList from 'scenes/reservation/service/getVehicleList';
 import { useQuery } from 'react-query';
 import { VehicleItem } from 'scenes/vehicle/constants';
+import { formatRupiah } from 'utils/TextUtils';
 
 interface ReservationFormComponentProps {
   serviceOptions?:  {
@@ -97,13 +98,14 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
 
   return ( 
     <View style={{ marginTop: 20 }}>
-      <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold' }}>Kendaraan yang diservis</Text>
+      <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold', paddingHorizontal: widthPixel(20), }}>Kendaraan yang diservis</Text>
 
       <Controller 
         name={'car'}
         control={control}
         render={({ field: { onChange, value }}) => (
-          <Dropdown style={styles.margin} 
+          <Dropdown 
+            style={[styles.margin, { marginHorizontal: widthPixel(20) }]} 
             value={value} 
             options={vehicleListResponse?.body ?? []} 
             onSelect={onChange}
@@ -123,16 +125,23 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
         )}
       />
 
-      <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold', marginTop: heightPixel(16) }}>Hari dan Jam</Text>
+      <Text style={{ 
+        fontSize: fontPixel(Sizing.text.body[16]), 
+        fontWeight: 'bold', 
+        marginTop: heightPixel(16),
+        paddingHorizontal: widthPixel(20),
+      }}>
+        Hari dan Jam
+      </Text>
 
       <Controller 
         name={'date'}
         control={control}
         render={({ field: { onChange, value }}) => (
-          <View style={{ flexDirection: 'row', width: '100%', alignItems: 'center', marginVertical: heightPixel(16)}}>
+          <View style={{ flexDirection: 'row', width: '100%', alignItems: 'center', marginVertical: heightPixel(16), marginHorizontal: widthPixel(20) }}>
             <Image style={{ height: heightPixel(24), width: widthPixel(24), marginRight: widthPixel(8)}} source={require('@assets/icon/ic_calendar.png')} resizeMode={'contain'} />
             <FormInputDate 
-              style={{ flex: 1 }}
+              containerStyle={{ width: '80%' }}
               value={value}
               onChange={onChange}
             />
@@ -144,8 +153,8 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
         name={'hour'}
         control={control}
         render={({ field: { onChange, value }}) => (
-          <> 
-            <View style={{ flexDirection: 'row', width: '100%', alignItems: 'center'}}>
+          <View style={{ marginLeft: widthPixel(20) }}> 
+            <ScrollView nestedScrollEnabled contentContainerStyle={{ flexDirection: 'row', width: '100%', alignItems: 'center'}}>
               <Image style={{ height: heightPixel(24), width: widthPixel(24), marginRight: widthPixel(8)}} source={require('@assets/icon/ic_clock.png')} resizeMode={'contain'} />
               
               <FlatList
@@ -155,19 +164,28 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
                   <HourChipsItem hour={info.item} value={value} onSelect={onChange}/>
                 )}
               />
-            </View>
+            </ScrollView>
             {errors?.hour?.message && (
               <Text style={{ color: Color.red[7], fontSize: fontPixel(11), marginTop: heightPixel(4)}}>{errors?.hour?.message}</Text>
             )}
-          </>
+          </View>
         )}
       />
+
+      <Text style={{ 
+        fontSize: fontPixel(Sizing.text.body[16]), 
+        fontWeight: 'bold', 
+        marginTop: heightPixel(16),
+        paddingHorizontal: widthPixel(20),
+      }}>
+        Servis
+      </Text>
 
       <Controller 
         name={'service'}
         control={control}
         render={({ field: { onChange, value }}) => (
-          <Dropdown style={styles.margin} 
+          <Dropdown style={[styles.margin, { marginHorizontal: widthPixel(20) }]} 
             value={value} 
             // options={serviceOptionsItem} 
             options={serviceListOptions}
@@ -179,7 +197,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
             }
             renderItem={(option) => (
               <View>
-                <Text style={{ fontSize: fontPixel(Sizing.text.body[14]), fontWeight: 'bold' }}>{option.name} • Rp{option.price}</Text>
+                <Text style={{ fontSize: fontPixel(Sizing.text.body[14]), fontWeight: 'bold' }}>{option.name} • {formatRupiah(option.price)}</Text>
                 <Text style={{ fontSize: fontPixel(Sizing.text.body[14]), color: Color.gray[8]}}>{option.description}</Text>
               </View>
             )} 
@@ -191,14 +209,21 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
         )}
       />
 
-      <Text style={styles.titleSection}>Catatan</Text>
+      <Text style={{ 
+        fontSize: fontPixel(Sizing.text.body[16]), 
+        fontWeight: 'bold', 
+        marginTop: heightPixel(16),
+        paddingHorizontal: widthPixel(20),
+      }}>
+        Catatan
+      </Text>
 
       <Controller 
         name={'notes'}
         control={control}
         render={({ field: { onChange, value }}) => (
           <CustomTextInput 
-            style={styles.margin} 
+            style={[styles.margin, { marginHorizontal: widthPixel(20) }]} 
             value={value} 
             onChange={onChange} 
             placeholder={'Misal: AC suka bunyi kalau baru nyala, rem berdecit'} 

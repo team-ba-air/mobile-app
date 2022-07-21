@@ -12,6 +12,7 @@ interface FormInputDateProps {
   onChange?: (value: Date) => void
   placeholder?: string
   style?: StyleProp<ViewStyle>
+  containerStyle?: StyleProp<ViewStyle>
   size?: number
   mode?: any
   formatDate?: string
@@ -20,7 +21,7 @@ interface FormInputDateProps {
 }
  
 const FormInputDate: React.FC<FormInputDateProps> = (props) => {
-  const { value = new Date(), onChange, placeholder, style, size = 14, mode = 'date', formatDate = 'dd MMMM yyyy', display = 'default', error } = props
+  const { value = new Date(), onChange, placeholder, style, size = 14, mode = 'date', formatDate = 'dd MMMM yyyy', display = 'default', error, containerStyle } = props
   const [open, setOpen] = useState<boolean>(false)
   const [showBottomSheet, setShowBottomSheet] = useState<boolean>(false)
 
@@ -51,7 +52,7 @@ const FormInputDate: React.FC<FormInputDateProps> = (props) => {
   }
 
   return ( 
-    <View style={{ width: '100%', justifyContent: 'flex-start' }}>
+    <View style={[{ width: '100%', justifyContent: 'flex-start' }, containerStyle]}>
       {(open && Platform.OS === 'android') && (
         renderDatePicker()
       )}

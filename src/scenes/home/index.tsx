@@ -36,8 +36,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     }
   }
 
-  const insets = useSafeAreaInsets()
-
   return (
     <AppContainer 
       style={{
@@ -45,6 +43,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         padding: 0,
       }}
       safeAreaBackground={Color.blue[8]}
+      refreshDisable
     >
       <SectionList 
         sections={DATA}

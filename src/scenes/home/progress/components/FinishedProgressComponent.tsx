@@ -1,5 +1,6 @@
 import { NavigationProp } from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
+import { format } from 'date-fns';
 import { SCREENS } from 'navigations/constants';
 import React, { useState } from 'react'
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
@@ -47,6 +48,7 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
       navigation.navigate(SCREENS.reservation.selectPayment, { 
         additionalComponent: data.additional_component,
         status: 5,
+        servicePrice: data.info_booking.service.price,
       })
     }
   }
@@ -67,7 +69,7 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
         </Modal>
       </Portal>
       
-      <ScrollView>
+      <ScrollView style={{ zIndex: 5 }}>
         <View style={{ backgroundColor: 'white', paddingVertical: heightPixel(20), marginBottom: heightPixel(8) }}>
           <View style={{ 
             borderWidth: 1, 
@@ -97,7 +99,7 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
           </View>
           <View style={{ marginTop: 16 }}>
             <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Waktu</Text>
-            <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{getFormatDateNumeric(data.info_booking.datetime)}</Text>
+            <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{format(data.info_booking.datetime, 'eeee, dd MMMM yyyy')}</Text>
             <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{getFormatHour(data.info_booking.datetime)} WIB</Text>
           </View>
           <View style={{ marginTop: 16 }}>
@@ -157,7 +159,7 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
         <View style={{ backgroundColor: 'white', paddingHorizontal: widthPixel(20), paddingVertical: heightPixel(16), marginBottom: heightPixel(8) }}>
           <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Catatan dari Bengkel</Text>
           <Text style={{ fontSize: fontPixel(14), textAlign: 'justify' }}>
-            {data.requested_additional_component_notes}
+            {data.requested_additional_component_notes ? data.requested_additional_component : 'Tidak ada catatan dari bengkel'}
           </Text>
         </View>
       </ScrollView>
@@ -168,6 +170,7 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
         backgroundColor: 'white',
         borderTopColor: Color.gray[2],
         borderTopWidth: 2,
+        zIndex: 10,
       }}>
         <CustomButton style={{ marginBottom: heightPixel(8) }} onPress={showModal} type='primary' title={'Konfirmasi Servis Selesai'} />
         <CustomButton onPress={showModal} type='secondary' title={'Hubungi Bengkel'} />

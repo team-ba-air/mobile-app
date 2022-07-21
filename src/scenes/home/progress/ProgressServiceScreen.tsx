@@ -4,7 +4,6 @@ import NavbarApp from 'components/NavbarApp';
 import { PublicAPIResponse } from 'network/types';
 import React, { useEffect, useState } from 'react'
 import { ScrollView, Text, View } from 'react-native';
-import { Portal } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useQuery } from 'react-query';
 import { Color } from 'styles/colors';
@@ -14,7 +13,6 @@ import getProgressServiceDetail from '../service/getProgressServiceDetail';
 import BookingDetail from './components/BookingDetail';
 import FinishedProgressComponent from './components/FinishedProgressComponent';
 import ProgressStatus from './components/ProgressStatus';
-import ServiceStatusStepIndicator from './components/ServiceStatusStepIndicator';
 import TabProgress from './components/TabProgress';
 
 interface ProgressServiceScreenProps {
@@ -49,7 +47,7 @@ const sampleDataProgress: ReservationDetailItem = {
     datetime: new Date('2022-06-14T11:27:39.404Z'),
     notes: 'Kebetulan daerah saya lumayan banyak debu, AC saya jadi agak kurang dingin sih',
   },
-  status: 3, // 0, 1, 2, 3, 4
+  status: 4, // 0, 1, 2, 3, 4
   progress: [
     {
       step: 0,
@@ -74,18 +72,42 @@ const sampleDataProgress: ReservationDetailItem = {
   ],
   service_assistant: 'Michael Hans',
   additional_component: [
-    // {
-    //   id: '',
-    //   name: 'V-Belt',
-    //   priority: 'IMPORTANT', // IMPORTANT or RECOMMENDED
-    //   price: 10000,
-    // },
-    // {
-    //   id: '',
-    //   name: 'Filter AC',
-    //   priority: 'IMPORTANT',
-    //   price: 10000,
-    // },
+    {
+      id: '',
+      name: 'V-Belt',
+      priority: 'IMPORTANT', // IMPORTANT or RECOMMENDED
+      price: 10000,
+    },
+    {
+      id: '',
+      name: 'Filter AC',
+      priority: 'IMPORTANT',
+      price: 10000,
+    },
+    {
+      id: '',
+      name: 'Filter AC',
+      priority: 'IMPORTANT',
+      price: 10000,
+    },
+    {
+      id: '',
+      name: 'Filter AC',
+      priority: 'IMPORTANT',
+      price: 10000,
+    },
+    {
+      id: '',
+      name: 'Filter AC',
+      priority: 'IMPORTANT',
+      price: 10000,
+    },
+    {
+      id: '',
+      name: 'Filter AC',
+      priority: 'IMPORTANT',
+      price: 10000,
+    },
   ],
   requested_additional_component: [
     {
@@ -95,7 +117,8 @@ const sampleDataProgress: ReservationDetailItem = {
       price: 10000,
     },
   ],
-  requested_additional_component_notes: 'V-Belt dan Kampas Rem Bapak/Ibu sudah terlalu lama tidak diganti, kalau terlalu lama dibiarkan bisa merusak komponen lain. Untuk Filter sudah tidak optimal juga, tapi masih bisa tahan ~3 bulan kedepan.',
+  requested_additional_component_notes: '',
+  // requested_additional_component_notes: 'V-Belt dan Kampas Rem Bapak/Ibu sudah terlalu lama tidak diganti, kalau terlalu lama dibiarkan bisa merusak komponen lain. Untuk Filter sudah tidak optimal juga, tapi masih bisa tahan ~3 bulan kedepan.',
   payment_method: null,
 }
  

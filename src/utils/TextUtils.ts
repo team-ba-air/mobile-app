@@ -1,6 +1,10 @@
+import Intl from 'intl'
+import 'intl/locale-data/jsonp/de-DE'
+import 'intl/locale-data/jsonp/pt-PT'
+
 const formatRupiah = (value: number) : string => {
-  // return 'Rp' + new Intl.NumberFormat('de-DE').format(value)
-  return 'Rp' + value.toString()
+  return 'Rp' + new Intl.NumberFormat('de-DE').format(value)
+  // return 'Rp' + value.toString()
 }
 
 const formatDistance = (value: number) : string => {

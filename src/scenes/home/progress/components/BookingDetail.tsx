@@ -7,7 +7,8 @@ import { Text, View } from 'react-native';
 import { ReservationDetailItem } from 'scenes/home/constants';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
-import { getFormatDateNumeric, getFormatHour } from 'utils/DateUtil';
+import { getFormatHour } from 'utils/DateUtil';
+import { formatRupiah } from 'utils/TextUtils';
 
 interface BookingDetailProps {
   data: ReservationDetailItem
@@ -56,7 +57,7 @@ const BookingDetail: React.FC<BookingDetailProps> = ({ data, navigation }) => {
       
         <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Biaya</Text>
         <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text style={{ fontSize: fontPixel(16), fontWeight: 'bold' }}>{'Rp490.000'}</Text>
+          <Text style={{ fontSize: fontPixel(16), fontWeight: 'bold' }}>{formatRupiah(infoBooking.service.price)}</Text>
           <Text style={{ fontSize: fontPixel(11), fontWeight: 'bold', color: Color.blue[8] }}>Pembayaran di bengkel</Text>
         </View>
         

@@ -51,7 +51,7 @@ const ReviewComponent: React.FC<ReviewComponentProps> = () => {
       }}>
         <Text style={{ fontSize: fontPixel(14) }}>Rata-rata Ulasan</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Icon size={fontPixel(24)} name={'star'} color={'#FFDE31'} />
+          <Icon size={fontPixel(24)} name={'star'} color={'#FFDE31'} tvParallaxProperties={undefined} />
           <Text style={{ fontSize: fontPixel(24), fontWeight: 'bold' }}>{ratingAverage}</Text>
           <Text style={{ marginLeft: widthPixel(4), fontSize: fontPixel(12), color: Color.gray[6] }}>({dummyReview.length} ulasan)</Text>
         </View>

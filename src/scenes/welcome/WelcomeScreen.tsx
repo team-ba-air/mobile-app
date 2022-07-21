@@ -11,9 +11,10 @@ import { useMutation } from 'react-query'
 import { SCREENS } from 'navigations/constants'
 import { GraphRequest, GraphRequestManager, AccessToken, LoginButton, LoginManager } from 'react-native-fbsdk'
 import authenticateSSOFacebook from './service/authenticateSSOFacebook'
-import { saveAccessToken } from 'utils/TokenUtils'
-import { GoogleSignin } from '@react-native-google-signin/google-signin'
+import { saveAccessToken, saveEmail, saveName, savePhoneNumber, savePhoto } from 'utils/StorageUtils'
+import { GoogleSignin, User } from '@react-native-google-signin/google-signin'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { LoginResponse, PublicAPIResponse } from 'network/types'
 
 interface WelcomeScreenProps {
   navigation: any
@@ -25,7 +26,8 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
     try {
       await GoogleSignin.hasPlayServices()
       const userInfo = await GoogleSignin.signIn()
-      console.log(userInfo)
+      saveInfo(userInfo)
+      
       onAuthenticate({
         token: userInfo.idToken ?? '',
       }).catch(err => {
@@ -41,6 +43,12 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
       console.log(error)
     }
   }
+  
+  const saveInfo = (userInfo: User) => {
+    saveName(userInfo.user.name ?? '')
+    saveEmail(userInfo.user.email ?? '')
+    savePhoto(userInfo.user.photo ?? '')
+  }
 
   const signInWithFacebook = () => {
     LoginManager.logInWithPermissions(['public_profile'])
@@ -48,7 +56,6 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
         if (result.isCancelled) {
           console.log('login is cancelled')
         } else {
-          console.log(result)
           AccessToken.getCurrentAccessToken().then(data => {
             const accessToken = data?.accessToken.toString()
             onAuthenticateFacebook({
@@ -85,20 +92,23 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
     );
     new GraphRequestManager().addRequest(myProfileRequest).start();
   };
-    
+
+  const handleLogin = (data: PublicAPIResponse<LoginResponse>) => {
+    saveAccessToken(data.body?.access_token ?? '')
+    savePhoneNumber(data.body?.phone_number ?? '')
+    navigation.navigate(SCREENS.app.homeMenu)
+  }
 
   const { isLoading: isAuthenticating, mutateAsync: onAuthenticate } = useMutation(authenticateSSOGoogle, {
     onSuccess: (data) => {
       saveAccessToken(data.body?.access_token ?? '')
+      savePhoneNumber(data.body?.phone_number ?? '')
       navigation.navigate(SCREENS.app.homeMenu)
     },
   })
 
   const { isLoading: isAuthenticatingFacebook, mutateAsync: onAuthenticateFacebook } = useMutation(authenticateSSOFacebook, {
-    onSuccess: (data) => {
-      saveAccessToken(data.body?.access_token ?? '')
-      navigation.navigate(SCREENS.app.homeMenu)
-    },
+    onSuccess: handleLogin,
   })
 
   return (

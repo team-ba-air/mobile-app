@@ -20,6 +20,7 @@ interface PaymentDetailScreenProps {
 }
 
 interface ParamPaymentDetail {
+  servicePrice: number
   additionalComponent: AdditionalComponentItem[]
   paymentMethod: PaymentMethodSelectionItem
   status?: number
@@ -72,7 +73,7 @@ const sampleResponse: UpdateProgressServiceResponse = {
 }
  
 const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, navigation }) => {
-  const { additionalComponent, paymentMethod, status } = route.params
+  const { additionalComponent, paymentMethod, status, servicePrice } = route.params
 
   const totalPrice = additionalComponent.reduce((priceAccumulator, item) => priceAccumulator + item.price, 0)
 
@@ -111,7 +112,7 @@ const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, naviga
       <View>
         <View style={{ marginBottom: heightPixel(24) }}>
           <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Total Tagihan</Text>
-          <Text style={{ fontSize: fontPixel(16), color: Color.red[7], fontWeight: 'bold' }}>{formatRupiah(totalPrice)}</Text>
+          <Text style={{ fontSize: fontPixel(16), color: Color.red[7], fontWeight: 'bold' }}>{formatRupiah(totalPrice + servicePrice)}</Text>
         </View>
 
         <View>

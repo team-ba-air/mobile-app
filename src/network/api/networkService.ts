@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import refreshToken from 'network/service/refreshToken'
 import { PublicAPIResponse } from 'network/types/response/common'
-import { getAccessToken, getRefreshToken, saveAccessToken, saveRefreshToken } from 'utils/TokenUtils'
+import { getAccessToken, getRefreshToken, saveAccessToken, saveRefreshToken } from 'utils/StorageUtils'
 
 const networkService = axios.create({
   method: 'POST',

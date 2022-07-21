@@ -13,6 +13,7 @@ import PaymentDetailScreen from 'scenes/checkout/payment-detail/PaymentDetailScr
 import ProgressServiceScreen from 'scenes/home/progress/ProgressServiceScreen';
 import AdditionalComponentScreen from 'scenes/home/additional-component/AdditionalComponentScreen';
 import InformasiTagihanScreen from 'scenes/checkout/informasi-tagihan/InformasiTagihanScreen';
+import BackButtonIcon from 'components/BackButtonIcon';
 
 const Stack = createStackNavigator()
 
@@ -52,7 +53,13 @@ const ReservationNavigator: React.FC<any> = () => {
         name='ServiceType' 
         component={ServiceReservation} />
       <Stack.Screen 
-        options={{ headerShown: false }} 
+        options={{ 
+          header: ({ navigation }) => <BackButtonIcon navigation={navigation} />,
+          headerTransparent: true,
+          headerStyle: {
+            zIndex: 100,
+          },
+        }} 
         name='BengkelFormReservation' 
         component={BengkelFormReservation} />
       <Stack.Screen 

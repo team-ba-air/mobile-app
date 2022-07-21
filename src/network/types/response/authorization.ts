@@ -1,5 +1,6 @@
 interface LoginResponse {
   id: string
+  access_token: string
   photo: string
   username: string
   full_name: string
