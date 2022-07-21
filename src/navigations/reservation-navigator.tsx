@@ -14,6 +14,7 @@ import ProgressServiceScreen from 'scenes/home/progress/ProgressServiceScreen';
 import AdditionalComponentScreen from 'scenes/home/additional-component/AdditionalComponentScreen';
 import InformasiTagihanScreen from 'scenes/checkout/informasi-tagihan/InformasiTagihanScreen';
 import BackButtonIcon from 'components/BackButtonIcon';
+import { Platform } from 'react-native';
 
 const Stack = createStackNavigator()
 
@@ -56,9 +57,7 @@ const ReservationNavigator: React.FC<any> = () => {
         options={{ 
           header: ({ navigation }) => <BackButtonIcon navigation={navigation} />,
           headerTransparent: true,
-          headerStyle: {
-            zIndex: 100,
-          },
+          headerMode: Platform.OS === 'android' ? 'float' : 'screen',
         }} 
         name='BengkelFormReservation' 
         component={BengkelFormReservation} />
