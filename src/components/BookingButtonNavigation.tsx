@@ -15,12 +15,12 @@ const BookingButtonNavigation: React.FC<BookingButtonNavigationProps> = ({ navig
   return ( 
     <TouchableOpacity 
       style={{
-        width: widthPixel(60),
-        height: heightPixel(60),
+        width: 70,
+        height: 70,
         backgroundColor: Color.blue[7],
         borderRadius: 100,
         transform: [
-          { translateY: heightPixel(-16), }
+          { translateY: heightPixel(-20), }
         ]
       }}
       onPress={() => navigation.navigate(SCREENS.reservation.serviceReservation, { data: '' })}

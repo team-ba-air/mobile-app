@@ -17,6 +17,7 @@ interface BottomSheetReviewProps {
   data: HistoryItem | null
   isOpen: boolean
   onClose: () => void
+  onSuccess?: () => void
 }
 
 const reviewRatingPredicate = [
@@ -28,7 +29,7 @@ const reviewRatingPredicate = [
   'Sangat Baik',
 ]
  
-const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onClose }) => {
+const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onClose, onSuccess }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   useEffect(() => {
@@ -78,6 +79,7 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onC
 
   const { isLoading: isSubmitingReview, mutateAsync: onSubmitReview } = useMutation(submitReview, {
     onSuccess: (data) => {
+      onSuccess?.()
       onClose()
     },
   })
