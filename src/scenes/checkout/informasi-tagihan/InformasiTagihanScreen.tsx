@@ -73,9 +73,12 @@ const InformasiTagihanScreen: React.FC<InformasiTagihanScreenProps> = ({ route, 
           {paymentMethod && (
             <View>
               <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Metode Pembayaran</Text>
-              <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>
-                {paymentMethod.name}
-              </Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: heightPixel(16), }}>
+                <Image source={{ uri: paymentMethod.image, width: widthPixel(20), height: heightPixel(10) }} resizeMode={'contain'} />
+                <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginLeft: widthPixel(4) }}>
+                  {paymentMethod.name}
+                </Text>
+              </View>
 
               {paymentMethod.target && (
                 <View>

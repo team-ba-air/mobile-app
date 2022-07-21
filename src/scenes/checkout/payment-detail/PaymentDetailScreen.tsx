@@ -66,7 +66,7 @@ const sampleResponse: UpdateProgressServiceResponse = {
   payment_method: {
     id: '1',
     name: 'Bayar di Bengkel',
-    image: '',
+    image: 'https://i.ibb.co/g9cDkWM/bca-logo.jpg',
     notes: [],
     active: true,
   }
@@ -120,10 +120,12 @@ const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, naviga
           <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: heightPixel(6) }}>
             <Image 
               style={{
-                width: widthPixel(28),
-                height: heightPixel(8),
+                width: widthPixel(20),
+                height: heightPixel(10),
               }}
-              source={require('assets/icon/ic_logo_text.webp')}
+              source={{
+                uri: paymentMethod.image,
+              }}
               resizeMode={'contain'}
             />
             <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginLeft: widthPixel(8) }}>{paymentMethod.name}</Text>

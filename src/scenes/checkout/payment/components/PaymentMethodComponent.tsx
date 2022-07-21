@@ -32,7 +32,10 @@ const PaymentMethodComponent: React.FC<PaymentMethodComponentProps> = ({ data, o
               alignItems: 'center', 
               opacity: info.item.active ? 1 : 0.6,
             }}>
-              <Text style={{ fontSize: fontPixel(14) }}>{info.item.name} {!info.item.active && '(Segera tersedia)'}</Text>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Image source={{ uri: info.item.image, width: widthPixel(20), height: heightPixel(10) }} resizeMode={'contain'} />
+                <Text style={{ fontSize: fontPixel(14), marginLeft: widthPixel(8) }}>{info.item.name} {!info.item.active && '(Segera tersedia)'}</Text>
+              </View>
               <Image style={{ width: widthPixel(12), height: heightPixel(16)}} source={require('@assets/right-arrow.png')} resizeMode={'contain'} />
             </View>
           </TouchableOpacity>
