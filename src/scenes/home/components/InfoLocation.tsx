@@ -1,38 +1,40 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Icon, Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
-import { fontPixel, SCREEN_WIDTH, Sizing } from 'styles/sizes';
+import { fontPixel, SCREEN_WIDTH, Sizing, widthPixel } from 'styles/sizes';
 import Geocoder from 'react-native-geocoder';
 import { getName } from 'utils/StorageUtils';
 
 interface InfoLocationProps {
   navigation: any
+  location: LocationType | null
+}
+
+interface LocationType {
+  lat: number
+  lng: number
 }
  
-const InfoLocation: React.FC<InfoLocationProps> = ({ navigation }) => {
+const InfoLocation: React.FC<InfoLocationProps> = ({ navigation, location }) => {
   const [name, setName] = useState('')
   const [address, setAddress] = useState('')
-  // var NY = {
-  //   lat: -6.2347,
-  //   lng: 106.8082,
-  // };
-  var NY = {
-    lat: 37.4216863,
-    lng: -122.0842771,
-  }
-  
-  Geocoder.geocodePosition(NY).then((res: any) => {
-      // res is an Array of geocoding object (see below)
-      const formattedAddress = res[0].formattedAddress.split(', ')[0]
-      const subLocality = res[0].subLocality
-      setAddress(`${formattedAddress}${subLocality ? `, ${subLocality}` : ''}`)
-  })
-  .catch((err: any) => console.log(err))
 
   useEffect(() => {
     getName().then(value => setName(value))
   }, [])
+
+  useEffect(() => {
+    if (location) {
+      Geocoder.geocodePosition(location).then((res: any) => {
+          // res is an Array of geocoding object (see below)
+          const formattedAddress = res[0].formattedAddress.split(', ')[0]
+          const subLocality = res[0].subLocality
+          setAddress(`${formattedAddress}${subLocality ? `, ${subLocality}` : ''}`)
+      })
+      .catch((err: any) => console.log(err))
+    }
+  }, [location])
   
   return ( 
     <View style={styles.container}>
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    paddingLeft: 20, 
-    paddingRight: 20,
+    paddingLeft: widthPixel(20), 
+    paddingRight: widthPixel(20),
   },
 })

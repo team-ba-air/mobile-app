@@ -1,6 +1,6 @@
 import AppContainer from 'components/AppContainer';
 import React, { useEffect, useRef, useState } from 'react'
-import { PermissionsAndroid, Platform, StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import MapView, { MapEvent, Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import { Icon } from 'react-native-elements';
@@ -12,6 +12,10 @@ import { NavigationProp, Route } from '@react-navigation/native';
 import { ServiceItem } from '../constants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { VehicleItem } from 'scenes/vehicle/constants';
+import { openSettingsPermissionLocation, requestPermissionAndroid, requestPermissionIos } from 'utils/PermissionUtils';
+import { Modal, Portal } from 'react-native-paper';
+import ModalLocationUnavailable from './components/ModalLocationUnavailable';
+import { SCREENS } from 'navigations/constants';
 
 interface MapsScreenProps {
   navigation: NavigationProp<any>
@@ -36,37 +40,22 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
   const map = useRef<MapView>(null)
 
   const [location, setLocation] = useState<LocationPoint | null>(null)
+  const [modalVisible, setModalVisible] = useState(false)
 
   useEffect(() => {
     if (Platform.OS === 'android') {
-      handlePermissionAndroid()
+      requestPermissionAndroid(handleGranted, handleDenied)
     } else {
-      Geolocation.requestAuthorization("whenInUse").then((value) => {
-        console.log(`Value Request Authorization: ${value}`)
-        if (value === 'granted') {
-          getLocation()
-        }
-      })
+      requestPermissionIos(handleGranted, handleDenied)
     }
   }, [])
 
-  const handlePermissionAndroid = () => {
-    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      {
-        title: "Otoku Location Permission",
-        message:
-          "Otoku needs access to your location " +
-          "so you can choose service station based on your location.",
-        buttonNeutral: "Ask Me Later",
-        buttonNegative: "Cancel",
-        buttonPositive: "OK"
-      }).then(permission => {
-        if (permission === PermissionsAndroid.RESULTS.GRANTED) {
-          getLocation()
-        } else {
-          console.log("Location permission denied");
-        }
-      })
+  const handleGranted = () => {
+    getLocation()
+  }
+
+  const handleDenied = () => {
+    setModalVisible(true)
   }
 
   const getLocation = () => {
@@ -120,8 +109,32 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
     }
   })
 
+  const onDismiss = () => {
+    setModalVisible(false)
+    if (Platform.OS === 'ios') {
+      requestPermissionIos(() => {
+        // do nothing
+      }, navigateHome)
+    } else {
+      requestPermissionAndroid(() => {
+        // do nothing
+      }, navigateHome)
+    }
+  }
+
+  const navigateHome = () => {
+    navigation.navigate(SCREENS.app.home)
+  }
+
   return ( 
     <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0, alignItems: 'flex-end' }} refreshDisable>
+      <Portal>
+        <Modal visible={modalVisible} onDismiss={onDismiss}>
+          <ModalLocationUnavailable
+            onGrant={openSettingsPermissionLocation}
+          />
+        </Modal>
+      </Portal>
       <MapView
         ref={map}
         provider={PROVIDER_GOOGLE}
