@@ -38,7 +38,7 @@ const mapResponseToBengkelItem = (response: PublicAPIResponse<GetShopListRespons
       isAuthorized: bengkel.is_authorized,
       isAlmostClosed: false,
       name: bengkel.name,
-      location: '',
+      location: bengkel.location,
       description: bengkel.description,
       distance: bengkel.distance / 1000,
       rating: Number(bengkel.rating ?? '0'),

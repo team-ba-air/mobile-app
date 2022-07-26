@@ -54,7 +54,7 @@ const BengkelListItem: React.FC<BengkelListItemProps> = ({ data }) => {
             data={tagsList}
             numColumns={3}
             renderItem={(info: ListRenderItemInfo<string>) => (
-              <CustomChips text={info.item} style={{ marginRight: widthPixel(2), marginTop: heightPixel(4) }} />
+              <CustomChips text={info.item} style={{ marginRight: widthPixel(2), marginTop: heightPixel(4), backgroundColor: Color.blue[5] }} />
             )}
           />
           <Text style={styles.distance}>{formatDistance(data.distance)}</Text>

@@ -88,15 +88,11 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
   }, [shopDetailResponse])
 
   const shopDetail = shopDetailResponse?.body
-  console.log(`Shop Detail: ${shopDetail}`)
 
   const [index, setIndex] = useState(0)
 
   return ( 
     <AppContainer style={{ padding: 0, display: 'flex' }} refreshDisable scrollEnabled={outerScrollEnabled}>
-      {/* <View style={{  zIndex: 10, elevation: 10, marginTop: insets.top, opacity: 0 }}>
-      
-      </View> */}
       <ScrollView showsVerticalScrollIndicator={false}>
         <BengkelHeader data={shopDetailResponse?.body} />
         <TabBengkel index={index} setIndex={setIndex} />
@@ -125,16 +121,7 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
           }
         </View>
       </ScrollView>
-      {/* <SectionList sections={[]}
-        ListHeaderComponent={
-          <>
-          
-          </>
-        }
-        renderItem={() => null}
-      >
-      </SectionList> */}
-      {/* <Icon style={{ zIndex: 10, elevation: 10, position: 'absolute', top: 0 }} name={'arrow-back'} raised size={14} onPress={() => navigation.goBack()} tvParallaxProperties={undefined}/> */}
+
     </AppContainer>
   );
 }

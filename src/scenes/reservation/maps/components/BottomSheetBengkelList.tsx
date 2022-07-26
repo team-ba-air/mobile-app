@@ -3,12 +3,9 @@ import { View, Text, FlatList, ListRenderItemInfo, ActivityIndicator } from 'rea
 import BottomSheet, { TouchableOpacity } from '@gorhom/bottom-sheet';
 import Animated from 'react-native-reanimated';
 import { NavigationProp } from '@react-navigation/native';
-import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
+import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import BengkelListItem from './BengkelListItem';
 import { SCREENS } from 'navigations/constants';
-import { useQuery } from 'react-query';
-import { PublicAPIResponse } from 'network/types';
-import getShopList from 'scenes/reservation/service/getShopList';
 import { BengkelItem, ServiceItem } from 'scenes/reservation/constants';
 import { VehicleItem } from 'scenes/vehicle/constants';
 import { Color } from 'styles/colors';
@@ -20,36 +17,16 @@ interface BottomSheetBengkelListProps {
   service: ServiceItem
   car: VehicleItem
   location: LocationPoint | null
+  isLoading: boolean
+  shops: BengkelItem[]
 }
  
-const BottomSheetBengkelList: React.FC<BottomSheetBengkelListProps> = ({ animatedPosition, navigation, service, car, location }) => {
+const BottomSheetBengkelList: React.FC<BottomSheetBengkelListProps> = ({ animatedPosition, navigation, service, car, location, isLoading, shops }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
   }, []);
-
-  const {
-    data: shopListResponse,
-    isLoading: isFetchingVehicleList,
-  } = useQuery<PublicAPIResponse<any>>(
-    ['getShopList', location],
-    () => getShopList({ 
-      lat: location?.latitude ?? 0, 
-      long: location?.longitude ?? 0, 
-      type: service.name, 
-      typeCar: car.brand 
-    }),
-    {
-      refetchOnWindowFocus: false,
-      retry: true,
-    }
-  )
-
-  const shopList = shopListResponse?.body ?? []
-  console.log(shopList)
-
-  console.log(`Is Loading: ${isFetchingVehicleList}`)
 
   const handleClick = (item: BengkelItem) => {
     navigation.navigate(SCREENS.reservation.bengkelFormReservation, { 
@@ -76,9 +53,9 @@ const BottomSheetBengkelList: React.FC<BottomSheetBengkelListProps> = ({ animate
         }}>
           Silakan pilih lokasi untuk mencari bengkel di sekitar.
         </Text>
-      ) : isFetchingVehicleList ? (
+      ) : isLoading ? (
         <ActivityIndicator style={{ marginTop: heightPixel(16) }} size={'large'} color={Color.blue[8]}/>
-      ) : shopList.length === 0 ? (
+      ) : shops.length === 0 ? (
         <Text style={{ 
           marginTop: heightPixel(16),
           marginHorizontal: widthPixel(16),
@@ -87,7 +64,7 @@ const BottomSheetBengkelList: React.FC<BottomSheetBengkelListProps> = ({ animate
         </Text>
       ) : (
         <FlatList
-          data={shopList}
+          data={shops}
           renderItem={(info: ListRenderItemInfo<BengkelItem>) => (
             <TouchableOpacity onPress={() => handleClick(info.item)}>
               <BengkelListItem data={info.item} />

@@ -13,7 +13,10 @@ export type BengkelItem = {
   isAuthorized: boolean
   isAlmostClosed: boolean
   name: string
-  location: string
+  location: {
+    latitude: number
+    longitude: number
+  }
   description: string
   distance: number
   rating: number

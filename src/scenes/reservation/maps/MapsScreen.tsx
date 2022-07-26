@@ -1,7 +1,7 @@
 import AppContainer from 'components/AppContainer';
 import React, { useEffect, useRef, useState } from 'react'
-import { Platform, StyleSheet, View } from 'react-native';
-import MapView, { MapEvent, Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import { Platform, StyleSheet, Text, View } from 'react-native';
+import MapView, { Callout, MapEvent, Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import { Icon } from 'react-native-elements';
 import BottomSheetBengkelList from './components/BottomSheetBengkelList';
@@ -9,13 +9,16 @@ import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanima
 import { fontPixel, heightPixel, SCREEN_WIDTH, widthPixel } from 'styles/sizes';
 import { Color } from 'styles/colors';
 import { NavigationProp, Route } from '@react-navigation/native';
-import { ServiceItem } from '../constants';
+import { BengkelItem, ServiceItem } from '../constants';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { VehicleItem } from 'scenes/vehicle/constants';
 import { openSettingsPermissionLocation, requestPermissionAndroid, requestPermissionIos } from 'utils/PermissionUtils';
 import { Modal, Portal } from 'react-native-paper';
 import ModalLocationUnavailable from './components/ModalLocationUnavailable';
 import { SCREENS } from 'navigations/constants';
+import { useQuery } from 'react-query';
+import { PublicAPIResponse } from 'network/types';
+import getShopList from '../service/getShopList';
 
 interface MapsScreenProps {
   navigation: NavigationProp<any>
@@ -56,7 +59,6 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
   }, [])
 
   const handleGranted = () => {
-    console.log('GRANTED')
     getLocation()
   }
 
@@ -88,9 +90,7 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
         { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
       );
     } else {
-      console.log('MASUK SINI')
       Geolocation.watchPosition((position) => {
-        console.log(position)
         const dataRegion: Region = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -100,7 +100,6 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
       
         map.current?.animateToRegion(dataRegion, 1500)
   
-        console.log(position)
         setDeviceLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
@@ -131,6 +130,25 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
     setSyncWithGps(true)
   }
 
+  const {
+    data: shopListResponse,
+    isLoading: isFetchingVehicleList,
+  } = useQuery<PublicAPIResponse<BengkelItem[]>>(
+    ['getShopList', location],
+    () => getShopList({ 
+      lat: location?.latitude ?? 0, 
+      long: location?.longitude ?? 0, 
+      type: data.service.name, 
+      typeCar: data.car.brand 
+    }),
+    {
+      refetchOnWindowFocus: false,
+      retry: true,
+    }
+  )
+
+  const shopList = shopListResponse?.body ?? []
+
   const animatedPosition = useSharedValue(0)
 
   const animatedStyleAction = useAnimatedStyle(() => {
@@ -160,6 +178,40 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
   const navigateHome = () => {
     navigation.navigate(SCREENS.app.home)
   }
+
+  const markerShops = shopList.map((value, idx) => (
+    <Marker 
+      key={idx}
+      coordinate={value.location}
+      style={{ zIndex: 5 }}
+      anchor={{
+        x: 0.5,
+        y: 0.5,
+      }}
+      tracksViewChanges={false}
+      stopPropagation
+    >
+      <Icon size={28} color={Color.blue[8]} name='fiber-manual-record' type='material' tvParallaxProperties={undefined} />
+      <Callout 
+        style={{
+          width: 80
+        }}
+        onPress={() => {
+          navigation.navigate(SCREENS.reservation.bengkelFormReservation, { 
+            data: {
+              shop: value,
+              car: data.car,
+              service: data.service,
+            }
+          })
+        }}
+      >
+        <View>
+          <Text style={{ textAlign: 'center' }}>{value.name}</Text>
+        </View>
+      </Callout>
+    </Marker>
+  ))
 
   return ( 
     <AppContainer style={{ paddingHorizontal: 0, paddingTop: 0, alignItems: 'flex-end' }} refreshDisable>
@@ -201,21 +253,8 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
         >
           <Icon size={28} color={Color.blue[8]} name='gps-fixed' type='material' tvParallaxProperties={undefined} />
         </Marker>
+        {markerShops}
 
-        <Marker 
-          key='bengkel'
-          coordinate={{
-            latitude: -6.893026,
-            longitude: 107.613641,
-          }}
-          style={{ zIndex: 5 }}
-          anchor={{
-            x: 0.5,
-            y: 0.5,
-          }}
-        >
-          <Icon size={28} color={Color.blue[8]} name='fiber-manual-record' type='material' tvParallaxProperties={undefined} />
-        </Marker>
       </MapView>
       
       <BottomSheetBengkelList 
@@ -224,6 +263,8 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
         service={data.service}
         car={data.car} 
         location={location}
+        isLoading={isFetchingVehicleList}
+        shops={shopList}
       />
       <View style={[styles.containerActionNavigate, Platform.OS === 'ios' && ({
         paddingTop: insets.top,
