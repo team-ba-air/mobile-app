@@ -89,7 +89,6 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, rou
   )
 
   const serviceList = servicesListResponse?.body ?? []
-  console.log(serviceList)
   const vehicleList = vehicleListResponse?.body ?? []
 
   useEffect(() => {

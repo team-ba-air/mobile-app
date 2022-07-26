@@ -40,7 +40,7 @@ const mapResponseToBengkelItem = (response: PublicAPIResponse<GetShopListRespons
       name: bengkel.name,
       location: '',
       description: bengkel.description,
-      distance: bengkel.distance,
+      distance: bengkel.distance / 1000,
       rating: Number(bengkel.rating ?? '0'),
       serviceAvailable: bengkel.service_available ?? [],
       availableForCar: bengkel.available_for_car ?? [],

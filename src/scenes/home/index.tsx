@@ -56,6 +56,15 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     }
   }, [])
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('beforeRemove', () => {
+      Geolocation.stopObserving()
+    })
+  
+    return unsubscribe
+  }, [navigation])
+  
+
   const handleGranted = () => {
     getLocation()
   }

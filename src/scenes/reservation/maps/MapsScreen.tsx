@@ -40,6 +40,11 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
   const map = useRef<MapView>(null)
 
   const [location, setLocation] = useState<LocationPoint | null>(null)
+  const [deviceLocation, setDeviceLocation] = useState<LocationPoint>({
+    latitude: -6.89474,
+    longitude: 107.610476,
+  })
+  const [syncWithGps, setSyncWithGps] = useState(true)
   const [modalVisible, setModalVisible] = useState(false)
 
   useEffect(() => {
@@ -51,6 +56,7 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
   }, [])
 
   const handleGranted = () => {
+    console.log('GRANTED')
     getLocation()
   }
 
@@ -59,41 +65,70 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
   }
 
   const getLocation = () => {
-    Geolocation.getCurrentPosition(
-      (position) => {
+    if (Platform.OS === 'ios') {
+      Geolocation.getCurrentPosition(
+        (position) => {
+          const dataRegion: Region = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+            latitudeDelta: 0.01,
+            longitudeDelta: 0.01,
+          }
+  
+          map.current?.animateToRegion(dataRegion, 1500)
+  
+          setDeviceLocation({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          })
+        },
+        (error) => {
+          console.log(error.code, error.message);
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
+      );
+    } else {
+      console.log('MASUK SINI')
+      Geolocation.watchPosition((position) => {
+        console.log(position)
         const dataRegion: Region = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
         }
-        
-        console.log('UPDATE')
-        if (Platform.OS === 'ios') {
-          map.current?.animateToRegion(dataRegion, 0.1)
-        }
-
-        setLocation({
+      
+        map.current?.animateToRegion(dataRegion, 1500)
+  
+        console.log(position)
+        setDeviceLocation({
           latitude: position.coords.latitude,
           longitude: position.coords.longitude,
         })
-      },
-      (error) => {
+      }, (error) => {
         console.log(error.code, error.message);
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
-    );
+      }, 
+      { enableHighAccuracy: true })
+    }
+    
   }
 
   const handlePressMap = (e: MapEvent) => {
+    setSyncWithGps(false)
     setLocation({
       latitude: e.nativeEvent.coordinate.latitude,
       longitude: e.nativeEvent.coordinate.longitude,
     })
   }
 
+  useEffect(() => {
+    if (syncWithGps) {
+      setLocation(deviceLocation)
+    }
+  }, [deviceLocation, syncWithGps])
+
   const handlePressGPS = () => {
-    console.log('Get to GPS position')
+    setSyncWithGps(true)
   }
 
   const animatedPosition = useSharedValue(0)
@@ -151,8 +186,36 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
           <Marker 
             key='LOCATION'
             coordinate={location}
+            style={{ zIndex: 7}}
           />
         )}
+
+        <Marker 
+          key='GPS'
+          coordinate={deviceLocation}
+          style={{ zIndex: 5 }}
+          anchor={{
+            x: 0.5,
+            y: 0.5,
+          }}
+        >
+          <Icon size={28} color={Color.blue[8]} name='gps-fixed' type='material' tvParallaxProperties={undefined} />
+        </Marker>
+
+        <Marker 
+          key='bengkel'
+          coordinate={{
+            latitude: -6.893026,
+            longitude: 107.613641,
+          }}
+          style={{ zIndex: 5 }}
+          anchor={{
+            x: 0.5,
+            y: 0.5,
+          }}
+        >
+          <Icon size={28} color={Color.blue[8]} name='fiber-manual-record' type='material' tvParallaxProperties={undefined} />
+        </Marker>
       </MapView>
       
       <BottomSheetBengkelList 
@@ -160,6 +223,7 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
         animatedPosition={animatedPosition} 
         service={data.service}
         car={data.car} 
+        location={location}
       />
       <View style={[styles.containerActionNavigate, Platform.OS === 'ios' && ({
         paddingTop: insets.top,
@@ -171,7 +235,10 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
           <Icon size={16} raised name={'gps-fixed'} onPress={handlePressGPS} tvParallaxProperties={undefined} />
           
           {location && (
-            <Icon size={16} raised name={'location-off'} onPress={() => setLocation(null)} tvParallaxProperties={undefined}/>
+            <Icon size={16} raised name={'location-off'} onPress={() => {
+              setLocation(null)
+              setSyncWithGps(false)
+            }} tvParallaxProperties={undefined}/>
           )}
         </Animated.View>
       </View>

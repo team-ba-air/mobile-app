@@ -21,7 +21,7 @@ const ModalLocationUnavailable: React.FC<ModalLocationUnavailableProps> = ({ onG
       }}
     >
       <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'center' }}>
-        <Image source={require('assets/red_trash.webp')}/>
+        <Image source={require('assets/icon/red_pin.png')}/>
         <Image source={require('assets/red_car.webp')}/>
       </View>
       

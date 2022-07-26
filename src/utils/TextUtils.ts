@@ -8,10 +8,18 @@ const formatRupiah = (value: number) : string => {
 }
 
 const formatDistance = (value: number) : string => {
-  return value <= 20 ? new Intl.NumberFormat('pt-PT',  {
-    style: 'unit',
-    unit: 'kilometer'
-  }).format(50.21233) : '> 20 km'
+  const valueRounded = Math.round(value)
+  if (valueRounded < 1000) {
+    return `${valueRounded} m`
+  }
+
+  const valueKilometer = valueRounded / 1000
+
+  if (valueKilometer > 20) {
+    return `>20 km`
+  }
+
+  return valueKilometer.toFixed(1)
 }
 
 export { formatRupiah, formatDistance }
