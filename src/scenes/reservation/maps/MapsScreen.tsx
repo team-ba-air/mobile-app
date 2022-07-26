@@ -253,7 +253,7 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
         >
           <Icon size={28} color={Color.blue[8]} name='gps-fixed' type='material' tvParallaxProperties={undefined} />
         </Marker>
-        {markerShops}
+        {location !== null && markerShops}
 
       </MapView>
       
