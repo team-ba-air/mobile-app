@@ -14,19 +14,10 @@ import AddVehicleButton from './AddVehicleButton'
 
 interface CarServiceReservationProps {
   navigation: NavigationProp<any>
+  vehicles: VehicleItem[]
 }
  
-const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigation }) => {
-  const { data: vehicleListResponse } = useQuery<PublicAPIResponse<VehicleItem[]>>(
-    ['getVehicleList'],
-    () => getVehicleList(),
-    {
-      refetchOnWindowFocus: false,
-      retry: true,
-    }
-  )
-
-  console.log(vehicleListResponse?.body ?? [])
+const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigation, vehicles }) => {
 
   const goToReservation = (vehicle: VehicleItem) => {
     console.log('Go To Reservation')
@@ -48,15 +39,12 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
     })
   }
 
-  const vehicleList = vehicleListResponse?.body ?? []
-  console.log(vehicleList)
-
   return ( 
     <>
     <View style={styles.containerCard}>
-      {vehicleList.length > 0 ? (
+      {vehicles.length > 0 ? (
         <FlatList 
-          data={vehicleList}
+          data={vehicles}
           horizontal
           showsHorizontalScrollIndicator={false}
           renderItem={(info: ListRenderItemInfo<VehicleItem>) => (

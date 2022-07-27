@@ -53,13 +53,15 @@ const OngoingReservationSection: React.FC<OngoingReservationSectionProps> = ({ n
   )
 
   const progressServiceList = progressServiceListResponse?.body ?? []
-
+  console.log(progressServiceList)
   return ( 
     <View>
-      <Text style={{ marginTop: 16, fontSize: fontPixel(14), fontWeight: 'bold', paddingLeft: 20, paddingRight: 20 }}>Sedang Berlangsung</Text>
-    
+      {progressServiceList.length > 0 && (
+        <Text style={{ marginTop: 16, fontSize: fontPixel(14), fontWeight: 'bold', paddingLeft: 20, paddingRight: 20 }}>Sedang Berlangsung</Text>
+      )}
+      
       <FlatList 
-        data={sampleDataProgress}
+        data={progressServiceList}
         renderItem={(info: ListRenderItemInfo<ReservationItem>) => (
           <OngoingReservationItem data={info.item} navigation={navigation} />
         )}

@@ -20,9 +20,9 @@ export type ReservationItem = {
 }
 
 export type BookingInformationItem = {
-  car: VehicleInfo
-  shop: ShopInfo
-  service: ServiceInfo
+  car?: VehicleInfo
+  shop?: ShopInfo
+  service?: ServiceInfo
   datetime: Date
   notes: string
 }

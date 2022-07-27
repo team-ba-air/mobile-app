@@ -15,6 +15,10 @@ import Geolocation from 'react-native-geolocation-service';
 import { openSettingsPermissionLocation, requestPermissionAndroid, requestPermissionIos } from 'utils/PermissionUtils';
 import { Modal, Portal } from 'react-native-paper';
 import ModalLocationUnavailable from './components/ModalLocationUnavailable';
+import getVehicleList from './service/getVehicleList';
+import { useQuery } from 'react-query';
+import { PublicAPIResponse } from 'network/types';
+import { VehicleItem } from 'scenes/vehicle/constants';
 
 interface HomeScreenProps {
   navigation: NavigationProp<any>
@@ -47,6 +51,15 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       return <PopularService />
     }
   }
+
+  const { data: vehicleListResponse, refetch: refetchVehicleList } = useQuery<PublicAPIResponse<VehicleItem[]>>(
+    ['getVehicleList'],
+    () => getVehicleList(),
+    {
+      refetchOnWindowFocus: false,
+      retry: true,
+    }
+  )
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -108,6 +121,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
   const handleRefresh = () => {
     getLocation()
+    refetchVehicleList()
   }
 
   return (
@@ -131,7 +145,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
         ListHeaderComponent={
           <>
             <InfoLocation navigation={navigation} location={location} />
-            <CarServiceReservation navigation={navigation} />
+            <CarServiceReservation navigation={navigation} vehicles={vehicleListResponse?.body ?? []} />
             <ReminderServiceComponent />
             <ServiceList navigation={navigation} />
             <OngoingReservationSection navigation={navigation} />

@@ -14,19 +14,25 @@ interface OngoingReservationItemProps {
 }
  
 const OngoingReservationItem: React.FC<OngoingReservationItemProps> = ({ data, navigation }) => {
-  const date = data.info_booking.datetime.getDate()
+  const time = data.info_booking.datetime.getTime()
 
   const getStatus = (status: number) => {
-    if (status > 0) {
-      return LABEL_STATUS[status]
-    } else if (status > 4){
+    if (status > 4) {
       return 'Servis selesai'
+    } else if (status > 0){
+      return LABEL_STATUS[status]
     } else {
-      const dateNow = new Date().getDate()
-      const dateDiff = date - dateNow
-
-      if (dateDiff > 0) {
-        return `${dateDiff} hari lagi menuju servis`
+      const timeNow = new Date().getTime()
+      const timeDiff = time - timeNow
+      
+      console.log(`Original Datetime: ${data.info_booking.datetime}`)
+      console.log(`Time Now: ${timeNow}`)
+      console.log(`Time: ${time}`)
+      console.log(`Time Diff: ${timeDiff}`)
+      const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24))
+      console.log(`Day Diff: ${dayDiff}`)
+      if (dayDiff > 0) {
+        return `${dayDiff} hari lagi menuju servis`
       } else {
         return LABEL_STATUS[status]
       }
@@ -39,8 +45,8 @@ const OngoingReservationItem: React.FC<OngoingReservationItemProps> = ({ data, n
         <View style={{ display: 'flex', flexDirection: 'row' }}>
           <View style={{ flex: 3 }}>
             <View>
-              <Text style={{ fontSize: Sizing.text.body[10], fontWeight: 'bold', color: Color.gray.secondary}}>{data.info_booking.shop.name} </Text>
-              <Text style={{ fontSize: Sizing.text.body[14], fontWeight: 'bold' }}>{data.info_booking.service.name} - {data.info_booking.car.brand} {data.info_booking.car.type} {data.info_booking.car.license_plate}</Text>
+              <Text style={{ fontSize: Sizing.text.body[10], fontWeight: 'bold', color: Color.gray.secondary}}>{data.info_booking.shop?.name} </Text>
+              <Text style={{ fontSize: Sizing.text.body[14], fontWeight: 'bold' }}>{data.info_booking.service?.name} - {data.info_booking.car?.brand} {data.info_booking.car?.type} {data.info_booking.car?.license_plate}</Text>
             </View>
 
             <LinearProgress style={{ height: 8, borderRadius: 8, marginTop: heightPixel(12) }} color='primary' value={data.status / 5} variant='determinate' />
