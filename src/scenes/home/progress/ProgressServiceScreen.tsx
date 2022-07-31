@@ -67,7 +67,7 @@ const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigatio
   }
 
   return ( 
-    <AppContainer style={{ padding: 0, backgroundColor: Color.gray[1], }} refreshBackground={'white'} onRefresh={handleRefresh}>
+    <AppContainer style={{ padding: 0, backgroundColor: Color.gray[1], }} refreshDisable={(progressServiceDetail?.status ?? 0) >= 4} refreshBackground={'white'} onRefresh={handleRefresh}>
       {(progressServiceDetail && progressServiceDetail.status < 4) ? (
         <>
           <View style={{ backgroundColor: 'white', paddingTop: heightPixel(20) }}>
