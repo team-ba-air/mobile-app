@@ -23,104 +23,6 @@ interface ProgressServiceScreenProps {
 interface ParamProgress {
   data: string
 }
-
-const progressServiceDetail: ReservationDetailItem = {
-  id: '1',
-  booking_number: '9182397dfiwhbf8weg8',
-  info_booking: {
-    car: {
-      id: '',
-      brand: '',
-      type: 'Yaris',
-      license_plate: 'B 2000 S',
-    },
-    shop: {
-      id: '',
-      name: 'Auto 2000, Jakarta Utara',
-    },
-    service: {
-      id: '',
-      name: 'Servis Dasar 10000 KM',
-      description: '',
-      price: 15000,
-    },
-    datetime: new Date('2022-06-14T11:27:39.404Z'),
-    notes: 'Kebetulan daerah saya lumayan banyak debu, AC saya jadi agak kurang dingin sih',
-  },
-  status: 4, // 0, 1, 2, 3, 4
-  progress: [
-    {
-      step: 0,
-      time: null,
-    },
-    {
-      step: 1,
-      time: null,
-    },
-    {
-      step: 2,
-      time: null,
-    },
-    {
-      step: 3,
-      time: null,
-    },
-    {
-      step: 4,
-      time: null,
-    }
-  ],
-  service_assistant: 'Michael Hans',
-  additional_component: [
-    {
-      id: '',
-      name: 'V-Belt',
-      priority: 'IMPORTANT', // IMPORTANT or RECOMMENDED
-      price: 10000,
-    },
-    {
-      id: '',
-      name: 'Filter AC',
-      priority: 'IMPORTANT',
-      price: 10000,
-    },
-    {
-      id: '',
-      name: 'Filter AC',
-      priority: 'IMPORTANT',
-      price: 10000,
-    },
-    {
-      id: '',
-      name: 'Filter AC',
-      priority: 'IMPORTANT',
-      price: 10000,
-    },
-    {
-      id: '',
-      name: 'Filter AC',
-      priority: 'IMPORTANT',
-      price: 10000,
-    },
-    {
-      id: '',
-      name: 'Filter AC',
-      priority: 'IMPORTANT',
-      price: 10000,
-    },
-  ],
-  requested_additional_component: [
-    {
-      id: '',
-      name: '',
-      priority: 'IMPORTANT',
-      price: 10000,
-    },
-  ],
-  requested_additional_component_notes: '',
-  // requested_additional_component_notes: 'V-Belt dan Kampas Rem Bapak/Ibu sudah terlalu lama tidak diganti, kalau terlalu lama dibiarkan bisa merusak komponen lain. Untuk Filter sudah tidak optimal juga, tapi masih bisa tahan ~3 bulan kedepan.',
-  payment_method: null,
-}
  
 const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigation, route }) => {
   const { data } = route.params
@@ -129,6 +31,7 @@ const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigatio
 
   const {
     data: progressServiceDetailResponse,
+    refetch: refetchProgressServiceDetail,
   } = useQuery<PublicAPIResponse<ReservationDetailItem>>(
     ['getProgressServiceDetail', data],
     () => getProgressServiceDetail({ id: data }),
@@ -159,8 +62,12 @@ const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigatio
     return () => navigation.getParent()?.setOptions({ tabBarStyle: undefined })
   }, [navigation]);
 
+  const handleRefresh = () => {
+    refetchProgressServiceDetail()
+  }
+
   return ( 
-    <AppContainer style={{ padding: 0, backgroundColor: Color.gray[1], }} refreshDisable>
+    <AppContainer style={{ padding: 0, backgroundColor: Color.gray[1], }} refreshBackground={'white'} onRefresh={handleRefresh}>
       {(progressServiceDetail && progressServiceDetail.status < 4) ? (
         <>
           <View style={{ backgroundColor: 'white', paddingTop: heightPixel(20) }}>

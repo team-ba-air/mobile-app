@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/native';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
 import React from 'react'
@@ -10,7 +10,7 @@ import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
 import { formatRupiah } from 'utils/TextUtils';
 
 interface FooterProps {
-  navigation: any
+  navigation: NavigationProp<any>
   data: AdditionalComponentSelectionItem[]
   showModal: () => void
 }
@@ -35,7 +35,7 @@ const Footer: React.FC<FooterProps> = ({ navigation, data, showModal }) => {
         />
         <CustomButton 
           type='secondary'
-          onPress={() => navigation.navigate(SCREENS.reservation.selectPayment)} 
+          onPress={() => navigation.goBack()} 
           buttonStyle={{ paddingLeft: widthPixel(36), paddingRight: widthPixel(36), marginTop: heightPixel(8) }} 
           title='Tidak, Hubungi Bengkel Dahulu' 
         />
@@ -49,6 +49,7 @@ export default Footer;
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    paddingBottom: heightPixel(20),
     elevation: 24,
     backgroundColor: Color.gray[0],
     shadowColor: "#000",

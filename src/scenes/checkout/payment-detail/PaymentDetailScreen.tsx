@@ -2,6 +2,7 @@ import { NavigationProp, Route } from '@react-navigation/native';
 import AppContainer from 'components/AppContainer';
 import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
+import { PublicAPIResponse } from 'network/types';
 import React from 'react'
 import { Image, Text, View } from 'react-native';
 import { useMutation } from 'react-query';
@@ -11,7 +12,7 @@ import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import { formatRupiah } from 'utils/TextUtils';
 import { PaymentMethodSelectionItem } from '../constants';
-import createReservation from '../service/createReservation';
+import createReservation, { ReservationData } from '../service/createReservation';
 import updateProgressService from '../service/updateProgressService';
 import { UpdateProgressServiceResponse } from '../service/updateProgressService';
 
@@ -28,10 +29,10 @@ interface ParamPaymentDetail {
   status?: number
 }
 
-const sampleResponse: UpdateProgressServiceResponse = {
+const sampleResponse: ReservationData = {
   id: '1',
   booking_number: '12312A',
-  booking_information: {
+  info_booking: {
     car: {
       id: '',
       brand: 'Toyota',
@@ -80,8 +81,17 @@ const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, naviga
   const totalPrice = additionalComponent.reduce((priceAccumulator, item) => priceAccumulator + item.price, 0)
 
   const { isLoading: isUpdatingProgressService, mutateAsync: onUpdateProgressService } = useMutation(updateProgressService, {
-    onSuccess: (data) => {
-      // navigation.navigate(SCREENS.reservation.informasiTagihan)
+    onSuccess: (data: PublicAPIResponse<ReservationData>) => {
+      console.log(data.body)
+      navigation.navigate(SCREENS.reservation.informasiTagihan, {
+        id: data.body?.id,
+        bookingNumber: data.body?.booking_number,
+        additionalComponents: data.body?.additional_component,
+        bookingInformation: data.body?.info_booking,
+        paymentMethod: data.body?.payment_method,
+        type: 'confirmation-success',
+        isFinish: status === 5,
+      })
     },
   })
 
@@ -93,16 +103,6 @@ const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, naviga
       id
     }).catch(() => {
       // do nothing
-    })
-
-    navigation.navigate(SCREENS.reservation.informasiTagihan, {
-      id: sampleResponse.id,
-      bookingNumber: sampleResponse.booking_number,
-      additionalComponents: sampleResponse.additional_component,
-      bookingInformation: sampleResponse.booking_information,
-      paymentMethod: sampleResponse.payment_method,
-      type: 'confirmation-success',
-      isFinish: status === 5,
     })
   }
 

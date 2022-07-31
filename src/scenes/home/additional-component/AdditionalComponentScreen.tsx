@@ -20,41 +20,14 @@ interface AdditionalComponentScreenProps {
 interface ParamAdditionalComponent {
   id: string
   servicePrice: number
+  requestedAdditionalComponent: AdditionalComponentItem[]
 }
-
-const dummyData: AdditionalComponentItem[] = [
-  {
-    id: '1',
-    name: 'V-Belt',
-    price: 250000,
-    priority: 'IMPORTANT',
-  },
-  {
-    id: '2',
-    name: 'Kampas Rem',
-    price: 180000,
-    priority: 'IMPORTANT',
-  },
-  {
-    id: '3',
-    name: 'Filter',
-    price: 150000,
-    priority: 'RECOMMENDED',
-  },
-  {
-    id: '4',
-    name: 'Filter',
-    price: 150000,
-    priority: 'RECOMMENDED',
-  },
-
-]
  
 const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ navigation, route }) => {
-  const { servicePrice, id } = route.params
+  const { servicePrice, id, requestedAdditionalComponent } = route.params
   const [visible, setVisible] = useState<boolean>(false)
 
-  const selectComponentList = dummyData.map(value => (
+  const selectComponentList = requestedAdditionalComponent.map(value => (
     {
       ...value,
       selected: value.priority === 'IMPORTANT' ? true : false,

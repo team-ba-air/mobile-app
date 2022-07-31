@@ -1,7 +1,8 @@
 import networkService from "network/api/networkService"
 import { PublicAPIResponse } from "network/types"
-import { AdditionalComponentItem, BookingInformationItem } from "scenes/home/constants"
+import { AdditionalComponentItem, BookingInformationItem, ServiceInfo, ShopInfo, VehicleInfo } from "scenes/home/constants"
 import { PaymentMethodSelectionItem } from "../constants"
+import { ReservationData } from "./createReservation"
 
 export type UpdateProgressServiceRequest = {
   status?: number
@@ -19,9 +20,15 @@ export type UpdateProgressServiceRequestData = {
 export type UpdateProgressServiceResponse = {
   id: string
   booking_number: string
-  additional_component: AdditionalComponentItem[]
-  booking_information: BookingInformationItem
-  payment_method: PaymentMethodSelectionItem
+  payment_method: PaymentMethodSelectionItem | null
+  info_booking: {
+    car: VehicleInfo
+    shop: ShopInfo
+    service: ServiceInfo
+    datetime: string
+    notes: string
+  }
+  additional_component: AdditionalComponentItem[] | null
 }
 
 export const UpdateProgressServiceEndpoint = 'service-progress'
@@ -34,15 +41,33 @@ const mapRequestData = (request: UpdateProgressServiceRequest): UpdateProgressSe
   }
 }
 
+const mapResponseData = (response: PublicAPIResponse<UpdateProgressServiceResponse>): PublicAPIResponse<ReservationData> => {
+  return {
+    ...response,
+    body: {
+      id: response.body?.id ?? '',
+      booking_number: response.body?.booking_number ?? '',
+      payment_method: response.body?.payment_method ?? null,
+      info_booking: {
+        ...response.body?.info_booking,
+        datetime: response.body?.info_booking.datetime ? new Date(response.body.info_booking.datetime) : new Date(),
+        notes: response.body?.info_booking.notes ?? '',
+      },
+      additional_component: response.body?.additional_component ?? [],
+    }
+  }
+}
+
 const updateProgressService = async (request: UpdateProgressServiceRequest) => {
   const data = mapRequestData(request)
 
-  const response: PublicAPIResponse<UpdateProgressServiceResponse> = await networkService.post(
+  console.log(data)
+  const response: PublicAPIResponse<UpdateProgressServiceResponse> = await networkService.patch(
     `${UpdateProgressServiceEndpoint}/${request.id}`,
     data
   )
 
-  return response
+  return mapResponseData(response)
 }
 
 export default updateProgressService

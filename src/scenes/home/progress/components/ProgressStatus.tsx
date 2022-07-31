@@ -27,7 +27,7 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => 
   const [show, setShow] = useState(false)
 
   const additionalComponentListElement = data.additional_component.map((value, idx) => (
-    <Text style={{ fontWeight: 'bold' }}>{idx + 1}. {value.name}</Text>
+    <Text style={{ fontWeight: 'bold', fontSize: fontPixel(14) }}>{idx + 1}. {value.name}</Text>
   ))
 
   const statusWaitingText = (dayDiff > 1) ?
@@ -35,6 +35,8 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => 
   : (dayDiff > 0) ?
     'Menunggu Mobil Sampai di Bengkel'
   : 'Mobil Sampai di Bengkel'
+
+  console.log(data.requested_additional_component)
 
   return ( 
     <>
@@ -50,17 +52,21 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => 
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary, marginRight: widthPixel(4) }}>Komponen Tambahan</Text>
                 <Icon 
-                  type='material' 
-                  name='info' 
-                  tvParallaxProperties={undefined} 
-                  color={Color.gray[3]} 
-                  size={16} 
+                  type='material'
+                  name='info'
+                  tvParallaxProperties={undefined}
+                  color={Color.gray[3]}
+                  size={16}
                   onPress={() => setShow(true)}
                 />
               </View>
               {data.additional_component.length === 0 ? (
                 data.requested_additional_component.length > 0 ? (
-                  <AdditionalComponentButton onPress={() => navigation.navigate(SCREENS.reservation.additionalComponent, { servicePrice: data.info_booking.service?.price, id: data.id })} />
+                  <AdditionalComponentButton onPress={() => navigation.navigate(SCREENS.reservation.additionalComponent, { 
+                    servicePrice: data.info_booking.service?.price, 
+                    id: data.id,
+                    requestedAdditionalComponent: data.requested_additional_component
+                  })} />
                 ) : (
                   <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>{'-'}</Text>
                 )

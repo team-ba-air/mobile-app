@@ -13,10 +13,11 @@ interface AppContainerProps {
   safeAreaBackground?: ColorValue
   edges?: ('top' | 'bottom')[]
   scrollEnabled?: boolean
+  refreshBackground?: ColorValue
 }
  
 const AppContainer: React.FC<AppContainerProps> = ({ 
-  children, style, backgroundImage, onRefresh, refreshDisable, safeAreaBackground, edges = [], scrollEnabled = true
+  children, style, backgroundImage, onRefresh, refreshDisable, safeAreaBackground, edges = [], scrollEnabled = true, refreshBackground = Color.blue[8]
 }) => {
   const [refreshing, setRefreshing] = useState(false)
 
@@ -38,11 +39,11 @@ const AppContainer: React.FC<AppContainerProps> = ({
       <ImageBackground style={[styles.backgroundImage, style]} source={backgroundImage}>
         {refreshDisable ? children : (
           <ScrollView
-            // scrollEnabled={scrollEnabled}
+            showsVerticalScrollIndicator={false}
             contentContainerStyle={{ flexGrow: 1 }}
             refreshControl={
               <RefreshControl 
-                style={Platform.OS === 'ios' && ({backgroundColor: Color.blue[8]})}
+                style={Platform.OS === 'ios' && ({ backgroundColor: refreshBackground })}
                 refreshing={refreshing}
                 onRefresh={handleRefresh}
               />
