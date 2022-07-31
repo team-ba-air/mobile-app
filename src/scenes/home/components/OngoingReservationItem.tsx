@@ -27,13 +27,11 @@ const OngoingReservationItem: React.FC<OngoingReservationItemProps> = ({ data, n
       const timeDiff = time - dateNow.getTime()
       
       const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24))
-      console.log(`Day Diff: ${dayDiff}`)
+
       if (dayDiff > 1) {
         return `${dayDiff} hari lagi menuju servis`
-      } else if (dayDiff > 0) {
-        return 'Menunggu Mobil Sampai di Bengkel'
       } else {
-        return 'Mobil Sampai di Bengkel'
+        return 'Menunggu Mobil Sampai di Bengkel'
       }
     }
   }
@@ -48,7 +46,7 @@ const OngoingReservationItem: React.FC<OngoingReservationItemProps> = ({ data, n
               <Text style={{ fontSize: Sizing.text.body[14], fontWeight: 'bold' }}>{data.info_booking.service?.name} - {data.info_booking.car?.brand} {data.info_booking.car?.type} {data.info_booking.car?.license_plate}</Text>
             </View>
 
-            <LinearProgress style={{ height: 8, borderRadius: 8, marginTop: heightPixel(12) }} color='primary' value={data.status / 5} variant='determinate' />
+            <LinearProgress style={{ height: 8, borderRadius: 8, marginTop: heightPixel(12) }} color='primary' value={data.status === 0 ? 0.02 : data.status / 4} variant='determinate' />
             
             <Text style={{ marginTop: 16 }}>
               <Text style={{ fontSize: fontPixel(10) }}>Status: </Text>

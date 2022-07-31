@@ -33,7 +33,7 @@ export const getProgressServiceDetailEndpoint = 'service-progress'
 
 const mapResponse = (response: PublicAPIResponse<GetProgressServiceDetailResponse>): PublicAPIResponse<ReservationDetailItem> => {
   const progressList = response.body?.progress ?? []
-  console.log(progressList)
+
   return {
     ...response,
     body: {

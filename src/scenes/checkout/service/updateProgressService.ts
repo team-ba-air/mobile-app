@@ -61,7 +61,6 @@ const mapResponseData = (response: PublicAPIResponse<UpdateProgressServiceRespon
 const updateProgressService = async (request: UpdateProgressServiceRequest) => {
   const data = mapRequestData(request)
 
-  console.log(data)
   const response: PublicAPIResponse<UpdateProgressServiceResponse> = await networkService.patch(
     `${UpdateProgressServiceEndpoint}/${request.id}`,
     data

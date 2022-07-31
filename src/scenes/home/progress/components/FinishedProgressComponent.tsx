@@ -2,10 +2,12 @@ import { NavigationProp } from '@react-navigation/native';
 import CustomButton from 'components/CustomButton';
 import { format } from 'date-fns';
 import { SCREENS } from 'navigations/constants';
+import { PublicAPIResponse } from 'network/types';
 import React, { useState } from 'react'
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { Modal, Portal } from 'react-native-paper';
 import { useMutation } from 'react-query';
+import { ReservationData } from 'scenes/checkout/service/createReservation';
 import { ReservationDetailItem } from 'scenes/home/constants';
 import updateProgressService from 'scenes/home/service/updateProgressService';
 import { Color } from 'styles/colors';
@@ -33,8 +35,17 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
   ))
 
   const { isLoading: isUpdatingProgressService, mutateAsync: onUpdateProgressService } = useMutation(updateProgressService, {
-    onSuccess: (data) => {
-      // navigation.navigate(SCREENS.reservation.informasiTagihan)
+    onSuccess: (data: PublicAPIResponse<ReservationData>) => {
+      handleDismiss()
+      navigation.navigate(SCREENS.reservation.informasiTagihan, {
+        id: data.body?.id,
+        bookingNumber: data.body?.booking_number,
+        additionalComponents: data.body?.additional_component,
+        bookingInformation: data.body?.info_booking,
+        paymentMethod: data.body?.payment_method,
+        type: 'confirmation-success',
+        isFinish: true,
+      })
     },
   })
 
@@ -43,6 +54,8 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
       onUpdateProgressService({
         status: 5,
         id: data.id
+      }).catch(() => {
+        // do nothing
       })
     } else {
       handleDismiss()

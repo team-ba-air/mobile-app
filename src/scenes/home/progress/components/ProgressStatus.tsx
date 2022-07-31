@@ -32,9 +32,8 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => 
 
   const statusWaitingText = (dayDiff > 1) ?
     `${dayDiff} hari lagi menuju servis`
-  : (dayDiff > 0) ?
+  : 
     'Menunggu Mobil Sampai di Bengkel'
-  : 'Mobil Sampai di Bengkel'
 
   console.log(data.requested_additional_component)
 
