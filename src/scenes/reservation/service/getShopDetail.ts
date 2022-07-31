@@ -14,6 +14,7 @@ export type GetShopDetailResponse = {
   image?: string
   description: string
   is_authorized: boolean
+  service_available_tags: string[]
   service_available: {
     id: string,
     name: string,
@@ -28,11 +29,16 @@ export type GetShopDetailResponse = {
 export const getShopDetailEndpoint = '/shop'
 
 const mapResponseToBengkelDetailItem = (response: PublicAPIResponse<GetShopDetailResponse>): PublicAPIResponse<BengkelDetailItem> => {
-  const openTime = response.body?.open_time ? new Date(response.body.open_time) : new Date()
-  const closeTime = response.body?.close_time ? new Date(response.body.close_time) : new Date()
-  
-  openTime.setHours(openTime.getHours() - 7)
-  closeTime.setHours(closeTime.getHours() - 7)
+  const openHour = response.body?.open_time.split(':') ?? []
+  const openDate = new Date()
+  openDate.setHours(parseInt(openHour?.[0]))
+  openDate.setMinutes(parseInt(openHour?.[1]))
+
+  const closeHour = response.body?.close_time.split(':') ?? []
+  const closeDate = new Date()
+  closeDate.setHours(parseInt(closeHour?.[0]))
+  closeDate.setMinutes(parseInt(closeHour?.[1]))
+
   return {
     ...response,
     body: {
@@ -42,10 +48,11 @@ const mapResponseToBengkelDetailItem = (response: PublicAPIResponse<GetShopDetai
       img: response.body?.image ?? '',
       description: response.body?.description ?? '',
       isAuthorized: response.body?.is_authorized ?? false,
+      serviceAvailableTags: response.body?.service_available_tags ?? [],
       serviceAvailable: response.body?.service_available ?? [],
       availableForCar: response.body?.available_for_car ?? [],
-      openTime: openTime,
-      closeTime: closeTime,
+      openTime: openDate,
+      closeTime: closeDate,
     }
   }
 }

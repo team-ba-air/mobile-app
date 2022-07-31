@@ -19,6 +19,8 @@ import getVehicleList from './service/getVehicleList';
 import { useQuery } from 'react-query';
 import { PublicAPIResponse } from 'network/types';
 import { VehicleItem } from 'scenes/vehicle/constants';
+import { ReservationItem } from './constants';
+import getProgressServiceList from './service/getProgressServiceList';
 
 interface HomeScreenProps {
   navigation: NavigationProp<any>
@@ -60,6 +62,21 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       retry: true,
     }
   )
+
+  const {
+    data: progressServiceListResponse,
+    refetch: refetchProgressServiceList,
+  } = useQuery<PublicAPIResponse<ReservationItem[]>>(
+    ['getProgressServiceList'],
+    () => getProgressServiceList(),
+    {
+      refetchOnWindowFocus: false,
+      retry: true,
+    }
+  )
+
+  const progressServiceList = progressServiceListResponse?.body ?? []
+  const ongoingServiceList = progressServiceList.filter(value => value.status < 5)
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -122,6 +139,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const handleRefresh = () => {
     getLocation()
     refetchVehicleList()
+    refetchProgressServiceList()
   }
 
   return (
@@ -148,7 +166,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
             <CarServiceReservation navigation={navigation} vehicles={vehicleListResponse?.body ?? []} />
             <ReminderServiceComponent />
             <ServiceList navigation={navigation} />
-            <OngoingReservationSection navigation={navigation} />
+            <OngoingReservationSection navigation={navigation} progressServiceList={ongoingServiceList} />
           </>
         }
         renderItem={({ item }) => <View>{renderBasedOnContent(item)}</View>}

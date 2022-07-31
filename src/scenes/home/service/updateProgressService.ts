@@ -5,6 +5,7 @@ import { AdditionalComponentItem, BookingInformationItem } from "../constants"
 
 export type UpdateProgressServiceRequest = {
   status: number
+  id: string
 }
 
 export type UpdateProgressServiceResponse = {
@@ -14,15 +15,15 @@ export type UpdateProgressServiceResponse = {
   payment_method: PaymentMethodSelectionItem
 }
 
-export const UpdateProgressServiceEndpoint = 'reserve'
+export const UpdateProgressServiceEndpoint = 'service-progress'
 
-const UpdateProgressService = async (request: UpdateProgressServiceRequest) => {
-  const response: PublicAPIResponse<UpdateProgressServiceResponse> = await networkService.post(
-    UpdateProgressServiceEndpoint,
+const updateProgressService = async (request: UpdateProgressServiceRequest) => {
+  const response: PublicAPIResponse<UpdateProgressServiceResponse> = await networkService.put(
+    `${UpdateProgressServiceEndpoint}/${request.id}`,
     request
   )
 
   return response
 }
 
-export default UpdateProgressService
+export default updateProgressService

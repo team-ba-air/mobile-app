@@ -59,6 +59,7 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ shopId }) => {
   )
 
   const shopReview = shopReviewResponse?.body
+  const reviewList = shopReview?.reviews ?? []
 
   return ( 
     <View style={{ paddingHorizontal: widthPixel(20) }}>
@@ -71,16 +72,21 @@ const ReviewComponent: React.FC<ReviewComponentProps> = ({ shopId }) => {
         <Text style={{ fontSize: fontPixel(14) }}>Rata-rata Ulasan</Text>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Icon size={fontPixel(24)} name={'star'} color={'#FFDE31'} tvParallaxProperties={undefined} />
-          <Text style={{ fontSize: fontPixel(24), fontWeight: 'bold' }}>{shopReview?.average_rating}</Text>
-          <Text style={{ marginLeft: widthPixel(4), fontSize: fontPixel(12), color: Color.gray[6] }}>({shopReview?.total_count} ulasan)</Text>
+          <Text style={{ fontSize: fontPixel(24), fontWeight: 'bold' }}>{shopReview?.average_rating ?? 0}</Text>
+          <Text style={{ marginLeft: widthPixel(4), fontSize: fontPixel(12), color: Color.gray[6] }}>({shopReview?.total_count ?? 0} ulasan)</Text>
         </View>
       </View>
-      <FlatList
-        data={shopReview?.reviews ?? []}
-        renderItem={(info: ListRenderItemInfo<ReviewItem>) => (
-          <ReviewItemComponent item={info.item} />
-        )}
-      />
+      {reviewList.length > 0 ? (
+        <FlatList
+          data={shopReview?.reviews ?? []}
+          renderItem={(info: ListRenderItemInfo<ReviewItem>) => (
+            <ReviewItemComponent item={info.item} />
+          )}
+        />
+      ) : (
+        <Text>Belum ada ulasan</Text>
+      )}
+      
     </View>
   );
 }

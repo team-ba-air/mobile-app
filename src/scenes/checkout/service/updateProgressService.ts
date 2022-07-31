@@ -7,12 +7,13 @@ export type UpdateProgressServiceRequest = {
   status?: number
   additionalComponent: AdditionalComponentItem[]
   paymentMethod: PaymentMethodSelectionItem
+  id: string
 }
 
 export type UpdateProgressServiceRequestData = {
   status?: number
-  payment_method: string
-  additional_component: AdditionalComponentItem[]
+  payment_id: string
+  requested_id: string[]
 }
 
 export type UpdateProgressServiceResponse = {
@@ -23,25 +24,25 @@ export type UpdateProgressServiceResponse = {
   payment_method: PaymentMethodSelectionItem
 }
 
-export const UpdateProgressServiceEndpoint = 'reserve'
+export const UpdateProgressServiceEndpoint = 'service-progress'
 
 const mapRequestData = (request: UpdateProgressServiceRequest): UpdateProgressServiceRequestData => {
   return {
     status: request.status,
-    payment_method: request.paymentMethod.id,
-    additional_component: request.additionalComponent
+    payment_id: request.paymentMethod.id,
+    requested_id: request.additionalComponent.map(value => value.id)
   }
 }
 
-const UpdateProgressService = async (request: UpdateProgressServiceRequest) => {
+const updateProgressService = async (request: UpdateProgressServiceRequest) => {
   const data = mapRequestData(request)
 
   const response: PublicAPIResponse<UpdateProgressServiceResponse> = await networkService.post(
-    UpdateProgressServiceEndpoint,
+    `${UpdateProgressServiceEndpoint}/${request.id}`,
     data
   )
 
   return response
 }
 
-export default UpdateProgressService
+export default updateProgressService

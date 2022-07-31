@@ -31,6 +31,7 @@ export type BengkelDetailItem = {
   name: string
   description: string
   rating: number
+  serviceAvailableTags: string[]
   serviceAvailable: {
     id: string
     name: string
@@ -48,7 +49,7 @@ export type AvailableHourItem = {
 }
 
 export type ReservationForm = Partial<{
-  shop: BengkelDetailItem
+  shop: BengkelItem
   car: string
   service: string
   payment: PaymentMethodSelectionItem

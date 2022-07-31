@@ -22,19 +22,18 @@ const OngoingReservationItem: React.FC<OngoingReservationItemProps> = ({ data, n
     } else if (status > 0){
       return LABEL_STATUS[status]
     } else {
-      const timeNow = new Date().getTime()
-      const timeDiff = time - timeNow
+      const dateNow = new Date()
+      dateNow.setHours(dateNow.getHours() + 7)
+      const timeDiff = time - dateNow.getTime()
       
-      console.log(`Original Datetime: ${data.info_booking.datetime}`)
-      console.log(`Time Now: ${timeNow}`)
-      console.log(`Time: ${time}`)
-      console.log(`Time Diff: ${timeDiff}`)
       const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24))
       console.log(`Day Diff: ${dayDiff}`)
-      if (dayDiff > 0) {
+      if (dayDiff > 1) {
         return `${dayDiff} hari lagi menuju servis`
+      } else if (dayDiff > 0) {
+        return 'Menunggu Mobil Sampai di Bengkel'
       } else {
-        return LABEL_STATUS[status]
+        return 'Mobil Sampai di Bengkel'
       }
     }
   }

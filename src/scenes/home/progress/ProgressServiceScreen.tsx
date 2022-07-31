@@ -24,7 +24,7 @@ interface ParamProgress {
   data: string
 }
 
-const sampleDataProgress: ReservationDetailItem = {
+const progressServiceDetail: ReservationDetailItem = {
   id: '1',
   booking_number: '9182397dfiwhbf8weg8',
   info_booking: {
@@ -140,20 +140,19 @@ const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigatio
 
   const progressServiceDetail = progressServiceDetailResponse?.body
 
-  const insets = useSafeAreaInsets()
-
   useEffect(() => {
-    if (sampleDataProgress.status >= 4) {
-      navigation.setOptions({ 
-        header: ({ navigation: navigationHeader }) => <NavbarApp navigation={navigationHeader} title={'Servis Selesai'} type='secondary' />
-      })
-    } else {
-      navigation.setOptions({ 
-        header: ({ navigation: navigationHeader }) => <NavbarApp navigation={navigationHeader} title={'Progres Servis'} type='secondary' />
-      })
+    if (progressServiceDetail) {
+      if (progressServiceDetail.status >= 4) {
+        navigation.setOptions({ 
+          header: ({ navigation: navigationHeader }) => <NavbarApp navigation={navigationHeader} title={'Servis Selesai'} type='secondary' />
+        })
+      } else {
+        navigation.setOptions({ 
+          header: ({ navigation: navigationHeader }) => <NavbarApp navigation={navigationHeader} title={'Progres Servis'} type='secondary' />
+        })
+      }
     }
-    
-  }, [sampleDataProgress])
+  }, [progressServiceDetail])
 
   useEffect(() => {
     navigation.getParent()?.setOptions({ tabBarStyle: { display: "none" }})
@@ -162,26 +161,26 @@ const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigatio
 
   return ( 
     <AppContainer style={{ padding: 0, backgroundColor: Color.gray[1], }} refreshDisable>
-      {sampleDataProgress.status < 4 ? (
+      {(progressServiceDetail && progressServiceDetail.status < 4) ? (
         <>
           <View style={{ backgroundColor: 'white', paddingTop: heightPixel(20) }}>
             <View style={{ borderWidth: 1, borderColor: Color.gray[2], borderRadius: 4, paddingVertical: heightPixel(12), paddingHorizontal: widthPixel(16), marginHorizontal: widthPixel(20) }}>
               <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Nomor Booking</Text>
-              <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{sampleDataProgress.booking_number}</Text>
+              <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{progressServiceDetail.booking_number}</Text>
             </View>
           </View>
           <TabProgress index={index} setIndex={setIndex}/>
           <ScrollView contentContainerStyle={{ height: '95%', display: 'flex', justifyContent: 'space-between', backgroundColor: 'white' }}>
             {index === 0 ?
             (
-              <ProgressStatus data={sampleDataProgress} navigation={navigation} />
+              <ProgressStatus data={progressServiceDetail} navigation={navigation} />
             ) : 
-              <BookingDetail data={sampleDataProgress} navigation={navigation} />
+              <BookingDetail data={progressServiceDetail} navigation={navigation} />
             }
           </ScrollView>
         </>
-      ) : (
-        <FinishedProgressComponent navigation={navigation} data={sampleDataProgress} />
+      ) : (progressServiceDetail) && (
+        <FinishedProgressComponent navigation={navigation} data={progressServiceDetail} />
       )}
     </AppContainer>
   );

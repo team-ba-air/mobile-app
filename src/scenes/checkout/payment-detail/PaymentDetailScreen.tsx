@@ -12,7 +12,8 @@ import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import { formatRupiah } from 'utils/TextUtils';
 import { PaymentMethodSelectionItem } from '../constants';
 import createReservation from '../service/createReservation';
-import UpdateProgressService, { UpdateProgressServiceResponse } from '../service/updateProgressService';
+import updateProgressService from '../service/updateProgressService';
+import { UpdateProgressServiceResponse } from '../service/updateProgressService';
 
 interface PaymentDetailScreenProps {
   route: Route<string, ParamPaymentDetail>
@@ -20,6 +21,7 @@ interface PaymentDetailScreenProps {
 }
 
 interface ParamPaymentDetail {
+  id: string
   servicePrice: number
   additionalComponent: AdditionalComponentItem[]
   paymentMethod: PaymentMethodSelectionItem
@@ -73,11 +75,11 @@ const sampleResponse: UpdateProgressServiceResponse = {
 }
  
 const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, navigation }) => {
-  const { additionalComponent, paymentMethod, status, servicePrice } = route.params
+  const { additionalComponent, paymentMethod, status, servicePrice, id } = route.params
 
   const totalPrice = additionalComponent.reduce((priceAccumulator, item) => priceAccumulator + item.price, 0)
 
-  const { isLoading: isUpdatingProgressService, mutateAsync: onUpdateProgressService } = useMutation(UpdateProgressService, {
+  const { isLoading: isUpdatingProgressService, mutateAsync: onUpdateProgressService } = useMutation(updateProgressService, {
     onSuccess: (data) => {
       // navigation.navigate(SCREENS.reservation.informasiTagihan)
     },
@@ -88,6 +90,7 @@ const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, naviga
       additionalComponent,
       paymentMethod,
       status,
+      id
     }).catch(() => {
       // do nothing
     })

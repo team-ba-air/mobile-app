@@ -17,14 +17,25 @@ interface ProgressStatusProps {
 }
  
 const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => {
-  const dateNow = new Date().getDate()
-  const dateDiff = data.info_booking.datetime.getDate() - dateNow
+  const dateNow = new Date()
+  dateNow.setHours(dateNow.getHours() + 7)
+  const timeNow = dateNow.getTime()
+  const timeDiff = data.info_booking.datetime.getTime() - timeNow
+
+  const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24))
 
   const [show, setShow] = useState(false)
 
   const additionalComponentListElement = data.additional_component.map((value, idx) => (
     <Text style={{ fontWeight: 'bold' }}>{idx + 1}. {value.name}</Text>
   ))
+
+  const statusWaitingText = (dayDiff > 1) ?
+    `${dayDiff} hari lagi menuju servis`
+  : (dayDiff > 0) ?
+    'Menunggu Mobil Sampai di Bengkel'
+  : 'Mobil Sampai di Bengkel'
+
   return ( 
     <>
       <ScrollView contentContainerStyle={{ paddingHorizontal: widthPixel(20), marginTop: heightPixel(8), display: 'flex', justifyContent: 'space-between', overflow: 'scroll' }}>
@@ -49,7 +60,7 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => 
               </View>
               {data.additional_component.length === 0 ? (
                 data.requested_additional_component.length > 0 ? (
-                  <AdditionalComponentButton onPress={() => navigation.navigate(SCREENS.reservation.additionalComponent, { servicePrice: data.info_booking.service.price })} />
+                  <AdditionalComponentButton onPress={() => navigation.navigate(SCREENS.reservation.additionalComponent, { servicePrice: data.info_booking.service?.price, id: data.id })} />
                 ) : (
                   <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>{'-'}</Text>
                 )
@@ -63,7 +74,7 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => 
           <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary, marginTop: heightPixel(12) }}>Status Servis</Text>
           {data.status === 0 ? (
             <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>
-              {dateDiff > 0 ? `${dateDiff} hari lagi menuju servis` : 'Menunggu mobil sampai di bengkel'}
+              {statusWaitingText}
             </Text>
           ): (
             <ServiceStatusStepIndicator progressTime={data.progress} currentPosition={data.status} />

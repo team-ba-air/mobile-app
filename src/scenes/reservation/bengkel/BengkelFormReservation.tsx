@@ -45,6 +45,7 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
 
   const formInitialValues: ReservationForm = {
     car: valueCar,
+    shop: data.shop,
     service: '',
     date: new Date(),
     hour: '',
@@ -60,14 +61,11 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
   const {
     handleSubmit: handleFormSubmit,
     setValue,
+    getValues
   } = formMethods
 
   const onSubmit = useCallback((data: ReservationForm) => {
-    const reservationData: ReservationForm = {
-      ...data,
-      shop: shopDetailResponse?.body,
-    }
-    navigation.navigate(SCREENS.reservation.checkout, { data: reservationData })
+    navigation.navigate(SCREENS.reservation.checkout, { data: getValues() })
   }, [])
 
   const {
@@ -80,12 +78,6 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
       retry: true,
     }
   )
-
-  useEffect(() => {
-    if (shopDetailResponse) {
-      setValue('shop', shopDetailResponse.body)
-    }
-  }, [shopDetailResponse])
 
   const shopDetail = shopDetailResponse?.body
 

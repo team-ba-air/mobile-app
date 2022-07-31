@@ -33,11 +33,12 @@ export const getProgressServiceDetailEndpoint = 'service-progress'
 
 const mapResponse = (response: PublicAPIResponse<GetProgressServiceDetailResponse>): PublicAPIResponse<ReservationDetailItem> => {
   const progressList = response.body?.progress ?? []
+  console.log(progressList)
   return {
     ...response,
     body: {
-      id: response.body?.id ?? '',
-      booking_number: response.body?.id ?? '',
+      id: response.body?.booking_number ?? '',
+      booking_number: response.body?.booking_number ?? '',
       service_assistant: response.body?.service_assistant ?? '',
       info_booking: {
         car: response.body?.info_booking.car,
@@ -50,7 +51,7 @@ const mapResponse = (response: PublicAPIResponse<GetProgressServiceDetailRespons
       status: response.body?.status ?? 0,
       progress: Array(5).fill(0).map((_, idx) => ({
         step: idx,
-        time: (idx < (progressList.length + 1)) ? new Date(progressList[idx].time) : null,
+        time: (idx < (progressList.length)) ? new Date(progressList?.[idx].time) : null,
       })),
       additional_component: response.body?.additional_component ?? [],
       requested_additional_component: response.body?.requested_additional_component ?? [],
@@ -64,7 +65,9 @@ const getProgressServiceDetail = async (request?: GetProgressServiceDetailReques
     `${getProgressServiceDetailEndpoint}/${request?.id}`
   )
 
-  return mapResponse(response)
+  const mappedResponse = mapResponse(response)
+
+  return mappedResponse
 }
 
 export default getProgressServiceDetail

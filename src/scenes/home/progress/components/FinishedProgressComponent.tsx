@@ -7,7 +7,7 @@ import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { Modal, Portal } from 'react-native-paper';
 import { useMutation } from 'react-query';
 import { ReservationDetailItem } from 'scenes/home/constants';
-import UpdateProgressService from 'scenes/home/service/updateProgressService';
+import updateProgressService from 'scenes/home/service/updateProgressService';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import { getFormatDateNumeric, getFormatHour } from 'utils/DateUtil';
@@ -32,7 +32,7 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
     </View>
   ))
 
-  const { isLoading: isUpdatingProgressService, mutateAsync: onUpdateProgressService } = useMutation(UpdateProgressService, {
+  const { isLoading: isUpdatingProgressService, mutateAsync: onUpdateProgressService } = useMutation(updateProgressService, {
     onSuccess: (data) => {
       // navigation.navigate(SCREENS.reservation.informasiTagihan)
     },
@@ -42,13 +42,15 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
     if (data.payment_method) {
       onUpdateProgressService({
         status: 5,
+        id: data.id
       })
     } else {
       handleDismiss()
       navigation.navigate(SCREENS.reservation.selectPayment, { 
         additionalComponent: data.additional_component,
         status: 5,
-        servicePrice: data.info_booking.service.price,
+        servicePrice: data.info_booking.service?.price,
+        id: data.id,
       })
     }
   }
@@ -87,15 +89,15 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
         <View style={{ backgroundColor: 'white', paddingHorizontal: widthPixel(20), paddingVertical: heightPixel(20), marginBottom: heightPixel(8) }}>
           <View>
             <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Mobil</Text>
-            <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{data.info_booking.car.type} {data.info_booking.car.license_plate}</Text>
+            <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{data.info_booking.car?.type} {data.info_booking.car?.license_plate}</Text>
           </View>
           <View style={{ marginTop: 16 }}>
             <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Bengkel</Text>
-            <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{data.info_booking.shop.name}</Text>
+            <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{data.info_booking.shop?.name}</Text>
           </View>
           <View style={{ marginTop: 16 }}>
             <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Servis</Text>
-            <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{data.info_booking.service.name} - {formatRupiah(data.info_booking.service.price)}</Text>
+            <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{data.info_booking.service?.name} - {formatRupiah(data.info_booking.service?.price ?? 0)}</Text>
           </View>
           <View style={{ marginTop: 16 }}>
             <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Waktu</Text>
@@ -111,7 +113,7 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
         <View style={{ backgroundColor: 'white', marginBottom: heightPixel(8), paddingHorizontal: widthPixel(20), paddingVertical: heightPixel(20) }}>
           <View>
             <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Biaya Servis Awal</Text>
-            <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{formatRupiah(data.info_booking.service.price)}</Text>
+            <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{formatRupiah(data.info_booking.service?.price ?? 0)}</Text>
           </View>
 
           <View style={{ marginTop: 16 }}>
@@ -152,7 +154,7 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
         
           <View style={{ marginTop: 16 }}>
             <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Total Bayar</Text>
-            <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{formatRupiah(data.info_booking.service.price + totalPriceAdditionalComponent)}</Text>
+            <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold' }}>{formatRupiah(data.info_booking.service?.price ?? 0 + totalPriceAdditionalComponent)}</Text>
           </View>
         </View>
 

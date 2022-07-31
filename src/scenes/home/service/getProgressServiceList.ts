@@ -21,6 +21,7 @@ export const getProgressServiceListEndpoint = 'service-progress'
 
 const mapResponse = (response: PublicAPIResponse<GetProgressServiceListResponse>): PublicAPIResponse<ReservationItem[]> => {
   const reservationList = response.body ?? []
+
   return {
     ...response,
     body: reservationList.map(value => ({

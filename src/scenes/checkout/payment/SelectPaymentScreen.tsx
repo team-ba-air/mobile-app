@@ -17,6 +17,7 @@ interface SelectPaymentScreenProps {
 }
 
 interface ParamSelectPayment {
+  id: string
   servicePrice: number
   additionalComponent: AdditionalComponentItem[]
   status?: number
@@ -59,10 +60,10 @@ const dummyPayment: PaymentMethodItem[] = [
 ]
  
 const SelectPaymentScreen: React.FC<SelectPaymentScreenProps> = ({ route, navigation }) => {
-  const { additionalComponent, status, servicePrice } = route.params
+  const { additionalComponent, status, servicePrice, id } = route.params
 
   const onSelectPayment = (item: PaymentMethodSelectionItem) => {
-    navigation.navigate(SCREENS.reservation.paymentDetail, { additionalComponent, paymentMethod: item, status, servicePrice })
+    navigation.navigate(SCREENS.reservation.paymentDetail, { additionalComponent, paymentMethod: item, status, servicePrice, id })
   }
 
   const {

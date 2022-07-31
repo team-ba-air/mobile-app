@@ -44,7 +44,7 @@ const InformasiTagihanScreen: React.FC<InformasiTagihanScreenProps> = ({ route, 
     <AppContainer style={{ backgroundColor: Color.gray[2], padding: 0 }} refreshDisable>
       <ScrollView style={{ overflow: 'scroll', height: '100%' }}>
         <View style={{ backgroundColor: 'white', paddingHorizontal: widthPixel(20), paddingVertical: heightPixel(20) }}>
-          {type === 'booking-success' || type === 'confirmation-success' && (
+          {(type === 'booking-success' || type === 'confirmation-success') && (
             <Image source={require('assets/icon/otoku_confirmation_success.webp')} style={{ alignSelf: 'center', marginTop: heightPixel(24) }} />
           )}
 
@@ -94,12 +94,12 @@ const InformasiTagihanScreen: React.FC<InformasiTagihanScreenProps> = ({ route, 
 
           <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Jumlah Tagihan</Text>
           <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', color: Color.red[7] }}>
-            {formatRupiah(totalPriceAdditionalComponent + bookingInformation.service.price)}
+            {formatRupiah(totalPriceAdditionalComponent + (bookingInformation.service?.price ?? 0))}
           </Text>
         </View>
         
         {additionalComponents.length > 0 && (
-          <DetailBillComponent servicePrice={bookingInformation.service.price} additionalComponents={additionalComponents} />
+          <DetailBillComponent servicePrice={bookingInformation.service?.price ?? 0} additionalComponents={additionalComponents} />
         )}
 
         <BookingDetailComponent data={bookingInformation} />

@@ -5,20 +5,22 @@ import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native';
 import { Icon, Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
-import { Sizing } from 'styles/sizes';
+import { heightPixel, Sizing, widthPixel } from 'styles/sizes';
+import { formatRupiah } from 'utils/TextUtils';
 import BottomSheetPriceEstimation from './BottomSheetPriceEstimation';
 
 interface FooterCheckoutProps {
   onSubmit: () => void
+  price: number
 }
  
-const FooterCheckout: React.FC<FooterCheckoutProps> = ({ onSubmit }) => {
+const FooterCheckout: React.FC<FooterCheckoutProps> = ({ onSubmit, price }) => {
   const [show, setShow] = useState(false)
 
   return ( 
     <View style={styles.container}>
       <View>
-        <View>
+        <View style={{ flexDirection: 'row' }}>
           <Text style={styles.title}>Estimasi Biaya</Text>
           <Icon 
             type='material' 
@@ -30,7 +32,7 @@ const FooterCheckout: React.FC<FooterCheckoutProps> = ({ onSubmit }) => {
           />
         </View>
         
-        <Text style={styles.content}>Rp100.000</Text>
+        <Text style={styles.content}>{formatRupiah(price)}</Text>
       </View>
       <View>
         <CustomButton onPress={onSubmit} buttonStyle={{ paddingLeft: 36, paddingRight: 36 }} title='Bayar' />
@@ -46,6 +48,7 @@ export default FooterCheckout;
 const styles = StyleSheet.create({
   container: {
     padding: 16,
+    paddingBottom: heightPixel(20),
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -62,6 +65,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: Sizing.text.body[14],
     color: Color.gray[8],
+    marginRight: widthPixel(4)
   },
   content: {
     fontSize: Sizing.text.body[16],

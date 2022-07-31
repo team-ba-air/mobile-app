@@ -1,5 +1,5 @@
 import React, { JSXElementConstructor, ReactElement, ReactNode, useEffect, useRef, useState } from 'react'
-import { Image, ListRenderItemInfo, StyleProp, StyleSheet, Text, View } from 'react-native';
+import { Image, ListRenderItemInfo, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { FlatList, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
@@ -18,6 +18,7 @@ interface DropdownProps {
   placeholder?: string
   size?: number
   style?: StyleProp<any>
+  containerStyle?: StyleProp<ViewStyle>
   headerComponent?: React.ReactNode
   footerComponent?: React.ReactNode
   options: OptionItem[]
@@ -27,7 +28,7 @@ interface DropdownProps {
 }
 
 const Dropdown: React.FC<DropdownProps> = (props) => {
-  const { value = '', onSelect, placeholder, size = 16, style, headerComponent, options = [], footerComponent, renderItem, renderSelected, error } = props
+  const { value = '', onSelect, placeholder, size = 16, style, headerComponent, options = [], footerComponent, renderItem, renderSelected, error, containerStyle } = props
   const stylePlaceholder = value === '' ? styles.placeholder : styles.value
 
   const [visible, setVisible] = useState<boolean>(false)
@@ -40,7 +41,7 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
   }, [value])
 
   return ( 
-    <>
+    <View style={containerStyle}>
       <BaseBottomSheet onChangeVisible={setVisible} visible={visible}>
         <View>
           {headerComponent}
@@ -79,7 +80,7 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
       {error && (
         <Text style={{ color: Color.red[7], fontSize: fontPixel(11), marginTop: heightPixel(4)}}>{error}</Text>
       )}
-    </>
+    </View>
   );
 }
  

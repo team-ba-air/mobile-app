@@ -14,7 +14,7 @@ interface BengkelHeaderProps {
 }
  
 const BengkelHeader: React.FC<BengkelHeaderProps> = ({ data }) => {
-  const serviceAvailableList = data?.serviceAvailable.map(service => service.name) ?? []
+  const serviceAvailableList = data?.serviceAvailableTags ?? []
   const tagsList = [...serviceAvailableList]
 
   const availableCar = data?.availableForCar ?? []

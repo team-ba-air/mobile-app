@@ -31,13 +31,13 @@ interface ReservationFormComponentProps {
 
 const serviceListData = [
   {
-    id: '1',
+    id: 'MR9Xdjv70WpeODE8DEPLAyb8xVBQzq31',
     name: 'Servis Reguler 10.000KM',
     description: 'Servis Rutin Setiap 10.000KM atau setiap 6 bulan sekali',
     price: 500000,
   },
   {
-    id: '2',
+    id: 'pVdPJrOWmn72KqkZNkavbegDy6Ml89x3',
     name: 'Servis Reguler 20.000KM',
     description: 'Servis Rutin Setiap 20.000KM atau setiap 1 tahun sekali',
     price: 600000,
@@ -97,10 +97,6 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
     data: option,
     value: `${option.id}|${option.name}|${option.description}|${option.price}`
   }))
-
-  const handleInnerPressIn = () => setScrollEnabled(false);
-  const handleInnerPressOut = () => setScrollEnabled(true);
-
 
   return ( 
     <View style={{ marginTop: 20 }}>
@@ -192,10 +188,11 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
         name={'service'}
         control={control}
         render={({ field: { onChange, value }}) => (
-          <Dropdown style={[styles.margin, { marginHorizontal: widthPixel(20) }]} 
+          <Dropdown style={[styles.margin]} 
+            containerStyle={{ marginHorizontal: widthPixel(20) }}
             value={value} 
-            // options={serviceOptionsItem} 
-            options={serviceListOptions}
+            options={serviceOptionsItem} 
+            // options={serviceListOptions}
             onSelect={onChange}
             placeholder={'Pilih Servis'}
             error={errors?.service?.message}

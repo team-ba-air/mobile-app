@@ -18,6 +18,7 @@ interface AdditionalComponentScreenProps {
 }
 
 interface ParamAdditionalComponent {
+  id: string
   servicePrice: number
 }
 
@@ -50,7 +51,7 @@ const dummyData: AdditionalComponentItem[] = [
 ]
  
 const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ navigation, route }) => {
-  const { servicePrice } = route.params
+  const { servicePrice, id } = route.params
   const [visible, setVisible] = useState<boolean>(false)
 
   const selectComponentList = dummyData.map(value => (
@@ -67,7 +68,7 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
 
   const handleConfirm = () => {
     handleDismiss()
-    navigation.navigate(SCREENS.reservation.selectPayment, { additionalComponent: selectedComponentList, servicePrice: servicePrice })
+    navigation.navigate(SCREENS.reservation.selectPayment, { additionalComponent: selectedComponentList, servicePrice: servicePrice, id })
   }
 
   const handleDismiss = () => {

@@ -12,48 +12,11 @@ import OngoingReservationItem from './OngoingReservationItem';
 
 interface OngoingReservationSectionProps {
   navigation: NavigationProp<any>
+  progressServiceList: ReservationItem[]
 }
 
-const OngoingReservationSection: React.FC<OngoingReservationSectionProps> = ({ navigation }) => {
-  const sampleDataProgress: ReservationItem[] = [{
-    id: '',
-    info_booking: {
-      car: {
-        id: '',
-        brand: 'Toyota',
-        type: 'Yaris',
-        license_plate: 'B 2000 S',
-      },
-      shop: {
-        id: '',
-        name: 'Auto 2000, Jakarta Utara',
-      },
-      service: {
-        id: '',
-        name: 'Servis Dasar',
-        description: '',
-        price: 10000,
-      },
-      datetime: new Date('2022-06-15T11:27:39.404Z'),
-      notes: '',
-    },
-    status: 0, // 0, 1, 2, 3, 4, 5
-  }]
-
-  const {
-    data: progressServiceListResponse,
-    refetch,
-  } = useQuery<PublicAPIResponse<ReservationItem[]>>(
-    ['getProgressServiceList'],
-    () => getProgressServiceList(),
-    {
-      refetchOnWindowFocus: false,
-      retry: true,
-    }
-  )
-
-  const progressServiceList = progressServiceListResponse?.body ?? []
-  console.log(progressServiceList)
+const OngoingReservationSection: React.FC<OngoingReservationSectionProps> = ({ navigation, progressServiceList = [] }) => {
+  
   return ( 
     <View>
       {progressServiceList.length > 0 && (
