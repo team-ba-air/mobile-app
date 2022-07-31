@@ -2,7 +2,7 @@ import React from 'react'
 import { ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { Card, Text } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
-import { Sizing } from 'styles/sizes';
+import { heightPixel, Sizing } from 'styles/sizes';
 import { PopularServiceItem } from '../constants';
 
 interface PopularServiceProps {
@@ -34,13 +34,14 @@ const defaultData: PopularServiceItem[] = [
  
 const PopularService: React.FC<PopularServiceProps> = () => {
   return ( 
-    <View>
+    <View style={{ marginBottom: heightPixel(8) }}>
       <Text style={styles.headingSection}>Servis Populer</Text>
       <FlatList
         horizontal
         initialNumToRender={3}
         maxToRenderPerBatch={4}
         removeClippedSubviews={true}
+        showsHorizontalScrollIndicator={false}
         data={defaultData}
         renderItem={(item: ListRenderItemInfo<PopularServiceItem>) => (
           <Card containerStyle={styles.card}>

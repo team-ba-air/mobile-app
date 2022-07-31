@@ -48,6 +48,7 @@ const TipsTrick: React.FC<TipsTrickProps> = () => {
         maxToRenderPerBatch={3}
         removeClippedSubviews={true}
         data={defaultData}
+        showsHorizontalScrollIndicator={false}
         renderItem={(item: ListRenderItemInfo<TipsTrickItem>) => (
           <Card containerStyle={styles.card}>
             <Card.Image containerStyle={styles.image} resizeMode={'contain'} source={require('@assets/placeholder_service.png')}/>

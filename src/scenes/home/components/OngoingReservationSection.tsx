@@ -5,7 +5,7 @@ import { ListRenderItemInfo, View } from 'react-native';
 import { Badge, Text } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
 import { useQuery } from 'react-query';
-import { fontPixel, Sizing } from 'styles/sizes';
+import { fontPixel, heightPixel, Sizing } from 'styles/sizes';
 import { ReservationItem } from '../constants';
 import getProgressServiceList from '../service/getProgressServiceList';
 import OngoingReservationItem from './OngoingReservationItem';
@@ -18,7 +18,7 @@ interface OngoingReservationSectionProps {
 const OngoingReservationSection: React.FC<OngoingReservationSectionProps> = ({ navigation, progressServiceList = [] }) => {
   
   return ( 
-    <View>
+    <View style={{ marginBottom: heightPixel(8)}}>
       {progressServiceList.length > 0 && (
         <Text style={{ marginTop: 16, fontSize: fontPixel(14), fontWeight: 'bold', paddingLeft: 20, paddingRight: 20 }}>Sedang Berlangsung</Text>
       )}
