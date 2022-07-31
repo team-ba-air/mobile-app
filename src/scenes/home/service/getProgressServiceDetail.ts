@@ -33,6 +33,11 @@ export const getProgressServiceDetailEndpoint = 'service-progress'
 
 const mapResponse = (response: PublicAPIResponse<GetProgressServiceDetailResponse>): PublicAPIResponse<ReservationDetailItem> => {
   const progressList = response.body?.progress ?? []
+  let datetime = new Date()
+  if (response.body?.info_booking.datetime) {
+    datetime = new Date(response.body.info_booking.datetime) 
+    datetime.setHours(datetime.getHours() - 7)
+  }
 
   return {
     ...response,
@@ -44,15 +49,22 @@ const mapResponse = (response: PublicAPIResponse<GetProgressServiceDetailRespons
         car: response.body?.info_booking.car,
         shop: response.body?.info_booking.shop,
         service: response.body?.info_booking.service,
-        datetime: response.body?.info_booking.datetime ? new Date(response.body.info_booking.datetime) : new Date(),
+        datetime,
         notes: response.body?.info_booking.notes ?? ''
       },
       payment_method: response.body?.payment_method ?? null,
       status: response.body?.status ?? 0,
-      progress: Array(5).fill(0).map((_, idx) => ({
-        step: idx,
-        time: (idx < (progressList.length)) ? new Date(progressList?.[idx].time) : null,
-      })),
+      progress: Array(5).fill(0).map((_, idx) => {
+        let time = null
+        if (idx < progressList.length) {
+          time = new Date(progressList?.[idx].time)
+          time.setHours(time.getHours() - 7)
+        }
+        return ({
+          step: idx,
+          time,
+        })
+      }),
       additional_component: response.body?.additional_component ?? [],
       requested_additional_component: response.body?.requested_additional_component ?? [],
       requested_additional_component_notes: response.body?.requested_additional_component_notes ?? '',

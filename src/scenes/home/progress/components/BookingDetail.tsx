@@ -33,17 +33,17 @@ const BookingDetail: React.FC<BookingDetailProps> = ({ data, navigation }) => {
       <View style={{ paddingHorizontal: widthPixel(20), display: 'flex', justifyContent: 'space-between', marginTop: heightPixel(8), }}>
         <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Mobil</Text>
         <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>
-          {infoBooking.car.type} {infoBooking.car.license_plate}
+          {infoBooking.car?.type} {infoBooking.car?.license_plate}
         </Text>
 
         <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Bengkel</Text>
         <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>
-          {infoBooking.shop.name}
+          {infoBooking.shop?.name}
         </Text>
 
         <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Servis</Text>
         <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>
-          {infoBooking.service.name}
+          {infoBooking.service?.name}
         </Text>
 
         <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Waktu</Text>
@@ -57,7 +57,7 @@ const BookingDetail: React.FC<BookingDetailProps> = ({ data, navigation }) => {
       
         <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Biaya</Text>
         <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text style={{ fontSize: fontPixel(16), fontWeight: 'bold' }}>{formatRupiah(infoBooking.service.price)}</Text>
+          <Text style={{ fontSize: fontPixel(16), fontWeight: 'bold' }}>{formatRupiah(infoBooking.service?.price ?? 0)}</Text>
           <Text style={{ fontSize: fontPixel(11), fontWeight: 'bold', color: Color.blue[8] }}>Pembayaran di bengkel</Text>
         </View>
         

@@ -32,6 +32,8 @@ const ServiceStatusStepIndicator: React.FC<ServiceStatusStepIndicatorProps> = ({
     stepIndicatorLabelUnFinishedColor: "#aaaaaa",
   };
 
+  console.log(progressTime)
+
   return ( 
     <View style={{ 
       height: 250, 
@@ -52,7 +54,7 @@ const ServiceStatusStepIndicator: React.FC<ServiceStatusStepIndicatorProps> = ({
         renderLabel={({ position, stepStatus, label, currentPosition }) => {
           return (
             <StatusDetailComponent 
-              time={progressTime[position].time} 
+              time={progressTime?.[position].time} 
               label={label} 
               position={position} 
               currentPosition={currentPosition} 

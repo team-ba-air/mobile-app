@@ -19,15 +19,15 @@ const BookingDetailComponent: React.FC<BookingDetailComponentProps> = ({ data })
 
       <View style={{ marginTop: 16 }}>
         <Text style={styles.title}>Mobil</Text>
-        <Text style={styles.content}>{data.car.type} {data.car.license_plate}</Text>
+        <Text style={styles.content}>{data.car?.type} {data.car?.license_plate}</Text>
       </View>
       <View style={{ marginTop: 16 }}>
         <Text style={styles.title}>Bengkel</Text>
-        <Text style={styles.content}>{data.shop.name}</Text>
+        <Text style={styles.content}>{data.shop?.name}</Text>
       </View>
       <View style={{ marginTop: 16 }}>
         <Text style={styles.title}>Servis</Text>
-        <Text style={styles.content}>{data.service.name} - {formatRupiah(data.service.price)}</Text>
+        <Text style={styles.content}>{data.service?.name} - {formatRupiah(data.service?.price ?? 0)}</Text>
       </View>
       <View style={{ marginTop: 16 }}>
         <Text style={styles.title}>Waktu</Text>

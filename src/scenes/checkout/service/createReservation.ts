@@ -58,6 +58,11 @@ const mapRequestData = (request: CreateReservationRequest): CreateReservationReq
 }
 
 const mapResponseData = (response: PublicAPIResponse<CreateReservationResponse>): PublicAPIResponse<ReservationData> => {
+  let datetime = new Date()
+  if (response.body?.info_booking.datetime) {
+    datetime = new Date(response.body.info_booking.datetime)
+    datetime.setHours(datetime.getHours() - 7)
+  }
   return {
     ...response,
     body: {
@@ -66,7 +71,7 @@ const mapResponseData = (response: PublicAPIResponse<CreateReservationResponse>)
       payment_method: response.body?.payment_method ?? null,
       info_booking: {
         ...response.body?.info_booking,
-        datetime: response.body?.info_booking.datetime ? new Date(response.body.info_booking.datetime) : new Date(),
+        datetime,
         notes: response.body?.info_booking.notes ?? '',
       },
       additional_component: response.body?.additional_component ?? [],
