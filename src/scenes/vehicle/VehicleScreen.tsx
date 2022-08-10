@@ -31,7 +31,6 @@ interface VehicleScreenProps {
  
 const VehicleScreen: React.FC<VehicleScreenProps> = ({ navigation, route }) => {
   const queryClient = useQueryClient()
-  const params = route.params
 
   const {
     data: vehicleListResponse,

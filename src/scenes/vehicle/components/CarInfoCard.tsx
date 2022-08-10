@@ -35,7 +35,7 @@ const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation, showSnackbar
         <View style={styles.carTextContainer}>
           <Text style={styles.carPlatText}>{car?.brand}</Text>
           <Text style={styles.carTypeText}>{car?.type}</Text>
-          <Text style={styles.carPlatText}>{car?.plat}</Text>
+          {/* <Text style={styles.carPlatText}>{car?.plat}</Text> */}
         </View>
         <Card.Image 
           containerStyle={styles.imageCar} 
@@ -47,9 +47,14 @@ const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation, showSnackbar
       {isOpen && (
         <View>
           <View style={styles.row}>
-            <View style={styles.column}>
+            {/* <View style={styles.column}>
               <Text style={styles.attributeHeader}>Tipe</Text>
               <Text>G CVT 7 AB</Text>
+            </View> */}
+
+            <View style={styles.column}>
+              <Text style={styles.attributeHeader}>Tahun Produksi</Text>
+              <Text>{car?.year}</Text>
             </View>
 
             <View style={styles.column}>
@@ -60,8 +65,8 @@ const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation, showSnackbar
 
           <View style={styles.row}>
             <View style={styles.column}>
-              <Text style={styles.attributeHeader}>Tahun Produksi</Text>
-              <Text>{car?.year}</Text>
+              <Text style={styles.attributeHeader}>Nomor Polisi</Text>
+              <Text>{car?.plat}</Text>
             </View>
 
             <View style={styles.column}>
@@ -73,7 +78,7 @@ const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation, showSnackbar
           <View style={styles.row}>
             <View style={styles.column}>
               <Text style={styles.attributeHeader}>Terakhir Servis</Text>
-              <Text>{car?.lastService ?? '-'}</Text>
+              <Text>{car?.lastService ? getFormatDate(new Date(car?.lastService)) : '-'}</Text>
             </View>
           </View>
 
@@ -158,10 +163,11 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 8,
   },
   carPlatText: {
-    fontSize: Sizing.text.body[12]
+    fontSize: fontPixel(12),
+    fontWeight: 'bold',
   },
   carTypeText: {
-    fontSize: Sizing.text.body[16],
+    fontSize: fontPixel(24),
     fontWeight: 'bold',
   },
   carTextContainer: {
