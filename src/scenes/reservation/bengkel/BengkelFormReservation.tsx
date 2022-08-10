@@ -37,7 +37,6 @@ interface ParamBengkel {
  
 const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, navigation }) => {
   const { data } = route.params
-  const insets = useSafeAreaInsets()
 
   const [outerScrollEnabled, setOuterScrollEnabled] = useState(true)
 
@@ -95,9 +94,7 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
               <View>
                 <FormProvider {...formMethods}>
                   <ReservationFormComponent
-                    setScrollEnabled={setOuterScrollEnabled} 
                     serviceOptions={shopDetailResponse?.body?.serviceAvailable ?? []} 
-                    car={data.car}
                   />
                 </FormProvider>
 

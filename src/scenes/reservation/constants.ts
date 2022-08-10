@@ -9,7 +9,6 @@ export type ServiceItem = {
 
 export type BengkelItem = {
   id: string
-  img: string
   isAuthorized: boolean
   isAlmostClosed: boolean
   name: string
@@ -17,6 +16,7 @@ export type BengkelItem = {
     latitude: number
     longitude: number
   }
+  image: string
   description: string
   distance: number
   rating: number
@@ -26,11 +26,11 @@ export type BengkelItem = {
 
 export type BengkelDetailItem = {
   id: string
-  img: string
   isAuthorized: boolean
   name: string
   description: string
   rating: number
+  image: string[]
   serviceAvailableTags: string[]
   serviceAvailable: {
     id: string

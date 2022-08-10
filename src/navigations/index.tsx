@@ -8,10 +8,11 @@ import AddInfoCar from 'scenes/authentication/info-car/AddInfoCar';
 import CarList from 'scenes/authentication/car-list/CarList';
 import Navbar from 'components/Navbar';
 import AppNavigator from './app-navigator';
-import WelcomeScreen from 'scenes/welcome/WelcomeScreen';
+import WelcomeScreen from 'scenes/welcome/LoginScreen';
 import SplashScreen from 'scenes/welcome/SplashScreen';
 import OtpEmailScreen from 'scenes/authentication/otp/OtpEmailScreen';
 import OtpPhoneScreen from 'scenes/authentication/otp/OtpPhoneScreen';
+import LoginScreen from 'scenes/welcome/LoginScreen';
 
 const Stack = createStackNavigator();
 
@@ -19,7 +20,7 @@ const RootNavigator: React.FC<any> = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen options={{ headerShown: false }} name='SplashScreen' component={SplashScreen} />
-      <Stack.Screen options={{ header: () => <Navbar />}} name='WelcomeScreen' component={WelcomeScreen} />
+      <Stack.Screen options={{ header: () => <Navbar />}} name='LoginScreen' component={LoginScreen} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='EmailOnboarding' component={EmailOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='PhoneOnboarding' component={PhoneOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='NameOnboarding' component={NameOnboarding} />
@@ -28,7 +29,7 @@ const RootNavigator: React.FC<any> = () => {
       <Stack.Screen options={{ header: () => <Navbar />}} name='WelcomingCarOnboarding' component={WelcomingCarOnboarding} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='AddInfoCar' component={AddInfoCar} />
       <Stack.Screen options={{ header: () => <Navbar />}} name='CarList' component={CarList} />
-      <Stack.Screen options={{ headerShown: false }} name='Home' component={AppNavigator} />
+      <Stack.Screen options={{ headerShown: false }} name='App' component={AppNavigator} />
     </Stack.Navigator>
   )
 }

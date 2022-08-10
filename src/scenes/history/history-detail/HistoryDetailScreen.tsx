@@ -38,6 +38,7 @@ const sampleData: HistoryDetailItem = {
   shop: {
     id: '',
     name: 'Auto 2000, Jakarta Utara',
+    contact: '',
   },
   service: {
     id: '',
@@ -63,11 +64,12 @@ const sampleData: HistoryDetailItem = {
     }
   ],
   requested_additional_component_notes: '',
-  review: {
-    date: new Date(),
-    rating: 5,
-    review: 'a',
-  },
+  // review: {
+  //   date: new Date(),
+  //   rating: 5,
+  //   review: 'a',
+  // },
+  review: null
 }
  
 const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, route }) => {
@@ -126,7 +128,7 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
           notes={sampleData.notes} 
           datetime={sampleData.datetime} 
         />
-        <PaymentDetailComponent paymentMethod={sampleData.payment_method} servicePrice={sampleData.service.price} additionalComponent={sampleData.additional_component} />
+        <PaymentDetailComponent paymentMethod={sampleData.payment_method} servicePrice={sampleData.service?.price ?? 0} additionalComponent={sampleData.additional_component} />
         <NotesComponent notes={sampleData.requested_additional_component_notes} />
       </ScrollView>
       <View style={{ paddingVertical: heightPixel(16), paddingHorizontal: widthPixel(20), backgroundColor: 'white', marginTop: heightPixel(4) }}>

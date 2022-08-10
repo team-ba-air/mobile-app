@@ -15,17 +15,14 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
     setTimeout(() => {
       getAccessToken().then(token => {
         if (token) {
-          navigation.navigate(SCREENS.app.homeMenu)
+          navigation.navigate(SCREENS.app.mainApp)
         } else {
-          navigation.navigate(SCREENS.welcome.welcomeScreen)
+          navigation.navigate(SCREENS.welcome.loginScreen)
         }
       }).catch((error) => {
         console.log(error)
-        navigation.navigate(SCREENS.welcome.welcomeScreen)
+        navigation.navigate(SCREENS.welcome.loginScreen)
       })
-
-      // Debug purpose
-      // navigation.navigate(SCREENS.app.home)
     }, 3000)
   }, [])
 

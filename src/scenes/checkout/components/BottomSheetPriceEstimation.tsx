@@ -21,7 +21,7 @@ const BottomSheetPriceEstimation: React.FC<BottomSheetPriceEstimationProps> = ({
           Biaya masih merupakan estimasi karena biaya yang tertera adalah biaya dasar untuk paket servis yang dipilih. 
         </Text>
 
-        <Text style={{ fontSize: fontPixel(14), color: Color.gray[9], textAlign: 'justify', lineHeight: 21 }}>
+        <Text style={{ fontSize: fontPixel(14), color: Color.gray[9], textAlign: 'justify', lineHeight: 21, marginTop: heightPixel(8) }}>
           Saat servis dilakukan, mungkin terdapat penambahan biaya akibat penambahan komponen. Tidak perlu khawatir, penambahan biaya apapun akan meminta membutuhkan  persetujuan Anda. 
         </Text>
       </View>

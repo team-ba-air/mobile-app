@@ -14,9 +14,7 @@ import FormInputDate from 'components/FormInputDate';
 import { PublicAPIResponse } from 'network/types';
 import getVehicleList from 'scenes/reservation/service/getVehicleList';
 import { useQuery } from 'react-query';
-import { VehicleItem } from 'scenes/vehicle/constants';
 import { formatRupiah } from 'utils/TextUtils';
-import { ScrollView as GestureHandlerScrollView } from 'react-native-gesture-handler'
 
 interface ReservationFormComponentProps {
   serviceOptions?:  {
@@ -25,8 +23,6 @@ interface ReservationFormComponentProps {
     description: string
     price: number
   }[]
-  car: VehicleItem
-  setScrollEnabled: (enabled: boolean) => void
 }
 
 const serviceListData = [
@@ -71,7 +67,7 @@ const availableHours: AvailableHourItem[] = [
   },
 ]
  
-const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ serviceOptions, car, setScrollEnabled }) => {
+const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ serviceOptions }) => {
   const {
     control,
     formState: { errors },
@@ -117,7 +113,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
               <Text style={styles.titleBottomSheet}>Pilih mobil Anda</Text>
             }
             renderItem={(option) => (
-              <Text style={styles.itemModal}>{option?.brand} {option?.type} {option?.plat}</Text>
+              <Text style={styles.itemModal}>{option?.brand} {option?.type} {option?.license_plate}</Text>
             )} 
             renderSelected={(option) => {
               return (
@@ -164,7 +160,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
                 showsHorizontalScrollIndicator={false}
                 data={availableHours}
                 renderItem={(info: ListRenderItemInfo<AvailableHourItem>) => (
-                  <HourChipsItem hour={info.item} value={value} onSelect={onChange} setScrollEnabled={setScrollEnabled}/>
+                  <HourChipsItem hour={info.item} value={value} onSelect={onChange} />
                 )}
               />
             </View>
@@ -207,7 +203,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
             )} 
             renderSelected={(option) => {
               return (
-              <Text style={{fontSize: fontPixel(Sizing.text.body[14]) }}>{option?.name} - {option?.price}</Text>
+              <Text style={{fontSize: fontPixel(Sizing.text.body[14]) }}>{option?.name} • {formatRupiah(option?.price)}</Text>
             )}}
           />
         )}

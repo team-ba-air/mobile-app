@@ -57,6 +57,7 @@ export type VehicleInfo = {
 export type ShopInfo = {
   id: string
   name: string
+  contact: string
 }
 
 export type ServiceInfo = {

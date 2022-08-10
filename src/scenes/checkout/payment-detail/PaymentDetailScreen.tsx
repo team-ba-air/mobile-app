@@ -42,6 +42,7 @@ const sampleResponse: ReservationData = {
     shop: {
       id: '',
       name: 'Auto 2000, Jakarta Utara',
+      contact: '',
     },
     service: {
       id: '',

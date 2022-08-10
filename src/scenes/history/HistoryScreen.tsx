@@ -30,6 +30,7 @@ const dummyData: HistoryItem[] = [
     shop: {
       id: '',
       name: 'Auto 2000, Jakarta Utara',
+      contact: '',
     },
     service: {
       id: '',
@@ -53,6 +54,7 @@ const dummyData: HistoryItem[] = [
     shop: {
       id: '',
       name: 'Auto 2000, Jakarta Utara',
+      contact: '',
     },
     service: {
       id: '',
@@ -85,8 +87,8 @@ const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
 
   const historyList = historyListResponse?.body ?? []
 
-  const finishedList = dummyData.filter(value => value.status > 4)
-  const ongoingList = dummyData.filter(value => value.status <= 4)
+  const finishedList = historyList.filter(value => value.status > 4)
+  const ongoingList = historyList.filter(value => value.status <= 4)
 
   const handleClick = (item: HistoryItem) => {
     navigation.navigate(SCREENS.history.detail, { data: item })

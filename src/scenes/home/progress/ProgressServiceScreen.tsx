@@ -4,7 +4,6 @@ import NavbarApp from 'components/NavbarApp';
 import { PublicAPIResponse } from 'network/types';
 import React, { useEffect, useState } from 'react'
 import { ScrollView, Text, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useQuery } from 'react-query';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';

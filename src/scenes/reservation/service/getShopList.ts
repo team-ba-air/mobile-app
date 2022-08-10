@@ -14,7 +14,7 @@ export type GetShopListResponse = {
   id: string
   name: string
   rating?: string
-  image?: string
+  image?: string[]
   description: string
   is_authorized: boolean
   distance: number
@@ -34,11 +34,11 @@ const mapResponseToBengkelItem = (response: PublicAPIResponse<GetShopListRespons
     ...response,
     body: bengkelList.map(bengkel => ({
       id: bengkel.id,
-      img: bengkel.image ?? '',
       isAuthorized: bengkel.is_authorized,
       isAlmostClosed: false,
       name: bengkel.name,
       location: bengkel.location,
+      image: bengkel.image?.[0] ?? '',
       description: bengkel.description,
       distance: bengkel.distance / 1000,
       rating: Number(bengkel.rating ?? '0'),

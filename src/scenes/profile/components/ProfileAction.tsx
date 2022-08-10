@@ -32,7 +32,7 @@ const ProfileAction: React.FC<ProfileActionProps> = () => {
     <FlatList
       data={actionItems}
       renderItem={({ item }) => (
-        <ListItem bottomDivider>
+        <ListItem bottomDivider hasTVPreferredFocus={undefined} tvParallaxProperties={undefined}>
           <ListItem.Content>
             <ListItem.Title>{item.title}</ListItem.Title>
           </ListItem.Content>

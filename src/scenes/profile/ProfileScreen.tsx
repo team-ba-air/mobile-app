@@ -38,9 +38,9 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
               <Text style={styles.normalText}>{phoneNumber}</Text>
             )}
           </View>
-          <View>
+          {/* <View>
             <CustomButton buttonStyle={styles.button} textStyle={{ fontSize: fontPixel(Sizing.text.body[12]), fontWeight: 'bold' }} title='Detail'/>
-          </View>
+          </View> */}
         </View>
 
         <ProfileAction />
@@ -53,7 +53,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({ navigation }) => {
         <CustomButton onPress={() => {
           GoogleSignin.signOut()
           removeAccessToken()
-          navigation.replace(SCREENS.welcome.welcomeScreen)
+          navigation.replace(SCREENS.welcome.loginScreen)
         }} title='Logout' />
       </View>
     </AppContainer>

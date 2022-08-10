@@ -21,7 +21,7 @@ export const submitReviewEndpoint = (id: string) => `shop/${id}/review`
 const mapSubmitReviewData = (request: SubmitReviewRequest): SubmitReviewDataRequest => {
   return {
     transaction_id: request.history.id,
-    service_id: request.history.service.id,
+    service_id: request.history.service?.id ?? '',
     rating: request.review.rating,
     review: request.review.review,
   }
@@ -30,7 +30,7 @@ const mapSubmitReviewData = (request: SubmitReviewRequest): SubmitReviewDataRequ
 const submitReview = async (request: SubmitReviewRequest) => {
   const data = mapSubmitReviewData(request)
   const response: PublicAPIResponse<SubmitReviewResponse> = await networkService.post(
-    submitReviewEndpoint(request.history.shop.id),
+    submitReviewEndpoint(request.history.shop?.id ?? ''),
     data
   )
   

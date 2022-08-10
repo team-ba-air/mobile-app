@@ -11,7 +11,7 @@ export type GetShopDetailResponse = {
   id: string
   name: string
   rating?: number
-  image?: string
+  image?: string[]
   description: string
   is_authorized: boolean
   service_available_tags: string[]
@@ -45,7 +45,7 @@ const mapResponseToBengkelDetailItem = (response: PublicAPIResponse<GetShopDetai
       id: response.body?.id ?? '',
       name: response.body?.name ?? '',
       rating: response.body?.rating ?? 0,
-      img: response.body?.image ?? '',
+      image: response.body?.image ?? [],
       description: response.body?.description ?? '',
       isAuthorized: response.body?.is_authorized ?? false,
       serviceAvailableTags: response.body?.service_available_tags ?? [],

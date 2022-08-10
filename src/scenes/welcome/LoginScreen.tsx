@@ -16,11 +16,11 @@ import { GoogleSignin, User } from '@react-native-google-signin/google-signin'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { LoginResponse, PublicAPIResponse } from 'network/types'
 
-interface WelcomeScreenProps {
+interface LoginScreenProps {
   navigation: any
 }
  
-const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
+const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const insets = useSafeAreaInsets()
   const signIn = async () => {
     try {
@@ -96,14 +96,14 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
   const handleLogin = (data: PublicAPIResponse<LoginResponse>) => {
     saveAccessToken(data.body?.access_token ?? '')
     savePhoneNumber(data.body?.phone_number ?? '')
-    navigation.navigate(SCREENS.app.homeMenu)
+    navigation.navigate(SCREENS.app.mainApp)
   }
 
   const { isLoading: isAuthenticating, mutateAsync: onAuthenticate } = useMutation(authenticateSSOGoogle, {
     onSuccess: (data) => {
       saveAccessToken(data.body?.access_token ?? '')
       savePhoneNumber(data.body?.phone_number ?? '')
-      navigation.navigate(SCREENS.app.homeMenu)
+      navigation.navigate(SCREENS.app.mainApp)
     },
   })
 
@@ -136,19 +136,19 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({ navigation }) => {
         type='primary'
         title='Lanjut dengan Facebook' 
       />
-      <CustomButton 
+      {/* <CustomButton 
         style={{ paddingHorizontal: 20, marginVertical: 8 }}
         buttonStyle={{ backgroundColor: Color.red[6]}}
         icon={<Icon type='font-awesome' size={20} name={'envelope'} color='white' tvParallaxProperties={undefined} />} 
         type='primary' 
         title='Lanjut dengan email' 
         onPress={() => navigation.navigate(SCREENS.onboarding.email)}
-      />
+      /> */}
     </AppContainer>
   )
 }
  
-export default WelcomeScreen
+export default LoginScreen
 
 const styles = StyleSheet.create({
   buttonGoogle: {

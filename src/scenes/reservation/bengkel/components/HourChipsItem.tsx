@@ -8,10 +8,9 @@ interface HourChipsItemProps {
   hour: AvailableHourItem
   value?: string
   onSelect?: (value: string) => void
-  setScrollEnabled: (enabled: boolean) => void
 }
  
-const HourChipsItem: React.FC<HourChipsItemProps> = ({ hour, value, onSelect, setScrollEnabled }) => {
+const HourChipsItem: React.FC<HourChipsItemProps> = ({ hour, value, onSelect }) => {
   const styleContainer = hour.available ?
     hour.hour === value ? 
         styles.containerSelected 

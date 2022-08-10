@@ -4,9 +4,9 @@ import { AdditionalComponentItem, ServiceInfo, ShopInfo, VehicleInfo } from "sce
 export type HistoryItem = {
   id: string
   status: number
-  car: VehicleInfo
-  shop: ShopInfo
-  service: ServiceInfo
+  car?: VehicleInfo
+  shop?: ShopInfo
+  service?: ServiceInfo
   datetime: Date
   additional_component: AdditionalComponentItem[]
   review: ReviewItem | null
@@ -16,9 +16,9 @@ export type HistoryDetailItem = {
   id: string
   booking_number: string
   status: number
-  car: VehicleInfo
-  shop: ShopInfo
-  service: ServiceInfo
+  car?: VehicleInfo
+  shop?: ShopInfo
+  service?: ServiceInfo
   datetime: Date
   notes: string
   payment_method: PaymentMethodSelectionItem | null
