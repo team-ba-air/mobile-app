@@ -12,6 +12,7 @@ import { ReservationDetailItem } from 'scenes/home/constants';
 import updateProgressService from 'scenes/home/service/updateProgressService';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
+import { openWhatsApp } from 'utils/ActionUtil';
 import { getFormatDateNumeric, getFormatHour } from 'utils/DateUtil';
 import { formatRupiah } from 'utils/TextUtils';
 import ModalFinishConfirmation from './ModalFinishConfirmation';
@@ -75,6 +76,8 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
   const handleDismiss = () => {
     setVisible(false)
   }
+
+  const contactNumber = data.info_booking.shop?.contact ?? ''
 
   return ( 
     <>
@@ -188,7 +191,7 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
         zIndex: 10,
       }}>
         <CustomButton style={{ marginBottom: heightPixel(8) }} onPress={showModal} type='primary' title={'Konfirmasi Servis Selesai'} />
-        <CustomButton onPress={showModal} type='secondary' title={'Hubungi Bengkel'} />
+        <CustomButton onPress={() => openWhatsApp(contactNumber.replace('+', ''))} type='secondary' title={'Hubungi Bengkel'} />
       </View>
     </>
   );

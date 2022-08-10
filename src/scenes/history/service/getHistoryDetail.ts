@@ -35,7 +35,7 @@ const mapResponse = (response: PublicAPIResponse<GetHistoryDetailResponse>): Pub
     ...response,
     body: {
       id: response.body?.id ?? '',
-      booking_number: response.body?.booking_number ?? '',
+      booking_number: response.body?.id ?? '',
       status: response.body?.status ?? -1,
       car: response.body?.car,
       shop: response.body?.shop,

@@ -7,6 +7,7 @@ import { Icon } from 'react-native-elements';
 import { ReservationDetailItem } from 'scenes/home/constants';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
+import { openWhatsApp } from 'utils/ActionUtil';
 import AdditionalComponentButton from './AdditionalComponentButton';
 import BottomSheetAdditionalComponent from './BottomSheetAdditionalComponent';
 import ServiceStatusStepIndicator from './ServiceStatusStepIndicator';
@@ -36,6 +37,8 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => 
     'Menunggu Mobil Sampai di Bengkel'
 
   console.log(data.requested_additional_component)
+  
+  const contactNumber = data.info_booking.shop?.contact ?? ''
 
   return ( 
     <>
@@ -90,7 +93,7 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => 
 
       <BottomSheetAdditionalComponent visible={show} onChangeVisible={setShow} />
 
-      <CustomButton style={{ paddingHorizontal: widthPixel(20), marginTop: heightPixel(16) }} type='primary' title='Hubungi Bengkel' />
+      <CustomButton onPress={() => openWhatsApp(contactNumber.replace('+', ''))} style={{ paddingHorizontal: widthPixel(20), marginTop: heightPixel(16) }} type='primary' title='Hubungi Bengkel' />
     </>
     
   );

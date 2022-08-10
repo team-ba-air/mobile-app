@@ -8,6 +8,7 @@ import { Snackbar } from 'react-native-paper';
 import { useQuery } from 'react-query';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
+import { openWhatsApp } from 'utils/ActionUtil';
 import BottomSheetReview from '../components/BottomSheetReview';
 import { HistoryDetailItem, HistoryItem } from '../constants';
 import getHistoryDetail from '../service/getHistoryDetail';
@@ -90,6 +91,8 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
     }
   )
 
+  const historyDetail = historyDetailResponse?.body
+
   useEffect(() => {
     navigation.getParent()?.setOptions({ tabBarStyle: { display: "none" }})
     return () => navigation.getParent()?.setOptions({ tabBarStyle: undefined })
@@ -117,28 +120,30 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
     setVisible(true)
   }
 
+  const datetime = (historyDetail?.datetime ? new Date(historyDetail.datetime) : new Date())
+
   return ( 
     <AppContainer style={{ backgroundColor: Color.gray[1], padding: 0 }} refreshDisable>
       <ScrollView>
-        <HistoryStatusComponent bookingNumber={sampleData.booking_number} status={sampleData.status} />
+        <HistoryStatusComponent bookingNumber={historyDetail?.booking_number ?? ''} status={historyDetail?.status ?? 0} datetime={datetime} />
         <InfoServiceComponent 
-          car={sampleData.car} 
-          shop={sampleData.shop} 
-          service={sampleData.service} 
-          notes={sampleData.notes} 
-          datetime={sampleData.datetime} 
+          car={historyDetail?.car} 
+          shop={historyDetail?.shop} 
+          service={historyDetail?.service} 
+          notes={historyDetail?.notes ?? ''} 
+          datetime={datetime} 
         />
-        <PaymentDetailComponent paymentMethod={sampleData.payment_method} servicePrice={sampleData.service?.price ?? 0} additionalComponent={sampleData.additional_component} />
-        <NotesComponent notes={sampleData.requested_additional_component_notes} />
+        <PaymentDetailComponent paymentMethod={historyDetail?.payment_method ?? null} servicePrice={historyDetail?.service?.price ?? 0} additionalComponent={historyDetail?.additional_component ?? []} />
+        <NotesComponent notes={historyDetail?.requested_additional_component_notes ?? ''} />
       </ScrollView>
       <View style={{ paddingVertical: heightPixel(16), paddingHorizontal: widthPixel(20), backgroundColor: 'white', marginTop: heightPixel(4) }}>
-        {sampleData.review === null && (
+        {historyDetail?.review === null && (
           <CustomButton style={{ marginBottom: heightPixel(12) }} type='primary' title='Beri Ulasan' onPress={() => setIsOpen(true)} />
         )}
         
         <Text style={{ fontSize: fontPixel(11), alignSelf: 'center' }}>
           <Text style={{ color: Color.gray.secondary }}>Perlu bantuan?</Text>
-          <Text style={{ color: Color.blue[8] }}> Hubungi Tim Otoku </Text>
+          <Text style={{ color: Color.blue[8] }} onPress={() => openWhatsApp('6285885447967')}> Hubungi Tim Otoku </Text>
         </Text>
       </View>
 
