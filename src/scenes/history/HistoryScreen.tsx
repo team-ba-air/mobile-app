@@ -16,57 +16,6 @@ import getHistoryList from './service/getHistoryList';
 interface HistoryScreenProps {
   navigation: NavigationProp<any>
 }
-
-const dummyData: HistoryItem[] = [
-  {
-    id: '1',
-    status: 0,
-    car: {
-      id: '',
-      brand: 'Toyota',
-      type: 'Yaris',
-      license_plate: 'B 2000 S',
-    },
-    shop: {
-      id: '',
-      name: 'Auto 2000, Jakarta Utara',
-      contact: '',
-    },
-    service: {
-      id: '',
-      name: 'Servis Reguler 20.000 KM',
-      description: '',
-      price: 400000,
-    },
-    datetime: new Date(),
-    additional_component: [],
-    review: null,
-  },
-  {
-    id: '2',
-    status: 5,
-    car: {
-      id: '',
-      brand: 'Toyota',
-      type: 'Yaris',
-      license_plate: 'B 2000 S',
-    },
-    shop: {
-      id: '',
-      name: 'Auto 2000, Jakarta Utara',
-      contact: '',
-    },
-    service: {
-      id: '',
-      name: 'Servis Reguler 20.000 KM',
-      description: '',
-      price: 500000,
-    },
-    datetime: new Date(),
-    additional_component: [],
-    review: null,
-  }
-]
  
 const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
   const [visible, setVisible] = useState(false)

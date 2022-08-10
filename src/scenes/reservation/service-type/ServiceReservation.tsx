@@ -8,6 +8,7 @@ import { Image, ListRenderItemInfo, StyleSheet, Text, View } from 'react-native'
 import { Icon } from 'react-native-elements';
 import { FlatList, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useQuery } from 'react-query';
+import { VehicleInfo } from 'scenes/home/constants';
 import { VehicleItem } from 'scenes/vehicle/constants';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
@@ -25,39 +26,6 @@ interface ServiceReservationProps {
 interface ParamCar {
   data: VehicleItem
 }
-
-const serviceList: ServiceItem[] = [
-  {
-    image: 'servis_logbook.png',
-    description: 'logbook',
-    name: 'Servis Logbook',
-    id: '1',
-  },
-  {
-    image: 'servis_dasar.png',
-    description: 'basic',
-    name: 'Servis dasar',
-    id: '2',
-  },
-  {
-    image: 'servis_ac',
-    description: 'AC',
-    name: 'Servis AC',
-    id: '3',
-  },
-  {
-    image: '',
-    description: 'clutch',
-    name: 'Servis Clutch',
-    id: '4',
-  },
-  {
-    image: '',
-    description: 'oil',
-    name: 'Servis oli',
-    id: '5',
-  },
-]
 
 const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, route }) => {
   const [show, setShow] = useState<boolean>(false)
@@ -104,12 +72,19 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, rou
         setCar(valueCar)
       }
     }
-  }, [vehicleList])
+  }, [data, vehicleList])
 
   const handleClick = (item: ServiceItem) => {
+    const carValue = car.split('|')
+    const parsedCar: VehicleInfo = {
+      id: carValue[0],
+      brand: carValue[1],
+      type: carValue[2],
+      license_plate: carValue[3],
+    }
     navigation.navigate(SCREENS.app.maps, { 
       data: {
-        car: data,
+        car: parsedCar,
         service: item,
       }
     })
@@ -173,7 +148,6 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, rou
                   <TouchableWithoutFeedback onPress={() => handleClick(item.item)}>
                     <Image 
                       style={styles.image} 
-                      // source={require(`@assets/servis_example.png`)} 
                       source={{
                         uri: item.item.image,
                         width: heightPixel(64),

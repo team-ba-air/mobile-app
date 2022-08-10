@@ -10,55 +10,10 @@ import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import ReviewItemComponent from './ReviewItemComponent';
 
 interface ReviewComponentProps {
-  shopId: string
-}
-
-const dummyReviewList: ReviewItem[] = [
-  {
-    name: 'Patrick S',
-    rating: 4,
-    date: new Date(),
-    service: 'Servis Dasar',
-    description: 'Pelayanannya sangat baik dan ramah.',
-    car: 'Toyota Avanza',
-  },
-  {
-    name: 'Patrick S',
-    rating: 5,
-    date: new Date(),
-    service: 'Servis Dasar',
-    description: 'Pelayanannya sangat baik dan ramah.',
-    car: 'Honda Jazz',
-  },
-  {
-    name: 'Patrick S',
-    rating: 5,
-    date: new Date(),
-    service: 'Servis Dasar',
-    description: 'Pelayanannya sangat baik dan ramah.',
-    car: 'Toyota Yaris',
-  }
-]
-
-const dummyReview: ShopReview = {
-  total_count: 5,
-  average_rating: 4.5,
-  reviews: dummyReviewList
+  shopReview?: ShopReview
 }
  
-const ReviewComponent: React.FC<ReviewComponentProps> = ({ shopId }) => {
-  const {
-    data: shopReviewResponse,
-  } = useQuery<PublicAPIResponse<ShopReview>>(
-    ['getShopReview', shopId],
-    () => getShopReview({ id: shopId }),
-    {
-      refetchOnWindowFocus: false,
-      retry: true,
-    }
-  )
-
-  const shopReview = shopReviewResponse?.body
+const ReviewComponent: React.FC<ReviewComponentProps> = ({ shopReview }) => {
   const reviewList = shopReview?.reviews ?? []
 
   return ( 

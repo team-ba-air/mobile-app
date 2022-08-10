@@ -10,12 +10,13 @@ import { BengkelItem, ServiceItem } from 'scenes/reservation/constants';
 import { VehicleItem } from 'scenes/vehicle/constants';
 import { Color } from 'styles/colors';
 import { LocationPoint } from '../MapsScreen';
+import { VehicleInfo } from 'scenes/home/constants';
 
 interface BottomSheetBengkelListProps {
   animatedPosition?: Animated.SharedValue<number>
   navigation: NavigationProp<any>
   service: ServiceItem
-  car: VehicleItem
+  car: VehicleInfo
   location: LocationPoint | null
   isLoading: boolean
   shops: BengkelItem[]

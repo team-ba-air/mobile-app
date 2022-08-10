@@ -19,6 +19,7 @@ import { SCREENS } from 'navigations/constants';
 import { useQuery } from 'react-query';
 import { PublicAPIResponse } from 'network/types';
 import getShopList from '../service/getShopList';
+import { VehicleInfo } from 'scenes/home/constants';
 
 interface MapsScreenProps {
   navigation: NavigationProp<any>
@@ -27,7 +28,7 @@ interface MapsScreenProps {
 
 interface ParamService {
   data: {
-    car: VehicleItem,
+    car: VehicleInfo,
     service: ServiceItem,
   }
 }
@@ -134,7 +135,7 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
     data: shopListResponse,
     isLoading: isFetchingVehicleList,
   } = useQuery<PublicAPIResponse<BengkelItem[]>>(
-    ['getShopList', location],
+    ['getShopList', location, data],
     () => getShopList({ 
       lat: location?.latitude ?? 0, 
       long: location?.longitude ?? 0, 

@@ -5,9 +5,10 @@ import { Color } from 'styles/colors';
 interface TabBengkelProps {
   index: number
   setIndex: (index: number) => void
+  countReview: number
 }
  
-const TabBengkel: React.FC<TabBengkelProps> = ({ index, setIndex }) => {
+const TabBengkel: React.FC<TabBengkelProps> = ({ index, setIndex, countReview }) => {
     return ( 
       <Tab
         style={{ backgroundColor: 'white' }}
@@ -25,7 +26,7 @@ const TabBengkel: React.FC<TabBengkelProps> = ({ index, setIndex }) => {
           containerStyle={{ backgroundColor: 'white' }}
         />
         <Tab.Item
-          title="Ulasan"
+          title={countReview > 0 ? `Ulasan (${countReview})` : 'Ulasan'}
           titleStyle={{ fontSize: 12, color: index === 1 ? Color.blue[8] : Color.gray[6] }}
           containerStyle={{ backgroundColor: 'white' }}
         />

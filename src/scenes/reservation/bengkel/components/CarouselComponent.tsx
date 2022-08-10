@@ -1,12 +1,11 @@
 import React, { useCallback, useRef, useState } from 'react'
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from 'react-native'
-import { Icon } from 'react-native-elements'
 import { Color } from 'styles/colors'
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from 'styles/sizes'
+import { heightPixel, SCREEN_WIDTH } from 'styles/sizes'
 import SlideItem from './SlideItem'
 
 interface CarouselComponentProps {
-  
+  images: string[]
 }
 
 const data = [
@@ -22,7 +21,7 @@ const data = [
   },
 ]
  
-const CarouselComponent: React.FC<CarouselComponentProps> = () => {
+const CarouselComponent: React.FC<CarouselComponentProps> = ({ images }) => {
   const [index, setIndex] = useState(0);
   const indexRef = useRef(index);
   indexRef.current = index;
@@ -66,10 +65,10 @@ const CarouselComponent: React.FC<CarouselComponentProps> = () => {
   return (  
     <View>
       <FlatList 
-        data={data}
+        data={images}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={(info: ListRenderItemInfo<any>) => (
-          <SlideItem {...info.item} />
+        renderItem={(info: ListRenderItemInfo<string>) => (
+          <SlideItem image={info.item} />
         )}
         pagingEnabled
         horizontal
@@ -77,9 +76,9 @@ const CarouselComponent: React.FC<CarouselComponentProps> = () => {
         onScroll={onScroll}
         {...flatListOptimizationProps}
       />
-      {/* <View style={{ flex: 1, display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-      //   {dotIndicator}
-      // </View> */}
+      <View style={{ flex: 1, display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: heightPixel(-16) }}>
+         {dotIndicator}
+       </View>
     </View>
   )
 }
@@ -90,8 +89,8 @@ const styles = StyleSheet.create({
   circle: {
     marginHorizontal: 4,
     borderRadius: 16,
-    width: 16 * 0.5,
-    height: 16 * 0.5,
+    width: 6,
+    height: 6,
     justifyContent: 'center',
     alignItems: 'center',
   }

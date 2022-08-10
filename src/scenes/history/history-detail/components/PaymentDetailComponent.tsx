@@ -28,6 +28,11 @@ const PaymentDetailComponent: React.FC<PaymentDetailComponentProps> = ({
 
       <View style={{ marginBottom: heightPixel(16) }}>
         <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>Komponen Tambahan</Text>
+        {additionalComponent.length === 0 && (
+          <Text style={{ fontSize: fontPixel(14) }}>
+            -
+          </Text>
+        )}
         {additionalComponent.map((value, idx) => (
           <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
             <Text>{idx + 1}. {value.name}</Text>

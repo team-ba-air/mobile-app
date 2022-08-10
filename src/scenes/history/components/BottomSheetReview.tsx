@@ -113,8 +113,8 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onC
       <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', paddingVertical: heightPixel(16) }}>
         <View>
           <View>
-            <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>{data?.shop.name}</Text>
-            <Text style={{ fontSize: fontPixel(16), fontWeight: 'bold' }}>{data?.service.name} - {data?.car.brand} {data?.car.type}</Text>
+            <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>{data?.shop?.name}</Text>
+            <Text style={{ fontSize: fontPixel(16), fontWeight: 'bold' }}>{data?.service?.name} - {data?.car?.brand} {data?.car?.type}</Text>
           </View>
 
           <Controller 

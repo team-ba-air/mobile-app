@@ -98,16 +98,16 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
     return () => navigation.getParent()?.setOptions({ tabBarStyle: undefined })
   }, [navigation]);
 
-  const mapHistoryDetailItem = (data: HistoryDetailItem): HistoryItem => {
+  const mapHistoryDetailItem = (data?: HistoryDetailItem): HistoryItem => {
     return {
-      id: data.id,
-      status: data.status,
-      car: data.car,
-      shop: data.shop,
-      service: data.service,
-      datetime: data.datetime,
-      additional_component: data.additional_component,
-      review: data.review
+      id: data?.id ?? '',
+      status: data?.status ?? 0,
+      car: data?.car,
+      shop: data?.shop,
+      service: data?.service,
+      datetime: data?.datetime ?? new Date(),
+      additional_component: data?.additional_component ?? [],
+      review: data?.review ?? null
     }
   }
 
@@ -137,7 +137,7 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
         <NotesComponent notes={historyDetail?.requested_additional_component_notes ?? ''} />
       </ScrollView>
       <View style={{ paddingVertical: heightPixel(16), paddingHorizontal: widthPixel(20), backgroundColor: 'white', marginTop: heightPixel(4) }}>
-        {historyDetail?.review === null && (
+        {(historyDetail?.review === null && historyDetail?.status > 4) && (
           <CustomButton style={{ marginBottom: heightPixel(12) }} type='primary' title='Beri Ulasan' onPress={() => setIsOpen(true)} />
         )}
         
@@ -150,7 +150,7 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
       <BottomSheetReview 
         onSuccess={handleSuccess}
         onClose={handleClose} 
-        data={mapHistoryDetailItem(sampleData)} 
+        data={mapHistoryDetailItem(historyDetail)} 
         isOpen={isOpen} 
       />
 

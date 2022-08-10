@@ -1,11 +1,9 @@
-import { valueToNode } from '@babel/types';
 import CustomTextInput from 'components/CustomTextInput';
 import Dropdown, { OptionItem } from 'components/Dropdown';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form';
-import { FlatList, Image, ListRenderItemInfo, ScrollView, StyleSheet, Touchable, TouchableWithoutFeedback, View } from 'react-native';
+import { FlatList, Image, ListRenderItemInfo, StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-elements';
-// import { FlatList } from 'react-native-gesture-handler';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, SCREEN_WIDTH, Sizing, widthPixel } from 'styles/sizes';
 import { AvailableHourItem, ReservationForm } from '../../constants';
@@ -23,51 +21,14 @@ interface ReservationFormComponentProps {
     description: string
     price: number
   }[]
+  carTags: string[]
+  open: Date
+  close: Date
 }
 
-const serviceListData = [
-  {
-    id: 'MR9Xdjv70WpeODE8DEPLAyb8xVBQzq31',
-    name: 'Servis Reguler 10.000KM',
-    description: 'Servis Rutin Setiap 10.000KM atau setiap 6 bulan sekali',
-    price: 500000,
-  },
-  {
-    id: 'pVdPJrOWmn72KqkZNkavbegDy6Ml89x3',
-    name: 'Servis Reguler 20.000KM',
-    description: 'Servis Rutin Setiap 20.000KM atau setiap 1 tahun sekali',
-    price: 600000,
-  }
-]
-
-const availableHours: AvailableHourItem[] = [
-  {
-    hour: '08:00',
-    available: true,
-  },
-  {
-    hour: '09:00',
-    available: true,
-  },
-  {
-    hour: '10:00',
-    available: true,
-  },
-  {
-    hour: '11:00',
-    available: false,
-  },
-  {
-    hour: '12:00',
-    available: true,
-  },
-  {
-    hour: '13:00',
-    available: true,
-  },
-]
  
-const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ serviceOptions }) => {
+const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ serviceOptions, carTags, open, close }) => {
+  const [availableHours, setAvailableHours] = useState<AvailableHourItem[]>([])
   const {
     control,
     formState: { errors },
@@ -84,18 +45,40 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
     }
   )
 
+  const vehicleList = vehicleListResponse?.body ?? []
+  const filteredVehicleList = vehicleList.filter(vehicle => {
+    return carTags.some(tag => tag === vehicle.data.brand)
+  })
+
   const serviceOptionsItem: OptionItem[] = serviceOptions?.map(option => ({
     data: option,
     value: `${option.id}|${option.name}|${option.description}|${option.price}`
   })) ?? []
 
-  const serviceListOptions: OptionItem[] = serviceListData.map(option => ({
-    data: option,
-    value: `${option.id}|${option.name}|${option.description}|${option.price}`
-  }))
+  
+  useEffect(() => {
+    const openHour = open.getHours()
+    const closeHour = close.getHours()
+  
+    const tempAvailableHours = []
+    for (let hour = openHour; hour < closeHour; hour++) {
+      const hourString = (hour < 10 ? `0${hour}`: hour )
+      tempAvailableHours.push({
+        hour: `${hourString}:00`,
+        available: true,
+      })
+
+      tempAvailableHours.push({
+        hour: `${hourString}:30`,
+        available: true,
+      })
+    }
+
+    setAvailableHours(tempAvailableHours)
+  }, [open, close])
 
   return ( 
-    <View style={{ marginTop: 20 }}>
+    <View style={{ marginTop: heightPixel(20) }}>
       <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold', paddingHorizontal: widthPixel(20), }}>Kendaraan yang diservis</Text>
 
       <Controller 
@@ -105,7 +88,7 @@ const ReservationFormComponent: React.FC<ReservationFormComponentProps> = ({ ser
           <Dropdown 
             style={[styles.margin, { marginHorizontal: widthPixel(20) }]} 
             value={value} 
-            options={vehicleListResponse?.body ?? []} 
+            options={filteredVehicleList} 
             onSelect={onChange}
             placeholder={'Pilih mobil Anda'}
             error={errors?.car?.message}
