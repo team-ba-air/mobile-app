@@ -5,7 +5,7 @@ import { ListRenderItemInfo, View } from 'react-native';
 import { Badge, Text } from 'react-native-elements';
 import { FlatList } from 'react-native-gesture-handler';
 import { useQuery } from 'react-query';
-import { fontPixel, heightPixel, Sizing } from 'styles/sizes';
+import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes';
 import { ReservationItem } from '../constants';
 import getProgressServiceList from '../service/getProgressServiceList';
 import OngoingReservationItem from './OngoingReservationItem';
@@ -20,7 +20,7 @@ const OngoingReservationSection: React.FC<OngoingReservationSectionProps> = ({ n
   return ( 
     <View style={{ marginBottom: heightPixel(8)}}>
       {progressServiceList.length > 0 && (
-        <Text style={{ marginTop: 16, fontSize: fontPixel(14), fontWeight: 'bold', paddingLeft: 20, paddingRight: 20 }}>Sedang Berlangsung</Text>
+        <Text style={{ marginTop: heightPixel(16), fontSize: fontPixel(14), fontWeight: 'bold', paddingHorizontal: widthPixel(20) }}>Servis Sedang Berlangsung</Text>
       )}
       
       <FlatList 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { View, StyleSheet } from 'react-native';
 import { Icon, Text } from 'react-native-elements';
 import { Color } from 'styles/colors';
-import { fontPixel, SCREEN_WIDTH, Sizing, widthPixel } from 'styles/sizes';
+import { fontPixel, heightPixel, SCREEN_WIDTH, Sizing, widthPixel } from 'styles/sizes';
 import Geocoder from 'react-native-geocoder';
 import { getName } from 'utils/StorageUtils';
 
@@ -52,7 +52,7 @@ const InfoLocation: React.FC<InfoLocationProps> = ({ navigation, location }) => 
           {name ? `Hi, ${name}` : ''}
         </Text>
       </View>
-      <View style={{ marginTop: 12, flexDirection: 'row', alignItems: 'center', maxWidth: '50%' }}>
+      <View style={{ marginTop: heightPixel(12), marginRight: widthPixel(8), flexDirection: 'row', alignItems: 'center', maxWidth: '50%' }}>
         <Icon type='material' name='location-on' color={Color.red[4]} tvParallaxProperties={undefined} />
         <View>
           <Text style={{ fontSize: fontPixel(Sizing.text.body[11]), color: Color.blue[1]}}>Lokasi Anda</Text>
