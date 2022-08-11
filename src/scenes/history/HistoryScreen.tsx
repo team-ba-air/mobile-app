@@ -60,7 +60,7 @@ const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
           <FlatList 
             data={ongoingList}
             renderItem={(info: ListRenderItemInfo<HistoryItem>) => (
-              <HistoryItemComponent item={info.item} setIsOpenReview={setIsOpen} setData={setData} handleClick={() => handleClick(info.item)} />
+              <HistoryItemComponent key={info.index} item={info.item} setIsOpenReview={setIsOpen} setData={setData} handleClick={() => handleClick(info.item)} />
             )}
           />
         </View>
@@ -74,7 +74,7 @@ const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
         <FlatList 
           data={finishedList}
           renderItem={(info: ListRenderItemInfo<HistoryItem>) => (
-            <HistoryItemComponent item={info.item} setIsOpenReview={setIsOpen} setData={setData} handleClick={() => handleClick(info.item)} />
+            <HistoryItemComponent key={info.index} item={info.item} setIsOpenReview={setIsOpen} setData={setData} handleClick={() => handleClick(info.item)} />
           )}
         />
       </View>
