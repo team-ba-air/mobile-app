@@ -152,14 +152,12 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-
         release {
-            storeFile file('otoku-app.keystore')
+            storeFile file('otoku-release.keystore')
             storePassword 'goOTOKU2021_'
-            keyAlias 'otoku-app'
+            keyAlias 'otoku'
             keyPassword 'goOTOKU2021_'
         }
-
     }
     buildTypes {
         debug {
