@@ -67,7 +67,8 @@ const ProgressStatus: React.FC<ProgressStatusProps> = ({ data, navigation }) => 
                   <AdditionalComponentButton onPress={() => navigation.navigate(SCREENS.reservation.additionalComponent, { 
                     servicePrice: data.info_booking.service?.price, 
                     id: data.id,
-                    requestedAdditionalComponent: data.requested_additional_component
+                    requestedAdditionalComponent: data.requested_additional_component,
+                    notes: data.requested_additional_component_notes,
                   })} />
                 ) : (
                   <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(16) }}>{'-'}</Text>

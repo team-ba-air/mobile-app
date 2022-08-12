@@ -21,10 +21,11 @@ interface ParamAdditionalComponent {
   id: string
   servicePrice: number
   requestedAdditionalComponent: AdditionalComponentItem[]
+  notes?: string
 }
  
 const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ navigation, route }) => {
-  const { servicePrice, id, requestedAdditionalComponent } = route.params
+  const { servicePrice, id, requestedAdditionalComponent, notes = '' } = route.params
   const [visible, setVisible] = useState<boolean>(false)
 
   const selectComponentList = requestedAdditionalComponent.map(value => (
@@ -52,6 +53,7 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
     <AppContainer 
       style={{ 
         padding: 0, 
+        paddingBottom: heightPixel(10),
         display: 'flex',
         justifyContent: 'space-between',
         flexDirection: 'column',
@@ -72,10 +74,12 @@ const AdditionalComponentScreen: React.FC<AdditionalComponentScreenProps> = ({ n
 
         <View>
           <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary, marginTop: heightPixel(16) }}>Catatan dari Bengkel</Text>
-          <Text style={{ marginTop: heightPixel(4) }}>{'V-Belt dan Kampas Rem Bapak/Ibu sudah terlalu lama tidak diganti, kalau terlalu lama dibiarkan bisa merusak komponen lain. Untuk Filter sudah tidak optimal juga, tapi masih bisa tahan ~3 bulan kedepan.'}</Text>
+          <Text style={{ marginTop: heightPixel(4) }}>
+            {notes !== '' ? notes: 'Tidak ada catatan dari bengkel'}
+          </Text>
         </View>
 
-        <View>
+        <View style={{ marginBottom: heightPixel(16) }}>
           <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary, marginTop: heightPixel(16) }}>Kebutuhan Komponen Tambahan</Text>
           {importantComponentList.length > 0 && (
             <AdditionalListSectionComponent title={'important'} data={importantComponentList} setData={setImportantComponentList} />

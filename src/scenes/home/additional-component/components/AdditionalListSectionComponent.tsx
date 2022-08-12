@@ -3,7 +3,7 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { Portal, Modal } from 'react-native-paper';
 import { AdditionalComponentSelectionItem } from 'scenes/home/constants';
 import { Color } from 'styles/colors';
-import { fontPixel, widthPixel } from 'styles/sizes';
+import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import ModalRemoveAdditionalComponent from './ModalRemoveAdditionalComponent';
 import SelectAdditionalComponent from './SelectAdditionalComponent';
 
@@ -68,7 +68,7 @@ const AdditionalListSectionComponent: React.FC<AdditionalListSectionComponentPro
           </Modal>
         </Portal>
       )}
-      <View style={{ marginTop: 16 }}>
+      <View style={{ marginTop: heightPixel(16) }}>
         <TouchableOpacity 
           onPress={() => setVisible(!visible)}
           style={{

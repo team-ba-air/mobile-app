@@ -3,18 +3,17 @@ import AppContainer from 'components/AppContainer';
 import CustomButton from 'components/CustomButton';
 import { SCREENS } from 'navigations/constants';
 import { PublicAPIResponse } from 'network/types';
-import React from 'react'
+import React, { useState } from 'react'
 import { Image, Text, View } from 'react-native';
+import { Snackbar } from 'react-native-paper';
 import { useMutation } from 'react-query';
 import { AdditionalComponentItem } from 'scenes/home/constants';
-import { ReservationForm } from 'scenes/reservation/constants';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import { formatRupiah } from 'utils/TextUtils';
 import { PaymentMethodSelectionItem } from '../constants';
-import createReservation, { ReservationData } from '../service/createReservation';
+import { ReservationData } from '../service/createReservation';
 import updateProgressService from '../service/updateProgressService';
-import { UpdateProgressServiceResponse } from '../service/updateProgressService';
 
 interface PaymentDetailScreenProps {
   route: Route<string, ParamPaymentDetail>
@@ -29,55 +28,11 @@ interface ParamPaymentDetail {
   status?: number
 }
 
-const sampleResponse: ReservationData = {
-  id: '1',
-  booking_number: '12312A',
-  info_booking: {
-    car: {
-      id: '',
-      brand: 'Toyota',
-      type: 'Yaris',
-      license_plate: 'B 2000 S',
-    },
-    shop: {
-      id: '',
-      name: 'Auto 2000, Jakarta Utara',
-      contact: '',
-    },
-    service: {
-      id: '',
-      name: 'Servis Dasar 10000 KM',
-      description: '',
-      price: 15000,
-    },
-    datetime: new Date('2022-06-14T11:27:39.404Z'),
-    notes: '',
-  },
-  additional_component: [
-    {
-      id: '1',
-      name: 'V-Belt',
-      price: 250000,
-      priority: 'IMPORTANT',
-    },
-    {
-      id: '2',
-      name: 'Kampas Rem',
-      price: 180000,
-      priority: 'IMPORTANT',
-    },
-  ],
-  payment_method: {
-    id: '1',
-    name: 'Bayar di Bengkel',
-    image: 'https://i.ibb.co/g9cDkWM/bca-logo.jpg',
-    notes: [],
-    active: true,
-  }
-}
  
 const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, navigation }) => {
   const { additionalComponent, paymentMethod, status, servicePrice, id } = route.params
+
+  const [visible, setVisible] = useState(false)
 
   const totalPrice = additionalComponent.reduce((priceAccumulator, item) => priceAccumulator + item.price, 0)
 
@@ -94,6 +49,9 @@ const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, naviga
         isFinish: status === 5,
       })
     },
+    onError: () => {
+      setVisible(true)
+    }
   })
 
   const onSubmit = () => {
@@ -146,6 +104,21 @@ const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, naviga
       <View>
         <CustomButton onPress={onSubmit} buttonStyle={{ paddingLeft: 36, paddingRight: 36 }} title='Konfirmasi Pembayaran' />
       </View>
+
+      <Snackbar
+        visible={visible}
+        onDismiss={() => setVisible(false)}
+        duration={4000}
+        wrapperStyle={{ alignSelf: 'center' }}
+        style={{ backgroundColor: Color.red[7], marginBottom: heightPixel(24) }}
+        theme={{
+          colors: {
+            surface: 'white'
+          }
+        }}
+      >
+        Sedang ada kendala. Silakan coba beberapa saat lagi.
+      </Snackbar>
     </AppContainer>
   );
 }
