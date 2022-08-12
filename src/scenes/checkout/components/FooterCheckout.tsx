@@ -35,7 +35,7 @@ const FooterCheckout: React.FC<FooterCheckoutProps> = ({ onSubmit, price }) => {
         <Text style={styles.content}>{formatRupiah(price)}</Text>
       </View>
       <View>
-        <CustomButton onPress={onSubmit} buttonStyle={{ paddingLeft: 36, paddingRight: 36 }} title='Bayar' />
+        <CustomButton onPress={onSubmit} buttonStyle={{ paddingLeft: 36, paddingRight: 36 }} title='Booking' />
       </View>
 
       <BottomSheetPriceEstimation visible={show} onChangeVisible={setShow} />

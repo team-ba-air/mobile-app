@@ -53,7 +53,7 @@ const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
   }
 
   return ( 
-    <AppContainer style={{ backgroundColor: Color.gray[1], paddingHorizontal: 0 }} onRefresh={() => {
+    <AppContainer style={{ backgroundColor: Color.gray[1], paddingHorizontal: 0 }} refreshBackground={Color.gray[1]} onRefresh={() => {
       refetch()
     }}>
       {ongoingList.length > 0 && (
