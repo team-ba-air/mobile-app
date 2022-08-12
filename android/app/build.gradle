@@ -155,9 +155,9 @@ android {
 
         release {
             storeFile file('otoku-app.keystore')
-            storePassword System.console().readLine("\nKeystore password:")
-            keyAlias System.console().readLine("\nAlias: ")
-            keyPassword System.console().readLine("\nAlias password: ")
+            storePassword 'goOTOKU2021_'
+            keyAlias 'otoku-app'
+            keyPassword 'goOTOKU2021_'
         }
 
     }
