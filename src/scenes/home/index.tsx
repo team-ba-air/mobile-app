@@ -7,7 +7,6 @@ import CarServiceReservation from './components/CarServiceReservation';
 import InfoLocation from './components/InfoLocation';
 import OngoingReservationSection from './components/OngoingReservationSection';
 import PopularService from './components/PopularService';
-import ReminderServiceComponent from './components/ReminderServiceComponent';
 import ServiceList from './components/ServiceList';
 import TipsTrick from './components/TipsTrick';
 
@@ -108,7 +107,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   }
 
   const getLocation = () => {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === 'ios' || Platform.OS === 'android') {
       Geolocation.getCurrentPosition(
         (position) => {
           setLocation({
