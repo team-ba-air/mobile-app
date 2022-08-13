@@ -54,14 +54,6 @@ const ReservationNavigator: React.FC<any> = () => {
         name='ServiceType' 
         component={ServiceReservation} />
       <Stack.Screen 
-        options={{ 
-          header: ({ navigation }) => <BackButtonIcon navigation={navigation} />,
-          headerTransparent: true,
-          headerMode: 'screen',
-        }} 
-        name='BengkelFormReservation' 
-        component={BengkelFormReservation} />
-      <Stack.Screen 
         options={{
           header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Checkout'} type='secondary' />
         }}
@@ -80,6 +72,14 @@ const ReservationNavigator: React.FC<any> = () => {
         name='PaymentDetail' 
         component={PaymentDetailScreen} />
       <Stack.Screen name='SuccessReservation' component={SuccessReservation} />
+      <Stack.Screen 
+        options={() => ({ 
+          header: ({ navigation }) => <BackButtonIcon navigation={navigation} />,
+          headerTransparent: true,
+          headerMode: Platform.OS === 'android' ? 'float' : 'screen',
+        })} 
+        name='BengkelFormReservation' 
+        component={BengkelFormReservation} />
     </Stack.Navigator>
   )
 }
