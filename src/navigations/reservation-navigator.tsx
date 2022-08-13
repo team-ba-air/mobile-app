@@ -57,7 +57,7 @@ const ReservationNavigator: React.FC<any> = () => {
         options={{ 
           header: ({ navigation }) => <BackButtonIcon navigation={navigation} />,
           headerTransparent: true,
-          headerMode: Platform.OS === 'android' ? 'float' : 'screen',
+          headerMode: 'screen',
         }} 
         name='BengkelFormReservation' 
         component={BengkelFormReservation} />

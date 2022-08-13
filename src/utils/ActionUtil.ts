@@ -3,13 +3,10 @@ import { Linking } from "react-native";
 const openWhatsApp = (number: string) => {
   let url = `https://wa.me/${number}`
 
-  Linking.canOpenURL(url)
-		.then((supported) => {
-			if (supported) {
-				return Linking.openURL(url)
-					.catch(() => null);
-			}
-		});
+	console.log('BUKA WA')
+
+	Linking.openURL(url)
+		.catch((e) => console.log(e));
 }
 
 export { openWhatsApp }
