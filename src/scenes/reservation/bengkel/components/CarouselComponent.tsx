@@ -8,19 +8,6 @@ interface CarouselComponentProps {
   images: string[]
 }
 
-const data = [
-  {
-    image: require('@assets/placeholder_bengkel.png'),
-    title: 'Selamat datang di Otoku!',
-    subtitle: 'Rasakan pengalaman baru merawat mobil dengan Otoku',
-  },
-  {
-    image: require('@assets/placeholder_bengkel.png'),
-    title: 'Selamat datang di Otoku!',
-    subtitle: 'Rasakan pengalaman baru merawat mobil dengan Otoku',
-  },
-]
- 
 const CarouselComponent: React.FC<CarouselComponentProps> = ({ images }) => {
   const [index, setIndex] = useState(0);
   const indexRef = useRef(index);
@@ -55,7 +42,7 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({ images }) => {
     ),
   };
 
-  const dotIndicator = data.map((value, idx) => {
+  const dotIndicator = images.map((value, idx) => {
     const backgroundColor = idx === index ? Color.blue[7] : Color.gray[4]
     return (
     <View style={[styles.circle, { backgroundColor }]}></View>
