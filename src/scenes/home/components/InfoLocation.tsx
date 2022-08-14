@@ -27,7 +27,6 @@ const InfoLocation: React.FC<InfoLocationProps> = ({ navigation, location }) => 
   useEffect(() => {
     if (location) {
       Geocoder.geocodePosition(location).then((res: any) => {
-          // res is an Array of geocoding object (see below)
           const formattedAddress = res[0].formattedAddress.split(', ')[0]
           const subLocality = res[0].subLocality
           setAddress(`${formattedAddress}${subLocality ? `, ${subLocality}` : ''}`)
