@@ -10,6 +10,7 @@ export type GetHistoryDetailRequest = {
 
 export type GetHistoryDetailResponse = {
   id: string
+  transaction_id: string
   booking_number: string
   status: number
   car: VehicleInfo
@@ -35,7 +36,8 @@ const mapResponse = (response: PublicAPIResponse<GetHistoryDetailResponse>): Pub
     ...response,
     body: {
       id: response.body?.id ?? '',
-      booking_number: response.body?.id ?? '',
+      transaction_id: response.body?.transaction_id ?? '',
+      booking_number: response.body?.transaction_id ?? '',
       status: response.body?.status ?? -1,
       car: response.body?.car,
       shop: response.body?.shop,

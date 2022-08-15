@@ -5,7 +5,7 @@ import { PublicAPIResponse } from 'network/types';
 import React, { useState } from 'react'
 import { FlatList, ListRenderItemInfo, Text, View } from 'react-native';
 import { Snackbar } from 'react-native-paper';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import BottomSheetReview from './components/BottomSheetReview';
@@ -18,6 +18,8 @@ interface HistoryScreenProps {
 }
  
 const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
+  const queryClient = useQueryClient()
+  
   const [visible, setVisible] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<HistoryItem | null>(null);
@@ -49,6 +51,7 @@ const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
   }
 
   const handleSuccess = () => {
+    queryClient.invalidateQueries('getHistoryList')
     setVisible(true)
   }
 

@@ -3,6 +3,7 @@ import { AdditionalComponentItem, ServiceInfo, ShopInfo, VehicleInfo } from "sce
 
 export type HistoryItem = {
   id: string
+  transaction_id: string
   status: number
   car?: VehicleInfo
   shop?: ShopInfo
@@ -14,6 +15,7 @@ export type HistoryItem = {
 
 export type HistoryDetailItem = {
   id: string
+  transaction_id: string
   booking_number: string
   status: number
   car?: VehicleInfo

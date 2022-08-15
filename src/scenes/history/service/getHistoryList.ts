@@ -7,6 +7,7 @@ export type GetHistoryListRequest = {}
 
 export type GetHistoryListResponse = {
   id: string
+  transaction_id: string
   status: number
   car: VehicleInfo
   shop: ShopInfo

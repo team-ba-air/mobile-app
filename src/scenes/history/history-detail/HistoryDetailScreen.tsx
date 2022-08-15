@@ -5,7 +5,7 @@ import { PublicAPIResponse } from 'network/types';
 import React, { useEffect, useState } from 'react'
 import { ScrollView, Text, View } from 'react-native';
 import { Snackbar } from 'react-native-paper';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import { openWhatsApp } from 'utils/ActionUtil';
@@ -26,54 +26,9 @@ interface ParamHistoryDetail {
   data: HistoryItem
 }
 
-const sampleData: HistoryDetailItem = {
-  id: '1',
-  booking_number: '1232132ASDASD',
-  status: 5,
-  car: {
-    id: '',
-    brand: 'Toyota',
-    type: 'Yaris',
-    license_plate: 'B 2000 S',
-  },
-  shop: {
-    id: '',
-    name: 'Auto 2000, Jakarta Utara',
-    contact: '',
-  },
-  service: {
-    id: '',
-    name: 'Servis Reguler 20.000 KM',
-    description: '',
-    price: 400000,
-  },
-  datetime: new Date(),
-  notes: 'Kebetulan daerah saya lumayan banyak debu, AC saya jadi agak kurang dingin sih',
-  payment_method: {
-    id: '',
-    name: 'Bayar di Bengkel',
-    image: '',
-    notes: [],
-    active: true,
-  },
-  additional_component: [
-    {
-      id: '',
-      name: 'V-Belt',
-      priority: 'IMPORTANT',
-      price: 150000,
-    }
-  ],
-  requested_additional_component_notes: '',
-  // review: {
-  //   date: new Date(),
-  //   rating: 5,
-  //   review: 'a',
-  // },
-  review: null
-}
- 
 const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, route }) => {
+  const queryClient = useQueryClient()
+
   const [isOpen, setIsOpen] = useState(false);
   const [visible, setVisible] = useState(false)
 
@@ -81,7 +36,6 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
 
   const {
     data: historyDetailResponse,
-    refetch,
   } = useQuery<PublicAPIResponse<HistoryDetailItem>>(
     ['getHistoryDetail', data],
     () => getHistoryDetail({ id: data.id }),
@@ -92,6 +46,7 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
   )
 
   const historyDetail = historyDetailResponse?.body
+  console.log(historyDetail)
 
   useEffect(() => {
     navigation.getParent()?.setOptions({ tabBarStyle: { display: "none" }})
@@ -101,6 +56,7 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
   const mapHistoryDetailItem = (data?: HistoryDetailItem): HistoryItem => {
     return {
       id: data?.id ?? '',
+      transaction_id: data?.transaction_id ?? '',
       status: data?.status ?? 0,
       car: data?.car,
       shop: data?.shop,
@@ -117,6 +73,8 @@ const HistoryDetailScreen: React.FC<HistoryDetailScreenProps> = ({ navigation, r
   }
 
   const handleSuccess = () => {
+    queryClient.invalidateQueries('getHistoryDetail')
+    queryClient.invalidateQueries('getHistoryList')
     setVisible(true)
   }
 
