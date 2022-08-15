@@ -61,7 +61,6 @@ const FinishedProgressComponent: React.FC<FinishedProgressComponentProps> = ({ d
     } else {
       handleDismiss()
       navigation.navigate(SCREENS.reservation.selectPayment, { 
-        additionalComponent: data.additional_component,
         status: 5,
         servicePrice: data.info_booking.service?.price,
         id: data.id,

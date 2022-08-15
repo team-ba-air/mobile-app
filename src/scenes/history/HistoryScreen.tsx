@@ -53,11 +53,11 @@ const HistoryScreen: React.FC<HistoryScreenProps> = ({ navigation }) => {
   }
 
   return ( 
-    <AppContainer style={{ backgroundColor: Color.gray[1], paddingHorizontal: 0 }} refreshBackground={Color.gray[1]} onRefresh={() => {
+    <AppContainer style={{ backgroundColor: Color.gray[1], padding: 0 }} refreshBackground={Color.gray[1]} onRefresh={() => {
       refetch()
     }}>
       {ongoingList.length > 0 && (
-        <View style={{ paddingHorizontal: widthPixel(20) }}>
+        <View style={{ paddingHorizontal: widthPixel(20), marginTop: heightPixel(20) }}>
           <Text style={{ fontSize: fontPixel(14), fontWeight: 'bold', marginBottom: heightPixel(8) }}>Sedang Berlangsung</Text>
           <FlatList 
             data={ongoingList}

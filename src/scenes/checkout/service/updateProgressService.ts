@@ -6,7 +6,7 @@ import { ReservationData } from "./createReservation"
 
 export type UpdateProgressServiceRequest = {
   status?: number
-  additionalComponent: AdditionalComponentItem[]
+  additionalComponent?: AdditionalComponentItem[]
   paymentMethod: PaymentMethodSelectionItem
   id: string
 }
@@ -14,7 +14,7 @@ export type UpdateProgressServiceRequest = {
 export type UpdateProgressServiceRequestData = {
   status?: number
   payment_id: string
-  requested_id: string[]
+  requested_id?: string[]
 }
 
 export type UpdateProgressServiceResponse = {
@@ -37,7 +37,7 @@ const mapRequestData = (request: UpdateProgressServiceRequest): UpdateProgressSe
   return {
     status: request.status,
     payment_id: request.paymentMethod.id,
-    requested_id: request.additionalComponent.map(value => value.id)
+    requested_id: request.additionalComponent?.map(value => value.id)
   }
 }
 
@@ -66,7 +66,9 @@ const mapResponseData = (response: PublicAPIResponse<UpdateProgressServiceRespon
 
 const updateProgressService = async (request: UpdateProgressServiceRequest) => {
   const data = mapRequestData(request)
-
+  
+  console.log(`${UpdateProgressServiceEndpoint}/${request.id}`)
+  console.log(data)
   const response: PublicAPIResponse<UpdateProgressServiceResponse> = await networkService.patch(
     `${UpdateProgressServiceEndpoint}/${request.id}`,
     data

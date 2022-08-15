@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import BottomSheet, { BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
 import { View, Text } from 'react-native';
@@ -12,6 +12,7 @@ import CustomTextInput from 'components/CustomTextInput';
 import CustomButton from 'components/CustomButton';
 import { useMutation } from 'react-query';
 import submitReview from '../service/submitReview';
+import { Snackbar } from 'react-native-paper';
 
 interface BottomSheetReviewProps {
   data: HistoryItem | null
@@ -31,6 +32,7 @@ const reviewRatingPredicate = [
  
 const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onClose, onSuccess }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     reset({
@@ -82,6 +84,9 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onC
       onSuccess?.()
       onClose()
     },
+    onError: () => {
+      setVisible(true)
+    }
   })
 
   const handleReview = () => {
@@ -110,7 +115,7 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onC
         } 
       }}
     >
-      <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '100%', paddingVertical: heightPixel(16) }}>
+      <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '95%', paddingVertical: heightPixel(16) }}>
         <View>
           <View>
             <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>{data?.shop?.name}</Text>
@@ -158,6 +163,21 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onC
 
         <CustomButton onPress={handleReview} type={'primary'} title={'Kirim Ulasan'} disabled={isDisabled} />
       </View>
+
+      <Snackbar
+        visible={visible}
+        onDismiss={() => setVisible(false)}
+        duration={4000}
+        wrapperStyle={{ alignSelf: 'center' }}
+        style={{ backgroundColor: Color.red[7], marginBottom: heightPixel(24) }}
+        theme={{
+          colors: {
+            surface: 'white'
+          }
+        }}
+      >
+        Sedang ada kendala. Silakan coba beberapa saat lagi.
+      </Snackbar>
     </BottomSheet>
   );
 }

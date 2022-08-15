@@ -9,7 +9,7 @@ export type SubmitReviewRequest = {
 
 type SubmitReviewDataRequest = {
   transaction_id: string
-  service_id: string
+  shop_service_id: string
   rating: number
   review: String
 }
@@ -21,7 +21,7 @@ export const submitReviewEndpoint = (id: string) => `shop/${id}/review`
 const mapSubmitReviewData = (request: SubmitReviewRequest): SubmitReviewDataRequest => {
   return {
     transaction_id: request.history.id,
-    service_id: request.history.service?.id ?? '',
+    shop_service_id: request.history.service?.id ?? '',
     rating: request.review.rating,
     review: request.review.review,
   }

@@ -1,8 +1,10 @@
+import { format } from 'date-fns';
 import React from 'react'
 import { Text, View } from 'react-native';
 import { ServiceInfo, ShopInfo, VehicleInfo } from 'scenes/home/constants';
 import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, widthPixel } from 'styles/sizes';
+import { getFormatHour } from 'utils/DateUtil';
 
 interface InfoServiceComponentProps {
   car?: VehicleInfo
@@ -12,7 +14,7 @@ interface InfoServiceComponentProps {
   datetime: Date
 }
  
-const InfoServiceComponent: React.FC<InfoServiceComponentProps> = ({ car, shop, service, notes}) => {
+const InfoServiceComponent: React.FC<InfoServiceComponentProps> = ({ car, shop, service, notes, datetime }) => {
   return ( 
     <View style={{ backgroundColor: 'white', paddingHorizontal: widthPixel(20), paddingVertical: heightPixel(16), marginBottom: heightPixel(8) }}>
       <View style={{ paddingVertical: heightPixel(16), paddingHorizontal: widthPixel(16), borderWidth: 2, borderRadius: 8, borderColor: Color.gray[2] }}>
@@ -30,7 +32,7 @@ const InfoServiceComponent: React.FC<InfoServiceComponentProps> = ({ car, shop, 
         
 
         <Text style={{ fontSize: fontPixel(10), color: Color.gray.secondary }}>Waktu Reservasi</Text>
-        <Text style={{ fontSize: fontPixel(12) }}>{'Kamis, 7 Oktober 2021 10:00 WIB'}</Text>
+        <Text style={{ fontSize: fontPixel(12) }}>{format(datetime, 'eeee, dd MMMM yyyy')} {getFormatHour(datetime)} WIB</Text>
       </View>
     </View>
   );

@@ -23,7 +23,7 @@ interface PaymentDetailScreenProps {
 interface ParamPaymentDetail {
   id: string
   servicePrice: number
-  additionalComponent: AdditionalComponentItem[]
+  additionalComponent?: AdditionalComponentItem[]
   paymentMethod: PaymentMethodSelectionItem
   status?: number
 }
@@ -34,7 +34,7 @@ const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, naviga
 
   const [visible, setVisible] = useState(false)
 
-  const totalPrice = additionalComponent.reduce((priceAccumulator, item) => priceAccumulator + item.price, 0)
+  const totalPrice = (additionalComponent ?? []).reduce((priceAccumulator, item) => priceAccumulator + item.price, 0)
 
   const { isLoading: isUpdatingProgressService, mutateAsync: onUpdateProgressService } = useMutation(updateProgressService, {
     onSuccess: (data: PublicAPIResponse<ReservationData>) => {

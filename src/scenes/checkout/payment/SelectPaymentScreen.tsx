@@ -19,45 +19,9 @@ interface SelectPaymentScreenProps {
 interface ParamSelectPayment {
   id: string
   servicePrice: number
-  additionalComponent: AdditionalComponentItem[]
+  additionalComponent?: AdditionalComponentItem[]
   status?: number
 }
-
-const dummyPayment: PaymentMethodItem[] = [
-  {
-    method: 'Transfer Virtual Account',
-    item: [
-      {
-        id: '1',
-        name: 'BCA Virtual Account',
-        image: '',
-        notes: ['Notes 1', 'Notes 2'],
-        target: '',
-        active: false,
-      },
-      {
-        id: '2',
-        name: 'BNI Virtual Account',
-        image: '',
-        notes: ['Notes 1', 'Notes 2', 'Notes 3'],
-        target: '',
-        active: false,
-      }
-    ]
-  },
-  {
-    method: 'Tunai/Cash',
-    item: [
-      {
-        id: '3',
-        name: 'Bayar Langsung di Bengkel',
-        image: '',
-        notes: ['Anda dapat melakukan pembayaran di bengkel dengan metode pembayaran yang tersedia di bengkel.'],
-        active: true,
-      }
-    ]
-  }
-]
  
 const SelectPaymentScreen: React.FC<SelectPaymentScreenProps> = ({ route, navigation }) => {
   const { additionalComponent, status, servicePrice, id } = route.params
