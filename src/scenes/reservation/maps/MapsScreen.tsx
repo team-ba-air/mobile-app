@@ -148,7 +148,7 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
     }
   )
 
-  const shopList = shopListResponse?.body ?? []
+  const shopList = (shopListResponse?.body ?? []).filter(value => value.distance <= 25000)
 
   const animatedPosition = useSharedValue(0)
 
