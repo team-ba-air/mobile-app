@@ -11,6 +11,18 @@ export type VehicleItem = {
   imageUrl: string
 }
 
+export type VehicleForm = Partial<{
+  brand: string
+  customBrand: string
+  type: string
+  customType: string
+  year: string
+  color: string
+  plat: string
+  vin: string
+  expireDate: Date
+}>
+
 export type VehicleBrandItem = {
   id: string
   name: string

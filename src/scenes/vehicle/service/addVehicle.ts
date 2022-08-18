@@ -1,6 +1,7 @@
 import networkService from "network/api/networkService"
 import { PublicAPIResponse } from "network/types"
 import { VehicleResponse } from "network/types/response/vehicle"
+import { isOnlySpace } from "utils/TextUtils"
 import { VehicleItem } from "../constants"
 
 
@@ -9,8 +10,8 @@ export type AddVehicleRequest = {
 }
 
 export type AddVehicleData = { 
-  brand: string
-  type: string
+  brand?: string
+  type?: string
   year: string
   color: string
   license_plate: string
@@ -27,9 +28,9 @@ export const mapCarToAddVehicleData = (data: VehicleItem): AddVehicleData => {
     brand: data.brand,
     type: data.type,
     year: data.year,
-    color: data.color,
+    color: !isOnlySpace(data.color) ? data.color : ' ',
     license_plate: data.plat,
-    vin: data.vin,
+    vin: !isOnlySpace(data.vin) ? data.vin : ' ',
     certificate_expire_date: data.expiredDate?.toISOString() ?? (new Date()).toISOString(),
   }
 }

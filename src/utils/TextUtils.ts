@@ -22,4 +22,8 @@ const formatDistance = (value: number) : string => {
   return valueKilometer.toFixed(1)
 }
 
-export { formatRupiah, formatDistance }
+const isOnlySpace = (value: string): boolean => {
+  return value.trim().length === 0
+}
+
+export { formatRupiah, formatDistance, isOnlySpace }

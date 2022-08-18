@@ -6,6 +6,7 @@ import { Color } from 'styles/colors';
 import { fontPixel, heightPixel, Sizing } from 'styles/sizes';
 import BaseBottomSheet from './BaseBottomSheet';
 import BottomSheet from '@gorhom/bottom-sheet';
+import CustomTextInput from './CustomTextInput';
 
 export type OptionItem = {
   data: any
@@ -35,6 +36,8 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
 
   const [selected, setSelected] = useState<OptionItem | undefined>(undefined)
 
+  const [customValue, setCustomValue] = useState<string>('')
+
   useEffect(() => {
     const optionSelected = options.find(option => option.value === value)
     setSelected(optionSelected)
@@ -43,7 +46,7 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
   return ( 
     <View style={containerStyle}>
       <BaseBottomSheet onChangeVisible={setVisible} visible={visible}>
-        <View>
+        <View style={{ paddingBottom: heightPixel(20) }}>
           {headerComponent}
           <FlatList
             style={{ paddingBottom: heightPixel(20) }}
@@ -64,6 +67,7 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
               )
             }}
           />
+          
           {footerComponent}
         </View>
       </BaseBottomSheet>

@@ -1,6 +1,7 @@
 import networkService from "network/api/networkService"
 import { PublicAPIResponse } from "network/types"
 import { VehicleResponse } from "network/types/response/vehicle"
+import { isOnlySpace } from "utils/TextUtils"
 import { VehicleItem } from "../constants"
 
 
@@ -27,9 +28,9 @@ export const mapCarToUpdateVehicleData = (data: VehicleItem): UpdateVehicleByIdD
     brand: data.brand,
     type: data.type,
     year: data.year,
-    color: data.color,
+    color: !isOnlySpace(data.color) ? data.color : ' ',
     license_plate: data.plat,
-    vin: data.vin,
+    vin: !isOnlySpace(data.vin) ? data.vin : ' ',
     certificate_expire_date: data.expiredDate?.toISOString(),
   }
 }

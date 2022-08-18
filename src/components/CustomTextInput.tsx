@@ -1,5 +1,5 @@
 import React from 'react'
-import { Platform, StyleProp, StyleSheet, Text, TextInput, View } from 'react-native'
+import { KeyboardTypeOptions, Platform, StyleProp, StyleSheet, Text, TextInput, View } from 'react-native'
 import { Input } from 'react-native-elements'
 import { Color } from 'styles/colors'
 import { fontPixel, heightPixel } from 'styles/sizes'
@@ -13,10 +13,11 @@ interface CustomTextInputProps {
   multiline?: boolean
   lines?: number
   error?: string
+  keyboardType?: KeyboardTypeOptions
 }
  
 const CustomTextInput: React.FC<CustomTextInputProps> = (props) => {
-  const { value, onChange, placeholder, size = 16, style, multiline = false, lines, error } = props
+  const { value, onChange, placeholder, size = 16, style, multiline = false, lines, error, keyboardType = 'default' } = props
 
   return ( 
     <>
@@ -34,6 +35,7 @@ const CustomTextInput: React.FC<CustomTextInputProps> = (props) => {
           multiline={multiline} 
           numberOfLines={lines} 
           placeholder={placeholder} 
+          keyboardType={keyboardType}
           onChangeText={onChange} 
           value={value} />
       </View>

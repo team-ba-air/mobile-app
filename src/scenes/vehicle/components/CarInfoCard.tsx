@@ -5,6 +5,7 @@ import { Card, Image } from 'react-native-elements'
 import { Color } from 'styles/colors'
 import { fontPixel, heightPixel, Sizing, widthPixel } from 'styles/sizes'
 import { getFormatDate } from 'utils/DateUtil'
+import { isOnlySpace } from 'utils/TextUtils'
 import { VehicleItem } from '../constants'
 
 interface CarInfoCardProps {
@@ -39,19 +40,18 @@ const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation, showSnackbar
         </View>
         <Card.Image 
           containerStyle={styles.imageCar} 
+          // style={{
+          //   width: '80%'
+          // }}
+          resizeMode={'contain'}
           source={{
-            uri: car?.imageUrl
+            uri: car?.imageUrl,
           }} 
         />
       </View>
       {isOpen && (
         <View>
           <View style={styles.row}>
-            {/* <View style={styles.column}>
-              <Text style={styles.attributeHeader}>Tipe</Text>
-              <Text>G CVT 7 AB</Text>
-            </View> */}
-
             <View style={styles.column}>
               <Text style={styles.attributeHeader}>Tahun Produksi</Text>
               <Text>{car?.year}</Text>
@@ -59,7 +59,7 @@ const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation, showSnackbar
 
             <View style={styles.column}>
               <Text style={styles.attributeHeader}>VIN</Text>
-              <Text>{car?.vin}</Text>
+              <Text>{isOnlySpace(car?.vin ?? '') ? '-' : car?.vin}</Text>
             </View>
           </View>
 
@@ -156,9 +156,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   imageCar: {
-    height: 140,
-    width: 240,
-    marginRight: 16,
+    height: '100%',
+    width: '60%',
     marginBottom: 8,
     borderBottomLeftRadius: 8,
   },
@@ -171,8 +170,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   carTextContainer: {
-    marginLeft: 20,
-    marginTop: 20,
+    marginLeft: widthPixel(20),
+    marginTop: heightPixel(20),
+    maxWidth: '35%',
   },
   row: {
     display: 'flex',

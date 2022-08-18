@@ -12,20 +12,24 @@ export type GetVehicleTypeResponse = string[]
 export const getVehicleTypeEndpoint = 'vehicle/type'
 
 const mapResponseToOption = (response: PublicAPIResponse<GetVehicleTypeResponse>): PublicAPIResponse<OptionItem[]> => {
-  const brandList = response.body ?? []
-  console.log(response)
+  const typeList = response.body ?? []
+  const typeListOption = typeList.map(value => ({
+    data: value,
+    value: value,
+  }))
+  typeListOption.push({
+    data: 'Other',
+    value: 'Other',
+  })
   return {
     ...response,
-    body: brandList.map(value => ({
-      data: value,
-      value: value,
-    }))
+    body: typeListOption,
   }
 }
 
 const getVehicleType = async (request: GetVehicleTypeRequest) => {
   const query = QueryString.stringify(request)
-  console.log(query)
+
   const response: PublicAPIResponse<GetVehicleTypeResponse> = await networkService.get(
     `${getVehicleTypeEndpoint}?${query}`
   )

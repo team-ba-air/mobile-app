@@ -11,12 +11,22 @@ export const getVehicleBrandEndpoint = 'vehicle/brand'
 
 const mapResponseToOption = (response: PublicAPIResponse<GetVehicleBrandResponse>): PublicAPIResponse<OptionItem[]> => {
   const brandList = response.body ?? []
+  const brandListOption = brandList.map(value => ({
+    data: value,
+    value: value.name,
+  }))
+
+  brandListOption.push({
+    data: {
+      id: 'Other',
+      name: 'Other',
+      image_url: 'https://i.ibb.co/48bgJq7/ic-logo-text.webp',
+    },
+    value: 'Other',
+  })
   return {
     ...response,
-    body: brandList.map(value => ({
-      data: value,
-      value: value.name,
-    }))
+    body: brandListOption
   }
 }
 
