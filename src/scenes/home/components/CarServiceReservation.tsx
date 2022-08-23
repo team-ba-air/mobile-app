@@ -1,15 +1,12 @@
 import { NavigationProp } from '@react-navigation/native'
 import CustomButton from 'components/CustomButton'
 import { SCREENS } from 'navigations/constants'
-import { PublicAPIResponse } from 'network/types'
 import React from 'react'
 import { FlatList, ListRenderItemInfo, StyleSheet, Text, View } from 'react-native'
-import { Card, Icon, Image, Button } from 'react-native-elements'
-import { useQuery } from 'react-query'
+import { Image, Button } from 'react-native-elements'
 import { VehicleItem } from 'scenes/vehicle/constants'
 import { Color } from 'styles/colors'
 import { Sizing, fontPixel, widthPixel, SCREEN_WIDTH, heightPixel } from 'styles/sizes'
-import getVehicleList from '../service/getVehicleList'
 import AddVehicleButton from './AddVehicleButton'
 
 interface CarServiceReservationProps {
@@ -74,8 +71,6 @@ const CarServiceReservation: React.FC<CarServiceReservationProps> = ({ navigatio
                   style={styles.imageCar} 
                   source={{
                     uri: info.item.imageUrl,
-                    width: 40,
-                    height: 40,
                   }}
                   resizeMode={'contain'} />
               </View>
@@ -187,7 +182,7 @@ const styles = StyleSheet.create({
   },
   imageCar: {
     height: 120,
-    width: 220,
+    width: 200,
     marginRight: 16,
     marginBottom: 8,
     borderBottomLeftRadius: 8,

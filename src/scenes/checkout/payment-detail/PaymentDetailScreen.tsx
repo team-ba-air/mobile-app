@@ -102,7 +102,7 @@ const PaymentDetailScreen: React.FC<PaymentDetailScreenProps> = ({ route, naviga
       </View>
 
       <View>
-        <CustomButton onPress={onSubmit} buttonStyle={{ paddingLeft: 36, paddingRight: 36 }} title='Konfirmasi Pembayaran' />
+        <CustomButton onPress={onSubmit} buttonStyle={{ paddingLeft: widthPixel(36), paddingRight: widthPixel(36) }} title='Konfirmasi Pembayaran' />
       </View>
 
       <Snackbar

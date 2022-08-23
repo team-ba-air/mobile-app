@@ -23,7 +23,7 @@ export const mapVehicleListResponse = (response: PublicAPIResponse<GetVehicleLis
       vin: vehicle.vin ?? '',
       expiredDate: new Date(vehicle.certificate_expire_date),
       lastService: vehicle.last_service,
-      imageUrl: vehicle.car_image_url ?? '',
+      imageUrl: (vehicle.car_image_url ?? '') !== '' ? vehicle.car_image_url : 'https://i.ibb.co/rfnXkfF/empty-car.png',
     })),
   }
 }

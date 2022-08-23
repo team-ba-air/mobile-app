@@ -36,13 +36,9 @@ const CarInfoCard: React.FC<CarInfoCardProps> = ({ car, navigation, showSnackbar
         <View style={styles.carTextContainer}>
           <Text style={styles.carPlatText}>{car?.brand}</Text>
           <Text style={styles.carTypeText}>{car?.type}</Text>
-          {/* <Text style={styles.carPlatText}>{car?.plat}</Text> */}
         </View>
         <Card.Image 
           containerStyle={styles.imageCar} 
-          // style={{
-          //   width: '80%'
-          // }}
           resizeMode={'contain'}
           source={{
             uri: car?.imageUrl,
