@@ -36,12 +36,10 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
 
   const [selected, setSelected] = useState<OptionItem | undefined>(undefined)
 
-  const [customValue, setCustomValue] = useState<string>('')
-
   useEffect(() => {
     const optionSelected = options.find(option => option.value === value)
     setSelected(optionSelected)
-  }, [value])
+  })
 
   return ( 
     <View style={containerStyle}>

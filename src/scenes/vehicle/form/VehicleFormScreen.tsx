@@ -67,15 +67,15 @@ const VehicleFormScreen: React.FC<VehicleFormScreenProps> = ({ navigation, route
 
   const {
     data: vehicleBrandResponse,
+    isFetching: isBrandFetching,
   } = useQuery<PublicAPIResponse<OptionItem[]>>(
     ['getVehicleBrand'],
     () => getVehicleBrand(),
     {
       refetchOnWindowFocus: false,
       retry: true,
-      onSuccess: (data) => {
+      onSuccess: (data: PublicAPIResponse<OptionItem[]>) => {
         console.log('BRAND SUCCESS FETCH')
-        // console.log(data.body)
       },
     }
   )
@@ -85,15 +85,15 @@ const VehicleFormScreen: React.FC<VehicleFormScreenProps> = ({ navigation, route
   
   const {
     data: vehicleTypeResponse,
+    isFetching: isTypeFetching,
   } = useQuery<PublicAPIResponse<OptionItem[]>>(
     ['getVehicleType', brand],
     () => getVehicleType({ brand }),
     {
       refetchOnWindowFocus: false,
       retry: true,
-      onSuccess: (data) => {
+      onSuccess: (data: PublicAPIResponse<OptionItem[]>) => {
         console.log('TYPE SUCCESS FETCH')
-        // console.log(data.body)
       },
     }
   )
@@ -102,7 +102,7 @@ const VehicleFormScreen: React.FC<VehicleFormScreenProps> = ({ navigation, route
   const typeList = vehicleTypeResponse?.body ?? []
 
   useEffect(() => {
-    if (car) {
+    if (car && !isBrandFetching) {
       const isInBrandList = brandList.some(value => value.data.name === car.brand)
       if (!isInBrandList) {
         setValue('brand', 'Other')
@@ -111,14 +111,16 @@ const VehicleFormScreen: React.FC<VehicleFormScreenProps> = ({ navigation, route
         setValue('type', 'Other')
         setValue('customType', car.type)
       } else {
-        const isInTypeList = typeList.some(value => value.data === car.type)
-        if (!isInTypeList) {
-          setValue('type', 'Other')
-          setValue('customType', car.type)
+        if (!isTypeFetching) {
+          const isInTypeList = typeList.some(value => value.data === car.type)
+          if (!isInTypeList) {
+            setValue('type', 'Other')
+            setValue('customType', car.type)
+          }
         }
       }
     }
-  }, [])
+  }, [isBrandFetching, isTypeFetching])
 
   const [showVin, setShowVin] = useState<boolean>(false)
 
@@ -190,7 +192,6 @@ const VehicleFormScreen: React.FC<VehicleFormScreenProps> = ({ navigation, route
     return () => navigation.getParent()?.setOptions({ tabBarStyle: undefined })
   }, [navigation]);
 
-
   return ( 
     <AppContainer style={styles.container} refreshBackground={Color.gray[0]}>
       <Snackbar
@@ -219,7 +220,7 @@ const VehicleFormScreen: React.FC<VehicleFormScreenProps> = ({ navigation, route
               error={errors?.['brand']?.message}
               options={brandList}
               headerComponent={
-                <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold', marginHorizontal: 16 }}>Pilih merek mobil Anda</Text>
+                <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold', marginHorizontal: widthPixel(16) }}>Pilih merek mobil Anda</Text>
               }
               renderItem={(option) => (
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -232,7 +233,7 @@ const VehicleFormScreen: React.FC<VehicleFormScreenProps> = ({ navigation, route
                 </View>
               )} 
               renderSelected={(option) =>  (
-                <Text style={{fontSize: Sizing.text.body[16], fontWeight: 'bold'}}>{option?.name}</Text>
+                <Text style={{fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold'}}>{option?.name}</Text>
               )}
             />
           )}
@@ -269,13 +270,13 @@ const VehicleFormScreen: React.FC<VehicleFormScreenProps> = ({ navigation, route
               error={errors?.['type']?.message}
               options={typeList}
               headerComponent={
-                <Text style={{ fontSize: Sizing.text.body[16], fontWeight: 'bold', marginHorizontal: 16 }}>Pilih tipe mobil Anda</Text>
+                <Text style={{ fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold', marginHorizontal: widthPixel(16) }}>Pilih tipe mobil Anda</Text>
               }
               renderItem={(option) => (
                 <Text style={styles.itemModal}>{option}</Text>
               )} 
               renderSelected={(option) => (
-                <Text style={{fontSize: Sizing.text.body[16], fontWeight: 'bold'}}>{option}</Text>
+                <Text style={{fontSize: fontPixel(Sizing.text.body[16]), fontWeight: 'bold'}}>{option}</Text>
               )}
             />
           )}

@@ -20,7 +20,7 @@ const mapResponseToOption = (response: PublicAPIResponse<GetVehicleBrandResponse
     data: {
       id: 'Other',
       name: 'Other',
-      image_url: 'https://i.ibb.co/48bgJq7/ic-logo-text.webp',
+      image_url: 'https://i.ibb.co/zF5gcyc/ic-logo.webp',
     },
     value: 'Other',
   })

@@ -23,7 +23,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
         console.log(error)
         navigation.navigate(SCREENS.welcome.loginScreen)
       })
-    }, 3000)
+    }, 2000)
   }, [])
 
   return (
