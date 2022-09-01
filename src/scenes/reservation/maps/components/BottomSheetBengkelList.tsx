@@ -9,7 +9,7 @@ import { SCREENS } from 'navigations/constants';
 import { BengkelItem, ServiceItem } from 'scenes/reservation/constants';
 import { VehicleItem } from 'scenes/vehicle/constants';
 import { Color } from 'styles/colors';
-import { LocationPoint } from '../MapsScreen';
+import { LocationPoint } from '../ShopListScreen';
 import { VehicleInfo } from 'scenes/home/constants';
 
 interface BottomSheetBengkelListProps {

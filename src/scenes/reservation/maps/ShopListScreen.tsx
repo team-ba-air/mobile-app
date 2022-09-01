@@ -20,7 +20,7 @@ import { PublicAPIResponse } from 'network/types';
 import getShopList from '../service/getShopList';
 import { VehicleInfo } from 'scenes/home/constants';
 
-interface MapsScreenProps {
+interface ShopListScreenProps {
   navigation: NavigationProp<any>
   route: Route<any, ParamService>
 }
@@ -37,7 +37,7 @@ export type LocationPoint = {
   longitude: number
 }
  
-const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
+const ShopListScreen: React.FC<ShopListScreenProps> = ({ navigation, route }) => {
   const insets = useSafeAreaInsets()
   const { data } = route.params
   const map = useRef<MapView>(null)
@@ -287,7 +287,7 @@ const MapsScreen: React.FC<MapsScreenProps> = ({ navigation, route }) => {
   );
 }
  
-export default MapsScreen;
+export default ShopListScreen;
 
 const styles = StyleSheet.create({
   container: {

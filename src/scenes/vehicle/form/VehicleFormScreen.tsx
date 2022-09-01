@@ -17,14 +17,14 @@ import { Color } from "styles/colors"
 import { fontPixel, heightPixel, Sizing, widthPixel } from "styles/sizes"
 import { isOnlySpace } from "utils/TextUtils"
 import BottomSheetVin from "./components/BottomSheetVin"
-import { VehicleForm, VehicleItem } from "./constants"
-import { vehicleFormSchema } from "./schema/vehicleFormSchema"
-import addVehicle, { AddVehicleResponse } from "./service/addVehicle"
-import getVehicleBrand from "./service/getVehicleBrand"
-import getVehicleType from "./service/getVehicleType"
-import updateVehicleById from "./service/updateVehicleById"
+import { VehicleForm, VehicleItem } from "../constants"
+import { vehicleFormSchema } from "../schema/vehicleFormSchema"
+import addVehicle, { AddVehicleResponse } from "../service/addVehicle"
+import getVehicleBrand from "../service/getVehicleBrand"
+import getVehicleType from "../service/getVehicleType"
+import updateVehicleById from "../service/updateVehicleById"
 
-interface UpdateVehicleScreenProps {
+interface VehicleFormScreenProps {
   route: Route<any, ParamVehicle>
   navigation: any
 }
@@ -33,7 +33,7 @@ interface ParamVehicle {
   car: VehicleItem
 }
 
-const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, route }) => {
+const VehicleFormScreen: React.FC<VehicleFormScreenProps> = ({ navigation, route }) => {
   const { car } = route.params
   const queryClient = useQueryClient()
 
@@ -384,7 +384,7 @@ const UpdateVehicleScreen: React.FC<UpdateVehicleScreenProps> = ({ navigation, r
     );
 }
   
-export default UpdateVehicleScreen;
+export default VehicleFormScreen;
 
 const styles = StyleSheet.create({
   title: {

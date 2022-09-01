@@ -18,12 +18,10 @@ import ReviewComponent from './components/ReviewComponent';
 import { PublicAPIResponse } from 'network/types';
 import getShopDetail from '../service/getShopDetail';
 import { useQuery } from 'react-query';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { VehicleItem } from 'scenes/vehicle/constants';
 import { VehicleInfo } from 'scenes/home/constants';
 import getShopReview from '../service/getShopReview';
 
-interface BengkelFormReservationProps {
+interface ReservationScreenProps {
   route: Route<string, ParamBengkel>
   navigation: NavigationProp<any>
 }
@@ -37,7 +35,7 @@ interface ParamBengkel {
 }
 
  
-const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, navigation }) => {
+const ReservationScreen: React.FC<ReservationScreenProps> = ({ route, navigation }) => {
   const { data } = route.params
 
   const [outerScrollEnabled, setOuterScrollEnabled] = useState(true)
@@ -133,4 +131,4 @@ const BengkelFormReservation: React.FC<BengkelFormReservationProps> = ({ route, 
   );
 }
  
-export default BengkelFormReservation;
+export default ReservationScreen;

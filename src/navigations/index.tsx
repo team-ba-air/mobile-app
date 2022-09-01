@@ -8,11 +8,11 @@ import AddInfoCar from 'scenes/authentication/info-car/AddInfoCar';
 import CarList from 'scenes/authentication/car-list/CarList';
 import Navbar from 'components/Navbar';
 import AppNavigator from './app-navigator';
-import WelcomeScreen from 'scenes/welcome/LoginScreen';
-import SplashScreen from 'scenes/welcome/SplashScreen';
+import WelcomeScreen from 'scenes/login/LoginScreen';
+import SplashScreen from 'scenes/login/SplashScreen';
 import OtpEmailScreen from 'scenes/authentication/otp/OtpEmailScreen';
 import OtpPhoneScreen from 'scenes/authentication/otp/OtpPhoneScreen';
-import LoginScreen from 'scenes/welcome/LoginScreen';
+import LoginScreen from 'scenes/login/LoginScreen';
 
 const Stack = createStackNavigator();
 

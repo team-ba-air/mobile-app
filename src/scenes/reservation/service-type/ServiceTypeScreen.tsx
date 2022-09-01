@@ -18,7 +18,7 @@ import getVehicleList from '../service/getVehicleList';
 import BottomSheetServiceType from './components/BottomSheetServiceType';
 import CarSelectionComponent from './components/CarSelectionComponent';
 
-interface ServiceReservationProps {
+interface ServiceTypeScreenProps {
   navigation: any
   route: Route<any, ParamCar>
 }
@@ -27,7 +27,7 @@ interface ParamCar {
   data: VehicleItem
 }
 
-const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, route }) => {
+const ServiceTypeScreen: React.FC<ServiceTypeScreenProps> = ({ navigation, route }) => {
   const [show, setShow] = useState<boolean>(false)
   const [infoService, setInfoService] = useState<ServiceItem>()
   const [car, setCar] = useState<string>('')
@@ -171,7 +171,7 @@ const ServiceReservation: React.FC<ServiceReservationProps> = ({ navigation, rou
   );
 }
  
-export default ServiceReservation;
+export default ServiceTypeScreen;
 
 const styles = StyleSheet.create({
   container: {

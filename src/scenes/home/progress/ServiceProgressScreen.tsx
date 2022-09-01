@@ -14,7 +14,7 @@ import FinishedProgressComponent from './components/FinishedProgressComponent';
 import ProgressStatus from './components/ProgressStatus';
 import TabProgress from './components/TabProgress';
 
-interface ProgressServiceScreenProps {
+interface ServiceProgressScreenProps {
   route: Route<any, ParamProgress>
   navigation: NavigationProp<any>
 }
@@ -23,7 +23,7 @@ interface ParamProgress {
   data: string
 }
  
-const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigation, route }) => {
+const ServiceProgressScreen: React.FC<ServiceProgressScreenProps> = ({ navigation, route }) => {
   const { data } = route.params
 
   const [index, setIndex] = useState(0);
@@ -92,4 +92,4 @@ const ProgressServiceScreen: React.FC<ProgressServiceScreenProps> = ({ navigatio
   );
 }
  
-export default ProgressServiceScreen;
+export default ServiceProgressScreen;

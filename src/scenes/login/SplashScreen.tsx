@@ -13,7 +13,7 @@ interface SplashScreenProps {
 const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
-      getAccessToken().then(token => {
+      getAccessToken().then((token: string) => {
         if (token) {
           navigation.navigate(SCREENS.app.mainApp)
         } else {

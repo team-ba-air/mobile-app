@@ -15,9 +15,10 @@ import { saveAccessToken, saveEmail, saveName, savePhoneNumber, savePhoto } from
 import { GoogleSignin, User } from '@react-native-google-signin/google-signin'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { LoginResponse, PublicAPIResponse } from 'network/types'
+import { NavigationProp } from '@react-navigation/native'
 
 interface LoginScreenProps {
-  navigation: any
+  navigation: NavigationProp<any>
 }
  
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {

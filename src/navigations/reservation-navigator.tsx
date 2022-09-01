@@ -1,20 +1,19 @@
 import React from 'react';
-import ServiceReservation from "scenes/reservation/service-type/ServiceReservation"
-import HomeScreen from "scenes/home";
+import HomeScreen from "scenes/home/HomeScreen";
 import { createStackNavigator } from '@react-navigation/stack'
-import BengkelFormReservation from 'scenes/reservation/bengkel/BengkelFormReservation';
 import NavbarApp from 'components/NavbarApp';
 import CheckoutScreen from 'scenes/checkout/CheckoutScreen';
 import SuccessReservation from 'scenes/checkout/SuccessReservation';
-import AppNavigator from './app-navigator';
-import MapsScreen from 'scenes/reservation/maps/MapsScreen';
 import SelectPaymentScreen from 'scenes/checkout/payment/SelectPaymentScreen';
 import PaymentDetailScreen from 'scenes/checkout/payment-detail/PaymentDetailScreen';
-import ProgressServiceScreen from 'scenes/home/progress/ProgressServiceScreen';
 import AdditionalComponentScreen from 'scenes/home/additional-component/AdditionalComponentScreen';
 import InformasiTagihanScreen from 'scenes/checkout/informasi-tagihan/InformasiTagihanScreen';
 import BackButtonIcon from 'components/BackButtonIcon';
 import { Platform } from 'react-native';
+import ServiceTypeScreen from 'scenes/reservation/service-type/ServiceTypeScreen';
+import ShopListScreen from 'scenes/reservation/maps/ShopListScreen';
+import ReservationScreen from 'scenes/reservation/bengkel/ReservationScreen';
+import ServiceProgressScreen from 'scenes/home/progress/ServiceProgressScreen';
 
 const Stack = createStackNavigator()
 
@@ -30,7 +29,7 @@ const ReservationNavigator: React.FC<any> = () => {
           header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Progres Servis'} type='secondary' />
         }} 
         name='ProgressService' 
-        component={ProgressServiceScreen}  />
+        component={ServiceProgressScreen}  />
       <Stack.Screen 
         options={{ 
           header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Komponen Tambahan'} type='secondary' />
@@ -46,13 +45,13 @@ const ReservationNavigator: React.FC<any> = () => {
       <Stack.Screen 
         options={{ headerShown: false }} 
         name='Maps' 
-        component={MapsScreen} />
+        component={ShopListScreen} />
       <Stack.Screen 
         options={{ 
           header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Pilih Jenis Servis'} type='secondary' />
         }} 
         name='ServiceType' 
-        component={ServiceReservation} />
+        component={ServiceTypeScreen} />
       <Stack.Screen 
         options={{
           header: ({ navigation }) => <NavbarApp navigation={navigation} title={'Checkout'} type='secondary' />
@@ -79,7 +78,7 @@ const ReservationNavigator: React.FC<any> = () => {
           headerMode: Platform.OS === 'android' ? 'float' : 'screen',
         })} 
         name='BengkelFormReservation' 
-        component={BengkelFormReservation} />
+        component={ReservationScreen} />
     </Stack.Navigator>
   )
 }
