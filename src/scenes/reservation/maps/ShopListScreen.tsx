@@ -224,7 +224,7 @@ const ShopListScreen: React.FC<ShopListScreenProps> = ({ navigation, route }) =>
       </Portal>
       <MapView
         ref={map}
-        provider={PROVIDER_GOOGLE}
+        // provider={PROVIDER_GOOGLE}
         style={styles.map}
         initialRegion={{
           latitude: -6.89474,
