@@ -44,7 +44,6 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onC
   }, [data])
 
   useEffect(() => {
-    console.log(isOpen)
     if (isOpen) {
       bottomSheetRef.current?.expand()
       setShow(true)
@@ -104,7 +103,6 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onC
     }
   }
 
-  console.log(errors)
 
   return ( 
     <BaseBottomSheet onChangeVisible={(isVisible) => {
