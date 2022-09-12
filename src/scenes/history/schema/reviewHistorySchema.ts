@@ -8,6 +8,6 @@ setLocale({
 })
 
 export const reviewHistorySchema = object().shape({
-  rating: number().required(),
-  review: string().required(),
+  rating: number().required().moreThan(0, "Rating perlu diisi"),
+  review: string().required("Ulasan perlu diisi"),
 })

@@ -13,6 +13,7 @@ import CustomButton from 'components/CustomButton';
 import { useMutation } from 'react-query';
 import submitReview from '../service/submitReview';
 import { Snackbar } from 'react-native-paper';
+import BaseBottomSheet from 'components/BaseBottomSheet';
 
 interface BottomSheetReviewProps {
   data: HistoryItem | null
@@ -32,6 +33,7 @@ const reviewRatingPredicate = [
  
 const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onClose, onSuccess }) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
+  const [show, setShow] = useState(false)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -45,7 +47,9 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onC
     console.log(isOpen)
     if (isOpen) {
       bottomSheetRef.current?.expand()
+      setShow(true)
     } else {
+      setShow(false)
       bottomSheetRef.current?.close()
     }
   }, [isOpen])
@@ -74,7 +78,7 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onC
     formState: { errors },
     reset,
     watch,
-    getValues,
+    handleSubmit,
   } = formMethods
 
   const isDisabled = watch('rating') === 0 || watch('review') === ''
@@ -89,33 +93,34 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onC
     }
   })
 
-  const handleReview = () => {
+  const handleReview = (dataForm: ReviewHistoryForm) => {
     if (data) {
       onSubmitReview({
         history: data,
-        review: getValues()
+        review: dataForm
       }).catch(() => {
         // do nothing
       })
     }
   }
 
+  console.log(errors)
+
   return ( 
-    <BottomSheet 
-      style={{ paddingHorizontal: widthPixel(16) }} 
-      ref={bottomSheetRef}
-      index={-1} 
-      enablePanDownToClose
-      snapPoints={['50%', '90%']} 
-      backdropComponent={renderBackdrop}
-      onChange={(index) => {
-        console.log(index)
-        if (index === -1) {
-          onClose()
-        } 
-      }}
-    >
-      <View style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', height: '95%', paddingVertical: heightPixel(16) }}>
+    <BaseBottomSheet onChangeVisible={(isVisible) => {
+      if (!isVisible) {
+        onClose()
+      }
+      setShow(isVisible)
+    }} visible={show}>
+      <View style={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'space-between', 
+        height: '95%', 
+        paddingVertical: heightPixel(16),
+        paddingHorizontal: widthPixel(20),
+      }}>
         <View>
           <View>
             <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>{data?.shop?.name}</Text>
@@ -126,18 +131,21 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onC
             name={'rating'}
             control={control}
             render={({ field: { onChange, value }}) => (
-              <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginVertical: heightPixel(24) }}>
-                <View style={{ flexDirection: 'row' }}>
-                  {Array(value).fill(0).map((_, index) => (
-                    <Icon size={heightPixel(40)} name={'star'} color={'#f5e725'} onPress={() => onChange(index + 1)} tvParallaxProperties={undefined} />
-                  ))}
-                  {Array(5 - value).fill(0).map((_, index) => (
-                    <Icon size={heightPixel(40)} name={'star'} color={Color.gray[2]} onPress={() => onChange(value + index + 1)} tvParallaxProperties={undefined}  />
-                  ))}
+              <>
+                <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: heightPixel(24) }}>
+                  <View style={{ flexDirection: 'row' }}>
+                    {Array(value).fill(0).map((_, index) => (
+                      <Icon size={heightPixel(40)} name={'star'} color={'#f5e725'} onPress={() => onChange(index + 1)} tvParallaxProperties={undefined} />
+                    ))}
+                    {Array(5 - value).fill(0).map((_, index) => (
+                      <Icon size={heightPixel(40)} name={'star'} color={Color.gray[2]} onPress={() => onChange(value + index + 1)} tvParallaxProperties={undefined}  />
+                    ))}
+                  </View>
+                  
+                  <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>{reviewRatingPredicate[value]}</Text>
                 </View>
-                
-                <Text style={{ fontSize: fontPixel(14), color: Color.gray.secondary }}>{reviewRatingPredicate[value]}</Text>
-              </View>
+                <Text style={{ color: Color.red[7], fontSize: fontPixel(11), marginTop: heightPixel(4), marginBottom: heightPixel(24)}}>{errors?.['rating']?.message}</Text>
+              </>
             )}
           />
           
@@ -155,13 +163,14 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onC
                 onChange={onChange} 
                 placeholder={'Tuliskan komentar Anda (mis. kualitas, kecepatan, keramahan)'} 
                 multiline={true} 
+                error={errors?.['review']?.message}
                 lines={4} 
               />
             )}
           />
         </View>
 
-        <CustomButton onPress={handleReview} type={'primary'} title={'Kirim Ulasan'} disabled={isDisabled} />
+        <CustomButton onPress={handleSubmit(handleReview)} type={'primary'} title={'Kirim Ulasan'} />
       </View>
 
       <Snackbar
@@ -178,7 +187,7 @@ const BottomSheetReview: React.FC<BottomSheetReviewProps> = ({ data, isOpen, onC
       >
         Sedang ada kendala. Silakan coba beberapa saat lagi.
       </Snackbar>
-    </BottomSheet>
+    </BaseBottomSheet>
   );
 }
  
